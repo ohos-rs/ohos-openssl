@@ -4,7 +4,7 @@
 <head>
 <title>ASN1_aux_cb</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,37 +27,37 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/asn1t.h&gt;
+<pre><code>#include &lt;openssl/asn1t.h&gt;
 
- struct ASN1_AUX_st {
-     void *app_data;
-     int flags;
-     int ref_offset;             /* Offset of reference value */
-     int ref_lock;               /* Offset to an CRYPTO_RWLOCK */
-     ASN1_aux_cb *asn1_cb;
-     int enc_offset;             /* Offset of ASN1_ENCODING structure */
-     ASN1_aux_const_cb *asn1_const_cb; /* for ASN1_OP_I2D_ and ASN1_OP_PRINT_ */
- };
- typedef struct ASN1_AUX_st ASN1_AUX;
+struct ASN1_AUX_st {
+    void *app_data;
+    int flags;
+    int ref_offset;             /* Offset of reference value */
+    int ref_lock;               /* Offset to an CRYPTO_RWLOCK */
+    ASN1_aux_cb *asn1_cb;
+    int enc_offset;             /* Offset of ASN1_ENCODING structure */
+    ASN1_aux_const_cb *asn1_const_cb; /* for ASN1_OP_I2D_ and ASN1_OP_PRINT_ */
+};
+typedef struct ASN1_AUX_st ASN1_AUX;
 
- struct ASN1_PRINT_ARG_st {
-     BIO *out;
-     int indent;
-     const ASN1_PCTX *pctx;
- };
- typedef struct ASN1_PRINT_ARG_st ASN1_PRINT_ARG;
+struct ASN1_PRINT_ARG_st {
+    BIO *out;
+    int indent;
+    const ASN1_PCTX *pctx;
+};
+typedef struct ASN1_PRINT_ARG_st ASN1_PRINT_ARG;
 
- struct ASN1_STREAM_ARG_st {
-     BIO *out;
-     BIO *ndef_bio;
-     unsigned char **boundary;
- };
- typedef struct ASN1_STREAM_ARG_st ASN1_STREAM_ARG;
+struct ASN1_STREAM_ARG_st {
+    BIO *out;
+    BIO *ndef_bio;
+    unsigned char **boundary;
+};
+typedef struct ASN1_STREAM_ARG_st ASN1_STREAM_ARG;
 
- typedef int ASN1_aux_cb(int operation, ASN1_VALUE **in, const ASN1_ITEM *it,
-                         void *exarg);
- typedef int ASN1_aux_const_cb(int operation, const ASN1_VALUE **in,
-                               const ASN1_ITEM *it, void *exarg);</code></pre>
+typedef int ASN1_aux_cb(int operation, ASN1_VALUE **in, const ASN1_ITEM *it,
+                        void *exarg);
+typedef int ASN1_aux_const_cb(int operation, const ASN1_VALUE **in,
+                              const ASN1_ITEM *it, void *exarg);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_PROVIDER-FIPS</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -625,48 +625,48 @@
 
 <p>A simple self test callback is shown below for illustrative purposes.</p>
 
-<pre><code>  #include &lt;openssl/self_test.h&gt;
+<pre><code>#include &lt;openssl/self_test.h&gt;
 
-  static OSSL_CALLBACK self_test_cb;
+static OSSL_CALLBACK self_test_cb;
 
-  static int self_test_cb(const OSSL_PARAM params[], void *arg)
-  {
-    int ret = 0;
-    const OSSL_PARAM *p = NULL;
-    const char *phase = NULL, *type = NULL, *desc = NULL;
+static int self_test_cb(const OSSL_PARAM params[], void *arg)
+{
+  int ret = 0;
+  const OSSL_PARAM *p = NULL;
+  const char *phase = NULL, *type = NULL, *desc = NULL;
 
-    p = OSSL_PARAM_locate_const(params, OSSL_PROV_PARAM_SELF_TEST_PHASE);
-    if (p == NULL || p-&gt;data_type != OSSL_PARAM_UTF8_STRING)
-        goto err;
-    phase = (const char *)p-&gt;data;
+  p = OSSL_PARAM_locate_const(params, OSSL_PROV_PARAM_SELF_TEST_PHASE);
+  if (p == NULL || p-&gt;data_type != OSSL_PARAM_UTF8_STRING)
+      goto err;
+  phase = (const char *)p-&gt;data;
 
-    p = OSSL_PARAM_locate_const(params, OSSL_PROV_PARAM_SELF_TEST_DESC);
-    if (p == NULL || p-&gt;data_type != OSSL_PARAM_UTF8_STRING)
-        goto err;
-    desc = (const char *)p-&gt;data;
+  p = OSSL_PARAM_locate_const(params, OSSL_PROV_PARAM_SELF_TEST_DESC);
+  if (p == NULL || p-&gt;data_type != OSSL_PARAM_UTF8_STRING)
+      goto err;
+  desc = (const char *)p-&gt;data;
 
-    p = OSSL_PARAM_locate_const(params, OSSL_PROV_PARAM_SELF_TEST_TYPE);
-    if (p == NULL || p-&gt;data_type != OSSL_PARAM_UTF8_STRING)
-        goto err;
-    type = (const char *)p-&gt;data;
+  p = OSSL_PARAM_locate_const(params, OSSL_PROV_PARAM_SELF_TEST_TYPE);
+  if (p == NULL || p-&gt;data_type != OSSL_PARAM_UTF8_STRING)
+      goto err;
+  type = (const char *)p-&gt;data;
 
-    /* Do some logging */
-    if (strcmp(phase, OSSL_SELF_TEST_PHASE_START) == 0)
-        BIO_printf(bio_out, &quot;%s : (%s) : &quot;, desc, type);
-    if (strcmp(phase, OSSL_SELF_TEST_PHASE_PASS) == 0
-            || strcmp(phase, OSSL_SELF_TEST_PHASE_FAIL) == 0)
-        BIO_printf(bio_out, &quot;%s\n&quot;, phase);
+  /* Do some logging */
+  if (strcmp(phase, OSSL_SELF_TEST_PHASE_START) == 0)
+      BIO_printf(bio_out, &quot;%s : (%s) : &quot;, desc, type);
+  if (strcmp(phase, OSSL_SELF_TEST_PHASE_PASS) == 0
+          || strcmp(phase, OSSL_SELF_TEST_PHASE_FAIL) == 0)
+      BIO_printf(bio_out, &quot;%s\n&quot;, phase);
 
-    /* Corrupt the SHA1 self test during the &#39;corrupt&#39; phase by returning 0 */
-    if (strcmp(phase, OSSL_SELF_TEST_PHASE_CORRUPT) == 0
-            &amp;&amp; strcmp(desc, OSSL_SELF_TEST_DESC_MD_SHA1) == 0) {
-        BIO_printf(bio_out, &quot;%s %s&quot;, phase, desc);
-        return 0;
-    }
-    ret = 1;
-  err:
-    return ret;
-  }</code></pre>
+  /* Corrupt the SHA1 self test during the &#39;corrupt&#39; phase by returning 0 */
+  if (strcmp(phase, OSSL_SELF_TEST_PHASE_CORRUPT) == 0
+          &amp;&amp; strcmp(desc, OSSL_SELF_TEST_DESC_MD_SHA1) == 0) {
+      BIO_printf(bio_out, &quot;%s %s&quot;, phase, desc);
+      return 0;
+  }
+  ret = 1;
+err:
+  return ret;
+}</code></pre>
 
 <h1 id="NOTES">NOTES</h1>
 

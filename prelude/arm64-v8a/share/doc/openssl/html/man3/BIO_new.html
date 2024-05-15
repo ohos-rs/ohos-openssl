@@ -4,7 +4,7 @@
 <head>
 <title>BIO_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,14 +28,14 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- BIO *BIO_new_ex(OSSL_LIB_CTX *libctx, const BIO_METHOD *type);
- BIO *BIO_new(const BIO_METHOD *type);
- int BIO_up_ref(BIO *a);
- int BIO_free(BIO *a);
- void BIO_vfree(BIO *a);
- void BIO_free_all(BIO *a);</code></pre>
+BIO *BIO_new_ex(OSSL_LIB_CTX *libctx, const BIO_METHOD *type);
+BIO *BIO_new(const BIO_METHOD *type);
+int BIO_up_ref(BIO *a);
+int BIO_free(BIO *a);
+void BIO_vfree(BIO *a);
+void BIO_free_all(BIO *a);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -73,7 +73,7 @@
 
 <p>Create a memory BIO:</p>
 
-<pre><code> BIO *mem = BIO_new(BIO_s_mem());</code></pre>
+<pre><code>BIO *mem = BIO_new(BIO_s_mem());</code></pre>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 

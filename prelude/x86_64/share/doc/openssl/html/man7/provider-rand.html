@@ -4,7 +4,7 @@
 <head>
 <title>provider-rand</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -36,58 +36,58 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core_dispatch.h&gt;
- #include &lt;openssl/core_names.h&gt;
+<pre><code>#include &lt;openssl/core_dispatch.h&gt;
+#include &lt;openssl/core_names.h&gt;
 
- /*
-  * None of these are actual functions, but are displayed like this for
-  * the function signatures for functions that are offered as function
-  * pointers in OSSL_DISPATCH arrays.
-  */
+/*
+ * None of these are actual functions, but are displayed like this for
+ * the function signatures for functions that are offered as function
+ * pointers in OSSL_DISPATCH arrays.
+ */
 
- /* Context management */
- void *OSSL_FUNC_rand_newctx(void *provctx, void *parent,
-                             const OSSL_DISPATCH *parent_calls);
- void OSSL_FUNC_rand_freectx(void *ctx);
+/* Context management */
+void *OSSL_FUNC_rand_newctx(void *provctx, void *parent,
+                            const OSSL_DISPATCH *parent_calls);
+void OSSL_FUNC_rand_freectx(void *ctx);
 
- /* Random number generator functions: NIST */
- int OSSL_FUNC_rand_instantiate(void *ctx, unsigned int strength,
-                                int prediction_resistance,
-                                const unsigned char *pstr, size_t pstr_len,
-                                const OSSL_PARAM params[]);
- int OSSL_FUNC_rand_uninstantiate(void *ctx);
- int OSSL_FUNC_rand_generate(void *ctx, unsigned char *out, size_t outlen,
-                             unsigned int strength, int prediction_resistance,
-                             const unsigned char *addin, size_t addin_len);
- int OSSL_FUNC_rand_reseed(void *ctx, int prediction_resistance,
-                           const unsigned char *ent, size_t ent_len,
-                           const unsigned char *addin, size_t addin_len);
+/* Random number generator functions: NIST */
+int OSSL_FUNC_rand_instantiate(void *ctx, unsigned int strength,
+                               int prediction_resistance,
+                               const unsigned char *pstr, size_t pstr_len,
+                               const OSSL_PARAM params[]);
+int OSSL_FUNC_rand_uninstantiate(void *ctx);
+int OSSL_FUNC_rand_generate(void *ctx, unsigned char *out, size_t outlen,
+                            unsigned int strength, int prediction_resistance,
+                            const unsigned char *addin, size_t addin_len);
+int OSSL_FUNC_rand_reseed(void *ctx, int prediction_resistance,
+                          const unsigned char *ent, size_t ent_len,
+                          const unsigned char *addin, size_t addin_len);
 
- /* Random number generator functions: additional */
- size_t OSSL_FUNC_rand_nonce(void *ctx, unsigned char *out, size_t outlen,
-                             int strength, size_t min_noncelen,
-                             size_t max_noncelen);
- size_t OSSL_FUNC_rand_get_seed(void *ctx, unsigned char **buffer,
-                                int entropy, size_t min_len, size_t max_len,
-                                int prediction_resistance,
-                                const unsigned char *adin, size_t adin_len);
- void OSSL_FUNC_rand_clear_seed(void *ctx, unsigned char *buffer, size_t b_len);
- int OSSL_FUNC_rand_verify_zeroization(void *ctx);
+/* Random number generator functions: additional */
+size_t OSSL_FUNC_rand_nonce(void *ctx, unsigned char *out, size_t outlen,
+                            int strength, size_t min_noncelen,
+                            size_t max_noncelen);
+size_t OSSL_FUNC_rand_get_seed(void *ctx, unsigned char **buffer,
+                               int entropy, size_t min_len, size_t max_len,
+                               int prediction_resistance,
+                               const unsigned char *adin, size_t adin_len);
+void OSSL_FUNC_rand_clear_seed(void *ctx, unsigned char *buffer, size_t b_len);
+int OSSL_FUNC_rand_verify_zeroization(void *ctx);
 
- /* Context Locking */
- int OSSL_FUNC_rand_enable_locking(void *ctx);
- int OSSL_FUNC_rand_lock(void *ctx);
- void OSSL_FUNC_rand_unlock(void *ctx);
+/* Context Locking */
+int OSSL_FUNC_rand_enable_locking(void *ctx);
+int OSSL_FUNC_rand_lock(void *ctx);
+void OSSL_FUNC_rand_unlock(void *ctx);
 
- /* RAND parameter descriptors */
- const OSSL_PARAM *OSSL_FUNC_rand_gettable_params(void *provctx);
- const OSSL_PARAM *OSSL_FUNC_rand_gettable_ctx_params(void *ctx, void *provctx);
- const OSSL_PARAM *OSSL_FUNC_rand_settable_ctx_params(void *ctx, void *provctx);
+/* RAND parameter descriptors */
+const OSSL_PARAM *OSSL_FUNC_rand_gettable_params(void *provctx);
+const OSSL_PARAM *OSSL_FUNC_rand_gettable_ctx_params(void *ctx, void *provctx);
+const OSSL_PARAM *OSSL_FUNC_rand_settable_ctx_params(void *ctx, void *provctx);
 
- /* RAND parameters */
- int OSSL_FUNC_rand_get_params(OSSL_PARAM params[]);
- int OSSL_FUNC_rand_get_ctx_params(void *ctx, OSSL_PARAM params[]);
- int OSSL_FUNC_rand_set_ctx_params(void *ctx, const OSSL_PARAM params[]);</code></pre>
+/* RAND parameters */
+int OSSL_FUNC_rand_get_params(OSSL_PARAM params[]);
+int OSSL_FUNC_rand_get_ctx_params(void *ctx, OSSL_PARAM params[]);
+int OSSL_FUNC_rand_set_ctx_params(void *ctx, const OSSL_PARAM params[]);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>ossl-guide-quic-multi-stream</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -101,151 +101,151 @@
 
 <p>As discussed above in <a href="#THE-DEFAULT-STREAM">&quot;THE DEFAULT STREAM&quot;</a> we will follow the recommendation to disable the default stream for our multi-stream client. To do this we call the <a href="../man3/SSL_set_default_stream_mode.html">SSL_set_default_stream_mode(3)</a> function and pass in our connection <b>SSL</b> object and the value <b>SSL_DEFAULT_STREAM_MODE_NONE</b>.</p>
 
-<pre><code>    /*
-     * We will use multiple streams so we will disable the default stream mode.
-     * This is not a requirement for using multiple streams but is recommended.
-     */
-    if (!SSL_set_default_stream_mode(ssl, SSL_DEFAULT_STREAM_MODE_NONE)) {
-        printf(&quot;Failed to disable the default stream mode\n&quot;);
-        goto end;
-    }</code></pre>
+<pre><code>/*
+ * We will use multiple streams so we will disable the default stream mode.
+ * This is not a requirement for using multiple streams but is recommended.
+ */
+if (!SSL_set_default_stream_mode(ssl, SSL_DEFAULT_STREAM_MODE_NONE)) {
+    printf(&quot;Failed to disable the default stream mode\n&quot;);
+    goto end;
+}</code></pre>
 
 <h2 id="Creating-the-request-streams">Creating the request streams</h2>
 
 <p>For the purposes of this example we will create two different streams to send two different HTTP requests to the server. For the purposes of demonstration the first of these will be a bi-directional stream and the second one will be a uni-directional one:</p>
 
-<pre><code>    /*
-     * We create two new client initiated streams. The first will be
-     * bi-directional, and the second will be uni-directional.
-     */
-    stream1 = SSL_new_stream(ssl, 0);
-    stream2 = SSL_new_stream(ssl, SSL_STREAM_FLAG_UNI);
-    if (stream1 == NULL || stream2 == NULL) {
-        printf(&quot;Failed to create streams\n&quot;);
-        goto end;
-    }</code></pre>
+<pre><code>/*
+ * We create two new client initiated streams. The first will be
+ * bi-directional, and the second will be uni-directional.
+ */
+stream1 = SSL_new_stream(ssl, 0);
+stream2 = SSL_new_stream(ssl, SSL_STREAM_FLAG_UNI);
+if (stream1 == NULL || stream2 == NULL) {
+    printf(&quot;Failed to create streams\n&quot;);
+    goto end;
+}</code></pre>
 
 <h2 id="Writing-data-to-the-streams">Writing data to the streams</h2>
 
 <p>Once the streams are successfully created we can start writing data to them. In this example we will be sending a different HTTP request on each stream. To avoid repeating too much code we write a simple helper function to send an HTTP request to a stream:</p>
 
-<pre><code>    int write_a_request(SSL *stream, const char *request_start,
-                        const char *hostname)
-    {
-        const char *request_end = &quot;\r\n\r\n&quot;;
-        size_t written;
+<pre><code>int write_a_request(SSL *stream, const char *request_start,
+                    const char *hostname)
+{
+    const char *request_end = &quot;\r\n\r\n&quot;;
+    size_t written;
 
-        if (!SSL_write_ex(stream, request_start, strlen(request_start), &amp;written))
-            return 0;
-        if (!SSL_write_ex(stream, hostname, strlen(hostname), &amp;written))
-            return 0;
-        if (!SSL_write_ex(stream, request_end, strlen(request_end), &amp;written))
-            return 0;
+    if (!SSL_write_ex(stream, request_start, strlen(request_start), &amp;written))
+        return 0;
+    if (!SSL_write_ex(stream, hostname, strlen(hostname), &amp;written))
+        return 0;
+    if (!SSL_write_ex(stream, request_end, strlen(request_end), &amp;written))
+        return 0;
 
-        return 1;
-    }</code></pre>
+    return 1;
+}</code></pre>
 
 <p>We assume the strings <b>request1_start</b> and <b>request2_start</b> hold the appropriate HTTP requests. We can then call our helper function above to send the requests on the two streams. For the sake of simplicity this example does this sequentially, writing to <b>stream1</b> first and, when this is successful, writing to <b>stream2</b> second. Remember that our client is blocking so these calls will only return once they have been successfully completed. A real application would not need to do these writes sequentially or in any particular order. For example we could start two threads (one for each stream) and write the requests to each stream simultaneously.</p>
 
-<pre><code>    /* Write an HTTP GET request on each of our streams to the peer */
-    if (!write_a_request(stream1, request1_start, hostname)) {
-        printf(&quot;Failed to write HTTP request on stream 1\n&quot;);
-        goto end;
-    }
+<pre><code>/* Write an HTTP GET request on each of our streams to the peer */
+if (!write_a_request(stream1, request1_start, hostname)) {
+    printf(&quot;Failed to write HTTP request on stream 1\n&quot;);
+    goto end;
+}
 
-    if (!write_a_request(stream2, request2_start, hostname)) {
-        printf(&quot;Failed to write HTTP request on stream 2\n&quot;);
-        goto end;
-    }</code></pre>
+if (!write_a_request(stream2, request2_start, hostname)) {
+    printf(&quot;Failed to write HTTP request on stream 2\n&quot;);
+    goto end;
+}</code></pre>
 
 <h2 id="Reading-data-from-a-stream">Reading data from a stream</h2>
 
 <p>In this example <b>stream1</b> is a bi-directional stream so, once we have sent the request on it, we can attempt to read the response from the server back. Here we just repeatedly call <a href="../man3/SSL_read_ex.html">SSL_read_ex(3)</a> until that function fails (indicating either that there has been a problem, or that the peer has signalled the stream as concluded).</p>
 
-<pre><code>    printf(&quot;Stream 1 data:\n&quot;);
+<pre><code>printf(&quot;Stream 1 data:\n&quot;);
+/*
+ * Get up to sizeof(buf) bytes of the response from stream 1 (which is a
+ * bidirectional stream). We keep reading until the server closes the
+ * connection.
+ */
+while (SSL_read_ex(stream1, buf, sizeof(buf), &amp;readbytes)) {
     /*
-     * Get up to sizeof(buf) bytes of the response from stream 1 (which is a
-     * bidirectional stream). We keep reading until the server closes the
-     * connection.
-     */
-    while (SSL_read_ex(stream1, buf, sizeof(buf), &amp;readbytes)) {
-        /*
-        * OpenSSL does not guarantee that the returned data is a string or
-        * that it is NUL terminated so we use fwrite() to write the exact
-        * number of bytes that we read. The data could be non-printable or
-        * have NUL characters in the middle of it. For this simple example
-        * we&#39;re going to print it to stdout anyway.
-        */
-        fwrite(buf, 1, readbytes, stdout);
-    }
-    /* In case the response didn&#39;t finish with a newline we add one now */
-    printf(&quot;\n&quot;);</code></pre>
+    * OpenSSL does not guarantee that the returned data is a string or
+    * that it is NUL terminated so we use fwrite() to write the exact
+    * number of bytes that we read. The data could be non-printable or
+    * have NUL characters in the middle of it. For this simple example
+    * we&#39;re going to print it to stdout anyway.
+    */
+    fwrite(buf, 1, readbytes, stdout);
+}
+/* In case the response didn&#39;t finish with a newline we add one now */
+printf(&quot;\n&quot;);</code></pre>
 
 <p>In a blocking application like this one calls to <a href="../man3/SSL_read_ex.html">SSL_read_ex(3)</a> will either succeed immediately returning data that is already available, or they will block waiting for more data to become available and return it when it is, or they will fail with a 0 response code.</p>
 
 <p>Once we exit the while loop above we know that the last call to <a href="../man3/SSL_read_ex.html">SSL_read_ex(3)</a> gave a 0 response code so we call the <a href="../man3/SSL_get_error.html">SSL_get_error(3)</a> function to find out more details. Since this is a blocking application this will either return <b>SSL_ERROR_SYSCALL</b> or <b>SSL_ERROR_SSL</b> indicating a fundamental problem, or it will return <b>SSL_ERROR_ZERO_RETURN</b> indicating that the stream is concluded and there will be no more data available to read from it. Care must be taken to distinguish between an error at the stream level (i.e. a stream reset) and an error at the connection level (i.e. a connection closed). The <a href="../man3/SSL_get_stream_read_state.html">SSL_get_stream_read_state(3)</a> function can be used to distinguish between these different cases.</p>
 
-<pre><code>    /*
-     * Check whether we finished the while loop above normally or as the
-     * result of an error. The 0 argument to SSL_get_error() is the return
-     * code we received from the SSL_read_ex() call. It must be 0 in order
-     * to get here. Normal completion is indicated by SSL_ERROR_ZERO_RETURN. In
-     * QUIC terms this means that the peer has sent FIN on the stream to
-     * indicate that no further data will be sent.
+<pre><code>/*
+ * Check whether we finished the while loop above normally or as the
+ * result of an error. The 0 argument to SSL_get_error() is the return
+ * code we received from the SSL_read_ex() call. It must be 0 in order
+ * to get here. Normal completion is indicated by SSL_ERROR_ZERO_RETURN. In
+ * QUIC terms this means that the peer has sent FIN on the stream to
+ * indicate that no further data will be sent.
+ */
+switch (SSL_get_error(stream1, 0)) {
+case SSL_ERROR_ZERO_RETURN:
+    /* Normal completion of the stream */
+    break;
+
+case SSL_ERROR_SSL:
+    /*
+     * Some stream fatal error occurred. This could be because of a stream
+     * reset - or some failure occurred on the underlying connection.
      */
-    switch (SSL_get_error(stream1, 0)) {
-    case SSL_ERROR_ZERO_RETURN:
-        /* Normal completion of the stream */
+    switch (SSL_get_stream_read_state(stream1)) {
+    case SSL_STREAM_STATE_RESET_REMOTE:
+        printf(&quot;Stream reset occurred\n&quot;);
+        /* The stream has been reset but the connection is still healthy. */
         break;
 
-    case SSL_ERROR_SSL:
-        /*
-         * Some stream fatal error occurred. This could be because of a stream
-         * reset - or some failure occurred on the underlying connection.
-         */
-        switch (SSL_get_stream_read_state(stream1)) {
-        case SSL_STREAM_STATE_RESET_REMOTE:
-            printf(&quot;Stream reset occurred\n&quot;);
-            /* The stream has been reset but the connection is still healthy. */
-            break;
-
-        case SSL_STREAM_STATE_CONN_CLOSED:
-            printf(&quot;Connection closed\n&quot;);
-            /* Connection is already closed. Skip SSL_shutdown() */
-            goto end;
-
-        default:
-            printf(&quot;Unknown stream failure\n&quot;);
-            break;
-        }
-        break;
+    case SSL_STREAM_STATE_CONN_CLOSED:
+        printf(&quot;Connection closed\n&quot;);
+        /* Connection is already closed. Skip SSL_shutdown() */
+        goto end;
 
     default:
-        /* Some other unexpected error occurred */
-        printf (&quot;Failed reading remaining data\n&quot;);
+        printf(&quot;Unknown stream failure\n&quot;);
         break;
-    }</code></pre>
+    }
+    break;
+
+default:
+    /* Some other unexpected error occurred */
+    printf (&quot;Failed reading remaining data\n&quot;);
+    break;
+}</code></pre>
 
 <h2 id="Accepting-an-incoming-stream">Accepting an incoming stream</h2>
 
 <p>Our <b>stream2</b> object that we created above was a uni-directional stream so it cannot be used to receive data from the server. In this hypothetical example we assume that the server initiates a new stream to send us back the data that we requested. To do that we call <a href="../man3/SSL_accept_stream.html">SSL_accept_stream(3)</a>. Since this is a blocking application this will wait indefinitely until the new stream has arrived and is available for us to accept. In the event of an error it will return <b>NULL</b>.</p>
 
-<pre><code>    /*
-     * In our hypothetical HTTP/1.0 over QUIC protocol that we are using we
-     * assume that the server will respond with a server initiated stream
-     * containing the data requested in our uni-directional stream. This doesn&#39;t
-     * really make sense to do in a real protocol, but its just for
-     * demonstration purposes.
-     *
-     * We&#39;re using blocking mode so this will block until a stream becomes
-     * available. We could override this behaviour if we wanted to by setting
-     * the SSL_ACCEPT_STREAM_NO_BLOCK flag in the second argument below.
-     */
-    stream3 = SSL_accept_stream(ssl, 0);
-    if (stream3 == NULL) {
-        printf(&quot;Failed to accept a new stream\n&quot;);
-        goto end;
-    }</code></pre>
+<pre><code>/*
+ * In our hypothetical HTTP/1.0 over QUIC protocol that we are using we
+ * assume that the server will respond with a server initiated stream
+ * containing the data requested in our uni-directional stream. This doesn&#39;t
+ * really make sense to do in a real protocol, but its just for
+ * demonstration purposes.
+ *
+ * We&#39;re using blocking mode so this will block until a stream becomes
+ * available. We could override this behaviour if we wanted to by setting
+ * the SSL_ACCEPT_STREAM_NO_BLOCK flag in the second argument below.
+ */
+stream3 = SSL_accept_stream(ssl, 0);
+if (stream3 == NULL) {
+    printf(&quot;Failed to accept a new stream\n&quot;);
+    goto end;
+}</code></pre>
 
 <p>We can now read data from the stream in the same way that we did for <b>stream1</b> above. We won&#39;t repeat that here.</p>
 
@@ -255,9 +255,9 @@
 
 <p>We should not call <a href="../man3/SSL_shutdown.html">SSL_shutdown(3)</a> or <a href="../man3/SSL_shutdown_ex.html">SSL_shutdown_ex(3)</a> on the stream objects since those calls should not be used for streams.</p>
 
-<pre><code>    SSL_free(stream1);
-    SSL_free(stream2);
-    SSL_free(stream3);</code></pre>
+<pre><code>SSL_free(stream1);
+SSL_free(stream2);
+SSL_free(stream3);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

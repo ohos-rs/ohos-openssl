@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,41 +28,41 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- typedef evp_pkey_st EVP_PKEY;
+typedef evp_pkey_st EVP_PKEY;
 
- EVP_PKEY *EVP_PKEY_new(void);
- int EVP_PKEY_up_ref(EVP_PKEY *key);
- EVP_PKEY *EVP_PKEY_dup(EVP_PKEY *key);
- void EVP_PKEY_free(EVP_PKEY *key);
+EVP_PKEY *EVP_PKEY_new(void);
+int EVP_PKEY_up_ref(EVP_PKEY *key);
+EVP_PKEY *EVP_PKEY_dup(EVP_PKEY *key);
+void EVP_PKEY_free(EVP_PKEY *key);
 
- EVP_PKEY *EVP_PKEY_new_raw_private_key_ex(OSSL_LIB_CTX *libctx,
-                                           const char *keytype,
-                                           const char *propq,
-                                           const unsigned char *key,
-                                           size_t keylen);
- EVP_PKEY *EVP_PKEY_new_raw_private_key(int type, ENGINE *e,
-                                        const unsigned char *key, size_t keylen);
- EVP_PKEY *EVP_PKEY_new_raw_public_key_ex(OSSL_LIB_CTX *libctx,
+EVP_PKEY *EVP_PKEY_new_raw_private_key_ex(OSSL_LIB_CTX *libctx,
                                           const char *keytype,
                                           const char *propq,
                                           const unsigned char *key,
                                           size_t keylen);
- EVP_PKEY *EVP_PKEY_new_raw_public_key(int type, ENGINE *e,
+EVP_PKEY *EVP_PKEY_new_raw_private_key(int type, ENGINE *e,
                                        const unsigned char *key, size_t keylen);
- EVP_PKEY *EVP_PKEY_new_mac_key(int type, ENGINE *e, const unsigned char *key,
-                                int keylen);
+EVP_PKEY *EVP_PKEY_new_raw_public_key_ex(OSSL_LIB_CTX *libctx,
+                                         const char *keytype,
+                                         const char *propq,
+                                         const unsigned char *key,
+                                         size_t keylen);
+EVP_PKEY *EVP_PKEY_new_raw_public_key(int type, ENGINE *e,
+                                      const unsigned char *key, size_t keylen);
+EVP_PKEY *EVP_PKEY_new_mac_key(int type, ENGINE *e, const unsigned char *key,
+                               int keylen);
 
- int EVP_PKEY_get_raw_private_key(const EVP_PKEY *pkey, unsigned char *priv,
-                                  size_t *len);
- int EVP_PKEY_get_raw_public_key(const EVP_PKEY *pkey, unsigned char *pub,
-                                 size_t *len);</code></pre>
+int EVP_PKEY_get_raw_private_key(const EVP_PKEY *pkey, unsigned char *priv,
+                                 size_t *len);
+int EVP_PKEY_get_raw_public_key(const EVP_PKEY *pkey, unsigned char *pub,
+                                size_t *len);</code></pre>
 
 <p>The following function has been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> EVP_PKEY *EVP_PKEY_new_CMAC_key(ENGINE *e, const unsigned char *priv,
-                                 size_t len, const EVP_CIPHER *cipher);</code></pre>
+<pre><code>EVP_PKEY *EVP_PKEY_new_CMAC_key(ENGINE *e, const unsigned char *priv,
+                                size_t len, const EVP_CIPHER *cipher);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

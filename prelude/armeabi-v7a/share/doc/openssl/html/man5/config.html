@@ -4,7 +4,7 @@
 <head>
 <title>config</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -64,7 +64,7 @@
 
 <p>A file can include other files using the include syntax:</p>
 
-<pre><code>  .include [=] pathname</code></pre>
+<pre><code>.include [=] pathname</code></pre>
 
 <p>If <b>pathname</b> is a simple filename, that file is included directly at that point. Included files can have <b>.include</b> statements that specify other files. If <b>pathname</b> is a directory, all files within that directory that have a <code>.cnf</code> or <code>.conf</code> extension will be included. (This is only available on systems with POSIX IO support.) Any sub-directories found inside the <b>pathname</b> are <b>ignored</b>. Similarly, if a file is opened while scanning a directory, and that file has an <b>.include</b> directive that specifies a directory, that is also ignored.</p>
 
@@ -72,17 +72,17 @@
 
 <p>To require all file inclusions to name absolute paths, use the following directive:</p>
 
-<pre><code> .pragma [=] abspath:value</code></pre>
+<pre><code>.pragma [=] abspath:value</code></pre>
 
 <p>The default behavior, where the <b>value</b> is <b>false</b> or <b>off</b>, is to allow relative paths. To require all <b>.include</b> pathnames to be absolute paths, use a <b>value</b> of <b>true</b> or <b>on</b>.</p>
 
 <p>In these files, the dollar sign, <b>$</b>, is used to reference a variable, as described below. On some platforms, however, it is common to treat <b>$</b> as a regular character in symbol names. Supporting this behavior can be done with the following directive:</p>
 
-<pre><code> .pragma [=] dollarid:value</code></pre>
+<pre><code>.pragma [=] dollarid:value</code></pre>
 
 <p>The default behavior, where the <b>value</b> is <b>false</b> or <b>off</b>, is to treat the dollarsign as indicating a variable name; <code>foo$bar</code> is interpreted as <code>foo</code> followed by the expansion of the variable <code>bar</code>. If <b>value</b> is <b>true</b> or <b>on</b>, then <code>foo$bar</code> is a single seven-character name and variable expansions must be specified using braces or parentheses.</p>
 
-<pre><code> .pragma [=] includedir:value</code></pre>
+<pre><code>.pragma [=] includedir:value</code></pre>
 
 <p>If a relative pathname is specified in the <b>.include</b> directive, and the <b>OPENSSL_CONF_INCLUDE</b> environment variable doesn&#39;t exist, then the value of the <b>includedir</b> pragma, if it exists, is prepended to the pathname.</p>
 
@@ -96,20 +96,20 @@
 
 <p>Within a section are a series of name/value assignments, described in more detail below. As a reminder, the square brackets shown in this example are required, not optional:</p>
 
-<pre><code> [ section ]
- name1 = This is value1
- name2 = Another value
- ...
- [ newsection ]
- name1 = New value1
- name3 = Value 3</code></pre>
+<pre><code>[ section ]
+name1 = This is value1
+name2 = Another value
+...
+[ newsection ]
+name1 = New value1
+name3 = Value 3</code></pre>
 
 <p>The <b>name</b> can contain any alphanumeric characters as well as a few punctuation symbols such as <b>.</b> <b>,</b> <b>;</b> and <b>_</b>. Whitespace after the name and before the equal sign is ignored.</p>
 
 <p>If a name is repeated in the same section, then all but the last value are ignored. In certain circumstances, such as with Certificate DNs, the same field may occur multiple times. In order to support this, commands like <a href="../man1/openssl-req.html">openssl-req(1)</a> ignore any leading text that is preceded with a period. For example:</p>
 
-<pre><code> 1.OU = First OU
- 2.OU = Second OU</code></pre>
+<pre><code>1.OU = First OU
+2.OU = Second OU</code></pre>
 
 <p>The <b>value</b> consists of the string following the <b>=</b> character until end of line with any leading and trailing whitespace removed.</p>
 
@@ -133,35 +133,35 @@
 
 <p>OpenSSL also looks up the value of <b>config_diagnostics</b>. If this exists and has a nonzero numeric value, any error suppressing flags passed to CONF_modules_load() will be ignored. This is useful for diagnosing misconfigurations but its use in production requires additional consideration. With this option enabled, a configuration error will completely prevent access to a service. Without this option and in the presence of a configuration error, access will be allowed but the desired configuration will <b>not</b> be used.</p>
 
-<pre><code> # These must be in the default section
- config_diagnostics = 1
- openssl_conf = openssl_init
+<pre><code># These must be in the default section
+config_diagnostics = 1
+openssl_conf = openssl_init
 
- [openssl_init]
- oid_section = oids
- providers = providers
- alg_section = evp_properties
- ssl_conf = ssl_configuration
- engines = engines
- random = random
+[openssl_init]
+oid_section = oids
+providers = providers
+alg_section = evp_properties
+ssl_conf = ssl_configuration
+engines = engines
+random = random
 
- [oids]
- ... new oids here ...
+[oids]
+... new oids here ...
 
- [providers]
- ... provider stuff here ...
+[providers]
+... provider stuff here ...
 
- [evp_properties]
- ... EVP properties here ...
+[evp_properties]
+... EVP properties here ...
 
- [ssl_configuration]
- ... SSL/TLS configuration properties here ...
+[ssl_configuration]
+... SSL/TLS configuration properties here ...
 
- [engines]
- ... engine properties here ...
+[engines]
+... engine properties here ...
 
- [random]
- ... random properties here ...</code></pre>
+[random]
+... random properties here ...</code></pre>
 
 <p>The semantics of each module are described below. The phrase &quot;in the initialization section&quot; refers to the section identified by the <b>openssl_conf</b> or other name (given as <b>openssl_init</b> in the example above). The examples below assume the configuration above is used to specify the individual sections.</p>
 
@@ -169,18 +169,18 @@
 
 <p>The name <b>oid_section</b> in the initialization section names the section containing name/value pairs of OID&#39;s. The name is the short name; the value is an optional long name followed by a comma, and the numeric value. While some OpenSSL commands have their own section for specifying OID&#39;s, this section makes them available to all commands and applications.</p>
 
-<pre><code> [oids]
- shortName = a very long OID name, 1.2.3.4
- newoid1 = 1.2.3.4.1
- some_other_oid = 1.2.3.5</code></pre>
+<pre><code>[oids]
+shortName = a very long OID name, 1.2.3.4
+newoid1 = 1.2.3.4.1
+some_other_oid = 1.2.3.5</code></pre>
 
 <p>If a full configuration with the above fragment is in the file <i>example.cnf</i>, then the following command line:</p>
 
-<pre><code> OPENSSL_CONF=example.cnf openssl asn1parse -genstr OID:1.2.3.4.1</code></pre>
+<pre><code>OPENSSL_CONF=example.cnf openssl asn1parse -genstr OID:1.2.3.4.1</code></pre>
 
 <p>will output:</p>
 
-<pre><code> 0:d=0  hl=2 l=   4 prim: OBJECT            :newoid1</code></pre>
+<pre><code>0:d=0  hl=2 l=   4 prim: OBJECT            :newoid1</code></pre>
 
 <p>showing that the OID &quot;newoid1&quot; has been added as &quot;1.2.3.4.1&quot;.</p>
 
@@ -197,11 +197,11 @@
 
 <p>This is used to specify an alternate name, overriding the default name specified in the list of providers. For example:</p>
 
-<pre><code> [providers]
- foo = foo_provider
+<pre><code>[providers]
+foo = foo_provider
 
- [foo_provider]
- identity = my_fips_module</code></pre>
+[foo_provider]
+identity = my_fips_module</code></pre>
 
 </dd>
 <dt id="module"><b>module</b></dt>
@@ -249,7 +249,7 @@
 
 <p>The value is a boolean that can be <b>yes</b> or <b>no</b>. If the value is <b>yes</b>, this is exactly equivalent to:</p>
 
-<pre><code> default_properties = fips=yes</code></pre>
+<pre><code>default_properties = fips=yes</code></pre>
 
 <p>If the value is <b>no</b>, nothing happens. Using this name is deprecated, and if used, it must be the only name in the section.</p>
 
@@ -260,30 +260,30 @@
 
 <p>The name <b>ssl_conf</b> in the initialization section names the section containing the list of SSL/TLS configurations. As with the providers, each name in this section identifies a section with the configuration for that name. For example:</p>
 
-<pre><code> [ssl_configuration]
- server = server_tls_config
- client = client_tls_config
- system_default = tls_system_default
+<pre><code>[ssl_configuration]
+server = server_tls_config
+client = client_tls_config
+system_default = tls_system_default
 
- [server_tls_config]
- ... configuration for SSL/TLS servers ...
+[server_tls_config]
+... configuration for SSL/TLS servers ...
 
- [client_tls_config]
- ... configuration for SSL/TLS clients ...</code></pre>
+[client_tls_config]
+... configuration for SSL/TLS clients ...</code></pre>
 
 <p>The configuration name <b>system_default</b> has a special meaning. If it exists, it is applied whenever an <b>SSL_CTX</b> object is created. For example, to impose system-wide minimum TLS and DTLS protocol versions:</p>
 
-<pre><code> [tls_system_default]
- MinProtocol = TLSv1.2
- MinProtocol = DTLSv1.2</code></pre>
+<pre><code>[tls_system_default]
+MinProtocol = TLSv1.2
+MinProtocol = DTLSv1.2</code></pre>
 
 <p>The minimum TLS protocol is applied to <b>SSL_CTX</b> objects that are TLS-based, and the minimum DTLS protocol to those are DTLS-based. The same applies also to maximum versions set with <b>MaxProtocol</b>.</p>
 
 <p>Each configuration section consists of name/value pairs that are parsed by <b>SSL_CONF_cmd(3)</b>, which will be called by SSL_CTX_config() or SSL_config(), appropriately. Note that any characters before an initial dot in the configuration section are ignored, so that the same command can be used multiple times. This probably is most useful for loading different key types, as shown here:</p>
 
-<pre><code> [server_tls_config]
- RSA.Certificate = server-rsa.pem
- ECDSA.Certificate = server-ecdsa.pem</code></pre>
+<pre><code>[server_tls_config]
+RSA.Certificate = server-rsa.pem
+ECDSA.Certificate = server-ecdsa.pem</code></pre>
 
 <h2 id="Engine-Configuration">Engine Configuration</h2>
 
@@ -298,11 +298,11 @@
 
 <p>This is used to specify an alternate name, overriding the default name specified in the list of engines. If present, it must be first. For example:</p>
 
-<pre><code> [engines]
- foo = foo_engine
+<pre><code>[engines]
+foo = foo_engine
 
- [foo_engine]
- engine_id = myfoo</code></pre>
+[foo_engine]
+engine_id = myfoo</code></pre>
 
 </dd>
 <dt id="dynamic_path"><b>dynamic_path</b></dt>
@@ -327,14 +327,14 @@
 
 <p>All other names are taken to be the name of a ctrl command that is sent to the ENGINE, and the value is the argument passed with the command. The special value <b>EMPTY</b> means no value is sent with the command. For example:</p>
 
-<pre><code> [engines]
- foo = foo_engine
+<pre><code>[engines]
+foo = foo_engine
 
- [foo_engine]
- dynamic_path = /some/path/fooengine.so
- some_ctrl = some_value
- default_algorithms = ALL
- other_ctrl = EMPTY</code></pre>
+[foo_engine]
+dynamic_path = /some/path/fooengine.so
+some_ctrl = some_value
+default_algorithms = ALL
+other_ctrl = EMPTY</code></pre>
 
 <h2 id="Random-Configuration">Random Configuration</h2>
 
@@ -349,8 +349,8 @@
 
 <p>This is used to specify the random bit generator. For example:</p>
 
-<pre><code> [random]
- random = CTR-DRBG</code></pre>
+<pre><code>[random]
+random = CTR-DRBG</code></pre>
 
 <p>The available random bit generators are:</p>
 
@@ -407,39 +407,39 @@
 
 <p>This example shows how to use quoting and escaping.</p>
 
-<pre><code> # This is the default section.
- HOME = /temp
- configdir = $ENV::HOME/config
+<pre><code># This is the default section.
+HOME = /temp
+configdir = $ENV::HOME/config
 
- [ section_one ]
- # Quotes permit leading and trailing whitespace
- any = &quot; any variable name &quot;
- other = A string that can \
- cover several lines \
- by including \\ characters
- message = Hello World\n
+[ section_one ]
+# Quotes permit leading and trailing whitespace
+any = &quot; any variable name &quot;
+other = A string that can \
+cover several lines \
+by including \\ characters
+message = Hello World\n
 
- [ section_two ]
- greeting = $section_one::message</code></pre>
+[ section_two ]
+greeting = $section_one::message</code></pre>
 
 <p>This example shows how to expand environment variables safely. In this example, the variable <b>tempfile</b> is intended to refer to a temporary file, and the environment variable <b>TEMP</b> or <b>TMP</b>, if present, specify the directory where the file should be put. Since the default section is checked if a variable does not exist, it is possible to set <b>TMP</b> to default to <i>/tmp</i>, and <b>TEMP</b> to default to <b>TMP</b>.</p>
 
-<pre><code> # These two lines must be in the default section.
- TMP = /tmp
- TEMP = $ENV::TMP
+<pre><code># These two lines must be in the default section.
+TMP = /tmp
+TEMP = $ENV::TMP
 
- # This can be used anywhere
- tmpfile = ${ENV::TEMP}/tmp.filename</code></pre>
+# This can be used anywhere
+tmpfile = ${ENV::TEMP}/tmp.filename</code></pre>
 
 <p>This example shows how to enforce FIPS mode for the application <i>sample</i>.</p>
 
-<pre><code> sample = fips_config
+<pre><code>sample = fips_config
 
- [fips_config]
- alg_section = evp_properties
+[fips_config]
+alg_section = evp_properties
 
- [evp_properties]
- default_properties = &quot;fips=yes&quot;</code></pre>
+[evp_properties]
+default_properties = &quot;fips=yes&quot;</code></pre>
 
 <h1 id="ENVIRONMENT">ENVIRONMENT</h1>
 

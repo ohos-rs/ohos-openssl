@@ -4,7 +4,7 @@
 <head>
 <title>ASN1_EXTERN_FUNCS</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,39 +27,39 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/asn1t.h&gt;
+<pre><code>#include &lt;openssl/asn1t.h&gt;
 
- typedef int ASN1_ex_d2i(ASN1_VALUE **pval, const unsigned char **in, long len,
-                         const ASN1_ITEM *it, int tag, int aclass, char opt,
-                         ASN1_TLC *ctx);
- typedef int ASN1_ex_d2i_ex(ASN1_VALUE **pval, const unsigned char **in, long len,
-                            const ASN1_ITEM *it, int tag, int aclass, char opt,
-                            ASN1_TLC *ctx, OSSL_LIB_CTX *libctx,
-                            const char *propq);
- typedef int ASN1_ex_i2d(const ASN1_VALUE **pval, unsigned char **out,
-                         const ASN1_ITEM *it, int tag, int aclass);
- typedef int ASN1_ex_new_func(ASN1_VALUE **pval, const ASN1_ITEM *it);
- typedef int ASN1_ex_new_ex_func(ASN1_VALUE **pval, const ASN1_ITEM *it,
-                                 OSSL_LIB_CTX *libctx, const char *propq);
- typedef void ASN1_ex_free_func(ASN1_VALUE **pval, const ASN1_ITEM *it);
- typedef int ASN1_ex_print_func(BIO *out, const ASN1_VALUE **pval,
-                                int indent, const char *fname,
-                                const ASN1_PCTX *pctx);
+typedef int ASN1_ex_d2i(ASN1_VALUE **pval, const unsigned char **in, long len,
+                        const ASN1_ITEM *it, int tag, int aclass, char opt,
+                        ASN1_TLC *ctx);
+typedef int ASN1_ex_d2i_ex(ASN1_VALUE **pval, const unsigned char **in, long len,
+                           const ASN1_ITEM *it, int tag, int aclass, char opt,
+                           ASN1_TLC *ctx, OSSL_LIB_CTX *libctx,
+                           const char *propq);
+typedef int ASN1_ex_i2d(const ASN1_VALUE **pval, unsigned char **out,
+                        const ASN1_ITEM *it, int tag, int aclass);
+typedef int ASN1_ex_new_func(ASN1_VALUE **pval, const ASN1_ITEM *it);
+typedef int ASN1_ex_new_ex_func(ASN1_VALUE **pval, const ASN1_ITEM *it,
+                                OSSL_LIB_CTX *libctx, const char *propq);
+typedef void ASN1_ex_free_func(ASN1_VALUE **pval, const ASN1_ITEM *it);
+typedef int ASN1_ex_print_func(BIO *out, const ASN1_VALUE **pval,
+                               int indent, const char *fname,
+                               const ASN1_PCTX *pctx);
 
- struct ASN1_EXTERN_FUNCS_st {
-    void *app_data;
-    ASN1_ex_new_func *asn1_ex_new;
-    ASN1_ex_free_func *asn1_ex_free;
-    ASN1_ex_free_func *asn1_ex_clear;
-    ASN1_ex_d2i *asn1_ex_d2i;
-    ASN1_ex_i2d *asn1_ex_i2d;
-    ASN1_ex_print_func *asn1_ex_print;
-    ASN1_ex_new_ex_func *asn1_ex_new_ex;
-    ASN1_ex_d2i_ex *asn1_ex_d2i_ex;
- };
- typedef struct ASN1_EXTERN_FUNCS_st ASN1_EXTERN_FUNCS;
+struct ASN1_EXTERN_FUNCS_st {
+   void *app_data;
+   ASN1_ex_new_func *asn1_ex_new;
+   ASN1_ex_free_func *asn1_ex_free;
+   ASN1_ex_free_func *asn1_ex_clear;
+   ASN1_ex_d2i *asn1_ex_d2i;
+   ASN1_ex_i2d *asn1_ex_i2d;
+   ASN1_ex_print_func *asn1_ex_print;
+   ASN1_ex_new_ex_func *asn1_ex_new_ex;
+   ASN1_ex_d2i_ex *asn1_ex_d2i_ex;
+};
+typedef struct ASN1_EXTERN_FUNCS_st ASN1_EXTERN_FUNCS;
 
- #define IMPLEMENT_EXTERN_ASN1(sname, tag, fptrs)</code></pre>
+#define IMPLEMENT_EXTERN_ASN1(sname, tag, fptrs)</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>X509_check_purpose</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -25,9 +25,9 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/x509v3.h&gt;
+<pre><code>#include &lt;openssl/x509v3.h&gt;
 
- int X509_check_purpose(X509 *x, int id, int ca);</code></pre>
+int X509_check_purpose(X509 *x, int id, int ca);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -35,16 +35,16 @@
 
 <p>Below are the potential ID&#39;s that can be checked:</p>
 
-<pre><code> # define X509_PURPOSE_SSL_CLIENT        1
- # define X509_PURPOSE_SSL_SERVER        2
- # define X509_PURPOSE_NS_SSL_SERVER     3
- # define X509_PURPOSE_SMIME_SIGN        4
- # define X509_PURPOSE_SMIME_ENCRYPT     5
- # define X509_PURPOSE_CRL_SIGN          6
- # define X509_PURPOSE_ANY               7
- # define X509_PURPOSE_OCSP_HELPER       8
- # define X509_PURPOSE_TIMESTAMP_SIGN    9
- # define X509_PURPOSE_CODE_SIGN        10</code></pre>
+<pre><code># define X509_PURPOSE_SSL_CLIENT        1
+# define X509_PURPOSE_SSL_SERVER        2
+# define X509_PURPOSE_NS_SSL_SERVER     3
+# define X509_PURPOSE_SMIME_SIGN        4
+# define X509_PURPOSE_SMIME_ENCRYPT     5
+# define X509_PURPOSE_CRL_SIGN          6
+# define X509_PURPOSE_ANY               7
+# define X509_PURPOSE_OCSP_HELPER       8
+# define X509_PURPOSE_TIMESTAMP_SIGN    9
+# define X509_PURPOSE_CODE_SIGN        10</code></pre>
 
 <p>The checks performed take into account the X.509 extensions keyUsage, extendedKeyUsage, and basicConstraints.</p>
 

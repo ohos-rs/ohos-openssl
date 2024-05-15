@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY-SM2</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -60,11 +60,11 @@
 
 <p>Before computing an <b>SM2</b> signature, an <b>EVP_PKEY_CTX</b> needs to be created, and an <b>SM2</b> ID must be set for it, like this:</p>
 
-<pre><code> EVP_PKEY_CTX_set1_id(pctx, id, id_len);</code></pre>
+<pre><code>EVP_PKEY_CTX_set1_id(pctx, id, id_len);</code></pre>
 
 <p>Before calling the EVP_DigestSignInit() or EVP_DigestVerifyInit() functions, that <b>EVP_PKEY_CTX</b> should be assigned to the <b>EVP_MD_CTX</b>, like this:</p>
 
-<pre><code> EVP_MD_CTX_set_pkey_ctx(mctx, pctx);</code></pre>
+<pre><code>EVP_MD_CTX_set_pkey_ctx(mctx, pctx);</code></pre>
 
 <p>There is normally no need to pass a <b>pctx</b> parameter to EVP_DigestSignInit() or EVP_DigestVerifyInit() in such a scenario.</p>
 
@@ -76,16 +76,16 @@
 
 <p>This example demonstrates the calling sequence for using an <b>EVP_PKEY</b> to verify a message with the SM2 signature algorithm and the SM3 hash algorithm:</p>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- /* obtain an EVP_PKEY using whatever methods... */
- mctx = EVP_MD_CTX_new();
- pctx = EVP_PKEY_CTX_new(pkey, NULL);
- EVP_PKEY_CTX_set1_id(pctx, id, id_len);
- EVP_MD_CTX_set_pkey_ctx(mctx, pctx);
- EVP_DigestVerifyInit(mctx, NULL, EVP_sm3(), NULL, pkey);
- EVP_DigestVerifyUpdate(mctx, msg, msg_len);
- EVP_DigestVerifyFinal(mctx, sig, sig_len)</code></pre>
+/* obtain an EVP_PKEY using whatever methods... */
+mctx = EVP_MD_CTX_new();
+pctx = EVP_PKEY_CTX_new(pkey, NULL);
+EVP_PKEY_CTX_set1_id(pctx, id, id_len);
+EVP_MD_CTX_set_pkey_ctx(mctx, pctx);
+EVP_DigestVerifyInit(mctx, NULL, EVP_sm3(), NULL, pkey);
+EVP_DigestVerifyUpdate(mctx, msg, msg_len);
+EVP_DigestVerifyFinal(mctx, sig, sig_len)</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

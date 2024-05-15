@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_PARAM_BLD</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,29 +34,29 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/param_build.h&gt;
+<pre><code>#include &lt;openssl/param_build.h&gt;
 
- typedef struct OSSL_PARAM_BLD;
+typedef struct OSSL_PARAM_BLD;
 
- OSSL_PARAM_BLD *OSSL_PARAM_BLD_new(void);
- OSSL_PARAM *OSSL_PARAM_BLD_to_param(OSSL_PARAM_BLD *bld);
- void OSSL_PARAM_BLD_free(OSSL_PARAM_BLD *bld);
+OSSL_PARAM_BLD *OSSL_PARAM_BLD_new(void);
+OSSL_PARAM *OSSL_PARAM_BLD_to_param(OSSL_PARAM_BLD *bld);
+void OSSL_PARAM_BLD_free(OSSL_PARAM_BLD *bld);
 
- int OSSL_PARAM_BLD_push_TYPE(OSSL_PARAM_BLD *bld, const char *key, TYPE val);
+int OSSL_PARAM_BLD_push_TYPE(OSSL_PARAM_BLD *bld, const char *key, TYPE val);
 
- int OSSL_PARAM_BLD_push_BN(OSSL_PARAM_BLD *bld, const char *key,
-                            const BIGNUM *bn);
- int OSSL_PARAM_BLD_push_BN_pad(OSSL_PARAM_BLD *bld, const char *key,
-                                const BIGNUM *bn, size_t sz);
+int OSSL_PARAM_BLD_push_BN(OSSL_PARAM_BLD *bld, const char *key,
+                           const BIGNUM *bn);
+int OSSL_PARAM_BLD_push_BN_pad(OSSL_PARAM_BLD *bld, const char *key,
+                               const BIGNUM *bn, size_t sz);
 
- int OSSL_PARAM_BLD_push_utf8_string(OSSL_PARAM_BLD *bld, const char *key,
-                                     const char *buf, size_t bsize);
- int OSSL_PARAM_BLD_push_utf8_ptr(OSSL_PARAM_BLD *bld, const char *key,
-                                  char *buf, size_t bsize);
- int OSSL_PARAM_BLD_push_octet_string(OSSL_PARAM_BLD *bld, const char *key,
-                                      const void *buf, size_t bsize);
- int OSSL_PARAM_BLD_push_octet_ptr(OSSL_PARAM_BLD *bld, const char *key,
-                                   void *buf, size_t bsize);</code></pre>
+int OSSL_PARAM_BLD_push_utf8_string(OSSL_PARAM_BLD *bld, const char *key,
+                                    const char *buf, size_t bsize);
+int OSSL_PARAM_BLD_push_utf8_ptr(OSSL_PARAM_BLD *bld, const char *key,
+                                 char *buf, size_t bsize);
+int OSSL_PARAM_BLD_push_octet_string(OSSL_PARAM_BLD *bld, const char *key,
+                                     const void *buf, size_t bsize);
+int OSSL_PARAM_BLD_push_octet_ptr(OSSL_PARAM_BLD *bld, const char *key,
+                                  void *buf, size_t bsize);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -100,52 +100,52 @@
 
 <p>Both examples creating an OSSL_PARAM array that contains an RSA key. For both, the predefined key variables are:</p>
 
-<pre><code>    BIGNUM *n;           /* modulus */
-    unsigned int e;      /* public exponent */
-    BIGNUM *d;           /* private exponent */
-    BIGNUM *p, *q;       /* first two prime factors */
-    BIGNUM *dmp1, *dmq1; /* first two CRT exponents */
-    BIGNUM *iqmp;        /* first CRT coefficient */</code></pre>
+<pre><code>BIGNUM *n;           /* modulus */
+unsigned int e;      /* public exponent */
+BIGNUM *d;           /* private exponent */
+BIGNUM *p, *q;       /* first two prime factors */
+BIGNUM *dmp1, *dmq1; /* first two CRT exponents */
+BIGNUM *iqmp;        /* first CRT coefficient */</code></pre>
 
 <h2 id="Example-1">Example 1</h2>
 
 <p>This example shows how to create an OSSL_PARAM array that contains an RSA private key.</p>
 
-<pre><code>    OSSL_PARAM_BLD *bld = OSSL_PARAM_BLD_new();
-    OSSL_PARAM *params = NULL;
+<pre><code>OSSL_PARAM_BLD *bld = OSSL_PARAM_BLD_new();
+OSSL_PARAM *params = NULL;
 
-    if (bld == NULL
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;n&quot;, n)
-        || !OSSL_PARAM_BLD_push_uint(bld, &quot;e&quot;, e)
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;d&quot;, d)
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-factor1&quot;, p)
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-factor2&quot;, q)
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-exponent1&quot;, dmp1)
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-exponent2&quot;, dmq1)
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-coefficient1&quot;, iqmp)
-        || (params = OSSL_PARAM_BLD_to_param(bld)) == NULL)
-        goto err;
-    OSSL_PARAM_BLD_free(bld);
-    /* Use params */
-    ...
-    OSSL_PARAM_free(params);</code></pre>
+if (bld == NULL
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;n&quot;, n)
+    || !OSSL_PARAM_BLD_push_uint(bld, &quot;e&quot;, e)
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;d&quot;, d)
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-factor1&quot;, p)
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-factor2&quot;, q)
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-exponent1&quot;, dmp1)
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-exponent2&quot;, dmq1)
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;rsa-coefficient1&quot;, iqmp)
+    || (params = OSSL_PARAM_BLD_to_param(bld)) == NULL)
+    goto err;
+OSSL_PARAM_BLD_free(bld);
+/* Use params */
+...
+OSSL_PARAM_free(params);</code></pre>
 
 <h2 id="Example-2">Example 2</h2>
 
 <p>This example shows how to create an OSSL_PARAM array that contains an RSA public key.</p>
 
-<pre><code>    OSSL_PARAM_BLD *bld = OSSL_PARAM_BLD_new();
-    OSSL_PARAM *params = NULL;
+<pre><code>OSSL_PARAM_BLD *bld = OSSL_PARAM_BLD_new();
+OSSL_PARAM *params = NULL;
 
-    if (nld == NULL
-        || !OSSL_PARAM_BLD_push_BN(bld, &quot;n&quot;, n)
-        || !OSSL_PARAM_BLD_push_uint(bld, &quot;e&quot;, e)
-        || (params = OSSL_PARAM_BLD_to_param(bld)) == NULL)
-        goto err;
-    OSSL_PARAM_BLD_free(bld);
-    /* Use params */
-    ...
-    OSSL_PARAM_free(params);</code></pre>
+if (nld == NULL
+    || !OSSL_PARAM_BLD_push_BN(bld, &quot;n&quot;, n)
+    || !OSSL_PARAM_BLD_push_uint(bld, &quot;e&quot;, e)
+    || (params = OSSL_PARAM_BLD_to_param(bld)) == NULL)
+    goto err;
+OSSL_PARAM_BLD_free(bld);
+/* Use params */
+...
+OSSL_PARAM_free(params);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

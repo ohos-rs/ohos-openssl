@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_set1_RSA</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,45 +29,45 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PKEY_get_id(const EVP_PKEY *pkey);
- int EVP_PKEY_get_base_id(const EVP_PKEY *pkey);
- int EVP_PKEY_type(int type);
+int EVP_PKEY_get_id(const EVP_PKEY *pkey);
+int EVP_PKEY_get_base_id(const EVP_PKEY *pkey);
+int EVP_PKEY_type(int type);
 
- #define EVP_PKEY_id EVP_PKEY_get_id
- #define EVP_PKEY_base_id EVP_PKEY_get_base_id</code></pre>
+#define EVP_PKEY_id EVP_PKEY_get_id
+#define EVP_PKEY_base_id EVP_PKEY_get_base_id</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, RSA *key);
- int EVP_PKEY_set1_DSA(EVP_PKEY *pkey, DSA *key);
- int EVP_PKEY_set1_DH(EVP_PKEY *pkey, DH *key);
- int EVP_PKEY_set1_EC_KEY(EVP_PKEY *pkey, EC_KEY *key);
+<pre><code>int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, RSA *key);
+int EVP_PKEY_set1_DSA(EVP_PKEY *pkey, DSA *key);
+int EVP_PKEY_set1_DH(EVP_PKEY *pkey, DH *key);
+int EVP_PKEY_set1_EC_KEY(EVP_PKEY *pkey, EC_KEY *key);
 
- RSA *EVP_PKEY_get1_RSA(EVP_PKEY *pkey);
- DSA *EVP_PKEY_get1_DSA(EVP_PKEY *pkey);
- DH *EVP_PKEY_get1_DH(EVP_PKEY *pkey);
- EC_KEY *EVP_PKEY_get1_EC_KEY(EVP_PKEY *pkey);
+RSA *EVP_PKEY_get1_RSA(EVP_PKEY *pkey);
+DSA *EVP_PKEY_get1_DSA(EVP_PKEY *pkey);
+DH *EVP_PKEY_get1_DH(EVP_PKEY *pkey);
+EC_KEY *EVP_PKEY_get1_EC_KEY(EVP_PKEY *pkey);
 
- const unsigned char *EVP_PKEY_get0_hmac(const EVP_PKEY *pkey, size_t *len);
- const unsigned char *EVP_PKEY_get0_poly1305(const EVP_PKEY *pkey, size_t *len);
- const unsigned char *EVP_PKEY_get0_siphash(const EVP_PKEY *pkey, size_t *len);
- const RSA *EVP_PKEY_get0_RSA(const EVP_PKEY *pkey);
- const DSA *EVP_PKEY_get0_DSA(const EVP_PKEY *pkey);
- const DH *EVP_PKEY_get0_DH(const EVP_PKEY *pkey);
- const EC_KEY *EVP_PKEY_get0_EC_KEY(const EVP_PKEY *pkey);
- void *EVP_PKEY_get0(const EVP_PKEY *pkey);
+const unsigned char *EVP_PKEY_get0_hmac(const EVP_PKEY *pkey, size_t *len);
+const unsigned char *EVP_PKEY_get0_poly1305(const EVP_PKEY *pkey, size_t *len);
+const unsigned char *EVP_PKEY_get0_siphash(const EVP_PKEY *pkey, size_t *len);
+const RSA *EVP_PKEY_get0_RSA(const EVP_PKEY *pkey);
+const DSA *EVP_PKEY_get0_DSA(const EVP_PKEY *pkey);
+const DH *EVP_PKEY_get0_DH(const EVP_PKEY *pkey);
+const EC_KEY *EVP_PKEY_get0_EC_KEY(const EVP_PKEY *pkey);
+void *EVP_PKEY_get0(const EVP_PKEY *pkey);
 
- int EVP_PKEY_assign_RSA(EVP_PKEY *pkey, RSA *key);
- int EVP_PKEY_assign_DSA(EVP_PKEY *pkey, DSA *key);
- int EVP_PKEY_assign_DH(EVP_PKEY *pkey, DH *key);
- int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey, EC_KEY *key);
- int EVP_PKEY_assign_POLY1305(EVP_PKEY *pkey, ASN1_OCTET_STRING *key);
- int EVP_PKEY_assign_SIPHASH(EVP_PKEY *pkey, ASN1_OCTET_STRING *key);
+int EVP_PKEY_assign_RSA(EVP_PKEY *pkey, RSA *key);
+int EVP_PKEY_assign_DSA(EVP_PKEY *pkey, DSA *key);
+int EVP_PKEY_assign_DH(EVP_PKEY *pkey, DH *key);
+int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey, EC_KEY *key);
+int EVP_PKEY_assign_POLY1305(EVP_PKEY *pkey, ASN1_OCTET_STRING *key);
+int EVP_PKEY_assign_SIPHASH(EVP_PKEY *pkey, ASN1_OCTET_STRING *key);
 
- ENGINE *EVP_PKEY_get0_engine(const EVP_PKEY *pkey);
- int EVP_PKEY_set1_engine(EVP_PKEY *pkey, ENGINE *engine);</code></pre>
+ENGINE *EVP_PKEY_get0_engine(const EVP_PKEY *pkey);
+int EVP_PKEY_set1_engine(EVP_PKEY *pkey, ENGINE *engine);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

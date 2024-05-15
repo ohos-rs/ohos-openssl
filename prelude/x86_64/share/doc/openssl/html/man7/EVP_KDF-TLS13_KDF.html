@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-TLS13_KDF</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -118,8 +118,8 @@
 
 <p>A context for a TLS 1.3 KDF can be obtained by calling:</p>
 
-<pre><code> EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;TLS13-KDF&quot;, NULL);
- EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
+<pre><code>EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;TLS13-KDF&quot;, NULL);
+EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
 
 <p>The output length of a TLS 1.3 KDF expand operation is specified via the <i>keylen</i> parameter to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function. When using EVP_KDF_HKDF_MODE_EXTRACT_ONLY the <i>keylen</i> parameter must equal the size of the intermediate fixed-length pseudorandom key otherwise an error will occur. For that mode, the fixed output size can be looked up by calling EVP_KDF_CTX_get_kdf_size() after setting the mode and digest on the <b>EVP_KDF_CTX</b>.</p>
 

@@ -4,7 +4,7 @@
 <head>
 <title>BIO_meth_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,66 +27,66 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- int BIO_get_new_index(void);
+int BIO_get_new_index(void);
 
- BIO_METHOD *BIO_meth_new(int type, const char *name);
+BIO_METHOD *BIO_meth_new(int type, const char *name);
 
- void BIO_meth_free(BIO_METHOD *biom);
+void BIO_meth_free(BIO_METHOD *biom);
 
- int (*BIO_meth_get_write_ex(const BIO_METHOD *biom))(BIO *, const char *, size_t,
-                                                size_t *);
- int (*BIO_meth_get_write(const BIO_METHOD *biom))(BIO *, const char *, int);
- int BIO_meth_set_write_ex(BIO_METHOD *biom,
-                           int (*bwrite)(BIO *, const char *, size_t, size_t *));
- int BIO_meth_set_write(BIO_METHOD *biom,
-                        int (*write)(BIO *, const char *, int));
+int (*BIO_meth_get_write_ex(const BIO_METHOD *biom))(BIO *, const char *, size_t,
+                                               size_t *);
+int (*BIO_meth_get_write(const BIO_METHOD *biom))(BIO *, const char *, int);
+int BIO_meth_set_write_ex(BIO_METHOD *biom,
+                          int (*bwrite)(BIO *, const char *, size_t, size_t *));
+int BIO_meth_set_write(BIO_METHOD *biom,
+                       int (*write)(BIO *, const char *, int));
 
- int (*BIO_meth_get_read_ex(const BIO_METHOD *biom))(BIO *, char *, size_t, size_t *);
- int (*BIO_meth_get_read(const BIO_METHOD *biom))(BIO *, char *, int);
- int BIO_meth_set_read_ex(BIO_METHOD *biom,
-                          int (*bread)(BIO *, char *, size_t, size_t *));
- int BIO_meth_set_read(BIO_METHOD *biom, int (*read)(BIO *, char *, int));
+int (*BIO_meth_get_read_ex(const BIO_METHOD *biom))(BIO *, char *, size_t, size_t *);
+int (*BIO_meth_get_read(const BIO_METHOD *biom))(BIO *, char *, int);
+int BIO_meth_set_read_ex(BIO_METHOD *biom,
+                         int (*bread)(BIO *, char *, size_t, size_t *));
+int BIO_meth_set_read(BIO_METHOD *biom, int (*read)(BIO *, char *, int));
 
- int (*BIO_meth_get_puts(const BIO_METHOD *biom))(BIO *, const char *);
- int BIO_meth_set_puts(BIO_METHOD *biom, int (*puts)(BIO *, const char *));
+int (*BIO_meth_get_puts(const BIO_METHOD *biom))(BIO *, const char *);
+int BIO_meth_set_puts(BIO_METHOD *biom, int (*puts)(BIO *, const char *));
 
- int (*BIO_meth_get_gets(const BIO_METHOD *biom))(BIO *, char *, int);
- int BIO_meth_set_gets(BIO_METHOD *biom,
-                       int (*gets)(BIO *, char *, int));
+int (*BIO_meth_get_gets(const BIO_METHOD *biom))(BIO *, char *, int);
+int BIO_meth_set_gets(BIO_METHOD *biom,
+                      int (*gets)(BIO *, char *, int));
 
- long (*BIO_meth_get_ctrl(const BIO_METHOD *biom))(BIO *, int, long, void *);
- int BIO_meth_set_ctrl(BIO_METHOD *biom,
-                       long (*ctrl)(BIO *, int, long, void *));
+long (*BIO_meth_get_ctrl(const BIO_METHOD *biom))(BIO *, int, long, void *);
+int BIO_meth_set_ctrl(BIO_METHOD *biom,
+                      long (*ctrl)(BIO *, int, long, void *));
 
- int (*BIO_meth_get_create(const BIO_METHOD *bion))(BIO *);
- int BIO_meth_set_create(BIO_METHOD *biom, int (*create)(BIO *));
+int (*BIO_meth_get_create(const BIO_METHOD *bion))(BIO *);
+int BIO_meth_set_create(BIO_METHOD *biom, int (*create)(BIO *));
 
- int (*BIO_meth_get_destroy(const BIO_METHOD *biom))(BIO *);
- int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy)(BIO *));
+int (*BIO_meth_get_destroy(const BIO_METHOD *biom))(BIO *);
+int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy)(BIO *));
 
- long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))(BIO *, int, BIO_info_cb *);
- int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
-                                long (*callback_ctrl)(BIO *, int, BIO_info_cb *));
+long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))(BIO *, int, BIO_info_cb *);
+int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
+                               long (*callback_ctrl)(BIO *, int, BIO_info_cb *));
 
- ossl_ssize_t (*BIO_meth_get_sendmmsg(const BIO_METHOD *biom))(BIO *,
-                                                               BIO_MSG *,
-                                                               size_t,
-                                                               size_t,
-                                                               uint64_t);
- int BIO_meth_set_sendmmsg(BIO_METHOD *biom,
-                           ossl_ssize_t (*f) (BIO *, BIO_MSG *, size_t,
-                                              size_t, uint64_t));
+ossl_ssize_t (*BIO_meth_get_sendmmsg(const BIO_METHOD *biom))(BIO *,
+                                                              BIO_MSG *,
+                                                              size_t,
+                                                              size_t,
+                                                              uint64_t);
+int BIO_meth_set_sendmmsg(BIO_METHOD *biom,
+                          ossl_ssize_t (*f) (BIO *, BIO_MSG *, size_t,
+                                             size_t, uint64_t));
 
- ossl_ssize_t (*BIO_meth_get_recvmmsg(const BIO_METHOD *biom))(BIO *,
-                                                               BIO_MSG *,
-                                                               size_t,
-                                                               size_t,
-                                                               uint64_t);
- int BIO_meth_set_recvmmsg(BIO_METHOD *biom,
-                           ossl_ssize_t (*f) (BIO *, BIO_MSG *, size_t,
-                                              size_t, uint64_t));</code></pre>
+ossl_ssize_t (*BIO_meth_get_recvmmsg(const BIO_METHOD *biom))(BIO *,
+                                                              BIO_MSG *,
+                                                              size_t,
+                                                              size_t,
+                                                              uint64_t);
+int BIO_meth_set_recvmmsg(BIO_METHOD *biom,
+                          ossl_ssize_t (*f) (BIO *, BIO_MSG *, size_t,
+                                             size_t, uint64_t));</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

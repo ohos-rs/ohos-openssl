@@ -4,7 +4,7 @@
 <head>
 <title>SSL_poll</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,46 +29,46 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- #define SSL_POLL_EVENT_NONE        0
+#define SSL_POLL_EVENT_NONE        0
 
- #define SSL_POLL_EVENT_F           /* F   (Failure) */
- #define SSL_POLL_EVENT_EC          /* EC  (Exception on Conn) */
- #define SSL_POLL_EVENT_ECD         /* ECD (Exception on Conn Drained) */
- #define SSL_POLL_EVENT_ER          /* ER  (Exception on Read) */
- #define SSL_POLL_EVENT_EW          /* EW  (Exception on Write) */
- #define SSL_POLL_EVENT_R           /* R   (Readable) */
- #define SSL_POLL_EVENT_W           /* W   (Writable) */
- #define SSL_POLL_EVENT_ISB         /* ISB (Incoming Stream: Bidi) */
- #define SSL_POLL_EVENT_ISU         /* ISU (Incoming Stream: Uni) */
- #define SSL_POLL_EVENT_OSB         /* OSB (Outgoing Stream: Bidi) */
- #define SSL_POLL_EVENT_OSU         /* OSU (Outgoing Stream: Uni) */
+#define SSL_POLL_EVENT_F           /* F   (Failure) */
+#define SSL_POLL_EVENT_EC          /* EC  (Exception on Conn) */
+#define SSL_POLL_EVENT_ECD         /* ECD (Exception on Conn Drained) */
+#define SSL_POLL_EVENT_ER          /* ER  (Exception on Read) */
+#define SSL_POLL_EVENT_EW          /* EW  (Exception on Write) */
+#define SSL_POLL_EVENT_R           /* R   (Readable) */
+#define SSL_POLL_EVENT_W           /* W   (Writable) */
+#define SSL_POLL_EVENT_ISB         /* ISB (Incoming Stream: Bidi) */
+#define SSL_POLL_EVENT_ISU         /* ISU (Incoming Stream: Uni) */
+#define SSL_POLL_EVENT_OSB         /* OSB (Outgoing Stream: Bidi) */
+#define SSL_POLL_EVENT_OSU         /* OSU (Outgoing Stream: Uni) */
 
- #define SSL_POLL_EVENT_RW          /* R   | W         */
- #define SSL_POLL_EVENT_RE          /* R   | ER        */
- #define SSL_POLL_EVENT_WE          /* W   | EW        */
- #define SSL_POLL_EVENT_RWE         /* RE  | WE        */
- #define SSL_POLL_EVENT_E           /* EC  | ER  | EW  */
- #define SSL_POLL_EVENT_IS          /* ISB | ISU       */
- #define SSL_POLL_EVENT_ISE         /* IS  | EC        */
- #define SSL_POLL_EVENT_I           /* IS              */
- #define SSL_POLL_EVENT_OS          /* OSB | OSU       */
- #define SSL_POLL_EVENT_OSE         /* OS  | EC        */
+#define SSL_POLL_EVENT_RW          /* R   | W         */
+#define SSL_POLL_EVENT_RE          /* R   | ER        */
+#define SSL_POLL_EVENT_WE          /* W   | EW        */
+#define SSL_POLL_EVENT_RWE         /* RE  | WE        */
+#define SSL_POLL_EVENT_E           /* EC  | ER  | EW  */
+#define SSL_POLL_EVENT_IS          /* ISB | ISU       */
+#define SSL_POLL_EVENT_ISE         /* IS  | EC        */
+#define SSL_POLL_EVENT_I           /* IS              */
+#define SSL_POLL_EVENT_OS          /* OSB | OSU       */
+#define SSL_POLL_EVENT_OSE         /* OS  | EC        */
 
- typedef struct ssl_poll_item_st {
-     BIO_POLL_DESCRIPTOR desc;
-     uint64_t            events, revents;
- } SSL_POLL_ITEM;
+typedef struct ssl_poll_item_st {
+    BIO_POLL_DESCRIPTOR desc;
+    uint64_t            events, revents;
+} SSL_POLL_ITEM;
 
- #define SSL_POLL_FLAG_NO_HANDLE_EVENTS
+#define SSL_POLL_FLAG_NO_HANDLE_EVENTS
 
- int SSL_poll(SSL_POLL_ITEM         *items,
-              size_t                num_items,
-              size_t                stride,
-              const struct timeval  *timeout,
-              uint64_t              flags,
-              size_t                *result_count);</code></pre>
+int SSL_poll(SSL_POLL_ITEM         *items,
+             size_t                num_items,
+             size_t                stride,
+             const struct timeval  *timeout,
+             uint64_t              flags,
+             size_t                *result_count);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

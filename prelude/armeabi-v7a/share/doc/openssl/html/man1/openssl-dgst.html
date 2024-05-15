@@ -4,7 +4,7 @@
 <head>
 <title>openssl-dgst</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -241,21 +241,21 @@
 
 <p>To create a hex-encoded message digest of a file:</p>
 
-<pre><code> openssl dgst -md5 -hex file.txt
- or
- openssl md5 file.txt</code></pre>
+<pre><code>openssl dgst -md5 -hex file.txt
+or
+openssl md5 file.txt</code></pre>
 
 <p>To sign a file using SHA-256 with binary file output:</p>
 
-<pre><code> openssl dgst -sha256 -sign privatekey.pem -out signature.sign file.txt
- or
- openssl sha256 -sign privatekey.pem -out signature.sign file.txt</code></pre>
+<pre><code>openssl dgst -sha256 -sign privatekey.pem -out signature.sign file.txt
+or
+openssl sha256 -sign privatekey.pem -out signature.sign file.txt</code></pre>
 
 <p>To verify a signature:</p>
 
-<pre><code> openssl dgst -sha256 -verify publickey.pem \
- -signature signature.sign \
- file.txt</code></pre>
+<pre><code>openssl dgst -sha256 -verify publickey.pem \
+-signature signature.sign \
+file.txt</code></pre>
 
 <h1 id="NOTES">NOTES</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_CMP_exec_certreq</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,27 +29,27 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/cmp.h&gt;
+<pre><code>#include &lt;openssl/cmp.h&gt;
 
- X509 *OSSL_CMP_exec_certreq(OSSL_CMP_CTX *ctx, int req_type,
-                             const OSSL_CRMF_MSG *crm);
- X509 *OSSL_CMP_exec_IR_ses(OSSL_CMP_CTX *ctx);
- X509 *OSSL_CMP_exec_CR_ses(OSSL_CMP_CTX *ctx);
- X509 *OSSL_CMP_exec_P10CR_ses(OSSL_CMP_CTX *ctx);
- X509 *OSSL_CMP_exec_KUR_ses(OSSL_CMP_CTX *ctx);
- #define OSSL_CMP_IR
- #define OSSL_CMP_CR
- #define OSSL_CMP_P10CR
- #define OSSL_CMP_KUR
- int OSSL_CMP_try_certreq(OSSL_CMP_CTX *ctx, int req_type,
-                          const OSSL_CRMF_MSG *crm, int *checkAfter);
- int OSSL_CMP_exec_RR_ses(OSSL_CMP_CTX *ctx);
+X509 *OSSL_CMP_exec_certreq(OSSL_CMP_CTX *ctx, int req_type,
+                            const OSSL_CRMF_MSG *crm);
+X509 *OSSL_CMP_exec_IR_ses(OSSL_CMP_CTX *ctx);
+X509 *OSSL_CMP_exec_CR_ses(OSSL_CMP_CTX *ctx);
+X509 *OSSL_CMP_exec_P10CR_ses(OSSL_CMP_CTX *ctx);
+X509 *OSSL_CMP_exec_KUR_ses(OSSL_CMP_CTX *ctx);
+#define OSSL_CMP_IR
+#define OSSL_CMP_CR
+#define OSSL_CMP_P10CR
+#define OSSL_CMP_KUR
+int OSSL_CMP_try_certreq(OSSL_CMP_CTX *ctx, int req_type,
+                         const OSSL_CRMF_MSG *crm, int *checkAfter);
+int OSSL_CMP_exec_RR_ses(OSSL_CMP_CTX *ctx);
 
- STACK_OF(OSSL_CMP_ITAV) *OSSL_CMP_exec_GENM_ses(OSSL_CMP_CTX *ctx);
- int OSSL_CMP_get1_caCerts(OSSL_CMP_CTX *ctx, STACK_OF(X509) **out);
- int OSSL_CMP_get1_rootCaKeyUpdate(OSSL_CMP_CTX *ctx,
-                                   const X509 *oldWithOld, X509 **newWithNew,
-                                   X509 **newWithOld, X509 **oldWithNew);</code></pre>
+STACK_OF(OSSL_CMP_ITAV) *OSSL_CMP_exec_GENM_ses(OSSL_CMP_CTX *ctx);
+int OSSL_CMP_get1_caCerts(OSSL_CMP_CTX *ctx, STACK_OF(X509) **out);
+int OSSL_CMP_get1_rootCaKeyUpdate(OSSL_CMP_CTX *ctx,
+                                  const X509 *oldWithOld, X509 **newWithNew,
+                                  X509 **newWithOld, X509 **oldWithNew);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

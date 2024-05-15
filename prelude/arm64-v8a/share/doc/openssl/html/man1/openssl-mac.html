@@ -4,7 +4,7 @@
 <head>
 <title>openssl-mac</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -158,30 +158,30 @@
 
 <p>To create a hex-encoded HMAC-SHA1 MAC of a file and write to stdout:</p>
 
-<pre><code> openssl mac -digest SHA1 \
-         -macopt hexkey:000102030405060708090A0B0C0D0E0F10111213 \
-         -in msg.bin HMAC</code></pre>
+<pre><code>openssl mac -digest SHA1 \
+        -macopt hexkey:000102030405060708090A0B0C0D0E0F10111213 \
+        -in msg.bin HMAC</code></pre>
 
 <p>To create a SipHash MAC from a file with a binary file output:</p>
 
-<pre><code> openssl mac -macopt hexkey:000102030405060708090A0B0C0D0E0F \
-         -in msg.bin -out out.bin -binary SipHash</code></pre>
+<pre><code>openssl mac -macopt hexkey:000102030405060708090A0B0C0D0E0F \
+        -in msg.bin -out out.bin -binary SipHash</code></pre>
 
 <p>To create a hex-encoded CMAC-AES-128-CBC MAC from a file:</p>
 
-<pre><code> openssl mac -cipher AES-128-CBC \
-         -macopt hexkey:77A77FAF290C1FA30C683DF16BA7A77B \
-         -in msg.bin CMAC</code></pre>
+<pre><code>openssl mac -cipher AES-128-CBC \
+        -macopt hexkey:77A77FAF290C1FA30C683DF16BA7A77B \
+        -in msg.bin CMAC</code></pre>
 
 <p>To create a hex-encoded KMAC128 MAC from a file with a Customisation String &#39;Tag&#39; and output length of 16:</p>
 
-<pre><code> openssl mac -macopt custom:Tag -macopt hexkey:40414243444546 \
-         -macopt size:16 -in msg.bin KMAC128</code></pre>
+<pre><code>openssl mac -macopt custom:Tag -macopt hexkey:40414243444546 \
+        -macopt size:16 -in msg.bin KMAC128</code></pre>
 
 <p>To create a hex-encoded GMAC-AES-128-GCM with a IV from a file:</p>
 
-<pre><code> openssl mac -cipher AES-128-GCM -macopt hexiv:E0E00F19FED7BA0136A797F3 \
-         -macopt hexkey:77A77FAF290C1FA30C683DF16BA7A77B -in msg.bin GMAC</code></pre>
+<pre><code>openssl mac -cipher AES-128-GCM -macopt hexiv:E0E00F19FED7BA0136A797F3 \
+        -macopt hexkey:77A77FAF290C1FA30C683DF16BA7A77B -in msg.bin GMAC</code></pre>
 
 <h1 id="NOTES">NOTES</h1>
 

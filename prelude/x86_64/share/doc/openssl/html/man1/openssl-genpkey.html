@@ -4,7 +4,7 @@
 <head>
 <title>openssl-genpkey</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -469,92 +469,92 @@
 
 <p>Generate an RSA private key using default parameters:</p>
 
-<pre><code> openssl genpkey -algorithm RSA -out key.pem</code></pre>
+<pre><code>openssl genpkey -algorithm RSA -out key.pem</code></pre>
 
 <p>Encrypt output private key using 128 bit AES and the passphrase &quot;hello&quot;:</p>
 
-<pre><code> openssl genpkey -algorithm RSA -out key.pem -aes-128-cbc -pass pass:hello</code></pre>
+<pre><code>openssl genpkey -algorithm RSA -out key.pem -aes-128-cbc -pass pass:hello</code></pre>
 
 <p>Generate a 2048 bit RSA key using 3 as the public exponent:</p>
 
-<pre><code> openssl genpkey -algorithm RSA -out key.pem \
-     -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:3</code></pre>
+<pre><code>openssl genpkey -algorithm RSA -out key.pem \
+    -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:3</code></pre>
 
 <p>Generate 2048 bit DSA parameters that can be validated: The output values for gindex and seed are required for key validation purposes and are not saved to the output pem file).</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DSA -out dsap.pem -pkeyopt pbits:2048 \
-     -pkeyopt qbits:224 -pkeyopt digest:SHA256 -pkeyopt gindex:1 -text</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DSA -out dsap.pem -pkeyopt pbits:2048 \
+    -pkeyopt qbits:224 -pkeyopt digest:SHA256 -pkeyopt gindex:1 -text</code></pre>
 
 <p>Generate DSA key from parameters:</p>
 
-<pre><code> openssl genpkey -paramfile dsap.pem -out dsakey.pem</code></pre>
+<pre><code>openssl genpkey -paramfile dsap.pem -out dsakey.pem</code></pre>
 
 <p>Generate 4096 bit DH Key using safe prime group ffdhe4096:</p>
 
-<pre><code> openssl genpkey -algorithm DH -out dhkey.pem -pkeyopt group:ffdhe4096</code></pre>
+<pre><code>openssl genpkey -algorithm DH -out dhkey.pem -pkeyopt group:ffdhe4096</code></pre>
 
 <p>Generate 2048 bit X9.42 DH key with 256 bit subgroup using RFC5114 group3:</p>
 
-<pre><code> openssl genpkey -algorithm DHX -out dhkey.pem -pkeyopt dh_rfc5114:3</code></pre>
+<pre><code>openssl genpkey -algorithm DHX -out dhkey.pem -pkeyopt dh_rfc5114:3</code></pre>
 
 <p>Generate a DH key using a DH parameters file:</p>
 
-<pre><code> openssl genpkey -paramfile dhp.pem -out dhkey.pem</code></pre>
+<pre><code>openssl genpkey -paramfile dhp.pem -out dhkey.pem</code></pre>
 
 <p>Output DH parameters for safe prime group ffdhe2048:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DH -out dhp.pem -pkeyopt group:ffdhe2048</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DH -out dhp.pem -pkeyopt group:ffdhe2048</code></pre>
 
 <p>Output 2048 bit X9.42 DH parameters with 224 bit subgroup using RFC5114 group2:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DHX -out dhp.pem -pkeyopt dh_rfc5114:2</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DHX -out dhp.pem -pkeyopt dh_rfc5114:2</code></pre>
 
 <p>Output 2048 bit X9.42 DH parameters with 224 bit subgroup using FIP186-4 keygen:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DHX -out dhp.pem -text \
-     -pkeyopt pbits:2048 -pkeyopt qbits:224 -pkeyopt digest:SHA256 \
-     -pkeyopt gindex:1 -pkeyopt dh_paramgen_type:2</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DHX -out dhp.pem -text \
+    -pkeyopt pbits:2048 -pkeyopt qbits:224 -pkeyopt digest:SHA256 \
+    -pkeyopt gindex:1 -pkeyopt dh_paramgen_type:2</code></pre>
 
 <p>Output 1024 bit X9.42 DH parameters with 160 bit subgroup using FIP186-2 keygen:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DHX -out dhp.pem -text \
-     -pkeyopt pbits:1024 -pkeyopt qbits:160 -pkeyopt digest:SHA1 \
-     -pkeyopt gindex:1 -pkeyopt dh_paramgen_type:1</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DHX -out dhp.pem -text \
+    -pkeyopt pbits:1024 -pkeyopt qbits:160 -pkeyopt digest:SHA1 \
+    -pkeyopt gindex:1 -pkeyopt dh_paramgen_type:1</code></pre>
 
 <p>Output 2048 bit DH parameters:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DH -out dhp.pem \
-     -pkeyopt dh_paramgen_prime_len:2048</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DH -out dhp.pem \
+    -pkeyopt dh_paramgen_prime_len:2048</code></pre>
 
 <p>Output 2048 bit DH parameters using a generator:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm DH -out dhpx.pem \
-     -pkeyopt dh_paramgen_prime_len:2048 \
-     -pkeyopt dh_paramgen_type:1</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm DH -out dhpx.pem \
+    -pkeyopt dh_paramgen_prime_len:2048 \
+    -pkeyopt dh_paramgen_type:1</code></pre>
 
 <p>Generate EC parameters:</p>
 
-<pre><code> openssl genpkey -genparam -algorithm EC -out ecp.pem \
-        -pkeyopt ec_paramgen_curve:secp384r1 \
-        -pkeyopt ec_param_enc:named_curve</code></pre>
+<pre><code>openssl genpkey -genparam -algorithm EC -out ecp.pem \
+       -pkeyopt ec_paramgen_curve:secp384r1 \
+       -pkeyopt ec_param_enc:named_curve</code></pre>
 
 <p>Generate EC key from parameters:</p>
 
-<pre><code> openssl genpkey -paramfile ecp.pem -out eckey.pem</code></pre>
+<pre><code>openssl genpkey -paramfile ecp.pem -out eckey.pem</code></pre>
 
 <p>Generate EC key directly:</p>
 
-<pre><code> openssl genpkey -algorithm EC -out eckey.pem \
-        -pkeyopt ec_paramgen_curve:P-384 \
-        -pkeyopt ec_param_enc:named_curve</code></pre>
+<pre><code>openssl genpkey -algorithm EC -out eckey.pem \
+       -pkeyopt ec_paramgen_curve:P-384 \
+       -pkeyopt ec_param_enc:named_curve</code></pre>
 
 <p>Generate an X25519 private key:</p>
 
-<pre><code> openssl genpkey -algorithm X25519 -out xkey.pem</code></pre>
+<pre><code>openssl genpkey -algorithm X25519 -out xkey.pem</code></pre>
 
 <p>Generate an ED448 private key:</p>
 
-<pre><code> openssl genpkey -algorithm ED448 -out xkey.pem</code></pre>
+<pre><code>openssl genpkey -algorithm ED448 -out xkey.pem</code></pre>
 
 <h1 id="HISTORY">HISTORY</h1>
 

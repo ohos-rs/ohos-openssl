@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_PARAM_int</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,74 +34,74 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/params.h&gt;
+<pre><code>#include &lt;openssl/params.h&gt;
 
- /*
-  * TYPE in function names is one of:
-  * double, int, int32, int64, long, size_t, time_t, uint, uint32, uint64, ulong
-  * Corresponding TYPE in function arguments is one of:
-  * double, int, int32_t, int64_t, long, size_t, time_t, unsigned int, uint32_t,
-  * uint64_t, unsigned long
-  */
+/*
+ * TYPE in function names is one of:
+ * double, int, int32, int64, long, size_t, time_t, uint, uint32, uint64, ulong
+ * Corresponding TYPE in function arguments is one of:
+ * double, int, int32_t, int64_t, long, size_t, time_t, unsigned int, uint32_t,
+ * uint64_t, unsigned long
+ */
 
- #define OSSL_PARAM_TYPE(key, address)
- #define OSSL_PARAM_BN(key, address, size)
- #define OSSL_PARAM_utf8_string(key, address, size)
- #define OSSL_PARAM_octet_string(key, address, size)
- #define OSSL_PARAM_utf8_ptr(key, address, size)
- #define OSSL_PARAM_octet_ptr(key, address, size)
- #define OSSL_PARAM_END
+#define OSSL_PARAM_TYPE(key, address)
+#define OSSL_PARAM_BN(key, address, size)
+#define OSSL_PARAM_utf8_string(key, address, size)
+#define OSSL_PARAM_octet_string(key, address, size)
+#define OSSL_PARAM_utf8_ptr(key, address, size)
+#define OSSL_PARAM_octet_ptr(key, address, size)
+#define OSSL_PARAM_END
 
- #define OSSL_PARAM_UNMODIFIED
+#define OSSL_PARAM_UNMODIFIED
 
- #define OSSL_PARAM_DEFN(key, type, addr, sz)    \
-    { (key), (type), (addr), (sz), OSSL_PARAM_UNMODIFIED }
+#define OSSL_PARAM_DEFN(key, type, addr, sz)    \
+   { (key), (type), (addr), (sz), OSSL_PARAM_UNMODIFIED }
 
- OSSL_PARAM OSSL_PARAM_construct_TYPE(const char *key, TYPE *buf);
- OSSL_PARAM OSSL_PARAM_construct_BN(const char *key, unsigned char *buf,
-                                    size_t bsize);
- OSSL_PARAM OSSL_PARAM_construct_utf8_string(const char *key, char *buf,
+OSSL_PARAM OSSL_PARAM_construct_TYPE(const char *key, TYPE *buf);
+OSSL_PARAM OSSL_PARAM_construct_BN(const char *key, unsigned char *buf,
+                                   size_t bsize);
+OSSL_PARAM OSSL_PARAM_construct_utf8_string(const char *key, char *buf,
+                                            size_t bsize);
+OSSL_PARAM OSSL_PARAM_construct_octet_string(const char *key, void *buf,
                                              size_t bsize);
- OSSL_PARAM OSSL_PARAM_construct_octet_string(const char *key, void *buf,
-                                              size_t bsize);
- OSSL_PARAM OSSL_PARAM_construct_utf8_ptr(const char *key, char **buf,
+OSSL_PARAM OSSL_PARAM_construct_utf8_ptr(const char *key, char **buf,
+                                         size_t bsize);
+OSSL_PARAM OSSL_PARAM_construct_octet_ptr(const char *key, void **buf,
                                           size_t bsize);
- OSSL_PARAM OSSL_PARAM_construct_octet_ptr(const char *key, void **buf,
-                                           size_t bsize);
- OSSL_PARAM OSSL_PARAM_construct_end(void);
+OSSL_PARAM OSSL_PARAM_construct_end(void);
 
- OSSL_PARAM *OSSL_PARAM_locate(OSSL_PARAM *array, const char *key);
- const OSSL_PARAM *OSSL_PARAM_locate_const(const OSSL_PARAM *array,
-                                           const char *key);
+OSSL_PARAM *OSSL_PARAM_locate(OSSL_PARAM *array, const char *key);
+const OSSL_PARAM *OSSL_PARAM_locate_const(const OSSL_PARAM *array,
+                                          const char *key);
 
- int OSSL_PARAM_get_TYPE(const OSSL_PARAM *p, TYPE *val);
- int OSSL_PARAM_set_TYPE(OSSL_PARAM *p, TYPE val);
+int OSSL_PARAM_get_TYPE(const OSSL_PARAM *p, TYPE *val);
+int OSSL_PARAM_set_TYPE(OSSL_PARAM *p, TYPE val);
 
- int OSSL_PARAM_get_BN(const OSSL_PARAM *p, BIGNUM **val);
- int OSSL_PARAM_set_BN(OSSL_PARAM *p, const BIGNUM *val);
+int OSSL_PARAM_get_BN(const OSSL_PARAM *p, BIGNUM **val);
+int OSSL_PARAM_set_BN(OSSL_PARAM *p, const BIGNUM *val);
 
- int OSSL_PARAM_get_utf8_string(const OSSL_PARAM *p, char **val,
-                                size_t max_len);
- int OSSL_PARAM_set_utf8_string(OSSL_PARAM *p, const char *val);
+int OSSL_PARAM_get_utf8_string(const OSSL_PARAM *p, char **val,
+                               size_t max_len);
+int OSSL_PARAM_set_utf8_string(OSSL_PARAM *p, const char *val);
 
- int OSSL_PARAM_get_octet_string(const OSSL_PARAM *p, void **val,
-                                 size_t max_len, size_t *used_len);
- int OSSL_PARAM_set_octet_string(OSSL_PARAM *p, const void *val, size_t len);
+int OSSL_PARAM_get_octet_string(const OSSL_PARAM *p, void **val,
+                                size_t max_len, size_t *used_len);
+int OSSL_PARAM_set_octet_string(OSSL_PARAM *p, const void *val, size_t len);
 
- int OSSL_PARAM_get_utf8_ptr(const OSSL_PARAM *p, const char **val);
- int OSSL_PARAM_set_utf8_ptr(OSSL_PARAM *p, const char *val);
+int OSSL_PARAM_get_utf8_ptr(const OSSL_PARAM *p, const char **val);
+int OSSL_PARAM_set_utf8_ptr(OSSL_PARAM *p, const char *val);
 
- int OSSL_PARAM_get_octet_ptr(const OSSL_PARAM *p, const void **val,
-                              size_t *used_len);
- int OSSL_PARAM_set_octet_ptr(OSSL_PARAM *p, const void *val,
-                              size_t used_len);
+int OSSL_PARAM_get_octet_ptr(const OSSL_PARAM *p, const void **val,
+                             size_t *used_len);
+int OSSL_PARAM_set_octet_ptr(OSSL_PARAM *p, const void *val,
+                             size_t used_len);
 
- int OSSL_PARAM_get_utf8_string_ptr(const OSSL_PARAM *p, const char **val);
- int OSSL_PARAM_get_octet_string_ptr(const OSSL_PARAM *p, const void **val,
-                                     size_t *used_len);
+int OSSL_PARAM_get_utf8_string_ptr(const OSSL_PARAM *p, const char **val);
+int OSSL_PARAM_get_octet_string_ptr(const OSSL_PARAM *p, const void **val,
+                                    size_t *used_len);
 
- int OSSL_PARAM_modified(const OSSL_PARAM *param);
- void OSSL_PARAM_set_all_unmodified(OSSL_PARAM *params);</code></pre>
+int OSSL_PARAM_modified(const OSSL_PARAM *param);
+void OSSL_PARAM_set_all_unmodified(OSSL_PARAM *params);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -230,41 +230,41 @@
 
 <p>This example is for setting parameters on some object:</p>
 
-<pre><code>    #include &lt;openssl/core.h&gt;
+<pre><code>#include &lt;openssl/core.h&gt;
 
-    const char *foo = &quot;some string&quot;;
-    size_t foo_l = strlen(foo);
-    const char bar[] = &quot;some other string&quot;;
-    const OSSL_PARAM set[] = {
-        OSSL_PARAM_utf8_ptr(&quot;foo&quot;, &amp;foo, foo_l),
-        OSSL_PARAM_utf8_string(&quot;bar&quot;, bar, sizeof(bar) - 1),
-        OSSL_PARAM_END
-    };</code></pre>
+const char *foo = &quot;some string&quot;;
+size_t foo_l = strlen(foo);
+const char bar[] = &quot;some other string&quot;;
+const OSSL_PARAM set[] = {
+    OSSL_PARAM_utf8_ptr(&quot;foo&quot;, &amp;foo, foo_l),
+    OSSL_PARAM_utf8_string(&quot;bar&quot;, bar, sizeof(bar) - 1),
+    OSSL_PARAM_END
+};</code></pre>
 
 <h2 id="Example-2">Example 2</h2>
 
 <p>This example is for requesting parameters on some object, and also demonstrates that the requester isn&#39;t obligated to request all available parameters:</p>
 
-<pre><code>    const char *foo = NULL;
-    char bar[1024];
-    OSSL_PARAM request[] = {
-        OSSL_PARAM_utf8_ptr(&quot;foo&quot;, &amp;foo, 0),
-        OSSL_PARAM_utf8_string(&quot;bar&quot;, bar, sizeof(bar)),
-        OSSL_PARAM_END
-    };</code></pre>
+<pre><code>const char *foo = NULL;
+char bar[1024];
+OSSL_PARAM request[] = {
+    OSSL_PARAM_utf8_ptr(&quot;foo&quot;, &amp;foo, 0),
+    OSSL_PARAM_utf8_string(&quot;bar&quot;, bar, sizeof(bar)),
+    OSSL_PARAM_END
+};</code></pre>
 
 <p>A <i>responder</i> that receives this array (as <code>params</code> in this example) could fill in the parameters like this:</p>
 
-<pre><code>    /* OSSL_PARAM *params */
+<pre><code>/* OSSL_PARAM *params */
 
-    OSSL_PARAM *p;
+OSSL_PARAM *p;
 
-    if ((p = OSSL_PARAM_locate(params, &quot;foo&quot;)) != NULL)
-        OSSL_PARAM_set_utf8_ptr(p, &quot;foo value&quot;);
-    if ((p = OSSL_PARAM_locate(params, &quot;bar&quot;)) != NULL)
-        OSSL_PARAM_set_utf8_string(p, &quot;bar value&quot;);
-    if ((p = OSSL_PARAM_locate(params, &quot;cookie&quot;)) != NULL)
-        OSSL_PARAM_set_utf8_ptr(p, &quot;cookie value&quot;);</code></pre>
+if ((p = OSSL_PARAM_locate(params, &quot;foo&quot;)) != NULL)
+    OSSL_PARAM_set_utf8_ptr(p, &quot;foo value&quot;);
+if ((p = OSSL_PARAM_locate(params, &quot;bar&quot;)) != NULL)
+    OSSL_PARAM_set_utf8_string(p, &quot;bar value&quot;);
+if ((p = OSSL_PARAM_locate(params, &quot;cookie&quot;)) != NULL)
+    OSSL_PARAM_set_utf8_ptr(p, &quot;cookie value&quot;);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>X509_LOOKUP_hash_dir</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -33,19 +33,19 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/x509_vfy.h&gt;
+<pre><code>#include &lt;openssl/x509_vfy.h&gt;
 
- X509_LOOKUP_METHOD *X509_LOOKUP_hash_dir(void);
- X509_LOOKUP_METHOD *X509_LOOKUP_file(void);
- X509_LOOKUP_METHOD *X509_LOOKUP_store(void);
+X509_LOOKUP_METHOD *X509_LOOKUP_hash_dir(void);
+X509_LOOKUP_METHOD *X509_LOOKUP_file(void);
+X509_LOOKUP_METHOD *X509_LOOKUP_store(void);
 
- int X509_load_cert_file_ex(X509_LOOKUP *ctx, const char *file, int type,
-                            OSSL_LIB_CTX *libctx, const char *propq);
- int X509_load_cert_file(X509_LOOKUP *ctx, const char *file, int type);
- int X509_load_crl_file(X509_LOOKUP *ctx, const char *file, int type);
- int X509_load_cert_crl_file_ex(X509_LOOKUP *ctx, const char *file, int type,
-                                OSSL_LIB_CTX *libctx, const char *propq);
- int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</code></pre>
+int X509_load_cert_file_ex(X509_LOOKUP *ctx, const char *file, int type,
+                           OSSL_LIB_CTX *libctx, const char *propq);
+int X509_load_cert_file(X509_LOOKUP *ctx, const char *file, int type);
+int X509_load_crl_file(X509_LOOKUP *ctx, const char *file, int type);
+int X509_load_cert_crl_file_ex(X509_LOOKUP *ctx, const char *file, int type,
+                               OSSL_LIB_CTX *libctx, const char *propq);
+int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

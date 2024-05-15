@@ -4,7 +4,7 @@
 <head>
 <title>provider-keymgmt</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -36,59 +36,59 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core_dispatch.h&gt;
+<pre><code>#include &lt;openssl/core_dispatch.h&gt;
 
- /*
-  * None of these are actual functions, but are displayed like this for
-  * the function signatures for functions that are offered as function
-  * pointers in OSSL_DISPATCH arrays.
-  */
+/*
+ * None of these are actual functions, but are displayed like this for
+ * the function signatures for functions that are offered as function
+ * pointers in OSSL_DISPATCH arrays.
+ */
 
- /* Key object (keydata) creation and destruction */
- void *OSSL_FUNC_keymgmt_new(void *provctx);
- void OSSL_FUNC_keymgmt_free(void *keydata);
+/* Key object (keydata) creation and destruction */
+void *OSSL_FUNC_keymgmt_new(void *provctx);
+void OSSL_FUNC_keymgmt_free(void *keydata);
 
- /* Generation, a more complex constructor */
- void *OSSL_FUNC_keymgmt_gen_init(void *provctx, int selection,
-                                  const OSSL_PARAM params[]);
- int OSSL_FUNC_keymgmt_gen_set_template(void *genctx, void *template);
- int OSSL_FUNC_keymgmt_gen_set_params(void *genctx, const OSSL_PARAM params[]);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_gen_settable_params(void *genctx,
-                                                         void *provctx);
- void *OSSL_FUNC_keymgmt_gen(void *genctx, OSSL_CALLBACK *cb, void *cbarg);
- void OSSL_FUNC_keymgmt_gen_cleanup(void *genctx);
+/* Generation, a more complex constructor */
+void *OSSL_FUNC_keymgmt_gen_init(void *provctx, int selection,
+                                 const OSSL_PARAM params[]);
+int OSSL_FUNC_keymgmt_gen_set_template(void *genctx, void *template);
+int OSSL_FUNC_keymgmt_gen_set_params(void *genctx, const OSSL_PARAM params[]);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_gen_settable_params(void *genctx,
+                                                        void *provctx);
+void *OSSL_FUNC_keymgmt_gen(void *genctx, OSSL_CALLBACK *cb, void *cbarg);
+void OSSL_FUNC_keymgmt_gen_cleanup(void *genctx);
 
- /* Key loading by object reference, also a constructor */
- void *OSSL_FUNC_keymgmt_load(const void *reference, size_t *reference_sz);
+/* Key loading by object reference, also a constructor */
+void *OSSL_FUNC_keymgmt_load(const void *reference, size_t *reference_sz);
 
- /* Key object information */
- int OSSL_FUNC_keymgmt_get_params(void *keydata, OSSL_PARAM params[]);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_gettable_params(void *provctx);
- int OSSL_FUNC_keymgmt_set_params(void *keydata, const OSSL_PARAM params[]);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_settable_params(void *provctx);
+/* Key object information */
+int OSSL_FUNC_keymgmt_get_params(void *keydata, OSSL_PARAM params[]);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_gettable_params(void *provctx);
+int OSSL_FUNC_keymgmt_set_params(void *keydata, const OSSL_PARAM params[]);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_settable_params(void *provctx);
 
- /* Key object content checks */
- int OSSL_FUNC_keymgmt_has(const void *keydata, int selection);
- int OSSL_FUNC_keymgmt_match(const void *keydata1, const void *keydata2,
-                             int selection);
+/* Key object content checks */
+int OSSL_FUNC_keymgmt_has(const void *keydata, int selection);
+int OSSL_FUNC_keymgmt_match(const void *keydata1, const void *keydata2,
+                            int selection);
 
- /* Discovery of supported operations */
- const char *OSSL_FUNC_keymgmt_query_operation_name(int operation_id);
+/* Discovery of supported operations */
+const char *OSSL_FUNC_keymgmt_query_operation_name(int operation_id);
 
- /* Key object import and export functions */
- int OSSL_FUNC_keymgmt_import(void *keydata, int selection, const OSSL_PARAM params[]);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_import_types(int selection);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_import_types_ex(void *provctx, int selection);
- int OSSL_FUNC_keymgmt_export(void *keydata, int selection,
-                              OSSL_CALLBACK *param_cb, void *cbarg);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_export_types(int selection);
- const OSSL_PARAM *OSSL_FUNC_keymgmt_export_types_ex(void *provctx, int selection);
+/* Key object import and export functions */
+int OSSL_FUNC_keymgmt_import(void *keydata, int selection, const OSSL_PARAM params[]);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_import_types(int selection);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_import_types_ex(void *provctx, int selection);
+int OSSL_FUNC_keymgmt_export(void *keydata, int selection,
+                             OSSL_CALLBACK *param_cb, void *cbarg);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_export_types(int selection);
+const OSSL_PARAM *OSSL_FUNC_keymgmt_export_types_ex(void *provctx, int selection);
 
- /* Key object duplication, a constructor */
- void *OSSL_FUNC_keymgmt_dup(const void *keydata_from, int selection);
+/* Key object duplication, a constructor */
+void *OSSL_FUNC_keymgmt_dup(const void *keydata_from, int selection);
 
- /* Key object validation */
- int OSSL_FUNC_keymgmt_validate(const void *keydata, int selection, int checktype);</code></pre>
+/* Key object validation */
+int OSSL_FUNC_keymgmt_validate(const void *keydata, int selection, int checktype);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -102,43 +102,43 @@
 
 <p>All these &quot;functions&quot; have a corresponding function type definition named <b>OSSL_FUNC_{name}_fn</b>, and a helper function to retrieve the function pointer from a <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> element named <b>OSSL_FUNC_{name}</b>. For example, the &quot;function&quot; OSSL_FUNC_keymgmt_new() has these:</p>
 
-<pre><code> typedef void *(OSSL_FUNC_keymgmt_new_fn)(void *provctx);
- static ossl_inline OSSL_FUNC_keymgmt_new_fn
-     OSSL_FUNC_keymgmt_new(const OSSL_DISPATCH *opf);</code></pre>
+<pre><code>typedef void *(OSSL_FUNC_keymgmt_new_fn)(void *provctx);
+static ossl_inline OSSL_FUNC_keymgmt_new_fn
+    OSSL_FUNC_keymgmt_new(const OSSL_DISPATCH *opf);</code></pre>
 
 <p><a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> arrays are indexed by numbers that are provided as macros in <a href="../man7/openssl-core_dispatch.h.html">openssl-core_dispatch.h(7)</a>, as follows:</p>
 
-<pre><code> OSSL_FUNC_keymgmt_new                  OSSL_FUNC_KEYMGMT_NEW
- OSSL_FUNC_keymgmt_free                 OSSL_FUNC_KEYMGMT_FREE
+<pre><code>OSSL_FUNC_keymgmt_new                  OSSL_FUNC_KEYMGMT_NEW
+OSSL_FUNC_keymgmt_free                 OSSL_FUNC_KEYMGMT_FREE
 
- OSSL_FUNC_keymgmt_gen_init             OSSL_FUNC_KEYMGMT_GEN_INIT
- OSSL_FUNC_keymgmt_gen_set_template     OSSL_FUNC_KEYMGMT_GEN_SET_TEMPLATE
- OSSL_FUNC_keymgmt_gen_set_params       OSSL_FUNC_KEYMGMT_GEN_SET_PARAMS
- OSSL_FUNC_keymgmt_gen_settable_params  OSSL_FUNC_KEYMGMT_GEN_SETTABLE_PARAMS
- OSSL_FUNC_keymgmt_gen                  OSSL_FUNC_KEYMGMT_GEN
- OSSL_FUNC_keymgmt_gen_cleanup          OSSL_FUNC_KEYMGMT_GEN_CLEANUP
+OSSL_FUNC_keymgmt_gen_init             OSSL_FUNC_KEYMGMT_GEN_INIT
+OSSL_FUNC_keymgmt_gen_set_template     OSSL_FUNC_KEYMGMT_GEN_SET_TEMPLATE
+OSSL_FUNC_keymgmt_gen_set_params       OSSL_FUNC_KEYMGMT_GEN_SET_PARAMS
+OSSL_FUNC_keymgmt_gen_settable_params  OSSL_FUNC_KEYMGMT_GEN_SETTABLE_PARAMS
+OSSL_FUNC_keymgmt_gen                  OSSL_FUNC_KEYMGMT_GEN
+OSSL_FUNC_keymgmt_gen_cleanup          OSSL_FUNC_KEYMGMT_GEN_CLEANUP
 
- OSSL_FUNC_keymgmt_load                 OSSL_FUNC_KEYMGMT_LOAD
+OSSL_FUNC_keymgmt_load                 OSSL_FUNC_KEYMGMT_LOAD
 
- OSSL_FUNC_keymgmt_get_params           OSSL_FUNC_KEYMGMT_GET_PARAMS
- OSSL_FUNC_keymgmt_gettable_params      OSSL_FUNC_KEYMGMT_GETTABLE_PARAMS
- OSSL_FUNC_keymgmt_set_params           OSSL_FUNC_KEYMGMT_SET_PARAMS
- OSSL_FUNC_keymgmt_settable_params      OSSL_FUNC_KEYMGMT_SETTABLE_PARAMS
+OSSL_FUNC_keymgmt_get_params           OSSL_FUNC_KEYMGMT_GET_PARAMS
+OSSL_FUNC_keymgmt_gettable_params      OSSL_FUNC_KEYMGMT_GETTABLE_PARAMS
+OSSL_FUNC_keymgmt_set_params           OSSL_FUNC_KEYMGMT_SET_PARAMS
+OSSL_FUNC_keymgmt_settable_params      OSSL_FUNC_KEYMGMT_SETTABLE_PARAMS
 
- OSSL_FUNC_keymgmt_query_operation_name OSSL_FUNC_KEYMGMT_QUERY_OPERATION_NAME
+OSSL_FUNC_keymgmt_query_operation_name OSSL_FUNC_KEYMGMT_QUERY_OPERATION_NAME
 
- OSSL_FUNC_keymgmt_has                  OSSL_FUNC_KEYMGMT_HAS
- OSSL_FUNC_keymgmt_validate             OSSL_FUNC_KEYMGMT_VALIDATE
- OSSL_FUNC_keymgmt_match                OSSL_FUNC_KEYMGMT_MATCH
+OSSL_FUNC_keymgmt_has                  OSSL_FUNC_KEYMGMT_HAS
+OSSL_FUNC_keymgmt_validate             OSSL_FUNC_KEYMGMT_VALIDATE
+OSSL_FUNC_keymgmt_match                OSSL_FUNC_KEYMGMT_MATCH
 
- OSSL_FUNC_keymgmt_import               OSSL_FUNC_KEYMGMT_IMPORT
- OSSL_FUNC_keymgmt_import_types         OSSL_FUNC_KEYMGMT_IMPORT_TYPES
- OSSL_FUNC_keymgmt_import_types_ex      OSSL_FUNC_KEYMGMT_IMPORT_TYPES_EX
- OSSL_FUNC_keymgmt_export               OSSL_FUNC_KEYMGMT_EXPORT
- OSSL_FUNC_keymgmt_export_types         OSSL_FUNC_KEYMGMT_EXPORT_TYPES
- OSSL_FUNC_keymgmt_export_types_ex      OSSL_FUNC_KEYMGMT_EXPORT_TYPES_EX
+OSSL_FUNC_keymgmt_import               OSSL_FUNC_KEYMGMT_IMPORT
+OSSL_FUNC_keymgmt_import_types         OSSL_FUNC_KEYMGMT_IMPORT_TYPES
+OSSL_FUNC_keymgmt_import_types_ex      OSSL_FUNC_KEYMGMT_IMPORT_TYPES_EX
+OSSL_FUNC_keymgmt_export               OSSL_FUNC_KEYMGMT_EXPORT
+OSSL_FUNC_keymgmt_export_types         OSSL_FUNC_KEYMGMT_EXPORT_TYPES
+OSSL_FUNC_keymgmt_export_types_ex      OSSL_FUNC_KEYMGMT_EXPORT_TYPES_EX
 
- OSSL_FUNC_keymgmt_dup                  OSSL_FUNC_KEYMGMT_DUP</code></pre>
+OSSL_FUNC_keymgmt_dup                  OSSL_FUNC_KEYMGMT_DUP</code></pre>
 
 <h2 id="Key-Objects">Key Objects</h2>
 

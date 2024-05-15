@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_HPKE_CTX_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -46,68 +46,68 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/hpke.h&gt;
+<pre><code>#include &lt;openssl/hpke.h&gt;
 
- typedef struct {
-     uint16_t    kem_id;
-     uint16_t    kdf_id;
-     uint16_t    aead_id;
- } OSSL_HPKE_SUITE;
+typedef struct {
+    uint16_t    kem_id;
+    uint16_t    kdf_id;
+    uint16_t    aead_id;
+} OSSL_HPKE_SUITE;
 
- OSSL_HPKE_CTX *OSSL_HPKE_CTX_new(int mode, OSSL_HPKE_SUITE suite, int role,
-                                  OSSL_LIB_CTX *libctx, const char *propq);
- void OSSL_HPKE_CTX_free(OSSL_HPKE_CTX *ctx);
+OSSL_HPKE_CTX *OSSL_HPKE_CTX_new(int mode, OSSL_HPKE_SUITE suite, int role,
+                                 OSSL_LIB_CTX *libctx, const char *propq);
+void OSSL_HPKE_CTX_free(OSSL_HPKE_CTX *ctx);
 
- int OSSL_HPKE_encap(OSSL_HPKE_CTX *ctx,
-                     unsigned char *enc, size_t *enclen,
-                     const unsigned char *pub, size_t publen,
-                     const unsigned char *info, size_t infolen);
- int OSSL_HPKE_seal(OSSL_HPKE_CTX *ctx,
-                    unsigned char *ct, size_t *ctlen,
-                    const unsigned char *aad, size_t aadlen,
-                    const unsigned char *pt, size_t ptlen);
+int OSSL_HPKE_encap(OSSL_HPKE_CTX *ctx,
+                    unsigned char *enc, size_t *enclen,
+                    const unsigned char *pub, size_t publen,
+                    const unsigned char *info, size_t infolen);
+int OSSL_HPKE_seal(OSSL_HPKE_CTX *ctx,
+                   unsigned char *ct, size_t *ctlen,
+                   const unsigned char *aad, size_t aadlen,
+                   const unsigned char *pt, size_t ptlen);
 
- int OSSL_HPKE_keygen(OSSL_HPKE_SUITE suite,
-                      unsigned char *pub, size_t *publen, EVP_PKEY **priv,
-                      const unsigned char *ikm, size_t ikmlen,
-                      OSSL_LIB_CTX *libctx, const char *propq);
- int OSSL_HPKE_decap(OSSL_HPKE_CTX *ctx,
-                     const unsigned char *enc, size_t enclen,
-                     EVP_PKEY *recippriv,
-                     const unsigned char *info, size_t infolen);
- int OSSL_HPKE_open(OSSL_HPKE_CTX *ctx,
-                    unsigned char *pt, size_t *ptlen,
-                    const unsigned char *aad, size_t aadlen,
-                    const unsigned char *ct, size_t ctlen);
+int OSSL_HPKE_keygen(OSSL_HPKE_SUITE suite,
+                     unsigned char *pub, size_t *publen, EVP_PKEY **priv,
+                     const unsigned char *ikm, size_t ikmlen,
+                     OSSL_LIB_CTX *libctx, const char *propq);
+int OSSL_HPKE_decap(OSSL_HPKE_CTX *ctx,
+                    const unsigned char *enc, size_t enclen,
+                    EVP_PKEY *recippriv,
+                    const unsigned char *info, size_t infolen);
+int OSSL_HPKE_open(OSSL_HPKE_CTX *ctx,
+                   unsigned char *pt, size_t *ptlen,
+                   const unsigned char *aad, size_t aadlen,
+                   const unsigned char *ct, size_t ctlen);
 
- int OSSL_HPKE_export(OSSL_HPKE_CTX *ctx,
-                      unsigned char *secret, size_t secretlen,
-                      const unsigned char *label, size_t labellen);
+int OSSL_HPKE_export(OSSL_HPKE_CTX *ctx,
+                     unsigned char *secret, size_t secretlen,
+                     const unsigned char *label, size_t labellen);
 
- int OSSL_HPKE_CTX_set1_authpriv(OSSL_HPKE_CTX *ctx, EVP_PKEY *priv);
- int OSSL_HPKE_CTX_set1_authpub(OSSL_HPKE_CTX *ctx,
-                                unsigned char *pub, size_t publen);
- int OSSL_HPKE_CTX_set1_psk(OSSL_HPKE_CTX *ctx,
-                            const char *pskid,
-                            const unsigned char *psk, size_t psklen);
+int OSSL_HPKE_CTX_set1_authpriv(OSSL_HPKE_CTX *ctx, EVP_PKEY *priv);
+int OSSL_HPKE_CTX_set1_authpub(OSSL_HPKE_CTX *ctx,
+                               unsigned char *pub, size_t publen);
+int OSSL_HPKE_CTX_set1_psk(OSSL_HPKE_CTX *ctx,
+                           const char *pskid,
+                           const unsigned char *psk, size_t psklen);
 
- int OSSL_HPKE_CTX_get_seq(OSSL_HPKE_CTX *ctx, uint64_t *seq);
- int OSSL_HPKE_CTX_set_seq(OSSL_HPKE_CTX *ctx, uint64_t seq);
+int OSSL_HPKE_CTX_get_seq(OSSL_HPKE_CTX *ctx, uint64_t *seq);
+int OSSL_HPKE_CTX_set_seq(OSSL_HPKE_CTX *ctx, uint64_t seq);
 
- int OSSL_HPKE_CTX_set1_ikme(OSSL_HPKE_CTX *ctx,
-                             const unsigned char *ikme, size_t ikmelen);
+int OSSL_HPKE_CTX_set1_ikme(OSSL_HPKE_CTX *ctx,
+                            const unsigned char *ikme, size_t ikmelen);
 
- int OSSL_HPKE_suite_check(OSSL_HPKE_SUITE suite);
- int OSSL_HPKE_get_grease_value(const OSSL_HPKE_SUITE *suite_in,
-                                OSSL_HPKE_SUITE *suite,
-                                unsigned char *enc, size_t *enclen,
-                                unsigned char *ct, size_t ctlen,
-                                OSSL_LIB_CTX *libctx, const char *propq);
+int OSSL_HPKE_suite_check(OSSL_HPKE_SUITE suite);
+int OSSL_HPKE_get_grease_value(const OSSL_HPKE_SUITE *suite_in,
+                               OSSL_HPKE_SUITE *suite,
+                               unsigned char *enc, size_t *enclen,
+                               unsigned char *ct, size_t ctlen,
+                               OSSL_LIB_CTX *libctx, const char *propq);
 
- int OSSL_HPKE_str2suite(const char *str, OSSL_HPKE_SUITE *suite);
- size_t OSSL_HPKE_get_ciphertext_size(OSSL_HPKE_SUITE suite, size_t clearlen);
- size_t OSSL_HPKE_get_public_encap_size(OSSL_HPKE_SUITE suite);
- size_t OSSL_HPKE_get_recommended_ikmelen(OSSL_HPKE_SUITE suite);</code></pre>
+int OSSL_HPKE_str2suite(const char *str, OSSL_HPKE_SUITE *suite);
+size_t OSSL_HPKE_get_ciphertext_size(OSSL_HPKE_SUITE suite, size_t clearlen);
+size_t OSSL_HPKE_get_public_encap_size(OSSL_HPKE_SUITE suite);
+size_t OSSL_HPKE_get_recommended_ikmelen(OSSL_HPKE_SUITE suite);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -357,76 +357,76 @@
 
 <p>This example demonstrates a minimal round-trip using HPKE.</p>
 
-<pre><code>    #include &lt;stddef.h&gt;
-    #include &lt;string.h&gt;
-    #include &lt;openssl/hpke.h&gt;
-    #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+#include &lt;openssl/hpke.h&gt;
+#include &lt;openssl/evp.h&gt;
+
+/*
+ * this is big enough for this example, real code would need different
+ * handling
+ */
+#define LBUFSIZE 48
+
+/* Do a round-trip, generating a key, encrypting and decrypting */
+int main(int argc, char **argv)
+{
+    int ok = 0;
+    int hpke_mode = OSSL_HPKE_MODE_BASE;
+    OSSL_HPKE_SUITE hpke_suite = OSSL_HPKE_SUITE_DEFAULT;
+    OSSL_HPKE_CTX *sctx = NULL, *rctx = NULL;
+    EVP_PKEY *priv = NULL;
+    unsigned char pub[LBUFSIZE];
+    size_t publen = sizeof(pub);
+    unsigned char enc[LBUFSIZE];
+    size_t enclen = sizeof(enc);
+    unsigned char ct[LBUFSIZE];
+    size_t ctlen = sizeof(ct);
+    unsigned char clear[LBUFSIZE];
+    size_t clearlen = sizeof(clear);
+    const unsigned char *pt = &quot;a message not in a bottle&quot;;
+    size_t ptlen = strlen((char *)pt);
+    const unsigned char *info = &quot;Some info&quot;;
+    size_t infolen = strlen((char *)info);
+    unsigned char aad[] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    size_t aadlen = sizeof(aad);
 
     /*
-     * this is big enough for this example, real code would need different
-     * handling
+     * Generate receiver&#39;s key pair.
+     * The receiver gives this public key to the sender.
      */
-    #define LBUFSIZE 48
+    if (OSSL_HPKE_keygen(hpke_suite, pub, &amp;publen, &amp;priv,
+                         NULL, 0, NULL, NULL) != 1)
+        goto err;
 
-    /* Do a round-trip, generating a key, encrypting and decrypting */
-    int main(int argc, char **argv)
-    {
-        int ok = 0;
-        int hpke_mode = OSSL_HPKE_MODE_BASE;
-        OSSL_HPKE_SUITE hpke_suite = OSSL_HPKE_SUITE_DEFAULT;
-        OSSL_HPKE_CTX *sctx = NULL, *rctx = NULL;
-        EVP_PKEY *priv = NULL;
-        unsigned char pub[LBUFSIZE];
-        size_t publen = sizeof(pub);
-        unsigned char enc[LBUFSIZE];
-        size_t enclen = sizeof(enc);
-        unsigned char ct[LBUFSIZE];
-        size_t ctlen = sizeof(ct);
-        unsigned char clear[LBUFSIZE];
-        size_t clearlen = sizeof(clear);
-        const unsigned char *pt = &quot;a message not in a bottle&quot;;
-        size_t ptlen = strlen((char *)pt);
-        const unsigned char *info = &quot;Some info&quot;;
-        size_t infolen = strlen((char *)info);
-        unsigned char aad[] = { 1, 2, 3, 4, 5, 6, 7, 8 };
-        size_t aadlen = sizeof(aad);
+    /* sender&#39;s actions - encrypt data using the receivers public key */
+    if ((sctx = OSSL_HPKE_CTX_new(hpke_mode, hpke_suite,
+                                  OSSL_HPKE_ROLE_SENDER,
+                                  NULL, NULL)) == NULL)
+        goto err;
+    if (OSSL_HPKE_encap(sctx, enc, &amp;enclen, pub, publen, info, infolen) != 1)
+        goto err;
+    if (OSSL_HPKE_seal(sctx, ct, &amp;ctlen, aad, aadlen, pt, ptlen) != 1)
+        goto err;
 
-        /*
-         * Generate receiver&#39;s key pair.
-         * The receiver gives this public key to the sender.
-         */
-        if (OSSL_HPKE_keygen(hpke_suite, pub, &amp;publen, &amp;priv,
-                             NULL, 0, NULL, NULL) != 1)
-            goto err;
-
-        /* sender&#39;s actions - encrypt data using the receivers public key */
-        if ((sctx = OSSL_HPKE_CTX_new(hpke_mode, hpke_suite,
-                                      OSSL_HPKE_ROLE_SENDER,
-                                      NULL, NULL)) == NULL)
-            goto err;
-        if (OSSL_HPKE_encap(sctx, enc, &amp;enclen, pub, publen, info, infolen) != 1)
-            goto err;
-        if (OSSL_HPKE_seal(sctx, ct, &amp;ctlen, aad, aadlen, pt, ptlen) != 1)
-            goto err;
-
-        /* receiver&#39;s actions - decrypt data using the receivers private key */
-        if ((rctx = OSSL_HPKE_CTX_new(hpke_mode, hpke_suite,
-                                      OSSL_HPKE_ROLE_RECEIVER,
-                                      NULL, NULL)) == NULL)
-            goto err;
-        if (OSSL_HPKE_decap(rctx, enc, enclen, priv, info, infolen) != 1)
-            goto err;
-        if (OSSL_HPKE_open(rctx, clear, &amp;clearlen, aad, aadlen, ct, ctlen) != 1)
-            goto err;
-        ok = 1;
-    err:
-        /* clean up */
-        printf(ok ? &quot;All Good!\n&quot; : &quot;Error!\n&quot;);
-        OSSL_HPKE_CTX_free(rctx);
-        OSSL_HPKE_CTX_free(sctx);
-        EVP_PKEY_free(priv);
-        return 0;
-    }</code></pre>
+    /* receiver&#39;s actions - decrypt data using the receivers private key */
+    if ((rctx = OSSL_HPKE_CTX_new(hpke_mode, hpke_suite,
+                                  OSSL_HPKE_ROLE_RECEIVER,
+                                  NULL, NULL)) == NULL)
+        goto err;
+    if (OSSL_HPKE_decap(rctx, enc, enclen, priv, info, infolen) != 1)
+        goto err;
+    if (OSSL_HPKE_open(rctx, clear, &amp;clearlen, aad, aadlen, ct, ctlen) != 1)
+        goto err;
+    ok = 1;
+err:
+    /* clean up */
+    printf(ok ? &quot;All Good!\n&quot; : &quot;Error!\n&quot;);
+    OSSL_HPKE_CTX_free(rctx);
+    OSSL_HPKE_CTX_free(sctx);
+    EVP_PKEY_free(priv);
+    return 0;
+}</code></pre>
 
 <h1 id="WARNINGS">WARNINGS</h1>
 

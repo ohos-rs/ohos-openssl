@@ -4,7 +4,7 @@
 <head>
 <title>BIO_s_core</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,11 +27,11 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- const BIO_METHOD *BIO_s_core(void);
+const BIO_METHOD *BIO_s_core(void);
 
- BIO *BIO_new_from_core_bio(OSSL_LIB_CTX *libctx, OSSL_CORE_BIO *corebio);</code></pre>
+BIO *BIO_new_from_core_bio(OSSL_LIB_CTX *libctx, OSSL_CORE_BIO *corebio);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -57,17 +57,17 @@
 
 <p>Create a core BIO and write some data to it:</p>
 
-<pre><code> int some_function(OSSL_LIB_CTX *libctx, OSSL_CORE_BIO *corebio) {
-     BIO *cbio = BIO_new_from_core_bio(libctx, corebio);
+<pre><code>int some_function(OSSL_LIB_CTX *libctx, OSSL_CORE_BIO *corebio) {
+    BIO *cbio = BIO_new_from_core_bio(libctx, corebio);
 
-     if (cbio == NULL)
-         return 0;
+    if (cbio == NULL)
+        return 0;
 
-     BIO_puts(cbio, &quot;Hello World\n&quot;);
+    BIO_puts(cbio, &quot;Hello World\n&quot;);
 
-     BIO_free(cbio);
-     return 1;
- }</code></pre>
+    BIO_free(cbio);
+    return 1;
+}</code></pre>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 

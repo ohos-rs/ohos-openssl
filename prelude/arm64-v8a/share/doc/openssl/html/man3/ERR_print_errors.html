@@ -4,7 +4,7 @@
 <head>
 <title>ERR_print_errors</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -26,12 +26,12 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/err.h&gt;
+<pre><code>#include &lt;openssl/err.h&gt;
 
- void ERR_print_errors(BIO *bp);
- void ERR_print_errors_fp(FILE *fp);
- void ERR_print_errors_cb(int (*cb)(const char *str, size_t len, void *u),
-                          void *u);</code></pre>
+void ERR_print_errors(BIO *bp);
+void ERR_print_errors_fp(FILE *fp);
+void ERR_print_errors_cb(int (*cb)(const char *str, size_t len, void *u),
+                         void *u);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -43,7 +43,7 @@
 
 <p>The error strings will have the following format:</p>
 
-<pre><code> [pid]:error:[error code]:[library name]:[function name]:[reason string]:[filename]:[line]:[optional text message]</code></pre>
+<pre><code>[pid]:error:[error code]:[library name]:[function name]:[reason string]:[filename]:[line]:[optional text message]</code></pre>
 
 <p><i>error code</i> is an 8 digit hexadecimal number. <i>library name</i>, <i>function name</i> and <i>reason string</i> are ASCII text, as is <i>optional text message</i> if one was set for the respective error code.</p>
 

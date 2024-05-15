@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-TLS1_PRF</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -77,8 +77,8 @@
 
 <p>A context for the TLS PRF can be obtained by calling:</p>
 
-<pre><code> EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;TLS1-PRF&quot;, NULL);
- EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
+<pre><code>EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;TLS1-PRF&quot;, NULL);
+EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
 
 <p>The digest, secret value and seed must be set before a key is derived otherwise an error will occur.</p>
 
@@ -88,26 +88,26 @@
 
 <p>This example derives 10 bytes using SHA-256 with the secret key &quot;secret&quot; and seed value &quot;seed&quot;:</p>
 
-<pre><code> EVP_KDF *kdf;
- EVP_KDF_CTX *kctx;
- unsigned char out[10];
- OSSL_PARAM params[4], *p = params;
+<pre><code>EVP_KDF *kdf;
+EVP_KDF_CTX *kctx;
+unsigned char out[10];
+OSSL_PARAM params[4], *p = params;
 
- kdf = EVP_KDF_fetch(NULL, &quot;TLS1-PRF&quot;, NULL);
- kctx = EVP_KDF_CTX_new(kdf);
- EVP_KDF_free(kdf);
+kdf = EVP_KDF_fetch(NULL, &quot;TLS1-PRF&quot;, NULL);
+kctx = EVP_KDF_CTX_new(kdf);
+EVP_KDF_free(kdf);
 
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
-                                         SN_sha256, strlen(SN_sha256));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SECRET,
-                                          &quot;secret&quot;, (size_t)6);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SEED,
-                                          &quot;seed&quot;, (size_t)4);
- *p = OSSL_PARAM_construct_end();
- if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0) {
-     error(&quot;EVP_KDF_derive&quot;);
- }
- EVP_KDF_CTX_free(kctx);</code></pre>
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
+                                        SN_sha256, strlen(SN_sha256));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SECRET,
+                                         &quot;secret&quot;, (size_t)6);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SEED,
+                                         &quot;seed&quot;, (size_t)4);
+*p = OSSL_PARAM_construct_end();
+if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0) {
+    error(&quot;EVP_KDF_derive&quot;);
+}
+EVP_KDF_CTX_free(kctx);</code></pre>
 
 <h1 id="CONFORMING-TO">CONFORMING TO</h1>
 

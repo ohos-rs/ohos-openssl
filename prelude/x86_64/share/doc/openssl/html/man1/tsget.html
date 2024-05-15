@@ -4,7 +4,7 @@
 <head>
 <title>tsget</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -36,15 +36,15 @@
 
 <p>This command sends the following HTTP request for each timestamp request:</p>
 
-<pre><code>        POST url HTTP/1.1
-        User-Agent: OpenTSA tsget.pl/&lt;version&gt;
-        Host: &lt;host&gt;:&lt;port&gt;
-        Pragma: no-cache
-        Content-Type: application/timestamp-query
-        Accept: application/timestamp-reply
-        Content-Length: length of body
+<pre><code>POST url HTTP/1.1
+User-Agent: OpenTSA tsget.pl/&lt;version&gt;
+Host: &lt;host&gt;:&lt;port&gt;
+Pragma: no-cache
+Content-Type: application/timestamp-query
+Accept: application/timestamp-reply
+Content-Length: length of body
 
-        ...binary request specified by the user...</code></pre>
+...binary request specified by the user...</code></pre>
 
 <p>It expects a response of type application/timestamp-reply, which is written to a file without any interpretation.</p>
 
@@ -142,35 +142,35 @@
 
 <p>Get a timestamp response for <i>file1.tsq</i> over HTTP, output is written to <i>file1.tsr</i>:</p>
 
-<pre><code>  tsget -h http://tsa.opentsa.org:8080/tsa file1.tsq</code></pre>
+<pre><code>tsget -h http://tsa.opentsa.org:8080/tsa file1.tsq</code></pre>
 
 <p>Get a timestamp response for <i>file1.tsq</i> and <i>file2.tsq</i> over HTTP showing progress, output is written to <i>file1.reply</i> and <i>file2.reply</i> respectively:</p>
 
-<pre><code>  tsget -h http://tsa.opentsa.org:8080/tsa -v -e .reply \
-        file1.tsq file2.tsq</code></pre>
+<pre><code>tsget -h http://tsa.opentsa.org:8080/tsa -v -e .reply \
+      file1.tsq file2.tsq</code></pre>
 
 <p>Create a timestamp request, write it to <i>file3.tsq</i>, send it to the server and write the response to <i>file3.tsr</i>:</p>
 
-<pre><code>  openssl ts -query -data file3.txt -cert | tee file3.tsq \
-        | tsget -h http://tsa.opentsa.org:8080/tsa \
-        -o file3.tsr</code></pre>
+<pre><code>openssl ts -query -data file3.txt -cert | tee file3.tsq \
+      | tsget -h http://tsa.opentsa.org:8080/tsa \
+      -o file3.tsr</code></pre>
 
 <p>Get a timestamp response for <i>file1.tsq</i> over HTTPS without client authentication:</p>
 
-<pre><code>  tsget -h https://tsa.opentsa.org:8443/tsa \
-        -C cacerts.pem file1.tsq</code></pre>
+<pre><code>tsget -h https://tsa.opentsa.org:8443/tsa \
+      -C cacerts.pem file1.tsq</code></pre>
 
 <p>Get a timestamp response for <i>file1.tsq</i> over HTTPS with certificate-based client authentication (it will ask for the passphrase if <i>client_key.pem</i> is protected):</p>
 
-<pre><code>  tsget -h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \
-        -k client_key.pem -c client_cert.pem file1.tsq</code></pre>
+<pre><code>tsget -h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \
+      -k client_key.pem -c client_cert.pem file1.tsq</code></pre>
 
 <p>You can shorten the previous command line if you make use of the <b>TSGET</b> environment variable. The following commands do the same as the previous example:</p>
 
-<pre><code>  TSGET=&#39;-h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \
-        -k client_key.pem -c client_cert.pem&#39;
-  export TSGET
-  tsget file1.tsq</code></pre>
+<pre><code>TSGET=&#39;-h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \
+      -k client_key.pem -c client_cert.pem&#39;
+export TSGET
+tsget file1.tsq</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

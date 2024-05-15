@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KEYEXCH_free</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,24 +27,24 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- EVP_KEYEXCH *EVP_KEYEXCH_fetch(OSSL_LIB_CTX *ctx, const char *algorithm,
-                                const char *properties);
- void EVP_KEYEXCH_free(EVP_KEYEXCH *exchange);
- int EVP_KEYEXCH_up_ref(EVP_KEYEXCH *exchange);
- OSSL_PROVIDER *EVP_KEYEXCH_get0_provider(const EVP_KEYEXCH *exchange);
- int EVP_KEYEXCH_is_a(const EVP_KEYEXCH *exchange, const char *name);
- const char *EVP_KEYEXCH_get0_name(const EVP_KEYEXCH *exchange);
- void EVP_KEYEXCH_do_all_provided(OSSL_LIB_CTX *libctx,
-                                  void (*fn)(EVP_KEYEXCH *exchange, void *arg),
-                                  void *arg);
- int EVP_KEYEXCH_names_do_all(const EVP_KEYEXCH *exchange,
-                              void (*fn)(const char *name, void *data),
-                              void *data);
- const char *EVP_KEYEXCH_get0_description(const EVP_KEYEXCH *keyexch);
- const OSSL_PARAM *EVP_KEYEXCH_gettable_ctx_params(const EVP_KEYEXCH *keyexch);
- const OSSL_PARAM *EVP_KEYEXCH_settable_ctx_params(const EVP_KEYEXCH *keyexch);</code></pre>
+EVP_KEYEXCH *EVP_KEYEXCH_fetch(OSSL_LIB_CTX *ctx, const char *algorithm,
+                               const char *properties);
+void EVP_KEYEXCH_free(EVP_KEYEXCH *exchange);
+int EVP_KEYEXCH_up_ref(EVP_KEYEXCH *exchange);
+OSSL_PROVIDER *EVP_KEYEXCH_get0_provider(const EVP_KEYEXCH *exchange);
+int EVP_KEYEXCH_is_a(const EVP_KEYEXCH *exchange, const char *name);
+const char *EVP_KEYEXCH_get0_name(const EVP_KEYEXCH *exchange);
+void EVP_KEYEXCH_do_all_provided(OSSL_LIB_CTX *libctx,
+                                 void (*fn)(EVP_KEYEXCH *exchange, void *arg),
+                                 void *arg);
+int EVP_KEYEXCH_names_do_all(const EVP_KEYEXCH *exchange,
+                             void (*fn)(const char *name, void *data),
+                             void *data);
+const char *EVP_KEYEXCH_get0_description(const EVP_KEYEXCH *keyexch);
+const OSSL_PARAM *EVP_KEYEXCH_gettable_ctx_params(const EVP_KEYEXCH *keyexch);
+const OSSL_PARAM *EVP_KEYEXCH_settable_ctx_params(const EVP_KEYEXCH *keyexch);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

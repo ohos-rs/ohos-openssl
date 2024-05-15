@@ -4,7 +4,7 @@
 <head>
 <title>provider-keyexch</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,34 +34,34 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core_dispatch.h&gt;
- #include &lt;openssl/core_names.h&gt;
+<pre><code>#include &lt;openssl/core_dispatch.h&gt;
+#include &lt;openssl/core_names.h&gt;
 
- /*
-  * None of these are actual functions, but are displayed like this for
-  * the function signatures for functions that are offered as function
-  * pointers in OSSL_DISPATCH arrays.
-  */
+/*
+ * None of these are actual functions, but are displayed like this for
+ * the function signatures for functions that are offered as function
+ * pointers in OSSL_DISPATCH arrays.
+ */
 
- /* Context management */
- void *OSSL_FUNC_keyexch_newctx(void *provctx);
- void OSSL_FUNC_keyexch_freectx(void *ctx);
- void *OSSL_FUNC_keyexch_dupctx(void *ctx);
+/* Context management */
+void *OSSL_FUNC_keyexch_newctx(void *provctx);
+void OSSL_FUNC_keyexch_freectx(void *ctx);
+void *OSSL_FUNC_keyexch_dupctx(void *ctx);
 
- /* Shared secret derivation */
- int OSSL_FUNC_keyexch_init(void *ctx, void *provkey,
-                            const OSSL_PARAM params[]);
- int OSSL_FUNC_keyexch_set_peer(void *ctx, void *provkey);
- int OSSL_FUNC_keyexch_derive(void *ctx, unsigned char *secret, size_t *secretlen,
-                              size_t outlen);
+/* Shared secret derivation */
+int OSSL_FUNC_keyexch_init(void *ctx, void *provkey,
+                           const OSSL_PARAM params[]);
+int OSSL_FUNC_keyexch_set_peer(void *ctx, void *provkey);
+int OSSL_FUNC_keyexch_derive(void *ctx, unsigned char *secret, size_t *secretlen,
+                             size_t outlen);
 
- /* Key Exchange parameters */
- int OSSL_FUNC_keyexch_set_ctx_params(void *ctx, const OSSL_PARAM params[]);
- const OSSL_PARAM *OSSL_FUNC_keyexch_settable_ctx_params(void *ctx,
-                                                         void *provctx);
- int OSSL_FUNC_keyexch_get_ctx_params(void *ctx, OSSL_PARAM params[]);
- const OSSL_PARAM *OSSL_FUNC_keyexch_gettable_ctx_params(void *ctx,
-                                                         void *provctx);</code></pre>
+/* Key Exchange parameters */
+int OSSL_FUNC_keyexch_set_ctx_params(void *ctx, const OSSL_PARAM params[]);
+const OSSL_PARAM *OSSL_FUNC_keyexch_settable_ctx_params(void *ctx,
+                                                        void *provctx);
+int OSSL_FUNC_keyexch_get_ctx_params(void *ctx, OSSL_PARAM params[]);
+const OSSL_PARAM *OSSL_FUNC_keyexch_gettable_ctx_params(void *ctx,
+                                                        void *provctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -73,24 +73,24 @@
 
 <p>All these &quot;functions&quot; have a corresponding function type definition named <b>OSSL_FUNC_{name}_fn</b>, and a helper function to retrieve the function pointer from an <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> element named <b>OSSL_FUNC_{name}</b>. For example, the &quot;function&quot; OSSL_FUNC_keyexch_newctx() has these:</p>
 
-<pre><code> typedef void *(OSSL_FUNC_keyexch_newctx_fn)(void *provctx);
- static ossl_inline OSSL_FUNC_keyexch_newctx_fn
-     OSSL_FUNC_keyexch_newctx(const OSSL_DISPATCH *opf);</code></pre>
+<pre><code>typedef void *(OSSL_FUNC_keyexch_newctx_fn)(void *provctx);
+static ossl_inline OSSL_FUNC_keyexch_newctx_fn
+    OSSL_FUNC_keyexch_newctx(const OSSL_DISPATCH *opf);</code></pre>
 
 <p><a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> arrays are indexed by numbers that are provided as macros in <a href="../man7/openssl-core_dispatch.h.html">openssl-core_dispatch.h(7)</a>, as follows:</p>
 
-<pre><code> OSSL_FUNC_keyexch_newctx                OSSL_FUNC_KEYEXCH_NEWCTX
- OSSL_FUNC_keyexch_freectx               OSSL_FUNC_KEYEXCH_FREECTX
- OSSL_FUNC_keyexch_dupctx                OSSL_FUNC_KEYEXCH_DUPCTX
+<pre><code>OSSL_FUNC_keyexch_newctx                OSSL_FUNC_KEYEXCH_NEWCTX
+OSSL_FUNC_keyexch_freectx               OSSL_FUNC_KEYEXCH_FREECTX
+OSSL_FUNC_keyexch_dupctx                OSSL_FUNC_KEYEXCH_DUPCTX
 
- OSSL_FUNC_keyexch_init                  OSSL_FUNC_KEYEXCH_INIT
- OSSL_FUNC_keyexch_set_peer              OSSL_FUNC_KEYEXCH_SET_PEER
- OSSL_FUNC_keyexch_derive                OSSL_FUNC_KEYEXCH_DERIVE
+OSSL_FUNC_keyexch_init                  OSSL_FUNC_KEYEXCH_INIT
+OSSL_FUNC_keyexch_set_peer              OSSL_FUNC_KEYEXCH_SET_PEER
+OSSL_FUNC_keyexch_derive                OSSL_FUNC_KEYEXCH_DERIVE
 
- OSSL_FUNC_keyexch_set_ctx_params        OSSL_FUNC_KEYEXCH_SET_CTX_PARAMS
- OSSL_FUNC_keyexch_settable_ctx_params   OSSL_FUNC_KEYEXCH_SETTABLE_CTX_PARAMS
- OSSL_FUNC_keyexch_get_ctx_params        OSSL_FUNC_KEYEXCH_GET_CTX_PARAMS
- OSSL_FUNC_keyexch_gettable_ctx_params   OSSL_FUNC_KEYEXCH_GETTABLE_CTX_PARAMS</code></pre>
+OSSL_FUNC_keyexch_set_ctx_params        OSSL_FUNC_KEYEXCH_SET_CTX_PARAMS
+OSSL_FUNC_keyexch_settable_ctx_params   OSSL_FUNC_KEYEXCH_SETTABLE_CTX_PARAMS
+OSSL_FUNC_keyexch_get_ctx_params        OSSL_FUNC_KEYEXCH_GET_CTX_PARAMS
+OSSL_FUNC_keyexch_gettable_ctx_params   OSSL_FUNC_KEYEXCH_GETTABLE_CTX_PARAMS</code></pre>
 
 <p>A key exchange algorithm implementation may not implement all of these functions. In order to be a consistent set of functions a provider must implement OSSL_FUNC_keyexch_newctx, OSSL_FUNC_keyexch_freectx, OSSL_FUNC_keyexch_init and OSSL_FUNC_keyexch_derive. All other functions are optional.</p>
 

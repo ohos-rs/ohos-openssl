@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_CMP_CTX_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,109 +29,109 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/cmp.h&gt;
+<pre><code>#include &lt;openssl/cmp.h&gt;
 
- OSSL_CMP_CTX *OSSL_CMP_CTX_new(OSSL_LIB_CTX *libctx, const char *propq);
- void OSSL_CMP_CTX_free(OSSL_CMP_CTX *ctx);
- int OSSL_CMP_CTX_reinit(OSSL_CMP_CTX *ctx);
- OSSL_LIB_CTX *OSSL_CMP_CTX_get0_libctx(const OSSL_CMP_CTX *ctx);
- const char *OSSL_CMP_CTX_get0_propq(const OSSL_CMP_CTX *ctx);
- int OSSL_CMP_CTX_set_option(OSSL_CMP_CTX *ctx, int opt, int val);
- int OSSL_CMP_CTX_get_option(const OSSL_CMP_CTX *ctx, int opt);
+OSSL_CMP_CTX *OSSL_CMP_CTX_new(OSSL_LIB_CTX *libctx, const char *propq);
+void OSSL_CMP_CTX_free(OSSL_CMP_CTX *ctx);
+int OSSL_CMP_CTX_reinit(OSSL_CMP_CTX *ctx);
+OSSL_LIB_CTX *OSSL_CMP_CTX_get0_libctx(const OSSL_CMP_CTX *ctx);
+const char *OSSL_CMP_CTX_get0_propq(const OSSL_CMP_CTX *ctx);
+int OSSL_CMP_CTX_set_option(OSSL_CMP_CTX *ctx, int opt, int val);
+int OSSL_CMP_CTX_get_option(const OSSL_CMP_CTX *ctx, int opt);
 
- /* logging and error reporting: */
- int OSSL_CMP_CTX_set_log_cb(OSSL_CMP_CTX *ctx, OSSL_CMP_log_cb_t cb);
- #define OSSL_CMP_CTX_set_log_verbosity(ctx, level)
- void OSSL_CMP_CTX_print_errors(const OSSL_CMP_CTX *ctx);
+/* logging and error reporting: */
+int OSSL_CMP_CTX_set_log_cb(OSSL_CMP_CTX *ctx, OSSL_CMP_log_cb_t cb);
+#define OSSL_CMP_CTX_set_log_verbosity(ctx, level)
+void OSSL_CMP_CTX_print_errors(const OSSL_CMP_CTX *ctx);
 
- /* message transfer: */
- int OSSL_CMP_CTX_set1_serverPath(OSSL_CMP_CTX *ctx, const char *path);
- int OSSL_CMP_CTX_set1_server(OSSL_CMP_CTX *ctx, const char *address);
- int OSSL_CMP_CTX_set_serverPort(OSSL_CMP_CTX *ctx, int port);
- int OSSL_CMP_CTX_set1_proxy(OSSL_CMP_CTX *ctx, const char *name);
- int OSSL_CMP_CTX_set1_no_proxy(OSSL_CMP_CTX *ctx, const char *names);
- int OSSL_CMP_CTX_set_http_cb(OSSL_CMP_CTX *ctx, HTTP_bio_cb_t cb);
- int OSSL_CMP_CTX_set_http_cb_arg(OSSL_CMP_CTX *ctx, void *arg);
- void *OSSL_CMP_CTX_get_http_cb_arg(const OSSL_CMP_CTX *ctx);
- typedef OSSL_CMP_MSG *(*OSSL_CMP_transfer_cb_t)(OSSL_CMP_CTX *ctx,
-                                                 const OSSL_CMP_MSG *req);
- int OSSL_CMP_CTX_set_transfer_cb(OSSL_CMP_CTX *ctx,
-                                  OSSL_CMP_transfer_cb_t cb);
- int OSSL_CMP_CTX_set_transfer_cb_arg(OSSL_CMP_CTX *ctx, void *arg);
- void *OSSL_CMP_CTX_get_transfer_cb_arg(const OSSL_CMP_CTX *ctx);
+/* message transfer: */
+int OSSL_CMP_CTX_set1_serverPath(OSSL_CMP_CTX *ctx, const char *path);
+int OSSL_CMP_CTX_set1_server(OSSL_CMP_CTX *ctx, const char *address);
+int OSSL_CMP_CTX_set_serverPort(OSSL_CMP_CTX *ctx, int port);
+int OSSL_CMP_CTX_set1_proxy(OSSL_CMP_CTX *ctx, const char *name);
+int OSSL_CMP_CTX_set1_no_proxy(OSSL_CMP_CTX *ctx, const char *names);
+int OSSL_CMP_CTX_set_http_cb(OSSL_CMP_CTX *ctx, HTTP_bio_cb_t cb);
+int OSSL_CMP_CTX_set_http_cb_arg(OSSL_CMP_CTX *ctx, void *arg);
+void *OSSL_CMP_CTX_get_http_cb_arg(const OSSL_CMP_CTX *ctx);
+typedef OSSL_CMP_MSG *(*OSSL_CMP_transfer_cb_t)(OSSL_CMP_CTX *ctx,
+                                                const OSSL_CMP_MSG *req);
+int OSSL_CMP_CTX_set_transfer_cb(OSSL_CMP_CTX *ctx,
+                                 OSSL_CMP_transfer_cb_t cb);
+int OSSL_CMP_CTX_set_transfer_cb_arg(OSSL_CMP_CTX *ctx, void *arg);
+void *OSSL_CMP_CTX_get_transfer_cb_arg(const OSSL_CMP_CTX *ctx);
 
- /* server authentication: */
- int OSSL_CMP_CTX_set1_srvCert(OSSL_CMP_CTX *ctx, X509 *cert);
- int OSSL_CMP_CTX_set1_expected_sender(OSSL_CMP_CTX *ctx,
-                                      const X509_NAME *name);
- #define OSSL_CMP_CTX_set0_trusted OSSL_CMP_CTX_set0_trustedStore
- int OSSL_CMP_CTX_set0_trustedStore(OSSL_CMP_CTX *ctx, X509_STORE *store);
- #define OSSL_CMP_CTX_get0_trusted OSSL_CMP_CTX_get0_trustedStore
- X509_STORE *OSSL_CMP_CTX_get0_trustedStore(const OSSL_CMP_CTX *ctx);
- int OSSL_CMP_CTX_set1_untrusted(OSSL_CMP_CTX *ctx, STACK_OF(X509) *certs);
- STACK_OF(X509) *OSSL_CMP_CTX_get0_untrusted(const OSSL_CMP_CTX *ctx);
+/* server authentication: */
+int OSSL_CMP_CTX_set1_srvCert(OSSL_CMP_CTX *ctx, X509 *cert);
+int OSSL_CMP_CTX_set1_expected_sender(OSSL_CMP_CTX *ctx,
+                                     const X509_NAME *name);
+#define OSSL_CMP_CTX_set0_trusted OSSL_CMP_CTX_set0_trustedStore
+int OSSL_CMP_CTX_set0_trustedStore(OSSL_CMP_CTX *ctx, X509_STORE *store);
+#define OSSL_CMP_CTX_get0_trusted OSSL_CMP_CTX_get0_trustedStore
+X509_STORE *OSSL_CMP_CTX_get0_trustedStore(const OSSL_CMP_CTX *ctx);
+int OSSL_CMP_CTX_set1_untrusted(OSSL_CMP_CTX *ctx, STACK_OF(X509) *certs);
+STACK_OF(X509) *OSSL_CMP_CTX_get0_untrusted(const OSSL_CMP_CTX *ctx);
 
- /* client authentication: */
- int OSSL_CMP_CTX_set1_cert(OSSL_CMP_CTX *ctx, X509 *cert);
- int OSSL_CMP_CTX_build_cert_chain(OSSL_CMP_CTX *ctx, X509_STORE *own_trusted,
-                                   STACK_OF(X509) *candidates);
- int OSSL_CMP_CTX_set1_pkey(OSSL_CMP_CTX *ctx, EVP_PKEY *pkey);
- int OSSL_CMP_CTX_set1_referenceValue(OSSL_CMP_CTX *ctx,
-                                      const unsigned char *ref, int len);
- int OSSL_CMP_CTX_set1_secretValue(OSSL_CMP_CTX *ctx,
-                                   const unsigned char *sec, int len);
+/* client authentication: */
+int OSSL_CMP_CTX_set1_cert(OSSL_CMP_CTX *ctx, X509 *cert);
+int OSSL_CMP_CTX_build_cert_chain(OSSL_CMP_CTX *ctx, X509_STORE *own_trusted,
+                                  STACK_OF(X509) *candidates);
+int OSSL_CMP_CTX_set1_pkey(OSSL_CMP_CTX *ctx, EVP_PKEY *pkey);
+int OSSL_CMP_CTX_set1_referenceValue(OSSL_CMP_CTX *ctx,
+                                     const unsigned char *ref, int len);
+int OSSL_CMP_CTX_set1_secretValue(OSSL_CMP_CTX *ctx,
+                                  const unsigned char *sec, int len);
 
- /* CMP message header and extra certificates: */
- int OSSL_CMP_CTX_set1_recipient(OSSL_CMP_CTX *ctx, const X509_NAME *name);
- int OSSL_CMP_CTX_push0_geninfo_ITAV(OSSL_CMP_CTX *ctx, OSSL_CMP_ITAV *itav);
- int OSSL_CMP_CTX_reset_geninfo_ITAVs(OSSL_CMP_CTX *ctx);
- STACK_OF(OSSL_CMP_ITAV)
-     *OSSL_CMP_CTX_get0_geninfo_ITAVs(const OSSL_CMP_CTX *ctx);
- int OSSL_CMP_CTX_set1_extraCertsOut(OSSL_CMP_CTX *ctx,
-                                     STACK_OF(X509) *extraCertsOut);
+/* CMP message header and extra certificates: */
+int OSSL_CMP_CTX_set1_recipient(OSSL_CMP_CTX *ctx, const X509_NAME *name);
+int OSSL_CMP_CTX_push0_geninfo_ITAV(OSSL_CMP_CTX *ctx, OSSL_CMP_ITAV *itav);
+int OSSL_CMP_CTX_reset_geninfo_ITAVs(OSSL_CMP_CTX *ctx);
+STACK_OF(OSSL_CMP_ITAV)
+    *OSSL_CMP_CTX_get0_geninfo_ITAVs(const OSSL_CMP_CTX *ctx);
+int OSSL_CMP_CTX_set1_extraCertsOut(OSSL_CMP_CTX *ctx,
+                                    STACK_OF(X509) *extraCertsOut);
 
- /* certificate template: */
- int OSSL_CMP_CTX_set0_newPkey(OSSL_CMP_CTX *ctx, int priv, EVP_PKEY *pkey);
- EVP_PKEY *OSSL_CMP_CTX_get0_newPkey(const OSSL_CMP_CTX *ctx, int priv);
- int OSSL_CMP_CTX_set1_issuer(OSSL_CMP_CTX *ctx, const X509_NAME *name);
- int OSSL_CMP_CTX_set1_serialNumber(OSSL_CMP_CTX *ctx, const ASN1_INTEGER *sn);
- int OSSL_CMP_CTX_set1_subjectName(OSSL_CMP_CTX *ctx, const X509_NAME *name);
- int OSSL_CMP_CTX_push1_subjectAltName(OSSL_CMP_CTX *ctx,
-                                       const GENERAL_NAME *name);
- int OSSL_CMP_CTX_set0_reqExtensions(OSSL_CMP_CTX *ctx, X509_EXTENSIONS *exts);
- int OSSL_CMP_CTX_reqExtensions_have_SAN(OSSL_CMP_CTX *ctx);
- int OSSL_CMP_CTX_push0_policy(OSSL_CMP_CTX *ctx, POLICYINFO *pinfo);
- int OSSL_CMP_CTX_set1_oldCert(OSSL_CMP_CTX *ctx, X509 *cert);
- int OSSL_CMP_CTX_set1_p10CSR(OSSL_CMP_CTX *ctx, const X509_REQ *csr);
+/* certificate template: */
+int OSSL_CMP_CTX_set0_newPkey(OSSL_CMP_CTX *ctx, int priv, EVP_PKEY *pkey);
+EVP_PKEY *OSSL_CMP_CTX_get0_newPkey(const OSSL_CMP_CTX *ctx, int priv);
+int OSSL_CMP_CTX_set1_issuer(OSSL_CMP_CTX *ctx, const X509_NAME *name);
+int OSSL_CMP_CTX_set1_serialNumber(OSSL_CMP_CTX *ctx, const ASN1_INTEGER *sn);
+int OSSL_CMP_CTX_set1_subjectName(OSSL_CMP_CTX *ctx, const X509_NAME *name);
+int OSSL_CMP_CTX_push1_subjectAltName(OSSL_CMP_CTX *ctx,
+                                      const GENERAL_NAME *name);
+int OSSL_CMP_CTX_set0_reqExtensions(OSSL_CMP_CTX *ctx, X509_EXTENSIONS *exts);
+int OSSL_CMP_CTX_reqExtensions_have_SAN(OSSL_CMP_CTX *ctx);
+int OSSL_CMP_CTX_push0_policy(OSSL_CMP_CTX *ctx, POLICYINFO *pinfo);
+int OSSL_CMP_CTX_set1_oldCert(OSSL_CMP_CTX *ctx, X509 *cert);
+int OSSL_CMP_CTX_set1_p10CSR(OSSL_CMP_CTX *ctx, const X509_REQ *csr);
 
- /* misc body contents: */
- int OSSL_CMP_CTX_push0_genm_ITAV(OSSL_CMP_CTX *ctx, OSSL_CMP_ITAV *itav);
+/* misc body contents: */
+int OSSL_CMP_CTX_push0_genm_ITAV(OSSL_CMP_CTX *ctx, OSSL_CMP_ITAV *itav);
 
- /* certificate confirmation: */
- typedef int (*OSSL_CMP_certConf_cb_t)(OSSL_CMP_CTX *ctx, X509 *cert,
-                                       int fail_info, const char **txt);
- int OSSL_CMP_certConf_cb(OSSL_CMP_CTX *ctx, X509 *cert, int fail_info,
-                          const char **text);
- int OSSL_CMP_CTX_set_certConf_cb(OSSL_CMP_CTX *ctx, OSSL_CMP_certConf_cb_t cb);
- int OSSL_CMP_CTX_set_certConf_cb_arg(OSSL_CMP_CTX *ctx, void *arg);
- void *OSSL_CMP_CTX_get_certConf_cb_arg(const OSSL_CMP_CTX *ctx);
+/* certificate confirmation: */
+typedef int (*OSSL_CMP_certConf_cb_t)(OSSL_CMP_CTX *ctx, X509 *cert,
+                                      int fail_info, const char **txt);
+int OSSL_CMP_certConf_cb(OSSL_CMP_CTX *ctx, X509 *cert, int fail_info,
+                         const char **text);
+int OSSL_CMP_CTX_set_certConf_cb(OSSL_CMP_CTX *ctx, OSSL_CMP_certConf_cb_t cb);
+int OSSL_CMP_CTX_set_certConf_cb_arg(OSSL_CMP_CTX *ctx, void *arg);
+void *OSSL_CMP_CTX_get_certConf_cb_arg(const OSSL_CMP_CTX *ctx);
 
- /* result fetching: */
- int OSSL_CMP_CTX_get_status(const OSSL_CMP_CTX *ctx);
- OSSL_CMP_PKIFREETEXT *OSSL_CMP_CTX_get0_statusString(const OSSL_CMP_CTX *ctx);
- int OSSL_CMP_CTX_get_failInfoCode(const OSSL_CMP_CTX *ctx);
+/* result fetching: */
+int OSSL_CMP_CTX_get_status(const OSSL_CMP_CTX *ctx);
+OSSL_CMP_PKIFREETEXT *OSSL_CMP_CTX_get0_statusString(const OSSL_CMP_CTX *ctx);
+int OSSL_CMP_CTX_get_failInfoCode(const OSSL_CMP_CTX *ctx);
 
- X509 *OSSL_CMP_CTX_get0_validatedSrvCert(const OSSL_CMP_CTX *ctx);
- X509 *OSSL_CMP_CTX_get0_newCert(const OSSL_CMP_CTX *ctx);
- STACK_OF(X509) *OSSL_CMP_CTX_get1_newChain(const OSSL_CMP_CTX *ctx);
- STACK_OF(X509) *OSSL_CMP_CTX_get1_caPubs(const OSSL_CMP_CTX *ctx);
- STACK_OF(X509) *OSSL_CMP_CTX_get1_extraCertsIn(const OSSL_CMP_CTX *ctx);
+X509 *OSSL_CMP_CTX_get0_validatedSrvCert(const OSSL_CMP_CTX *ctx);
+X509 *OSSL_CMP_CTX_get0_newCert(const OSSL_CMP_CTX *ctx);
+STACK_OF(X509) *OSSL_CMP_CTX_get1_newChain(const OSSL_CMP_CTX *ctx);
+STACK_OF(X509) *OSSL_CMP_CTX_get1_caPubs(const OSSL_CMP_CTX *ctx);
+STACK_OF(X509) *OSSL_CMP_CTX_get1_extraCertsIn(const OSSL_CMP_CTX *ctx);
 
- /* for testing and debugging purposes: */
- int OSSL_CMP_CTX_set1_transactionID(OSSL_CMP_CTX *ctx,
-                                     const ASN1_OCTET_STRING *id);
- int OSSL_CMP_CTX_set1_senderNonce(OSSL_CMP_CTX *ctx,
-                                   const ASN1_OCTET_STRING *nonce);</code></pre>
+/* for testing and debugging purposes: */
+int OSSL_CMP_CTX_set1_transactionID(OSSL_CMP_CTX *ctx,
+                                    const ASN1_OCTET_STRING *id);
+int OSSL_CMP_CTX_set1_senderNonce(OSSL_CMP_CTX *ctx,
+                                  const ASN1_OCTET_STRING *nonce);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -156,101 +156,101 @@
 <dt id="OSSL_CMP_OPT_LOG_VERBOSITY"><b>OSSL_CMP_OPT_LOG_VERBOSITY</b></dt>
 <dd>
 
-<pre><code>        The level of severity needed for actually outputting log messages
-        due to errors, warnings, general info, debugging, etc.
-        Default is OSSL_CMP_LOG_INFO. See also L&lt;OSSL_CMP_log_open(3)&gt;.</code></pre>
+<pre><code>The level of severity needed for actually outputting log messages
+due to errors, warnings, general info, debugging, etc.
+Default is OSSL_CMP_LOG_INFO. See also L&lt;OSSL_CMP_log_open(3)&gt;.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_KEEP_ALIVE"><b>OSSL_CMP_OPT_KEEP_ALIVE</b></dt>
 <dd>
 
-<pre><code>        If the given value is 0 then HTTP connections are not kept open
-        after receiving a response, which is the default behavior for HTTP 1.0.
-        If the value is 1 or 2 then persistent connections are requested.
-        If the value is 2 then persistent connections are required,
-        i.e., in case the server does not grant them an error occurs.
-        The default value is 1: prefer to keep the connection open.</code></pre>
+<pre><code>If the given value is 0 then HTTP connections are not kept open
+after receiving a response, which is the default behavior for HTTP 1.0.
+If the value is 1 or 2 then persistent connections are requested.
+If the value is 2 then persistent connections are required,
+i.e., in case the server does not grant them an error occurs.
+The default value is 1: prefer to keep the connection open.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_MSG_TIMEOUT"><b>OSSL_CMP_OPT_MSG_TIMEOUT</b></dt>
 <dd>
 
-<pre><code>        Number of seconds a CMP request-response message round trip
-        is allowed to take before a timeout error is returned.
-        A value &lt;= 0 means no limitation (waiting indefinitely).
-        Default is to use the B&lt;OSSL_CMP_OPT_TOTAL_TIMEOUT&gt; setting.</code></pre>
+<pre><code>Number of seconds a CMP request-response message round trip
+is allowed to take before a timeout error is returned.
+A value &lt;= 0 means no limitation (waiting indefinitely).
+Default is to use the B&lt;OSSL_CMP_OPT_TOTAL_TIMEOUT&gt; setting.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_TOTAL_TIMEOUT"><b>OSSL_CMP_OPT_TOTAL_TIMEOUT</b></dt>
 <dd>
 
-<pre><code>        Maximum total number of seconds a transaction may take,
-        including polling etc.
-        A value &lt;= 0 means no limitation (waiting indefinitely).
-        Default is 0.</code></pre>
+<pre><code>Maximum total number of seconds a transaction may take,
+including polling etc.
+A value &lt;= 0 means no limitation (waiting indefinitely).
+Default is 0.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_USE_TLS"><b>OSSL_CMP_OPT_USE_TLS</b></dt>
 <dd>
 
-<pre><code>        Use this option to indicate to the HTTP implementation
-        whether TLS is going to be used for the connection (resulting in HTTPS).
-        The value 1 indicates that TLS is used for client-side HTTP connections,
-        which needs to be implemented via a callback function set by
-        OSSL_CMP_CTX_set_http_cb().
-        The value 0 indicates that TLS is not used.
-        Default is -1 for backward compatibility: TLS is used by the client side
-        if and only if OSSL_CMP_CTX_set_http_cb_arg() sets a non-NULL I&lt;arg&gt;.</code></pre>
+<pre><code>Use this option to indicate to the HTTP implementation
+whether TLS is going to be used for the connection (resulting in HTTPS).
+The value 1 indicates that TLS is used for client-side HTTP connections,
+which needs to be implemented via a callback function set by
+OSSL_CMP_CTX_set_http_cb().
+The value 0 indicates that TLS is not used.
+Default is -1 for backward compatibility: TLS is used by the client side
+if and only if OSSL_CMP_CTX_set_http_cb_arg() sets a non-NULL I&lt;arg&gt;.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_VALIDITY_DAYS"><b>OSSL_CMP_OPT_VALIDITY_DAYS</b></dt>
 <dd>
 
-<pre><code>        Number of days new certificates are asked to be valid for.</code></pre>
+<pre><code>Number of days new certificates are asked to be valid for.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_SUBJECTALTNAME_NODEFAULT"><b>OSSL_CMP_OPT_SUBJECTALTNAME_NODEFAULT</b></dt>
 <dd>
 
-<pre><code>        Do not take default Subject Alternative Names
-        from the reference certificate.</code></pre>
+<pre><code>Do not take default Subject Alternative Names
+from the reference certificate.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_SUBJECTALTNAME_CRITICAL"><b>OSSL_CMP_OPT_SUBJECTALTNAME_CRITICAL</b></dt>
 <dd>
 
-<pre><code>        Demand that the given Subject Alternative Names are flagged as critical.</code></pre>
+<pre><code>Demand that the given Subject Alternative Names are flagged as critical.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_POLICIES_CRITICAL"><b>OSSL_CMP_OPT_POLICIES_CRITICAL</b></dt>
 <dd>
 
-<pre><code>        Demand that the given policies are flagged as critical.</code></pre>
+<pre><code>Demand that the given policies are flagged as critical.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_POPO_METHOD"><b>OSSL_CMP_OPT_POPO_METHOD</b></dt>
 <dd>
 
-<pre><code>        Select the proof of possession method to use. Possible values are:
+<pre><code>Select the proof of possession method to use. Possible values are:
 
-            OSSL_CRMF_POPO_NONE       - ProofOfPossession field omitted
-            OSSL_CRMF_POPO_RAVERIFIED - assert that the RA has already
-                                        verified the PoPo
-            OSSL_CRMF_POPO_SIGNATURE  - sign a value with private key,
-                                        which is the default.
-            OSSL_CRMF_POPO_KEYENC     - decrypt the encrypted certificate
-                                        (&quot;indirect method&quot;)
+    OSSL_CRMF_POPO_NONE       - ProofOfPossession field omitted
+    OSSL_CRMF_POPO_RAVERIFIED - assert that the RA has already
+                                verified the PoPo
+    OSSL_CRMF_POPO_SIGNATURE  - sign a value with private key,
+                                which is the default.
+    OSSL_CRMF_POPO_KEYENC     - decrypt the encrypted certificate
+                                (&quot;indirect method&quot;)
 
-        Note that a signature-based POPO can only be produced if a private key
-        is provided as the newPkey or client&#39;s pkey component of the CMP context.</code></pre>
+Note that a signature-based POPO can only be produced if a private key
+is provided as the newPkey or client&#39;s pkey component of the CMP context.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_DIGEST_ALGNID"><b>OSSL_CMP_OPT_DIGEST_ALGNID</b></dt>
 <dd>
 
-<pre><code>        The NID of the digest algorithm to be used in RFC 4210&#39;s MSG_SIG_ALG
-        for signature-based message protection and Proof-of-Possession (POPO).
-        Default is SHA256.</code></pre>
+<pre><code>The NID of the digest algorithm to be used in RFC 4210&#39;s MSG_SIG_ALG
+for signature-based message protection and Proof-of-Possession (POPO).
+Default is SHA256.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_OWF_ALGNID-The-NID-of-the-digest-algorithm-to-be-used-as-one-way-function-OWF-for-MAC-based-message-protection-with-password-based-MAC-PBM-.-See-RFC-4210-section-5.1.3.1-for-details.-Default-is-SHA256"><b>OSSL_CMP_OPT_OWF_ALGNID</b> The NID of the digest algorithm to be used as one-way function (OWF) for MAC-based message protection with password-based MAC (PBM). See RFC 4210 section 5.1.3.1 for details. Default is SHA256.</dt>
@@ -264,17 +264,17 @@
 <dt id="OSSL_CMP_OPT_REVOCATION_REASON"><b>OSSL_CMP_OPT_REVOCATION_REASON</b></dt>
 <dd>
 
-<pre><code>        The reason code to be included in a Revocation Request (RR);
-        values: 0..10 (RFC 5210, 5.3.1) or -1 for none, which is the default.</code></pre>
+<pre><code>The reason code to be included in a Revocation Request (RR);
+values: 0..10 (RFC 5210, 5.3.1) or -1 for none, which is the default.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_IMPLICIT_CONFIRM"><b>OSSL_CMP_OPT_IMPLICIT_CONFIRM</b></dt>
 <dd>
 
-<pre><code>        Request server to enable implicit confirm mode, where the client
-        does not need to send confirmation upon receiving the
-        certificate. If the server does not enable implicit confirmation
-        in the return message, then confirmation is sent anyway.</code></pre>
+<pre><code>Request server to enable implicit confirm mode, where the client
+does not need to send confirmation upon receiving the
+certificate. If the server does not enable implicit confirmation
+in the return message, then confirmation is sent anyway.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_DISABLE_CONFIRM"><b>OSSL_CMP_OPT_DISABLE_CONFIRM</b></dt>
@@ -290,7 +290,7 @@ RFC 4210.</code></pre>
 <dt id="OSSL_CMP_OPT_UNPROTECTED_SEND"><b>OSSL_CMP_OPT_UNPROTECTED_SEND</b></dt>
 <dd>
 
-<pre><code>        Send request or response messages without CMP-level protection.</code></pre>
+<pre><code>Send request or response messages without CMP-level protection.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_UNPROTECTED_ERRORS"><b>OSSL_CMP_OPT_UNPROTECTED_ERRORS</b></dt>
@@ -308,23 +308,23 @@ RFC 4210.</code></pre>
 <dt id="OSSL_CMP_OPT_IGNORE_KEYUSAGE"><b>OSSL_CMP_OPT_IGNORE_KEYUSAGE</b></dt>
 <dd>
 
-<pre><code>        Ignore key usage restrictions in the signer&#39;s certificate when
-        validating signature-based protection in received CMP messages.
-        Else, &#39;digitalSignature&#39; must be allowed by CMP signer certificates.</code></pre>
+<pre><code>Ignore key usage restrictions in the signer&#39;s certificate when
+validating signature-based protection in received CMP messages.
+Else, &#39;digitalSignature&#39; must be allowed by CMP signer certificates.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_PERMIT_TA_IN_EXTRACERTS_FOR_IR"><b>OSSL_CMP_OPT_PERMIT_TA_IN_EXTRACERTS_FOR_IR</b></dt>
 <dd>
 
-<pre><code>        Allow retrieving a trust anchor from extraCerts and using that
-        to validate the certificate chain of an IP message.</code></pre>
+<pre><code>Allow retrieving a trust anchor from extraCerts and using that
+to validate the certificate chain of an IP message.</code></pre>
 
 </dd>
 <dt id="OSSL_CMP_OPT_NO_CACHE_EXTRACERTS"><b>OSSL_CMP_OPT_NO_CACHE_EXTRACERTS</b></dt>
 <dd>
 
-<pre><code>        Do not cache certificates received in the extraCerts CMP message field.
-        Otherwise they are stored to potentially help validate further messages.</code></pre>
+<pre><code>Do not cache certificates received in the extraCerts CMP message field.
+Otherwise they are stored to potentially help validate further messages.</code></pre>
 
 </dd>
 </dl>
@@ -349,7 +349,7 @@ RFC 4210.</code></pre>
 
 <p>OSSL_CMP_CTX_set_http_cb() sets the optional BIO connect/disconnect callback function, which has the prototype</p>
 
-<pre><code> typedef BIO *(*HTTP_bio_cb_t) (BIO *bio, void *arg, int connect, int detail);</code></pre>
+<pre><code>typedef BIO *(*HTTP_bio_cb_t) (BIO *bio, void *arg, int connect, int detail);</code></pre>
 
 <p>The callback may modify the <i>bio</i> provided by <a href="../man3/OSSL_CMP_MSG_http_perform.html">OSSL_CMP_MSG_http_perform(3)</a> as described for the <i>bio_update_fn</i> parameter of <a href="../man3/OSSL_HTTP_open.html">OSSL_HTTP_open(3)</a>. The callback may make use of a custom defined argument <i>arg</i>, as described for the <i>arg</i> parameter of <a href="../man3/OSSL_HTTP_open.html">OSSL_HTTP_open(3)</a>. The argument is stored in the OSSL_CMP_CTX using OSSL_CMP_CTX_set_http_cb_arg(). See also the <b>OSSL_CMP_OPT_USE_TLS</b> option described above.</p>
 
@@ -359,8 +359,8 @@ RFC 4210.</code></pre>
 
 <p>OSSL_CMP_CTX_set_transfer_cb() sets the message transfer callback function, which has the type</p>
 
-<pre><code> typedef OSSL_CMP_MSG *(*OSSL_CMP_transfer_cb_t) (OSSL_CMP_CTX *ctx,
-                                                  const OSSL_CMP_MSG *req);</code></pre>
+<pre><code>typedef OSSL_CMP_MSG *(*OSSL_CMP_transfer_cb_t) (OSSL_CMP_CTX *ctx,
+                                                 const OSSL_CMP_MSG *req);</code></pre>
 
 <p>Default is NULL, which implies the use of <a href="../man3/OSSL_CMP_MSG_http_perform.html">OSSL_CMP_MSG_http_perform(3)</a>. The callback should send the CMP request message it obtains via the <i>req</i> parameter and on success return the response, else it must return NULL. The transfer callback may make use of a custom defined argument stored in the ctx by means of OSSL_CMP_CTX_set_transfer_cb_arg(), which may be retrieved again through OSSL_CMP_CTX_get_transfer_cb_arg().</p>
 
@@ -434,8 +434,8 @@ RFC 4210.</code></pre>
 
 <p>OSSL_CMP_CTX_set_certConf_cb() sets the callback used for evaluating the newly enrolled certificate before the library sends, depending on its result, a positive or negative certConf message to the server. The callback has type</p>
 
-<pre><code> typedef int (*OSSL_CMP_certConf_cb_t) (OSSL_CMP_CTX *ctx, X509 *cert,
-                                        int fail_info, const char **txt);</code></pre>
+<pre><code>typedef int (*OSSL_CMP_certConf_cb_t) (OSSL_CMP_CTX *ctx, X509 *cert,
+                                       int fail_info, const char **txt);</code></pre>
 
 <p>and should inspect the certificate it obtains via the <i>cert</i> parameter and may overrule the pre-decision given in the <i>fail_info</i> and <i>*txt</i> parameters. If it accepts the certificate it must return 0, indicating success. Else it must return a bit field reflecting PKIFailureInfo with at least one failure bit and may set the <i>*txt</i> output parameter to point to a string constant with more detail. The transfer callback may make use of a custom defined argument stored in the <i>ctx</i> by means of OSSL_CMP_CTX_set_certConf_cb_arg(), which may be retrieved again through OSSL_CMP_CTX_get_certConf_cb_arg(). Typically, the callback will check at least that the certificate can be verified using a set of trusted certificates. It also could compare the subject DN and other fields of the newly enrolled certificate with the certificate template of the request.</p>
 
@@ -509,60 +509,60 @@ RFC 4210.</code></pre>
 
 <p>Set up a CMP client context for sending requests and verifying responses:</p>
 
-<pre><code>    cmp_ctx = OSSL_CMP_CTX_new();
-    OSSL_CMP_CTX_set1_server(cmp_ctx, name_or_address);
-    OSSL_CMP_CTX_set1_serverPort(cmp_ctx, port_string);
-    OSSL_CMP_CTX_set1_serverPath(cmp_ctx, path_or_alias);
-    OSSL_CMP_CTX_set0_trusted(cmp_ctx, ts);</code></pre>
+<pre><code>cmp_ctx = OSSL_CMP_CTX_new();
+OSSL_CMP_CTX_set1_server(cmp_ctx, name_or_address);
+OSSL_CMP_CTX_set1_serverPort(cmp_ctx, port_string);
+OSSL_CMP_CTX_set1_serverPath(cmp_ctx, path_or_alias);
+OSSL_CMP_CTX_set0_trusted(cmp_ctx, ts);</code></pre>
 
 <p>Set up symmetric credentials for MAC-based message protection such as PBM:</p>
 
-<pre><code>    OSSL_CMP_CTX_set1_referenceValue(cmp_ctx, ref, ref_len);
-    OSSL_CMP_CTX_set1_secretValue(cmp_ctx, sec, sec_len);</code></pre>
+<pre><code>OSSL_CMP_CTX_set1_referenceValue(cmp_ctx, ref, ref_len);
+OSSL_CMP_CTX_set1_secretValue(cmp_ctx, sec, sec_len);</code></pre>
 
 <p>Set up the details for certificate requests:</p>
 
-<pre><code>    OSSL_CMP_CTX_set1_subjectName(cmp_ctx, name);
-    OSSL_CMP_CTX_set0_newPkey(cmp_ctx, 1, initialKey);</code></pre>
+<pre><code>OSSL_CMP_CTX_set1_subjectName(cmp_ctx, name);
+OSSL_CMP_CTX_set0_newPkey(cmp_ctx, 1, initialKey);</code></pre>
 
 <p>Perform an Initialization Request transaction:</p>
 
-<pre><code>    initialCert = OSSL_CMP_exec_IR_ses(cmp_ctx);</code></pre>
+<pre><code>initialCert = OSSL_CMP_exec_IR_ses(cmp_ctx);</code></pre>
 
 <p>Reset the transaction state of the CMP context and the credentials:</p>
 
-<pre><code>    OSSL_CMP_CTX_reinit(cmp_ctx);
-    OSSL_CMP_CTX_set1_referenceValue(cmp_ctx, NULL, 0);
-    OSSL_CMP_CTX_set1_secretValue(cmp_ctx, NULL, 0);</code></pre>
+<pre><code>OSSL_CMP_CTX_reinit(cmp_ctx);
+OSSL_CMP_CTX_set1_referenceValue(cmp_ctx, NULL, 0);
+OSSL_CMP_CTX_set1_secretValue(cmp_ctx, NULL, 0);</code></pre>
 
 <p>Perform a Certification Request transaction, making use of the new credentials:</p>
 
-<pre><code>    OSSL_CMP_CTX_set1_cert(cmp_ctx, initialCert);
-    OSSL_CMP_CTX_set1_pkey(cmp_ctx, initialKey);
-    OSSL_CMP_CTX_set0_newPkey(cmp_ctx, 1, curentKey);
-    currentCert = OSSL_CMP_exec_CR_ses(cmp_ctx);</code></pre>
+<pre><code>OSSL_CMP_CTX_set1_cert(cmp_ctx, initialCert);
+OSSL_CMP_CTX_set1_pkey(cmp_ctx, initialKey);
+OSSL_CMP_CTX_set0_newPkey(cmp_ctx, 1, curentKey);
+currentCert = OSSL_CMP_exec_CR_ses(cmp_ctx);</code></pre>
 
 <p>Perform a Key Update Request, signed using the cert (and key) to be updated:</p>
 
-<pre><code>    OSSL_CMP_CTX_reinit(cmp_ctx);
-    OSSL_CMP_CTX_set1_cert(cmp_ctx, currentCert);
-    OSSL_CMP_CTX_set1_pkey(cmp_ctx, currentKey);
-    OSSL_CMP_CTX_set0_newPkey(cmp_ctx, 1, updatedKey);
-    currentCert = OSSL_CMP_exec_KUR_ses(cmp_ctx);
-    currentKey = updatedKey;</code></pre>
+<pre><code>OSSL_CMP_CTX_reinit(cmp_ctx);
+OSSL_CMP_CTX_set1_cert(cmp_ctx, currentCert);
+OSSL_CMP_CTX_set1_pkey(cmp_ctx, currentKey);
+OSSL_CMP_CTX_set0_newPkey(cmp_ctx, 1, updatedKey);
+currentCert = OSSL_CMP_exec_KUR_ses(cmp_ctx);
+currentKey = updatedKey;</code></pre>
 
 <p>Perform a General Message transaction including, as an example, the id-it-signKeyPairTypes OID and prints info on the General Response contents:</p>
 
-<pre><code>    OSSL_CMP_CTX_reinit(cmp_ctx);
+<pre><code>OSSL_CMP_CTX_reinit(cmp_ctx);
 
-    ASN1_OBJECT *type = OBJ_txt2obj(&quot;1.3.6.1.5.5.7.4.2&quot;, 1);
-    OSSL_CMP_ITAV *itav = OSSL_CMP_ITAV_create(type, NULL);
-    OSSL_CMP_CTX_push0_genm_ITAV(cmp_ctx, itav);
+ASN1_OBJECT *type = OBJ_txt2obj(&quot;1.3.6.1.5.5.7.4.2&quot;, 1);
+OSSL_CMP_ITAV *itav = OSSL_CMP_ITAV_create(type, NULL);
+OSSL_CMP_CTX_push0_genm_ITAV(cmp_ctx, itav);
 
-    STACK_OF(OSSL_CMP_ITAV) *itavs;
-    itavs = OSSL_CMP_exec_GENM_ses(cmp_ctx);
-    print_itavs(itavs);
-    sk_OSSL_CMP_ITAV_pop_free(itavs, OSSL_CMP_ITAV_free);</code></pre>
+STACK_OF(OSSL_CMP_ITAV) *itavs;
+itavs = OSSL_CMP_exec_GENM_ses(cmp_ctx);
+print_itavs(itavs);
+sk_OSSL_CMP_ITAV_pop_free(itavs, OSSL_CMP_ITAV_free);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>ossl-guide-quic-client-non-block</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -130,59 +130,59 @@
 
 <p>In our demo application we will write a function to handle these errors from OpenSSL I/O functions:</p>
 
-<pre><code>    static int handle_io_failure(SSL *ssl, int res)
-    {
-        switch (SSL_get_error(ssl, res)) {
-        case SSL_ERROR_WANT_READ:
-        case SSL_ERROR_WANT_WRITE:
-            /* Temporary failure. Wait until we can read/write and try again */
-            wait_for_activity(ssl);
-            return 1;
+<pre><code>static int handle_io_failure(SSL *ssl, int res)
+{
+    switch (SSL_get_error(ssl, res)) {
+    case SSL_ERROR_WANT_READ:
+    case SSL_ERROR_WANT_WRITE:
+        /* Temporary failure. Wait until we can read/write and try again */
+        wait_for_activity(ssl);
+        return 1;
 
-        case SSL_ERROR_ZERO_RETURN:
-            /* EOF */
-            return 0;
+    case SSL_ERROR_ZERO_RETURN:
+        /* EOF */
+        return 0;
 
-        case SSL_ERROR_SYSCALL:
-            return -1;
+    case SSL_ERROR_SYSCALL:
+        return -1;
 
-        case SSL_ERROR_SSL:
+    case SSL_ERROR_SSL:
+        /*
+         * Some stream fatal error occurred. This could be because of a
+         * stream reset - or some failure occurred on the underlying
+         * connection.
+         */
+        switch (SSL_get_stream_read_state(ssl)) {
+        case SSL_STREAM_STATE_RESET_REMOTE:
+            printf(&quot;Stream reset occurred\n&quot;);
             /*
-             * Some stream fatal error occurred. This could be because of a
-             * stream reset - or some failure occurred on the underlying
-             * connection.
+             * The stream has been reset but the connection is still
+             * healthy.
              */
-            switch (SSL_get_stream_read_state(ssl)) {
-            case SSL_STREAM_STATE_RESET_REMOTE:
-                printf(&quot;Stream reset occurred\n&quot;);
-                /*
-                 * The stream has been reset but the connection is still
-                 * healthy.
-                 */
-                break;
+            break;
 
-            case SSL_STREAM_STATE_CONN_CLOSED:
-                printf(&quot;Connection closed\n&quot;);
-                /* Connection is already closed. */
-                break;
-
-            default:
-                printf(&quot;Unknown stream failure\n&quot;);
-                break;
-            }
-            /*
-             * If the failure is due to a verification error we can get more
-             * information about it from SSL_get_verify_result().
-             */
-            if (SSL_get_verify_result(ssl) != X509_V_OK)
-                printf(&quot;Verify error: %s\n&quot;,
-                    X509_verify_cert_error_string(SSL_get_verify_result(ssl)));
-            return -1;
+        case SSL_STREAM_STATE_CONN_CLOSED:
+            printf(&quot;Connection closed\n&quot;);
+            /* Connection is already closed. */
+            break;
 
         default:
-            return -1;
+            printf(&quot;Unknown stream failure\n&quot;);
+            break;
         }
-    }</code></pre>
+        /*
+         * If the failure is due to a verification error we can get more
+         * information about it from SSL_get_verify_result().
+         */
+        if (SSL_get_verify_result(ssl) != X509_V_OK)
+            printf(&quot;Verify error: %s\n&quot;,
+                X509_verify_cert_error_string(SSL_get_verify_result(ssl)));
+        return -1;
+
+    default:
+        return -1;
+    }
+}</code></pre>
 
 <p>This function takes as arguments the <b>SSL</b> object that represents the connection, as well as the return code from the I/O function that failed. In the event of a non-fatal failure, it waits until a retry of the I/O operation might succeed (by using the <code>wait_for_activity()</code> function that we developed in the previous section). It returns 1 in the event of a non-fatal error (except EOF), 0 in the event of EOF, or -1 if a fatal error occurred.</p>
 
@@ -192,35 +192,35 @@
 
 <p>One key difference is that we must put the <b>SSL</b> object into nonblocking mode (the default is blocking mode). To do that we use the <a href="../man3/SSL_set_blocking_mode.html">SSL_set_blocking_mode(3)</a> function:</p>
 
-<pre><code>    /*
-     * The underlying socket is always nonblocking with QUIC, but the default
-     * behaviour of the SSL object is still to block. We set it for nonblocking
-     * mode in this demo.
-     */
-    if (!SSL_set_blocking_mode(ssl, 0)) {
-        printf(&quot;Failed to turn off blocking mode\n&quot;);
-        goto end;
-    }</code></pre>
+<pre><code>/*
+ * The underlying socket is always nonblocking with QUIC, but the default
+ * behaviour of the SSL object is still to block. We set it for nonblocking
+ * mode in this demo.
+ */
+if (!SSL_set_blocking_mode(ssl, 0)) {
+    printf(&quot;Failed to turn off blocking mode\n&quot;);
+    goto end;
+}</code></pre>
 
 <p>Although the demo application that we are developing here does not use it, it is possible to use &quot;thread assisted mode&quot; when developing QUIC applications. Normally, when writing an OpenSSL QUIC application, it is important that <a href="../man3/SSL_handle_events.html">SSL_handle_events(3)</a> (or alternatively any I/O function) is called on the connection <b>SSL</b> object periodically to maintain the connection in a healthy state. See <a href="#Performing-work-while-waiting-for-the-socket">&quot;Performing work while waiting for the socket&quot;</a> for more discussion on this. This is particularly important to keep in mind when writing a nonblocking QUIC application because it is common to leave the <b>SSL</b> connection object idle for some time when using nonblocking mode. By using &quot;thread assisted mode&quot; a separate thread is created by OpenSSL to do this automatically which means that the application developer does not need to handle this aspect. To do this we must use <a href="../man3/OSSL_QUIC_client_thread_method.html">OSSL_QUIC_client_thread_method(3)</a> when we construct the <b>SSL_CTX</b> as shown below:</p>
 
-<pre><code>    ctx = SSL_CTX_new(OSSL_QUIC_client_thread_method());
-    if (ctx == NULL) {
-        printf(&quot;Failed to create the SSL_CTX\n&quot;);
-        goto end;
-    }</code></pre>
+<pre><code>ctx = SSL_CTX_new(OSSL_QUIC_client_thread_method());
+if (ctx == NULL) {
+    printf(&quot;Failed to create the SSL_CTX\n&quot;);
+    goto end;
+}</code></pre>
 
 <h2 id="Performing-the-handshake">Performing the handshake</h2>
 
 <p>As in the demo for a blocking QUIC client we use the <a href="../man3/SSL_connect.html">SSL_connect(3)</a> function to perform the handshake with the server. Since we are using a nonblocking <b>SSL</b> object it is very likely that calls to this function will fail with a non-fatal error while we are waiting for the server to respond to our handshake messages. In such a case we must retry the same <a href="../man3/SSL_connect.html">SSL_connect(3)</a> call at a later time. In this demo we do this in a loop:</p>
 
-<pre><code>    /* Do the handshake with the server */
-    while ((ret = SSL_connect(ssl)) != 1) {
-        if (handle_io_failure(ssl, ret) == 1)
-            continue; /* Retry */
-        printf(&quot;Failed to connect to server\n&quot;);
-        goto end; /* Cannot retry: error */
-    }</code></pre>
+<pre><code>/* Do the handshake with the server */
+while ((ret = SSL_connect(ssl)) != 1) {
+    if (handle_io_failure(ssl, ret) == 1)
+        continue; /* Retry */
+    printf(&quot;Failed to connect to server\n&quot;);
+    goto end; /* Cannot retry: error */
+}</code></pre>
 
 <p>We continually call <a href="../man3/SSL_connect.html">SSL_connect(3)</a> until it gives us a success response. Otherwise we use the <code>handle_io_failure()</code> function that we created earlier to work out what we should do next. Note that we do not expect an EOF to occur at this stage, so such a response is treated in the same way as a fatal error.</p>
 
@@ -228,60 +228,60 @@
 
 <p>As with the blocking QUIC client demo we use the <a href="../man3/SSL_write_ex.html">SSL_write_ex(3)</a> function to send data to the server. As with <a href="../man3/SSL_connect.html">SSL_connect(3)</a> above, because we are using a nonblocking <b>SSL</b> object, this call could fail with a non-fatal error. In that case we should retry exactly the same <a href="../man3/SSL_write_ex.html">SSL_write_ex(3)</a> call again. Note that the parameters must be <i>exactly</i> the same, i.e. the same pointer to the buffer to write with the same length. You must not attempt to send different data on a retry. An optional mode does exist (<b>SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER</b>) which will configure OpenSSL to allow the buffer being written to change from one retry to the next. However, in this case, you must still retry exactly the same data - even though the buffer that contains that data may change location. See <a href="../man3/SSL_CTX_set_mode.html">SSL_CTX_set_mode(3)</a> for further details. As in the TLS tutorials (<a href="../man7/ossl-guide-tls-client-block.html">ossl-guide-tls-client-block(7)</a>) we write the request in three chunks.</p>
 
-<pre><code>    /* Write an HTTP GET request to the peer */
-    while (!SSL_write_ex(ssl, request_start, strlen(request_start), &amp;written)) {
-        if (handle_io_failure(ssl, 0) == 1)
-            continue; /* Retry */
-        printf(&quot;Failed to write start of HTTP request\n&quot;);
-        goto end; /* Cannot retry: error */
-    }
-    while (!SSL_write_ex(ssl, hostname, strlen(hostname), &amp;written)) {
-        if (handle_io_failure(ssl, 0) == 1)
-            continue; /* Retry */
-        printf(&quot;Failed to write hostname in HTTP request\n&quot;);
-        goto end; /* Cannot retry: error */
-    }
-    while (!SSL_write_ex(ssl, request_end, strlen(request_end), &amp;written)) {
-        if (handle_io_failure(ssl, 0) == 1)
-            continue; /* Retry */
-        printf(&quot;Failed to write end of HTTP request\n&quot;);
-        goto end; /* Cannot retry: error */
-    }</code></pre>
+<pre><code>/* Write an HTTP GET request to the peer */
+while (!SSL_write_ex(ssl, request_start, strlen(request_start), &amp;written)) {
+    if (handle_io_failure(ssl, 0) == 1)
+        continue; /* Retry */
+    printf(&quot;Failed to write start of HTTP request\n&quot;);
+    goto end; /* Cannot retry: error */
+}
+while (!SSL_write_ex(ssl, hostname, strlen(hostname), &amp;written)) {
+    if (handle_io_failure(ssl, 0) == 1)
+        continue; /* Retry */
+    printf(&quot;Failed to write hostname in HTTP request\n&quot;);
+    goto end; /* Cannot retry: error */
+}
+while (!SSL_write_ex(ssl, request_end, strlen(request_end), &amp;written)) {
+    if (handle_io_failure(ssl, 0) == 1)
+        continue; /* Retry */
+    printf(&quot;Failed to write end of HTTP request\n&quot;);
+    goto end; /* Cannot retry: error */
+}</code></pre>
 
 <p>On a write we do not expect to see an EOF response so we treat that case in the same way as a fatal error.</p>
 
 <p>Reading a response back from the server is similar:</p>
 
-<pre><code>    do {
-        /*
-         * Get up to sizeof(buf) bytes of the response. We keep reading until
-         * the server closes the connection.
-         */
-        while (!eof &amp;&amp; !SSL_read_ex(ssl, buf, sizeof(buf), &amp;readbytes)) {
-            switch (handle_io_failure(ssl, 0)) {
-            case 1:
-                continue; /* Retry */
-            case 0:
-                eof = 1;
-                continue;
-            case -1:
-            default:
-                printf(&quot;Failed reading remaining data\n&quot;);
-                goto end; /* Cannot retry: error */
-            }
+<pre><code>do {
+    /*
+     * Get up to sizeof(buf) bytes of the response. We keep reading until
+     * the server closes the connection.
+     */
+    while (!eof &amp;&amp; !SSL_read_ex(ssl, buf, sizeof(buf), &amp;readbytes)) {
+        switch (handle_io_failure(ssl, 0)) {
+        case 1:
+            continue; /* Retry */
+        case 0:
+            eof = 1;
+            continue;
+        case -1:
+        default:
+            printf(&quot;Failed reading remaining data\n&quot;);
+            goto end; /* Cannot retry: error */
         }
-        /*
-         * OpenSSL does not guarantee that the returned data is a string or
-         * that it is NUL terminated so we use fwrite() to write the exact
-         * number of bytes that we read. The data could be non-printable or
-         * have NUL characters in the middle of it. For this simple example
-         * we&#39;re going to print it to stdout anyway.
-         */
-        if (!eof)
-            fwrite(buf, 1, readbytes, stdout);
-    } while (!eof);
-    /* In case the response didn&#39;t finish with a newline we add one now */
-    printf(&quot;\n&quot;);</code></pre>
+    }
+    /*
+     * OpenSSL does not guarantee that the returned data is a string or
+     * that it is NUL terminated so we use fwrite() to write the exact
+     * number of bytes that we read. The data could be non-printable or
+     * have NUL characters in the middle of it. For this simple example
+     * we&#39;re going to print it to stdout anyway.
+     */
+    if (!eof)
+        fwrite(buf, 1, readbytes, stdout);
+} while (!eof);
+/* In case the response didn&#39;t finish with a newline we add one now */
+printf(&quot;\n&quot;);</code></pre>
 
 <p>The main difference this time is that it is valid for us to receive an EOF response when trying to read data from the server. This will occur when the server closes down the connection after sending all the data in its response.</p>
 
@@ -295,14 +295,14 @@
 
 <p>Since our application is initiating the shutdown then we might expect to see <a href="../man3/SSL_shutdown.html">SSL_shutdown(3)</a> give a return value of 0, and then we should continue to call it until we receive a return value of 1 (meaning we have successfully completed the shutdown). Since we are using a nonblocking <b>SSL</b> object we might expect to have to retry this operation several times. If <a href="../man3/SSL_shutdown.html">SSL_shutdown(3)</a> returns a negative result then we must call <a href="../man3/SSL_get_error.html">SSL_get_error(3)</a> to work out what to do next. We use our handle_io_failure() function that we developed earlier for this:</p>
 
-<pre><code>    /*
-     * Repeatedly call SSL_shutdown() until the connection is fully
-     * closed.
-     */
-    while ((ret = SSL_shutdown(ssl)) != 1) {
-        if (ret &lt; 0 &amp;&amp; handle_io_failure(ssl, ret) == 1)
-            continue; /* Retry */
-    }</code></pre>
+<pre><code>/*
+ * Repeatedly call SSL_shutdown() until the connection is fully
+ * closed.
+ */
+while ((ret = SSL_shutdown(ssl)) != 1) {
+    if (ret &lt; 0 &amp;&amp; handle_io_failure(ssl, ret) == 1)
+        continue; /* Retry */
+}</code></pre>
 
 <h2 id="Final-clean-up">Final clean up</h2>
 

@@ -4,7 +4,7 @@
 <head>
 <title>SRP_create_verifier</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,24 +28,24 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/srp.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/srp.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> int SRP_create_verifier_BN_ex(const char *user, const char *pass, BIGNUM **salt,
-                               BIGNUM **verifier, const BIGNUM *N,
-                               const BIGNUM *g, OSSL_LIB_CTX *libctx,
-                               const char *propq);
- char *SRP_create_verifier_BN(const char *user, const char *pass, BIGNUM **salt,
-                              BIGNUM **verifier, const BIGNUM *N, const BIGNUM *g);
- char *SRP_create_verifier_ex(const char *user, const char *pass, char **salt,
-                              char **verifier, const char *N, const char *g,
-                              OSSL_LIB_CTX *libctx, const char *propq);
- char *SRP_create_verifier(const char *user, const char *pass, char **salt,
-                           char **verifier, const char *N, const char *g);
+<pre><code>int SRP_create_verifier_BN_ex(const char *user, const char *pass, BIGNUM **salt,
+                              BIGNUM **verifier, const BIGNUM *N,
+                              const BIGNUM *g, OSSL_LIB_CTX *libctx,
+                              const char *propq);
+char *SRP_create_verifier_BN(const char *user, const char *pass, BIGNUM **salt,
+                             BIGNUM **verifier, const BIGNUM *N, const BIGNUM *g);
+char *SRP_create_verifier_ex(const char *user, const char *pass, char **salt,
+                             char **verifier, const char *N, const char *g,
+                             OSSL_LIB_CTX *libctx, const char *propq);
+char *SRP_create_verifier(const char *user, const char *pass, char **salt,
+                          char **verifier, const char *N, const char *g);
 
- char *SRP_check_known_gN_param(const BIGNUM *g, const BIGNUM *N);
- SRP_gN *SRP_get_default_gN(const char *id);</code></pre>
+char *SRP_check_known_gN_param(const BIGNUM *g, const BIGNUM *N);
+SRP_gN *SRP_get_default_gN(const char *id);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -77,26 +77,26 @@
 
 <p>Generate and store a 8192 bit password verifier (error handling omitted for clarity):</p>
 
-<pre><code> #include &lt;openssl/bn.h&gt;
- #include &lt;openssl/srp.h&gt;
+<pre><code>#include &lt;openssl/bn.h&gt;
+#include &lt;openssl/srp.h&gt;
 
- const char *username = &quot;username&quot;;
- const char *password = &quot;password&quot;;
+const char *username = &quot;username&quot;;
+const char *password = &quot;password&quot;;
 
- SRP_VBASE *srpData = SRP_VBASE_new(NULL);
+SRP_VBASE *srpData = SRP_VBASE_new(NULL);
 
- SRP_gN *gN = SRP_get_default_gN(&quot;8192&quot;);
+SRP_gN *gN = SRP_get_default_gN(&quot;8192&quot;);
 
- BIGNUM *salt = NULL, *verifier = NULL;
- SRP_create_verifier_BN_ex(username, password, &amp;salt, &amp;verifier, gN-&gt;N, gN-&gt;g,
-                           NULL, NULL);
+BIGNUM *salt = NULL, *verifier = NULL;
+SRP_create_verifier_BN_ex(username, password, &amp;salt, &amp;verifier, gN-&gt;N, gN-&gt;g,
+                          NULL, NULL);
 
- SRP_user_pwd *pwd = SRP_user_pwd_new();
- SRP_user_pwd_set1_ids(pwd, username, NULL);
- SRP_user_pwd_set0_sv(pwd, salt, verifier);
- SRP_user_pwd_set_gN(pwd, gN-&gt;g, gN-&gt;N);
+SRP_user_pwd *pwd = SRP_user_pwd_new();
+SRP_user_pwd_set1_ids(pwd, username, NULL);
+SRP_user_pwd_set0_sv(pwd, salt, verifier);
+SRP_user_pwd_set_gN(pwd, gN-&gt;g, gN-&gt;N);
 
- SRP_VBASE_add0_user(srpData, pwd);</code></pre>
+SRP_VBASE_add0_user(srpData, pwd);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

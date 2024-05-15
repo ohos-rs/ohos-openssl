@@ -4,7 +4,7 @@
 <head>
 <title>BIO_ctrl</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,37 +28,37 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- typedef int BIO_info_cb(BIO *b, int state, int res);
+typedef int BIO_info_cb(BIO *b, int state, int res);
 
- long BIO_ctrl(BIO *bp, int cmd, long larg, void *parg);
- long BIO_callback_ctrl(BIO *b, int cmd, BIO_info_cb *cb);
- void *BIO_ptr_ctrl(BIO *bp, int cmd, long larg);
- long BIO_int_ctrl(BIO *bp, int cmd, long larg, int iarg);
+long BIO_ctrl(BIO *bp, int cmd, long larg, void *parg);
+long BIO_callback_ctrl(BIO *b, int cmd, BIO_info_cb *cb);
+void *BIO_ptr_ctrl(BIO *bp, int cmd, long larg);
+long BIO_int_ctrl(BIO *bp, int cmd, long larg, int iarg);
 
- int BIO_reset(BIO *b);
- int BIO_seek(BIO *b, int ofs);
- int BIO_tell(BIO *b);
- int BIO_flush(BIO *b);
- int BIO_eof(BIO *b);
- int BIO_set_close(BIO *b, long flag);
- int BIO_get_close(BIO *b);
- int BIO_pending(BIO *b);
- int BIO_wpending(BIO *b);
- size_t BIO_ctrl_pending(BIO *b);
- size_t BIO_ctrl_wpending(BIO *b);
+int BIO_reset(BIO *b);
+int BIO_seek(BIO *b, int ofs);
+int BIO_tell(BIO *b);
+int BIO_flush(BIO *b);
+int BIO_eof(BIO *b);
+int BIO_set_close(BIO *b, long flag);
+int BIO_get_close(BIO *b);
+int BIO_pending(BIO *b);
+int BIO_wpending(BIO *b);
+size_t BIO_ctrl_pending(BIO *b);
+size_t BIO_ctrl_wpending(BIO *b);
 
- int BIO_get_info_callback(BIO *b, BIO_info_cb **cbp);
- int BIO_set_info_callback(BIO *b, BIO_info_cb *cb);
+int BIO_get_info_callback(BIO *b, BIO_info_cb **cbp);
+int BIO_set_info_callback(BIO *b, BIO_info_cb *cb);
 
- int BIO_get_ktls_send(BIO *b);
- int BIO_get_ktls_recv(BIO *b);
+int BIO_get_ktls_send(BIO *b);
+int BIO_get_ktls_recv(BIO *b);
 
- int BIO_set_conn_mode(BIO *b, int mode);
- int BIO_get_conn_mode(BIO *b);
+int BIO_set_conn_mode(BIO *b, int mode);
+int BIO_get_conn_mode(BIO *b);
 
- int BIO_set_tfo(BIO *b, int onoff);</code></pre>
+int BIO_set_tfo(BIO *b, int onoff);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -106,12 +106,12 @@
 
 <p>BIO_set_conn_mode() returns 1 for success and 0 for failure. BIO_get_conn_mode() returns the current connection mode. Which may contain the bitwise-or of the following flags:</p>
 
-<pre><code> BIO_SOCK_REUSEADDR
- BIO_SOCK_V6_ONLY
- BIO_SOCK_KEEPALIVE
- BIO_SOCK_NONBLOCK
- BIO_SOCK_NODELAY
- BIO_SOCK_TFO</code></pre>
+<pre><code>BIO_SOCK_REUSEADDR
+BIO_SOCK_V6_ONLY
+BIO_SOCK_KEEPALIVE
+BIO_SOCK_NONBLOCK
+BIO_SOCK_NODELAY
+BIO_SOCK_TFO</code></pre>
 
 <p>BIO_set_tfo() returns 1 for success, and 0 for failure.</p>
 

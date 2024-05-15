@@ -4,7 +4,7 @@
 <head>
 <title>BIO_s_connect</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,28 +29,28 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- const BIO_METHOD *BIO_s_connect(void);
+const BIO_METHOD *BIO_s_connect(void);
 
- BIO *BIO_new_connect(const char *name);
+BIO *BIO_new_connect(const char *name);
 
- long BIO_set_conn_hostname(BIO *b, char *name);
- long BIO_set_conn_port(BIO *b, char *port);
- long BIO_set_conn_address(BIO *b, BIO_ADDR *addr);
- long BIO_set_conn_ip_family(BIO *b, long family);
- const char *BIO_get_conn_hostname(BIO *b);
- const char *BIO_get_conn_port(BIO *b);
- const BIO_ADDR *BIO_get_conn_address(BIO *b);
- const long BIO_get_conn_ip_family(BIO *b);
+long BIO_set_conn_hostname(BIO *b, char *name);
+long BIO_set_conn_port(BIO *b, char *port);
+long BIO_set_conn_address(BIO *b, BIO_ADDR *addr);
+long BIO_set_conn_ip_family(BIO *b, long family);
+const char *BIO_get_conn_hostname(BIO *b);
+const char *BIO_get_conn_port(BIO *b);
+const BIO_ADDR *BIO_get_conn_address(BIO *b);
+const long BIO_get_conn_ip_family(BIO *b);
 
- long BIO_set_nbio(BIO *b, long n);
+long BIO_set_nbio(BIO *b, long n);
 
- int BIO_set_sock_type(BIO *b, int sock_type);
- int BIO_get_sock_type(BIO *b);
- int BIO_get0_dgram_bio(BIO *B, BIO **dgram_bio);
+int BIO_set_sock_type(BIO *b, int sock_type);
+int BIO_get_sock_type(BIO *b);
+int BIO_get0_dgram_bio(BIO *B, BIO **dgram_bio);
 
- long BIO_do_connect(BIO *b);</code></pre>
+long BIO_do_connect(BIO *b);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -138,26 +138,26 @@
 
 <p>This is example connects to a webserver on the local host and attempts to retrieve a page and copy the result to standard output.</p>
 
-<pre><code> BIO *cbio, *out;
- int len;
- char tmpbuf[1024];
+<pre><code>BIO *cbio, *out;
+int len;
+char tmpbuf[1024];
 
- cbio = BIO_new_connect(&quot;localhost:http&quot;);
- out = BIO_new_fp(stdout, BIO_NOCLOSE);
- if (BIO_do_connect(cbio) &lt;= 0) {
-     fprintf(stderr, &quot;Error connecting to server\n&quot;);
-     ERR_print_errors_fp(stderr);
-     exit(1);
- }
- BIO_puts(cbio, &quot;GET / HTTP/1.0\n\n&quot;);
- for (;;) {
-     len = BIO_read(cbio, tmpbuf, 1024);
-     if (len &lt;= 0)
-         break;
-     BIO_write(out, tmpbuf, len);
- }
- BIO_free(cbio);
- BIO_free(out);</code></pre>
+cbio = BIO_new_connect(&quot;localhost:http&quot;);
+out = BIO_new_fp(stdout, BIO_NOCLOSE);
+if (BIO_do_connect(cbio) &lt;= 0) {
+    fprintf(stderr, &quot;Error connecting to server\n&quot;);
+    ERR_print_errors_fp(stderr);
+    exit(1);
+}
+BIO_puts(cbio, &quot;GET / HTTP/1.0\n\n&quot;);
+for (;;) {
+    len = BIO_read(cbio, tmpbuf, 1024);
+    if (len &lt;= 0)
+        break;
+    BIO_write(out, tmpbuf, len);
+}
+BIO_free(cbio);
+BIO_free(out);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

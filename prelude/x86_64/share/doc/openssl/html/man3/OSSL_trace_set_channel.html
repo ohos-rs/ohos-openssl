@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_trace_set_channel</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -44,15 +44,15 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/trace.h&gt;
+<pre><code>#include &lt;openssl/trace.h&gt;
 
- typedef size_t (*OSSL_trace_cb)(const char *buf, size_t cnt,
-                                 int category, int cmd, void *data);
+typedef size_t (*OSSL_trace_cb)(const char *buf, size_t cnt,
+                                int category, int cmd, void *data);
 
- void OSSL_trace_set_channel(int category, BIO *bio);
- void OSSL_trace_set_prefix(int category, const char *prefix);
- void OSSL_trace_set_suffix(int category, const char *suffix);
- void OSSL_trace_set_callback(int category, OSSL_trace_cb cb, void  *data);</code></pre>
+void OSSL_trace_set_channel(int category, BIO *bio);
+void OSSL_trace_set_prefix(int category, const char *prefix);
+void OSSL_trace_set_suffix(int category, const char *suffix);
+void OSSL_trace_set_callback(int category, OSSL_trace_cb cb, void  *data);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -242,83 +242,83 @@
 
 <p>In all examples below, the trace producing code is assumed to be the following:</p>
 
-<pre><code> int foo = 42;
- const char bar[] = { 0,  1,  2,  3,  4,  5,  6,  7,
-                      8,  9, 10, 11, 12, 13, 14, 15 };
+<pre><code>int foo = 42;
+const char bar[] = { 0,  1,  2,  3,  4,  5,  6,  7,
+                     8,  9, 10, 11, 12, 13, 14, 15 };
 
- OSSL_TRACE_BEGIN(TLS) {
-     BIO_puts(trc_out, &quot;foo: &quot;);
-     BIO_printf(trc_out, &quot;%d\n&quot;, foo);
-     BIO_dump(trc_out, bar, sizeof(bar));
- } OSSL_TRACE_END(TLS);</code></pre>
+OSSL_TRACE_BEGIN(TLS) {
+    BIO_puts(trc_out, &quot;foo: &quot;);
+    BIO_printf(trc_out, &quot;%d\n&quot;, foo);
+    BIO_dump(trc_out, bar, sizeof(bar));
+} OSSL_TRACE_END(TLS);</code></pre>
 
 <h2 id="Simple-example">Simple example</h2>
 
 <p>An example with just a channel and constant prefix / suffix.</p>
 
-<pre><code> int main(int argc, char *argv[])
- {
-     BIO *err = BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT);
-     OSSL_trace_set_channel(OSSL_TRACE_CATEGORY_SSL, err);
-     OSSL_trace_set_prefix(OSSL_TRACE_CATEGORY_SSL, &quot;BEGIN TRACE[TLS]&quot;);
-     OSSL_trace_set_suffix(OSSL_TRACE_CATEGORY_SSL, &quot;END TRACE[TLS]&quot;);
+<pre><code>int main(int argc, char *argv[])
+{
+    BIO *err = BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT);
+    OSSL_trace_set_channel(OSSL_TRACE_CATEGORY_SSL, err);
+    OSSL_trace_set_prefix(OSSL_TRACE_CATEGORY_SSL, &quot;BEGIN TRACE[TLS]&quot;);
+    OSSL_trace_set_suffix(OSSL_TRACE_CATEGORY_SSL, &quot;END TRACE[TLS]&quot;);
 
-     /* ... work ... */
- }</code></pre>
+    /* ... work ... */
+}</code></pre>
 
 <p>When the trace producing code above is performed, this will be output on standard error:</p>
 
-<pre><code> BEGIN TRACE[TLS]
- foo: 42
- 0000 - 00 01 02 03 04 05 06 07-08 09 0a 0b 0c 0d 0e 0f   ................
- END TRACE[TLS]</code></pre>
+<pre><code>BEGIN TRACE[TLS]
+foo: 42
+0000 - 00 01 02 03 04 05 06 07-08 09 0a 0b 0c 0d 0e 0f   ................
+END TRACE[TLS]</code></pre>
 
 <h2 id="Advanced-example">Advanced example</h2>
 
 <p>This example uses the callback, and depends on pthreads functionality.</p>
 
-<pre><code> static size_t cb(const char *buf, size_t cnt,
-                 int category, int cmd, void *vdata)
- {
-     BIO *bio = vdata;
-     const char *label = NULL;
+<pre><code>static size_t cb(const char *buf, size_t cnt,
+                int category, int cmd, void *vdata)
+{
+    BIO *bio = vdata;
+    const char *label = NULL;
 
-     switch (cmd) {
-     case OSSL_TRACE_CTRL_BEGIN:
-         label = &quot;BEGIN&quot;;
-         break;
-     case OSSL_TRACE_CTRL_END:
-         label = &quot;END&quot;;
-         break;
-     }
+    switch (cmd) {
+    case OSSL_TRACE_CTRL_BEGIN:
+        label = &quot;BEGIN&quot;;
+        break;
+    case OSSL_TRACE_CTRL_END:
+        label = &quot;END&quot;;
+        break;
+    }
 
-     if (label != NULL) {
-         union {
-             pthread_t tid;
-             unsigned long ltid;
-         } tid;
+    if (label != NULL) {
+        union {
+            pthread_t tid;
+            unsigned long ltid;
+        } tid;
 
-         tid.tid = pthread_self();
-         BIO_printf(bio, &quot;%s TRACE[%s]:%lx\n&quot;,
-                    label, OSSL_trace_get_category_name(category), tid.ltid);
-     }
-     return (size_t)BIO_puts(bio, buf);
- }
+        tid.tid = pthread_self();
+        BIO_printf(bio, &quot;%s TRACE[%s]:%lx\n&quot;,
+                   label, OSSL_trace_get_category_name(category), tid.ltid);
+    }
+    return (size_t)BIO_puts(bio, buf);
+}
 
- int main(int argc, char *argv[])
- {
-     BIO *err = BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT);
-     OSSL_trace_set_callback(OSSL_TRACE_CATEGORY_SSL, cb, err);
+int main(int argc, char *argv[])
+{
+    BIO *err = BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT);
+    OSSL_trace_set_callback(OSSL_TRACE_CATEGORY_SSL, cb, err);
 
-     /* ... work ... */
- }</code></pre>
+    /* ... work ... */
+}</code></pre>
 
 <p>The output is almost the same as for the simple example above.</p>
 
-<pre><code> BEGIN TRACE[TLS]:7f9eb0193b80
- foo: 42
- 0000 - 00 01 02 03 04 05 06 07-08 09 0a 0b 0c 0d 0e 0f   ................
- END TRACE[TLS]:7f9eb0193b80</code></pre>
+<pre><code>BEGIN TRACE[TLS]:7f9eb0193b80
+foo: 42
+0000 - 00 01 02 03 04 05 06 07-08 09 0a 0b 0c 0d 0e 0f   ................
+END TRACE[TLS]:7f9eb0193b80</code></pre>
 
 <h1 id="NOTES">NOTES</h1>
 

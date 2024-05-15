@@ -4,7 +4,7 @@
 <head>
 <title>OpenSSL_version</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -32,37 +32,37 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/opensslv.h&gt;
+<pre><code>#include &lt;openssl/opensslv.h&gt;
 
- #define OPENSSL_VERSION_MAJOR  x
- #define OPENSSL_VERSION_MINOR  y
- #define OPENSSL_VERSION_PATCH  z
+#define OPENSSL_VERSION_MAJOR  x
+#define OPENSSL_VERSION_MINOR  y
+#define OPENSSL_VERSION_PATCH  z
 
- /* The definitions here are typical release values */
- #define OPENSSL_VERSION_PRE_RELEASE &quot;&quot;
- #define OPENSSL_VERSION_BUILD_METADATA &quot;&quot;
+/* The definitions here are typical release values */
+#define OPENSSL_VERSION_PRE_RELEASE &quot;&quot;
+#define OPENSSL_VERSION_BUILD_METADATA &quot;&quot;
 
- #define OPENSSL_VERSION_TEXT &quot;OpenSSL x.y.z xx XXX xxxx&quot;
+#define OPENSSL_VERSION_TEXT &quot;OpenSSL x.y.z xx XXX xxxx&quot;
 
- #define OPENSSL_VERSION_PREREQ(maj,min)
+#define OPENSSL_VERSION_PREREQ(maj,min)
 
- #include &lt;openssl/crypto.h&gt;
+#include &lt;openssl/crypto.h&gt;
 
- unsigned int OPENSSL_version_major(void);
- unsigned int OPENSSL_version_minor(void);
- unsigned int OPENSSL_version_patch(void);
- const char *OPENSSL_version_pre_release(void);
- const char *OPENSSL_version_build_metadata(void);
+unsigned int OPENSSL_version_major(void);
+unsigned int OPENSSL_version_minor(void);
+unsigned int OPENSSL_version_patch(void);
+const char *OPENSSL_version_pre_release(void);
+const char *OPENSSL_version_build_metadata(void);
 
- const char *OpenSSL_version(int t);
+const char *OpenSSL_version(int t);
 
- const char *OPENSSL_info(int t);
+const char *OPENSSL_info(int t);
 
- /* from openssl/opensslv.h */
- #define OPENSSL_VERSION_NUMBER 0xnnnnnnnnL
+/* from openssl/opensslv.h */
+#define OPENSSL_VERSION_NUMBER 0xnnnnnnnnL
 
- /* from openssl/crypto.h */
- unsigned long OpenSSL_version_num();</code></pre>
+/* from openssl/crypto.h */
+unsigned long OpenSSL_version_num();</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

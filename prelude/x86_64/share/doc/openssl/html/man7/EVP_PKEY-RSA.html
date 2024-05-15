@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY-RSA</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -310,41 +310,41 @@
 
 <p>An <b>EVP_PKEY</b> context can be obtained by calling:</p>
 
-<pre><code>    EVP_PKEY_CTX *pctx =
-        EVP_PKEY_CTX_new_from_name(NULL, &quot;RSA&quot;, NULL);</code></pre>
+<pre><code>EVP_PKEY_CTX *pctx =
+    EVP_PKEY_CTX_new_from_name(NULL, &quot;RSA&quot;, NULL);</code></pre>
 
 <p>An <b>RSA</b> key can be generated simply like this:</p>
 
-<pre><code>    pkey = EVP_RSA_gen(4096);</code></pre>
+<pre><code>pkey = EVP_RSA_gen(4096);</code></pre>
 
 <p>or like this:</p>
 
-<pre><code>    EVP_PKEY *pkey = NULL;
-    EVP_PKEY_CTX *pctx =
-        EVP_PKEY_CTX_new_from_name(NULL, &quot;RSA&quot;, NULL);
+<pre><code>EVP_PKEY *pkey = NULL;
+EVP_PKEY_CTX *pctx =
+    EVP_PKEY_CTX_new_from_name(NULL, &quot;RSA&quot;, NULL);
 
-    EVP_PKEY_keygen_init(pctx);
-    EVP_PKEY_generate(pctx, &amp;pkey);
-    EVP_PKEY_CTX_free(pctx);</code></pre>
+EVP_PKEY_keygen_init(pctx);
+EVP_PKEY_generate(pctx, &amp;pkey);
+EVP_PKEY_CTX_free(pctx);</code></pre>
 
 <p>An <b>RSA</b> key can be generated with key generation parameters:</p>
 
-<pre><code>    unsigned int primes = 3;
-    unsigned int bits = 4096;
-    OSSL_PARAM params[3];
-    EVP_PKEY *pkey = NULL;
-    EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_from_name(NULL, &quot;RSA&quot;, NULL);
+<pre><code>unsigned int primes = 3;
+unsigned int bits = 4096;
+OSSL_PARAM params[3];
+EVP_PKEY *pkey = NULL;
+EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_from_name(NULL, &quot;RSA&quot;, NULL);
 
-    EVP_PKEY_keygen_init(pctx);
+EVP_PKEY_keygen_init(pctx);
 
-    params[0] = OSSL_PARAM_construct_uint(&quot;bits&quot;, &amp;bits);
-    params[1] = OSSL_PARAM_construct_uint(&quot;primes&quot;, &amp;primes);
-    params[2] = OSSL_PARAM_construct_end();
-    EVP_PKEY_CTX_set_params(pctx, params);
+params[0] = OSSL_PARAM_construct_uint(&quot;bits&quot;, &amp;bits);
+params[1] = OSSL_PARAM_construct_uint(&quot;primes&quot;, &amp;primes);
+params[2] = OSSL_PARAM_construct_end();
+EVP_PKEY_CTX_set_params(pctx, params);
 
-    EVP_PKEY_generate(pctx, &amp;pkey);
-    EVP_PKEY_print_private(bio_out, pkey, 0, NULL);
-    EVP_PKEY_CTX_free(pctx);</code></pre>
+EVP_PKEY_generate(pctx, &amp;pkey);
+EVP_PKEY_print_private(bio_out, pkey, 0, NULL);
+EVP_PKEY_CTX_free(pctx);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

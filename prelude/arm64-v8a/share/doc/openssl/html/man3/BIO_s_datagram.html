@@ -4,7 +4,7 @@
 <head>
 <title>BIO_s_datagram</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -26,19 +26,19 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- BIO_METHOD *BIO_s_datagram(void);
- BIO *BIO_new_dgram(int fd, int close_flag);
+BIO_METHOD *BIO_s_datagram(void);
+BIO *BIO_new_dgram(int fd, int close_flag);
 
- int BIO_ctrl_dgram_connect(BIO *bio, const BIO_ADDR *peer);
- int BIO_ctrl_set_connected(BIO *bio, const BIO_ADDR *peer);
- int BIO_dgram_recv_timedout(BIO *bio);
- int BIO_dgram_send_timedout(BIO *bio);
- int BIO_dgram_get_peer(BIO *bio, BIO_ADDR *peer);
- int BIO_dgram_set_peer(BIO *bio, const BIO_ADDR *peer);
- int BIO_dgram_get_mtu_overhead(BIO *bio);
- int BIO_dgram_detect_peer_addr(BIO *bio, BIO_ADDR *peer);</code></pre>
+int BIO_ctrl_dgram_connect(BIO *bio, const BIO_ADDR *peer);
+int BIO_ctrl_set_connected(BIO *bio, const BIO_ADDR *peer);
+int BIO_dgram_recv_timedout(BIO *bio);
+int BIO_dgram_send_timedout(BIO *bio);
+int BIO_dgram_get_peer(BIO *bio, BIO_ADDR *peer);
+int BIO_dgram_set_peer(BIO *bio, const BIO_ADDR *peer);
+int BIO_dgram_get_mtu_overhead(BIO *bio);
+int BIO_dgram_detect_peer_addr(BIO *bio, BIO_ADDR *peer);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

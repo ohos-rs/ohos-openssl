@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-ARGON2</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -124,63 +124,63 @@
 
 <p>This example uses Argon2d with password &quot;1234567890&quot;, salt &quot;saltsalt&quot;, using 2 lanes, 2 threads, and memory cost of 65536:</p>
 
-<pre><code> #include &lt;string.h&gt;                 /* strlen               */
- #include &lt;openssl/core_names.h&gt;     /* OSSL_KDF_*           */
- #include &lt;openssl/params.h&gt;         /* OSSL_PARAM_*         */
- #include &lt;openssl/thread.h&gt;         /* OSSL_set_max_threads */
- #include &lt;openssl/kdf.h&gt;            /* EVP_KDF_*            */
+<pre><code>#include &lt;string.h&gt;                 /* strlen               */
+#include &lt;openssl/core_names.h&gt;     /* OSSL_KDF_*           */
+#include &lt;openssl/params.h&gt;         /* OSSL_PARAM_*         */
+#include &lt;openssl/thread.h&gt;         /* OSSL_set_max_threads */
+#include &lt;openssl/kdf.h&gt;            /* EVP_KDF_*            */
 
- int main(void)
- {
-     int retval = 1;
+int main(void)
+{
+    int retval = 1;
 
-     EVP_KDF *kdf = NULL;
-     EVP_KDF_CTX *kctx = NULL;
-     OSSL_PARAM params[6], *p = params;
+    EVP_KDF *kdf = NULL;
+    EVP_KDF_CTX *kctx = NULL;
+    OSSL_PARAM params[6], *p = params;
 
-     /* argon2 params, please refer to RFC9106 for recommended defaults */
-     uint32_t lanes = 2, threads = 2, memcost = 65536;
-     char pwd[] = &quot;1234567890&quot;, salt[] = &quot;saltsalt&quot;;
+    /* argon2 params, please refer to RFC9106 for recommended defaults */
+    uint32_t lanes = 2, threads = 2, memcost = 65536;
+    char pwd[] = &quot;1234567890&quot;, salt[] = &quot;saltsalt&quot;;
 
-     /* derive result */
-     size_t outlen = 128;
-     unsigned char result[outlen];
+    /* derive result */
+    size_t outlen = 128;
+    unsigned char result[outlen];
 
-     /* required if threads &gt; 1 */
-     if (OSSL_set_max_threads(NULL, threads) != 1)
-         goto fail;
+    /* required if threads &gt; 1 */
+    if (OSSL_set_max_threads(NULL, threads) != 1)
+        goto fail;
 
-     p = params;
-     *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_THREADS, &amp;threads);
-     *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_ARGON2_LANES,
-                                        &amp;lanes);
-     *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_ARGON2_MEMCOST,
-                                        &amp;memcost);
-     *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
-                                              salt,
-                                              strlen((const char *)salt));
-     *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_PASSWORD,
-                                              pwd,
-                                              strlen((const char *)pwd));
-     *p++ = OSSL_PARAM_construct_end();
+    p = params;
+    *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_THREADS, &amp;threads);
+    *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_ARGON2_LANES,
+                                       &amp;lanes);
+    *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_ARGON2_MEMCOST,
+                                       &amp;memcost);
+    *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
+                                             salt,
+                                             strlen((const char *)salt));
+    *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_PASSWORD,
+                                             pwd,
+                                             strlen((const char *)pwd));
+    *p++ = OSSL_PARAM_construct_end();
 
-     if ((kdf = EVP_KDF_fetch(NULL, &quot;ARGON2D&quot;, NULL)) == NULL)
-         goto fail;
-     if ((kctx = EVP_KDF_CTX_new(kdf)) == NULL)
-         goto fail;
-     if (EVP_KDF_derive(kctx, &amp;result[0], outlen, params) != 1)
-         goto fail;
+    if ((kdf = EVP_KDF_fetch(NULL, &quot;ARGON2D&quot;, NULL)) == NULL)
+        goto fail;
+    if ((kctx = EVP_KDF_CTX_new(kdf)) == NULL)
+        goto fail;
+    if (EVP_KDF_derive(kctx, &amp;result[0], outlen, params) != 1)
+        goto fail;
 
-     printf(&quot;Output = %s\n&quot;, OPENSSL_buf2hexstr(result, outlen));
-     retval = 0;
+    printf(&quot;Output = %s\n&quot;, OPENSSL_buf2hexstr(result, outlen));
+    retval = 0;
 
- fail:
-     EVP_KDF_free(kdf);
-     EVP_KDF_CTX_free(kctx);
-     OSSL_set_max_threads(NULL, 0);
+fail:
+    EVP_KDF_free(kdf);
+    EVP_KDF_CTX_free(kctx);
+    OSSL_set_max_threads(NULL, 0);
 
-     return retval;
- }</code></pre>
+    return retval;
+}</code></pre>
 
 <h1 id="NOTES">NOTES</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>openssl-format-options</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -99,44 +99,44 @@
 
 <p>A text format defined in IETF RFC 1421 and IETF RFC 7468. Briefly, this is a block of base-64 encoding (defined in IETF RFC 4648), with specific lines used to mark the start and end:</p>
 
-<pre><code> Text before the BEGIN line is ignored.
- ----- BEGIN object-type -----
- OT43gQKBgQC/2OHZoko6iRlNOAQ/tMVFNq7fL81GivoQ9F1U0Qr+DH3ZfaH8eIkX
- xT0ToMPJUzWAn8pZv0snA0um6SIgvkCuxO84OkANCVbttzXImIsL7pFzfcwV/ERK
- UM6j0ZuSMFOCr/lGPAoOQU0fskidGEHi1/kW+suSr28TqsyYZpwBDQ==
- ----- END object-type -----
- Text after the END line is also ignored</code></pre>
+<pre><code>Text before the BEGIN line is ignored.
+----- BEGIN object-type -----
+OT43gQKBgQC/2OHZoko6iRlNOAQ/tMVFNq7fL81GivoQ9F1U0Qr+DH3ZfaH8eIkX
+xT0ToMPJUzWAn8pZv0snA0um6SIgvkCuxO84OkANCVbttzXImIsL7pFzfcwV/ERK
+UM6j0ZuSMFOCr/lGPAoOQU0fskidGEHi1/kW+suSr28TqsyYZpwBDQ==
+----- END object-type -----
+Text after the END line is also ignored</code></pre>
 
 <p>The <i>object-type</i> must match the type of object that is expected. For example a <code>BEGIN X509 CERTIFICATE</code> will not match if the command is trying to read a private key. The types supported include:</p>
 
-<pre><code> ANY PRIVATE KEY
- CERTIFICATE
- CERTIFICATE REQUEST
- CMS
- DH PARAMETERS
- DSA PARAMETERS
- DSA PUBLIC KEY
- EC PARAMETERS
- EC PRIVATE KEY
- ECDSA PUBLIC KEY
- ENCRYPTED PRIVATE KEY
- PARAMETERS
- PKCS #7 SIGNED DATA
- PKCS7
- PRIVATE KEY
- PUBLIC KEY
- RSA PRIVATE KEY
- SSL SESSION PARAMETERS
- TRUSTED CERTIFICATE
- X509 CRL
- X9.42 DH PARAMETERS</code></pre>
+<pre><code>ANY PRIVATE KEY
+CERTIFICATE
+CERTIFICATE REQUEST
+CMS
+DH PARAMETERS
+DSA PARAMETERS
+DSA PUBLIC KEY
+EC PARAMETERS
+EC PRIVATE KEY
+ECDSA PUBLIC KEY
+ENCRYPTED PRIVATE KEY
+PARAMETERS
+PKCS #7 SIGNED DATA
+PKCS7
+PRIVATE KEY
+PUBLIC KEY
+RSA PRIVATE KEY
+SSL SESSION PARAMETERS
+TRUSTED CERTIFICATE
+X509 CRL
+X9.42 DH PARAMETERS</code></pre>
 
 <p>The following legacy <i>object-type</i>&#39;s are also supported for compatibility with earlier releases:</p>
 
-<pre><code> DSA PRIVATE KEY
- NEW CERTIFICATE REQUEST
- RSA PUBLIC KEY
- X509 CERTIFICATE</code></pre>
+<pre><code>DSA PRIVATE KEY
+NEW CERTIFICATE REQUEST
+RSA PUBLIC KEY
+X509 CERTIFICATE</code></pre>
 
 </dd>
 <dt id="SMIME"><b>SMIME</b></dt>

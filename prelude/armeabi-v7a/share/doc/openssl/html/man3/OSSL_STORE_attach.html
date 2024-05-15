@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_STORE_attach</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,14 +27,14 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/store.h&gt;
+<pre><code>#include &lt;openssl/store.h&gt;
 
- OSSL_STORE_CTX *OSSL_STORE_attach(BIO *bio, const char *scheme,
-                                   OSSL_LIB_CTX *libctx, const char *propq,
-                                   const UI_METHOD *ui_method, void *ui_data,
-                                   const OSSL_PARAM params[],
-                                   OSSL_STORE_post_process_info_fn post_process,
-                                   void *post_process_data);</code></pre>
+OSSL_STORE_CTX *OSSL_STORE_attach(BIO *bio, const char *scheme,
+                                  OSSL_LIB_CTX *libctx, const char *propq,
+                                  const UI_METHOD *ui_method, void *ui_data,
+                                  const OSSL_PARAM params[],
+                                  OSSL_STORE_post_process_info_fn post_process,
+                                  void *post_process_data);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

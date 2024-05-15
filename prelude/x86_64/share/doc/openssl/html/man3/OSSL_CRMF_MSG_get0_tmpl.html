@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_CRMF_MSG_get0_tmpl</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,30 +27,30 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/crmf.h&gt;
+<pre><code>#include &lt;openssl/crmf.h&gt;
 
- OSSL_CRMF_CERTTEMPLATE *OSSL_CRMF_MSG_get0_tmpl(const OSSL_CRMF_MSG *crm);
- X509_PUBKEY
- *OSSL_CRMF_CERTTEMPLATE_get0_publicKey(const OSSL_CRMF_CERTTEMPLATE *tmpl);
- const X509_NAME
- *OSSL_CRMF_CERTTEMPLATE_get0_subject(const OSSL_CRMF_CERTTEMPLATE *tmpl);
- const X509_NAME
- *OSSL_CRMF_CERTTEMPLATE_get0_issuer(const OSSL_CRMF_CERTTEMPLATE *tmpl);
- const ASN1_INTEGER
- *OSSL_CRMF_CERTTEMPLATE_get0_serialNumber(const OSSL_CRMF_CERTTEMPLATE *tmpl);
- X509_EXTENSIONS
- *OSSL_CRMF_CERTTEMPLATE_get0_extensions(const OSSL_CRMF_CERTTEMPLATE *tmpl);
+OSSL_CRMF_CERTTEMPLATE *OSSL_CRMF_MSG_get0_tmpl(const OSSL_CRMF_MSG *crm);
+X509_PUBKEY
+*OSSL_CRMF_CERTTEMPLATE_get0_publicKey(const OSSL_CRMF_CERTTEMPLATE *tmpl);
+const X509_NAME
+*OSSL_CRMF_CERTTEMPLATE_get0_subject(const OSSL_CRMF_CERTTEMPLATE *tmpl);
+const X509_NAME
+*OSSL_CRMF_CERTTEMPLATE_get0_issuer(const OSSL_CRMF_CERTTEMPLATE *tmpl);
+const ASN1_INTEGER
+*OSSL_CRMF_CERTTEMPLATE_get0_serialNumber(const OSSL_CRMF_CERTTEMPLATE *tmpl);
+X509_EXTENSIONS
+*OSSL_CRMF_CERTTEMPLATE_get0_extensions(const OSSL_CRMF_CERTTEMPLATE *tmpl);
 
- const ASN1_INTEGER
- *OSSL_CRMF_CERTID_get0_serialNumber(const OSSL_CRMF_CERTID *cid);
- const X509_NAME *OSSL_CRMF_CERTID_get0_issuer(const OSSL_CRMF_CERTID *cid);
+const ASN1_INTEGER
+*OSSL_CRMF_CERTID_get0_serialNumber(const OSSL_CRMF_CERTID *cid);
+const X509_NAME *OSSL_CRMF_CERTID_get0_issuer(const OSSL_CRMF_CERTID *cid);
 
- X509
- *OSSL_CRMF_ENCRYPTEDVALUE_get1_encCert(const OSSL_CRMF_ENCRYPTEDVALUE *ecert,
-                                        OSSL_LIB_CTX *libctx, const char *propq,
-                                        EVP_PKEY *pkey);
+X509
+*OSSL_CRMF_ENCRYPTEDVALUE_get1_encCert(const OSSL_CRMF_ENCRYPTEDVALUE *ecert,
+                                       OSSL_LIB_CTX *libctx, const char *propq,
+                                       EVP_PKEY *pkey);
 
- int OSSL_CRMF_MSG_get_certReqId(const OSSL_CRMF_MSG *crm);</code></pre>
+int OSSL_CRMF_MSG_get_certReqId(const OSSL_CRMF_MSG *crm);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

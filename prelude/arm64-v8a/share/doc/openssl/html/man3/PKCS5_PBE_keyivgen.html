@@ -4,7 +4,7 @@
 <head>
 <title>PKCS5_PBE_keyivgen</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,72 +34,72 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int PKCS5_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
-                        ASN1_TYPE *param, const EVP_CIPHER *cipher,
-                        const EVP_MD *md, int en_de);
- int PKCS5_PBE_keyivgen_ex(EVP_CIPHER_CTX *cctx, const char *pass, int passlen,
-                           ASN1_TYPE *param, const EVP_CIPHER *cipher,
-                           const EVP_MD *md, int en_de, OSSL_LIB_CTX *libctx,
-                           const char *propq);
- int PKCS5_v2_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
-                           ASN1_TYPE *param, const EVP_CIPHER *cipher,
-                           const EVP_MD *md, int en_de);
- int PKCS5_v2_PBE_keyivgen_ex(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
-                              ASN1_TYPE *param, const EVP_CIPHER *cipher,
-                              const EVP_MD *md, int en_de,
-                              OSSL_LIB_CTX *libctx, const char *propq);
- int EVP_PBE_scrypt(const char *pass, size_t passlen,
-                    const unsigned char *salt, size_t saltlen,
-                    uint64_t N, uint64_t r, uint64_t p, uint64_t maxmem,
-                    unsigned char *key, size_t keylen);
- int EVP_PBE_scrypt_ex(const char *pass, size_t passlen,
-                       const unsigned char *salt, size_t saltlen,
-                       uint64_t N, uint64_t r, uint64_t p, uint64_t maxmem,
-                       unsigned char *key, size_t keylen,
-                       OSSL_LIB_CTX *ctx, const char *propq);
- int PKCS5_v2_scrypt_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass,
-                              int passlen, ASN1_TYPE *param,
-                              const EVP_CIPHER *c, const EVP_MD *md, int en_de);
- int PKCS5_v2_scrypt_keyivgen_ex(EVP_CIPHER_CTX *ctx, const char *pass,
-                                 int passlen, ASN1_TYPE *param,
-                                 const EVP_CIPHER *c, const EVP_MD *md, int en_de,
-                                 OSSL_LIB_CTX *libctx, const char *propq);
+int PKCS5_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                       ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                       const EVP_MD *md, int en_de);
+int PKCS5_PBE_keyivgen_ex(EVP_CIPHER_CTX *cctx, const char *pass, int passlen,
+                          ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                          const EVP_MD *md, int en_de, OSSL_LIB_CTX *libctx,
+                          const char *propq);
+int PKCS5_v2_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                          ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                          const EVP_MD *md, int en_de);
+int PKCS5_v2_PBE_keyivgen_ex(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                             ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                             const EVP_MD *md, int en_de,
+                             OSSL_LIB_CTX *libctx, const char *propq);
+int EVP_PBE_scrypt(const char *pass, size_t passlen,
+                   const unsigned char *salt, size_t saltlen,
+                   uint64_t N, uint64_t r, uint64_t p, uint64_t maxmem,
+                   unsigned char *key, size_t keylen);
+int EVP_PBE_scrypt_ex(const char *pass, size_t passlen,
+                      const unsigned char *salt, size_t saltlen,
+                      uint64_t N, uint64_t r, uint64_t p, uint64_t maxmem,
+                      unsigned char *key, size_t keylen,
+                      OSSL_LIB_CTX *ctx, const char *propq);
+int PKCS5_v2_scrypt_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass,
+                             int passlen, ASN1_TYPE *param,
+                             const EVP_CIPHER *c, const EVP_MD *md, int en_de);
+int PKCS5_v2_scrypt_keyivgen_ex(EVP_CIPHER_CTX *ctx, const char *pass,
+                                int passlen, ASN1_TYPE *param,
+                                const EVP_CIPHER *c, const EVP_MD *md, int en_de,
+                                OSSL_LIB_CTX *libctx, const char *propq);
 
- #include &lt;openssl/x509.h&gt;
+#include &lt;openssl/x509.h&gt;
 
- int PKCS5_pbe_set0_algor(X509_ALGOR *algor, int alg, int iter,
+int PKCS5_pbe_set0_algor(X509_ALGOR *algor, int alg, int iter,
+                         const unsigned char *salt, int saltlen);
+int PKCS5_pbe_set0_algor_ex(X509_ALGOR *algor, int alg, int iter,
+                            const unsigned char *salt, int saltlen,
+                            OSSL_LIB_CTX *libctx);
+
+X509_ALGOR *PKCS5_pbe_set(int alg, int iter,
                           const unsigned char *salt, int saltlen);
- int PKCS5_pbe_set0_algor_ex(X509_ALGOR *algor, int alg, int iter,
+X509_ALGOR *PKCS5_pbe_set_ex(int alg, int iter,
                              const unsigned char *salt, int saltlen,
                              OSSL_LIB_CTX *libctx);
 
- X509_ALGOR *PKCS5_pbe_set(int alg, int iter,
-                           const unsigned char *salt, int saltlen);
- X509_ALGOR *PKCS5_pbe_set_ex(int alg, int iter,
-                              const unsigned char *salt, int saltlen,
-                              OSSL_LIB_CTX *libctx);
+X509_ALGOR *PKCS5_pbe2_set(const EVP_CIPHER *cipher, int iter,
+                           unsigned char *salt, int saltlen);
+X509_ALGOR *PKCS5_pbe2_set_iv(const EVP_CIPHER *cipher, int iter,
+                              unsigned char *salt, int saltlen,
+                              unsigned char *aiv, int prf_nid);
+X509_ALGOR *PKCS5_pbe2_set_iv_ex(const EVP_CIPHER *cipher, int iter,
+                                 unsigned char *salt, int saltlen,
+                                 unsigned char *aiv, int prf_nid,
+                                 OSSL_LIB_CTX *libctx);
+X509_ALGOR *PKCS5_pbe2_set_scrypt(const EVP_CIPHER *cipher,
+                                  const unsigned char *salt, int saltlen,
+                                  unsigned char *aiv, uint64_t N, uint64_t r,
+                                  uint64_t p);
 
- X509_ALGOR *PKCS5_pbe2_set(const EVP_CIPHER *cipher, int iter,
-                            unsigned char *salt, int saltlen);
- X509_ALGOR *PKCS5_pbe2_set_iv(const EVP_CIPHER *cipher, int iter,
-                               unsigned char *salt, int saltlen,
-                               unsigned char *aiv, int prf_nid);
- X509_ALGOR *PKCS5_pbe2_set_iv_ex(const EVP_CIPHER *cipher, int iter,
-                                  unsigned char *salt, int saltlen,
-                                  unsigned char *aiv, int prf_nid,
-                                  OSSL_LIB_CTX *libctx);
- X509_ALGOR *PKCS5_pbe2_set_scrypt(const EVP_CIPHER *cipher,
-                                   const unsigned char *salt, int saltlen,
-                                   unsigned char *aiv, uint64_t N, uint64_t r,
-                                   uint64_t p);
-
- X509_ALGOR *PKCS5_pbkdf2_set(int iter, unsigned char *salt, int saltlen,
-                              int prf_nid, int keylen);
- X509_ALGOR *PKCS5_pbkdf2_set_ex(int iter, unsigned char *salt, int saltlen,
-                                 int prf_nid, int keylen,
-                                 OSSL_LIB_CTX *libctx);</code></pre>
+X509_ALGOR *PKCS5_pbkdf2_set(int iter, unsigned char *salt, int saltlen,
+                             int prf_nid, int keylen);
+X509_ALGOR *PKCS5_pbkdf2_set_ex(int iter, unsigned char *salt, int saltlen,
+                                int prf_nid, int keylen,
+                                OSSL_LIB_CTX *libctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

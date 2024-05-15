@@ -4,7 +4,7 @@
 <head>
 <title>PKCS12_add_cert</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,19 +29,19 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/pkcs12.h&gt;
+<pre><code>#include &lt;openssl/pkcs12.h&gt;
 
- PKCS12_SAFEBAG *PKCS12_add_cert(STACK_OF(PKCS12_SAFEBAG) **pbags, X509 *cert);
- PKCS12_SAFEBAG *PKCS12_add_key(STACK_OF(PKCS12_SAFEBAG) **pbags,
-                               EVP_PKEY *key, int key_usage, int iter,
-                               int key_nid, const char *pass);
- PKCS12_SAFEBAG *PKCS12_add_key_ex(STACK_OF(PKCS12_SAFEBAG) **pbags,
-                                   EVP_PKEY *key, int key_usage, int iter,
-                                   int key_nid, const char *pass,
-                                   OSSL_LIB_CTX *ctx, const char *propq);
+PKCS12_SAFEBAG *PKCS12_add_cert(STACK_OF(PKCS12_SAFEBAG) **pbags, X509 *cert);
+PKCS12_SAFEBAG *PKCS12_add_key(STACK_OF(PKCS12_SAFEBAG) **pbags,
+                              EVP_PKEY *key, int key_usage, int iter,
+                              int key_nid, const char *pass);
+PKCS12_SAFEBAG *PKCS12_add_key_ex(STACK_OF(PKCS12_SAFEBAG) **pbags,
+                                  EVP_PKEY *key, int key_usage, int iter,
+                                  int key_nid, const char *pass,
+                                  OSSL_LIB_CTX *ctx, const char *propq);
 
- PKCS12_SAFEBAG *PKCS12_add_secret(STACK_OF(PKCS12_SAFEBAG) **pbags,
-                                  int nid_type, const unsigned char *value, int len);</code></pre>
+PKCS12_SAFEBAG *PKCS12_add_secret(STACK_OF(PKCS12_SAFEBAG) **pbags,
+                                 int nid_type, const unsigned char *value, int len);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

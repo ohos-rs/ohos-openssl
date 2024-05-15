@@ -4,7 +4,7 @@
 <head>
 <title>X509_get_subject_name</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,28 +28,28 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/x509.h&gt;
+<pre><code>#include &lt;openssl/x509.h&gt;
 
- unsigned long X509_NAME_hash_ex(const X509_NAME *x, OSSL_LIB_CTX *libctx,
-                                 const char *propq, int *ok);
+unsigned long X509_NAME_hash_ex(const X509_NAME *x, OSSL_LIB_CTX *libctx,
+                                const char *propq, int *ok);
 
- X509_NAME *X509_get_subject_name(const X509 *x);
- int X509_set_subject_name(X509 *x, const X509_NAME *name);
- unsigned long X509_subject_name_hash(X509 *x);
+X509_NAME *X509_get_subject_name(const X509 *x);
+int X509_set_subject_name(X509 *x, const X509_NAME *name);
+unsigned long X509_subject_name_hash(X509 *x);
 
- X509_NAME *X509_get_issuer_name(const X509 *x);
- int X509_set_issuer_name(X509 *x, const X509_NAME *name);
- unsigned long X509_issuer_name_hash(X509 *x);
+X509_NAME *X509_get_issuer_name(const X509 *x);
+int X509_set_issuer_name(X509 *x, const X509_NAME *name);
+unsigned long X509_issuer_name_hash(X509 *x);
 
- X509_NAME *X509_REQ_get_subject_name(const X509_REQ *req);
- int X509_REQ_set_subject_name(X509_REQ *req, const X509_NAME *name);
+X509_NAME *X509_REQ_get_subject_name(const X509_REQ *req);
+int X509_REQ_set_subject_name(X509_REQ *req, const X509_NAME *name);
 
- X509_NAME *X509_CRL_get_issuer(const X509_CRL *crl);
- int X509_CRL_set_issuer_name(X509_CRL *x, const X509_NAME *name);</code></pre>
+X509_NAME *X509_CRL_get_issuer(const X509_CRL *crl);
+int X509_CRL_set_issuer_name(X509_CRL *x, const X509_NAME *name);</code></pre>
 
 <p>The following macro has been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> #define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)</code></pre>
+<pre><code>#define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

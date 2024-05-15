@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_CTX_set_hkdf_md</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -31,20 +31,20 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/kdf.h&gt;
+<pre><code>#include &lt;openssl/kdf.h&gt;
 
- int EVP_PKEY_CTX_set_hkdf_mode(EVP_PKEY_CTX *pctx, int mode);
+int EVP_PKEY_CTX_set_hkdf_mode(EVP_PKEY_CTX *pctx, int mode);
 
- int EVP_PKEY_CTX_set_hkdf_md(EVP_PKEY_CTX *pctx, const EVP_MD *md);
+int EVP_PKEY_CTX_set_hkdf_md(EVP_PKEY_CTX *pctx, const EVP_MD *md);
 
- int EVP_PKEY_CTX_set1_hkdf_salt(EVP_PKEY_CTX *pctx, unsigned char *salt,
-                                 int saltlen);
+int EVP_PKEY_CTX_set1_hkdf_salt(EVP_PKEY_CTX *pctx, unsigned char *salt,
+                                int saltlen);
 
- int EVP_PKEY_CTX_set1_hkdf_key(EVP_PKEY_CTX *pctx, unsigned char *key,
-                                int keylen);
+int EVP_PKEY_CTX_set1_hkdf_key(EVP_PKEY_CTX *pctx, unsigned char *key,
+                               int keylen);
 
- int EVP_PKEY_CTX_add1_hkdf_info(EVP_PKEY_CTX *pctx, unsigned char *info,
-                                 int infolen);</code></pre>
+int EVP_PKEY_CTX_add1_hkdf_info(EVP_PKEY_CTX *pctx, unsigned char *info,
+                                int infolen);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -96,7 +96,7 @@
 
 <p>A context for HKDF can be obtained by calling:</p>
 
-<pre><code> EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_HKDF, NULL);</code></pre>
+<pre><code>EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_HKDF, NULL);</code></pre>
 
 <p>The total length of the info buffer cannot exceed 2048 bytes in length: this should be more than enough for any normal use of HKDF.</p>
 
@@ -112,23 +112,23 @@
 
 <p>This example derives 10 bytes using SHA-256 with the secret key &quot;secret&quot;, salt value &quot;salt&quot; and info value &quot;label&quot;:</p>
 
-<pre><code> EVP_PKEY_CTX *pctx;
- unsigned char out[10];
- size_t outlen = sizeof(out);
- pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_HKDF, NULL);
+<pre><code>EVP_PKEY_CTX *pctx;
+unsigned char out[10];
+size_t outlen = sizeof(out);
+pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_HKDF, NULL);
 
- if (EVP_PKEY_derive_init(pctx) &lt;= 0)
-     /* Error */
- if (EVP_PKEY_CTX_set_hkdf_md(pctx, EVP_sha256()) &lt;= 0)
-     /* Error */
- if (EVP_PKEY_CTX_set1_hkdf_salt(pctx, &quot;salt&quot;, 4) &lt;= 0)
-     /* Error */
- if (EVP_PKEY_CTX_set1_hkdf_key(pctx, &quot;secret&quot;, 6) &lt;= 0)
-     /* Error */
- if (EVP_PKEY_CTX_add1_hkdf_info(pctx, &quot;label&quot;, 5) &lt;= 0)
-     /* Error */
- if (EVP_PKEY_derive(pctx, out, &amp;outlen) &lt;= 0)
-     /* Error */</code></pre>
+if (EVP_PKEY_derive_init(pctx) &lt;= 0)
+    /* Error */
+if (EVP_PKEY_CTX_set_hkdf_md(pctx, EVP_sha256()) &lt;= 0)
+    /* Error */
+if (EVP_PKEY_CTX_set1_hkdf_salt(pctx, &quot;salt&quot;, 4) &lt;= 0)
+    /* Error */
+if (EVP_PKEY_CTX_set1_hkdf_key(pctx, &quot;secret&quot;, 6) &lt;= 0)
+    /* Error */
+if (EVP_PKEY_CTX_add1_hkdf_info(pctx, &quot;label&quot;, 5) &lt;= 0)
+    /* Error */
+if (EVP_PKEY_derive(pctx, out, &amp;outlen) &lt;= 0)
+    /* Error */</code></pre>
 
 <h1 id="CONFORMING-TO">CONFORMING TO</h1>
 

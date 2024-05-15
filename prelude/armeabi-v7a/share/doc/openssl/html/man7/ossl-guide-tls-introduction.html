@@ -4,7 +4,7 @@
 <head>
 <title>ossl-guide-tls-introduction</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -79,7 +79,7 @@
 
 <p>You can check this by running the OpenSSL command line application like this:</p>
 
-<pre><code> openssl version -d</code></pre>
+<pre><code>openssl version -d</code></pre>
 
 <p>This will display a value for <b>OPENSSLDIR</b>. Look in the <b>certs</b> sub directory of <b>OPENSSLDIR</b> and check its contents. For example if <b>OPENSSLDIR</b> is &quot;/usr/local/ssl&quot;, then check the contents of the &quot;/usr/local/ssl/certs&quot; directory.</p>
 
@@ -93,17 +93,17 @@
 
 <p>You can test that your trusted certificate store is setup correctly by using it via the OpenSSL command line. Use the following command to connect to a TLS server:</p>
 
-<pre><code> openssl s_client www.openssl.org:443</code></pre>
+<pre><code>openssl s_client www.openssl.org:443</code></pre>
 
 <p>Once the command has connected type the letter &quot;Q&quot; followed by &quot;&lt;enter&gt;&quot; to exit the session. This will print a lot of information on the screen about the connection. Look for a block of text like this:</p>
 
-<pre><code> SSL handshake has read 4584 bytes and written 403 bytes
- Verification: OK</code></pre>
+<pre><code>SSL handshake has read 4584 bytes and written 403 bytes
+Verification: OK</code></pre>
 
 <p>Hopefully if everything has worked then the &quot;Verification&quot; line will say &quot;OK&quot;. If its not working as expected then you might see output like this instead:</p>
 
-<pre><code> SSL handshake has read 4584 bytes and written 403 bytes
- Verification error: unable to get local issuer certificate</code></pre>
+<pre><code>SSL handshake has read 4584 bytes and written 403 bytes
+Verification error: unable to get local issuer certificate</code></pre>
 
 <p>The &quot;unable to get local issuer certificate&quot; error means that OpenSSL has been unable to find a trusted CA for the chain of certificates provided by the server in its trusted certificate store. Check your trusted certificate store configuration again.</p>
 

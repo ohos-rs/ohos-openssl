@@ -4,7 +4,7 @@
 <head>
 <title>DH_generate_parameters</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,23 +27,23 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/dh.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/dh.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> int DH_generate_parameters_ex(DH *dh, int prime_len, int generator, BN_GENCB *cb);
+<pre><code>int DH_generate_parameters_ex(DH *dh, int prime_len, int generator, BN_GENCB *cb);
 
- int DH_check(DH *dh, int *codes);
- int DH_check_params(DH *dh, int *codes);
+int DH_check(DH *dh, int *codes);
+int DH_check_params(DH *dh, int *codes);
 
- int DH_check_ex(const DH *dh);
- int DH_check_params_ex(const DH *dh);
- int DH_check_pub_key_ex(const DH *dh, const BIGNUM *pub_key);</code></pre>
+int DH_check_ex(const DH *dh);
+int DH_check_params_ex(const DH *dh);
+int DH_check_pub_key_ex(const DH *dh, const BIGNUM *pub_key);</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 0.9.8, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> DH *DH_generate_parameters(int prime_len, int generator,
-                            void (*callback)(int, int, void *), void *cb_arg);</code></pre>
+<pre><code>DH *DH_generate_parameters(int prime_len, int generator,
+                           void (*callback)(int, int, void *), void *cb_arg);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

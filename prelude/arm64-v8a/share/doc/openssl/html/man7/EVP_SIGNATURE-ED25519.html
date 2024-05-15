@@ -4,7 +4,7 @@
 <head>
 <title>EVP_SIGNATURE-ED25519</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -112,30 +112,30 @@
 
 <p>To sign a message using an ED25519 EVP_PKEY structure:</p>
 
-<pre><code>    void do_sign(EVP_PKEY *ed_key, unsigned char *msg, size_t msg_len)
-    {
-        size_t sig_len;
-        unsigned char *sig = NULL;
-        EVP_MD_CTX *md_ctx = EVP_MD_CTX_new();
+<pre><code>void do_sign(EVP_PKEY *ed_key, unsigned char *msg, size_t msg_len)
+{
+    size_t sig_len;
+    unsigned char *sig = NULL;
+    EVP_MD_CTX *md_ctx = EVP_MD_CTX_new();
 
-        const OSSL_PARAM params[] = {
-            OSSL_PARAM_utf8_string (&quot;instance&quot;, &quot;Ed25519ctx&quot;, 10),
-            OSSL_PARAM_octet_string(&quot;context-string&quot;, (unsigned char *)&quot;A protocol defined context string&quot;, 33),
-            OSSL_PARAM_END
-        };
+    const OSSL_PARAM params[] = {
+        OSSL_PARAM_utf8_string (&quot;instance&quot;, &quot;Ed25519ctx&quot;, 10),
+        OSSL_PARAM_octet_string(&quot;context-string&quot;, (unsigned char *)&quot;A protocol defined context string&quot;, 33),
+        OSSL_PARAM_END
+    };
 
-        /* The input &quot;params&quot; is not needed if default options are acceptable.
-           Use NULL in place of &quot;params&quot; in that case. */
-        EVP_DigestSignInit_ex(md_ctx, NULL, NULL, NULL, NULL, ed_key, params);
-        /* Calculate the required size for the signature by passing a NULL buffer. */
-        EVP_DigestSign(md_ctx, NULL, &amp;sig_len, msg, msg_len);
-        sig = OPENSSL_zalloc(sig_len);
+    /* The input &quot;params&quot; is not needed if default options are acceptable.
+       Use NULL in place of &quot;params&quot; in that case. */
+    EVP_DigestSignInit_ex(md_ctx, NULL, NULL, NULL, NULL, ed_key, params);
+    /* Calculate the required size for the signature by passing a NULL buffer. */
+    EVP_DigestSign(md_ctx, NULL, &amp;sig_len, msg, msg_len);
+    sig = OPENSSL_zalloc(sig_len);
 
-        EVP_DigestSign(md_ctx, sig, &amp;sig_len, msg, msg_len);
-        ...
-        OPENSSL_free(sig);
-        EVP_MD_CTX_free(md_ctx);
-    }</code></pre>
+    EVP_DigestSign(md_ctx, sig, &amp;sig_len, msg, msg_len);
+    ...
+    OPENSSL_free(sig);
+    EVP_MD_CTX_free(md_ctx);
+}</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

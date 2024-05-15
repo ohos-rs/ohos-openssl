@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-KB</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -119,8 +119,8 @@
 
 <p>A context for KBKDF can be obtained by calling:</p>
 
-<pre><code> EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;KBKDF&quot;, NULL);
- EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
+<pre><code>EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;KBKDF&quot;, NULL);
+EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
 
 <p>The output length of an KBKDF is specified via the <code>keylen</code> parameter to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function.</p>
 
@@ -130,59 +130,59 @@
 
 <p>This example derives 10 bytes using COUNTER-HMAC-SHA256, with KI &quot;secret&quot;, Label &quot;label&quot;, and Context &quot;context&quot;.</p>
 
-<pre><code> EVP_KDF *kdf;
- EVP_KDF_CTX *kctx;
- unsigned char out[10];
- OSSL_PARAM params[6], *p = params;
+<pre><code>EVP_KDF *kdf;
+EVP_KDF_CTX *kctx;
+unsigned char out[10];
+OSSL_PARAM params[6], *p = params;
 
- kdf = EVP_KDF_fetch(NULL, &quot;KBKDF&quot;, NULL);
- kctx = EVP_KDF_CTX_new(kdf);
- EVP_KDF_free(kdf);
+kdf = EVP_KDF_fetch(NULL, &quot;KBKDF&quot;, NULL);
+kctx = EVP_KDF_CTX_new(kdf);
+EVP_KDF_free(kdf);
 
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
-                                         &quot;SHA2-256&quot;, 0);
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_MAC,
-                                         &quot;HMAC&quot;, 0);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
-                                          &quot;secret&quot;, strlen(&quot;secret&quot;));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
-                                          &quot;label&quot;, strlen(&quot;label&quot;));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_INFO,
-                                          &quot;context&quot;, strlen(&quot;context&quot;));
- *p = OSSL_PARAM_construct_end();
- if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0)
-     error(&quot;EVP_KDF_derive&quot;);
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
+                                        &quot;SHA2-256&quot;, 0);
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_MAC,
+                                        &quot;HMAC&quot;, 0);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
+                                         &quot;secret&quot;, strlen(&quot;secret&quot;));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
+                                         &quot;label&quot;, strlen(&quot;label&quot;));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_INFO,
+                                         &quot;context&quot;, strlen(&quot;context&quot;));
+*p = OSSL_PARAM_construct_end();
+if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0)
+    error(&quot;EVP_KDF_derive&quot;);
 
- EVP_KDF_CTX_free(kctx);</code></pre>
+EVP_KDF_CTX_free(kctx);</code></pre>
 
 <p>This example derives 10 bytes using FEEDBACK-CMAC-AES256, with KI &quot;secret&quot;, Label &quot;label&quot;, and IV &quot;sixteen bytes iv&quot;.</p>
 
-<pre><code> EVP_KDF *kdf;
- EVP_KDF_CTX *kctx;
- unsigned char out[10];
- OSSL_PARAM params[8], *p = params;
- unsigned char *iv = &quot;sixteen bytes iv&quot;;
+<pre><code>EVP_KDF *kdf;
+EVP_KDF_CTX *kctx;
+unsigned char out[10];
+OSSL_PARAM params[8], *p = params;
+unsigned char *iv = &quot;sixteen bytes iv&quot;;
 
- kdf = EVP_KDF_fetch(NULL, &quot;KBKDF&quot;, NULL);
- kctx = EVP_KDF_CTX_new(kdf);
- EVP_KDF_free(kdf);
+kdf = EVP_KDF_fetch(NULL, &quot;KBKDF&quot;, NULL);
+kctx = EVP_KDF_CTX_new(kdf);
+EVP_KDF_free(kdf);
 
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_CIPHER, &quot;AES256&quot;, 0);
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_MAC, &quot;CMAC&quot;, 0);
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_MODE, &quot;FEEDBACK&quot;, 0);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
-                                          &quot;secret&quot;, strlen(&quot;secret&quot;));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
-                                          &quot;label&quot;, strlen(&quot;label&quot;));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_INFO,
-                                          &quot;context&quot;, strlen(&quot;context&quot;));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SEED,
-                                          iv, strlen(iv));
- *p = OSSL_PARAM_construct_end();
- if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0)
-     error(&quot;EVP_KDF_derive&quot;);
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_CIPHER, &quot;AES256&quot;, 0);
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_MAC, &quot;CMAC&quot;, 0);
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_MODE, &quot;FEEDBACK&quot;, 0);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
+                                         &quot;secret&quot;, strlen(&quot;secret&quot;));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
+                                         &quot;label&quot;, strlen(&quot;label&quot;));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_INFO,
+                                         &quot;context&quot;, strlen(&quot;context&quot;));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SEED,
+                                         iv, strlen(iv));
+*p = OSSL_PARAM_construct_end();
+if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0)
+    error(&quot;EVP_KDF_derive&quot;);
 
- EVP_KDF_CTX_free(kctx);</code></pre>
+EVP_KDF_CTX_free(kctx);</code></pre>
 
 <h1 id="CONFORMING-TO">CONFORMING TO</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>OCSP_sendreq_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,22 +27,22 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ocsp.h&gt;
+<pre><code>#include &lt;openssl/ocsp.h&gt;
 
- OSSL_HTTP_REQ_CTX *OCSP_sendreq_new(BIO *io, const char *path,
-                                     const OCSP_REQUEST *req, int buf_size);
- OCSP_RESPONSE *OCSP_sendreq_bio(BIO *io, const char *path, OCSP_REQUEST *req);</code></pre>
+OSSL_HTTP_REQ_CTX *OCSP_sendreq_new(BIO *io, const char *path,
+                                    const OCSP_REQUEST *req, int buf_size);
+OCSP_RESPONSE *OCSP_sendreq_bio(BIO *io, const char *path, OCSP_REQUEST *req);</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> typedef OSSL_HTTP_REQ_CTX OCSP_REQ_CTX;
- int OCSP_sendreq_nbio(OCSP_RESPONSE **presp, OSSL_HTTP_REQ_CTX *rctx);
- int OCSP_REQ_CTX_i2d(OCSP_REQ_CT *rctx, const ASN1_ITEM *it, ASN1_VALUE *req);
- int OCSP_REQ_CTX_add1_header(OCSP_REQ_CT *rctx,
-                              const char *name, const char *value);
- void OCSP_REQ_CTX_free(OCSP_REQ_CTX *rctx);
- void OCSP_set_max_response_length(OCSP_REQ_CT *rctx, unsigned long len);
- int OCSP_REQ_CTX_set1_req(OCSP_REQ_CTX *rctx, const OCSP_REQUEST *req);</code></pre>
+<pre><code>typedef OSSL_HTTP_REQ_CTX OCSP_REQ_CTX;
+int OCSP_sendreq_nbio(OCSP_RESPONSE **presp, OSSL_HTTP_REQ_CTX *rctx);
+int OCSP_REQ_CTX_i2d(OCSP_REQ_CT *rctx, const ASN1_ITEM *it, ASN1_VALUE *req);
+int OCSP_REQ_CTX_add1_header(OCSP_REQ_CT *rctx,
+                             const char *name, const char *value);
+void OCSP_REQ_CTX_free(OCSP_REQ_CTX *rctx);
+void OCSP_set_max_response_length(OCSP_REQ_CT *rctx, unsigned long len);
+int OCSP_REQ_CTX_set1_req(OCSP_REQ_CTX *rctx, const OCSP_REQUEST *req);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -56,13 +56,13 @@
 
 <p>OCSP_REQ_CTX_i2d(rctx, it, req) is equivalent to the following:</p>
 
-<pre><code>  OSSL_HTTP_REQ_CTX_set1_req(rctx, &quot;application/ocsp-request&quot;, it, req)</code></pre>
+<pre><code>OSSL_HTTP_REQ_CTX_set1_req(rctx, &quot;application/ocsp-request&quot;, it, req)</code></pre>
 
 <p>OCSP_REQ_CTX_set1_req(rctx, req) is equivalent to the following:</p>
 
-<pre><code> OSSL_HTTP_REQ_CTX_set1_req(rctx, &quot;application/ocsp-request&quot;,
-                            ASN1_ITEM_rptr(OCSP_REQUEST),
-                            (const ASN1_VALUE *)req)</code></pre>
+<pre><code>OSSL_HTTP_REQ_CTX_set1_req(rctx, &quot;application/ocsp-request&quot;,
+                           ASN1_ITEM_rptr(OCSP_REQUEST),
+                           (const ASN1_VALUE *)req)</code></pre>
 
 <p>The deprecated type and the remaining deprecated functions have been superseded by the following equivalents: <b>OCSP_REQ_CTX</b> by <a href="../man3/OSSL_HTTP_REQ_CTX.html">OSSL_HTTP_REQ_CTX(3)</a>, OCSP_REQ_CTX_add1_header() by <a href="../man3/OSSL_HTTP_REQ_CTX_add1_header.html">OSSL_HTTP_REQ_CTX_add1_header(3)</a>, OCSP_REQ_CTX_free() by <a href="../man3/OSSL_HTTP_REQ_CTX_free.html">OSSL_HTTP_REQ_CTX_free(3)</a>, and OCSP_set_max_response_length() by <a href="../man3/OSSL_HTTP_REQ_CTX_set_max_response_length.html">OSSL_HTTP_REQ_CTX_set_max_response_length(3)</a>.</p>
 

@@ -4,7 +4,7 @@
 <head>
 <title>CRYPTO_THREAD_run_once</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,29 +28,29 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/crypto.h&gt;
+<pre><code>#include &lt;openssl/crypto.h&gt;
 
- CRYPTO_ONCE CRYPTO_ONCE_STATIC_INIT;
- int CRYPTO_THREAD_run_once(CRYPTO_ONCE *once, void (*init)(void));
+CRYPTO_ONCE CRYPTO_ONCE_STATIC_INIT;
+int CRYPTO_THREAD_run_once(CRYPTO_ONCE *once, void (*init)(void));
 
- CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void);
- int CRYPTO_THREAD_read_lock(CRYPTO_RWLOCK *lock);
- int CRYPTO_THREAD_write_lock(CRYPTO_RWLOCK *lock);
- int CRYPTO_THREAD_unlock(CRYPTO_RWLOCK *lock);
- void CRYPTO_THREAD_lock_free(CRYPTO_RWLOCK *lock);
+CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void);
+int CRYPTO_THREAD_read_lock(CRYPTO_RWLOCK *lock);
+int CRYPTO_THREAD_write_lock(CRYPTO_RWLOCK *lock);
+int CRYPTO_THREAD_unlock(CRYPTO_RWLOCK *lock);
+void CRYPTO_THREAD_lock_free(CRYPTO_RWLOCK *lock);
 
- int CRYPTO_atomic_add(int *val, int amount, int *ret, CRYPTO_RWLOCK *lock);
- int CRYPTO_atomic_or(uint64_t *val, uint64_t op, uint64_t *ret,
-                      CRYPTO_RWLOCK *lock);
- int CRYPTO_atomic_load(uint64_t *val, uint64_t *ret, CRYPTO_RWLOCK *lock);
- int CRYPTO_atomic_load_int(int *val, int *ret, CRYPTO_RWLOCK *lock);
+int CRYPTO_atomic_add(int *val, int amount, int *ret, CRYPTO_RWLOCK *lock);
+int CRYPTO_atomic_or(uint64_t *val, uint64_t op, uint64_t *ret,
+                     CRYPTO_RWLOCK *lock);
+int CRYPTO_atomic_load(uint64_t *val, uint64_t *ret, CRYPTO_RWLOCK *lock);
+int CRYPTO_atomic_load_int(int *val, int *ret, CRYPTO_RWLOCK *lock);
 
- int OSSL_set_max_threads(OSSL_LIB_CTX *ctx, uint64_t max_threads);
- uint64_t OSSL_get_max_threads(OSSL_LIB_CTX *ctx);
- uint32_t OSSL_get_thread_support_flags(void);
+int OSSL_set_max_threads(OSSL_LIB_CTX *ctx, uint64_t max_threads);
+uint64_t OSSL_get_max_threads(OSSL_LIB_CTX *ctx);
+uint32_t OSSL_get_thread_support_flags(void);
 
- #define OSSL_THREAD_SUPPORT_FLAG_THREAD_POOL
- #define OSSL_THREAD_SUPPORT_FLAG_DEFAULT_SPAWN</code></pre>
+#define OSSL_THREAD_SUPPORT_FLAG_THREAD_POOL
+#define OSSL_THREAD_SUPPORT_FLAG_DEFAULT_SPAWN</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -122,51 +122,51 @@
 
 <p>You can find out if OpenSSL was configured with thread support:</p>
 
-<pre><code> #include &lt;openssl/opensslconf.h&gt;
- #if defined(OPENSSL_THREADS)
-     /* thread support enabled */
- #else
-     /* no thread support */
- #endif</code></pre>
+<pre><code>#include &lt;openssl/opensslconf.h&gt;
+#if defined(OPENSSL_THREADS)
+    /* thread support enabled */
+#else
+    /* no thread support */
+#endif</code></pre>
 
 <p>This example safely initializes and uses a lock.</p>
 
-<pre><code> #ifdef _WIN32
- # include &lt;windows.h&gt;
- #endif
- #include &lt;openssl/crypto.h&gt;
+<pre><code>#ifdef _WIN32
+# include &lt;windows.h&gt;
+#endif
+#include &lt;openssl/crypto.h&gt;
 
- static CRYPTO_ONCE once = CRYPTO_ONCE_STATIC_INIT;
- static CRYPTO_RWLOCK *lock;
+static CRYPTO_ONCE once = CRYPTO_ONCE_STATIC_INIT;
+static CRYPTO_RWLOCK *lock;
 
- static void myinit(void)
- {
-     lock = CRYPTO_THREAD_lock_new();
- }
+static void myinit(void)
+{
+    lock = CRYPTO_THREAD_lock_new();
+}
 
- static int mylock(void)
- {
-     if (!CRYPTO_THREAD_run_once(&amp;once, void init) || lock == NULL)
-         return 0;
-     return CRYPTO_THREAD_write_lock(lock);
- }
+static int mylock(void)
+{
+    if (!CRYPTO_THREAD_run_once(&amp;once, void init) || lock == NULL)
+        return 0;
+    return CRYPTO_THREAD_write_lock(lock);
+}
 
- static int myunlock(void)
- {
-     return CRYPTO_THREAD_unlock(lock);
- }
+static int myunlock(void)
+{
+    return CRYPTO_THREAD_unlock(lock);
+}
 
- int serialized(void)
- {
-     int ret = 0;
+int serialized(void)
+{
+    int ret = 0;
 
-     if (mylock()) {
-         /* Your code here, do not return without releasing the lock! */
-         ret = ... ;
-     }
-     myunlock();
-     return ret;
- }</code></pre>
+    if (mylock()) {
+        /* Your code here, do not return without releasing the lock! */
+        ret = ... ;
+    }
+    myunlock();
+    return ret;
+}</code></pre>
 
 <p>Finalization of locks is an advanced topic, not covered in this example. This can only be done at process exit or when a dynamically loaded library is no longer in use and is unloaded. The simplest solution is to just &quot;leak&quot; the lock in applications and not repeatedly load/unload shared libraries that allocate locks.</p>
 

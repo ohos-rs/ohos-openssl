@@ -4,7 +4,7 @@
 <head>
 <title>provider-base</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -45,121 +45,121 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core_dispatch.h&gt;
+<pre><code>#include &lt;openssl/core_dispatch.h&gt;
 
- /*
-  * None of these are actual functions, but are displayed like this for
-  * the function signatures for functions that are offered as function
-  * pointers in OSSL_DISPATCH arrays.
-  */
+/*
+ * None of these are actual functions, but are displayed like this for
+ * the function signatures for functions that are offered as function
+ * pointers in OSSL_DISPATCH arrays.
+ */
 
- /* Functions offered by libcrypto to the providers */
- const OSSL_ITEM *core_gettable_params(const OSSL_CORE_HANDLE *handle);
- int core_get_params(const OSSL_CORE_HANDLE *handle, OSSL_PARAM params[]);
+/* Functions offered by libcrypto to the providers */
+const OSSL_ITEM *core_gettable_params(const OSSL_CORE_HANDLE *handle);
+int core_get_params(const OSSL_CORE_HANDLE *handle, OSSL_PARAM params[]);
 
- typedef void (*OSSL_thread_stop_handler_fn)(void *arg);
- int core_thread_start(const OSSL_CORE_HANDLE *handle,
-                       OSSL_thread_stop_handler_fn handfn,
-                       void *arg);
+typedef void (*OSSL_thread_stop_handler_fn)(void *arg);
+int core_thread_start(const OSSL_CORE_HANDLE *handle,
+                      OSSL_thread_stop_handler_fn handfn,
+                      void *arg);
 
- OPENSSL_CORE_CTX *core_get_libctx(const OSSL_CORE_HANDLE *handle);
- void core_new_error(const OSSL_CORE_HANDLE *handle);
- void core_set_error_debug(const OSSL_CORE_HANDLE *handle,
-                           const char *file, int line, const char *func);
- void core_vset_error(const OSSL_CORE_HANDLE *handle,
-                      uint32_t reason, const char *fmt, va_list args);
+OPENSSL_CORE_CTX *core_get_libctx(const OSSL_CORE_HANDLE *handle);
+void core_new_error(const OSSL_CORE_HANDLE *handle);
+void core_set_error_debug(const OSSL_CORE_HANDLE *handle,
+                          const char *file, int line, const char *func);
+void core_vset_error(const OSSL_CORE_HANDLE *handle,
+                     uint32_t reason, const char *fmt, va_list args);
 
- int core_obj_add_sigid(const OSSL_CORE_HANDLE *prov, const char  *sign_name,
-                        const char *digest_name, const char *pkey_name);
- int core_obj_create(const OSSL_CORE_HANDLE *handle, const char *oid,
-                     const char *sn, const char *ln);
+int core_obj_add_sigid(const OSSL_CORE_HANDLE *prov, const char  *sign_name,
+                       const char *digest_name, const char *pkey_name);
+int core_obj_create(const OSSL_CORE_HANDLE *handle, const char *oid,
+                    const char *sn, const char *ln);
 
- /*
-  * Some OpenSSL functionality is directly offered to providers via
-  * dispatch
-  */
- void *CRYPTO_malloc(size_t num, const char *file, int line);
- void *CRYPTO_zalloc(size_t num, const char *file, int line);
- void CRYPTO_free(void *ptr, const char *file, int line);
- void CRYPTO_clear_free(void *ptr, size_t num,
-                        const char *file, int line);
- void *CRYPTO_realloc(void *addr, size_t num,
-                      const char *file, int line);
- void *CRYPTO_clear_realloc(void *addr, size_t old_num, size_t num,
-                            const char *file, int line);
- void *CRYPTO_secure_malloc(size_t num, const char *file, int line);
- void *CRYPTO_secure_zalloc(size_t num, const char *file, int line);
- void CRYPTO_secure_free(void *ptr, const char *file, int line);
- void CRYPTO_secure_clear_free(void *ptr, size_t num,
-                               const char *file, int line);
- int CRYPTO_secure_allocated(const void *ptr);
- void OPENSSL_cleanse(void *ptr, size_t len);
+/*
+ * Some OpenSSL functionality is directly offered to providers via
+ * dispatch
+ */
+void *CRYPTO_malloc(size_t num, const char *file, int line);
+void *CRYPTO_zalloc(size_t num, const char *file, int line);
+void CRYPTO_free(void *ptr, const char *file, int line);
+void CRYPTO_clear_free(void *ptr, size_t num,
+                       const char *file, int line);
+void *CRYPTO_realloc(void *addr, size_t num,
+                     const char *file, int line);
+void *CRYPTO_clear_realloc(void *addr, size_t old_num, size_t num,
+                           const char *file, int line);
+void *CRYPTO_secure_malloc(size_t num, const char *file, int line);
+void *CRYPTO_secure_zalloc(size_t num, const char *file, int line);
+void CRYPTO_secure_free(void *ptr, const char *file, int line);
+void CRYPTO_secure_clear_free(void *ptr, size_t num,
+                              const char *file, int line);
+int CRYPTO_secure_allocated(const void *ptr);
+void OPENSSL_cleanse(void *ptr, size_t len);
 
- unsigned char *OPENSSL_hexstr2buf(const char *str, long *buflen);
+unsigned char *OPENSSL_hexstr2buf(const char *str, long *buflen);
 
- OSSL_CORE_BIO *BIO_new_file(const char *filename, const char *mode);
- OSSL_CORE_BIO *BIO_new_membuf(const void *buf, int len);
- int BIO_read_ex(OSSL_CORE_BIO *bio, void *data, size_t data_len,
-                 size_t *bytes_read);
- int BIO_write_ex(OSSL_CORE_BIO *bio, const void *data, size_t data_len,
-                  size_t *written);
- int BIO_up_ref(OSSL_CORE_BIO *bio);
- int BIO_free(OSSL_CORE_BIO *bio);
- int BIO_vprintf(OSSL_CORE_BIO *bio, const char *format, va_list args);
- int BIO_vsnprintf(char *buf, size_t n, const char *fmt, va_list args);
+OSSL_CORE_BIO *BIO_new_file(const char *filename, const char *mode);
+OSSL_CORE_BIO *BIO_new_membuf(const void *buf, int len);
+int BIO_read_ex(OSSL_CORE_BIO *bio, void *data, size_t data_len,
+                size_t *bytes_read);
+int BIO_write_ex(OSSL_CORE_BIO *bio, const void *data, size_t data_len,
+                 size_t *written);
+int BIO_up_ref(OSSL_CORE_BIO *bio);
+int BIO_free(OSSL_CORE_BIO *bio);
+int BIO_vprintf(OSSL_CORE_BIO *bio, const char *format, va_list args);
+int BIO_vsnprintf(char *buf, size_t n, const char *fmt, va_list args);
 
- void OSSL_SELF_TEST_set_callback(OSSL_LIB_CTX *libctx, OSSL_CALLBACK *cb,
-                                  void *cbarg);
+void OSSL_SELF_TEST_set_callback(OSSL_LIB_CTX *libctx, OSSL_CALLBACK *cb,
+                                 void *cbarg);
 
- size_t get_entropy(const OSSL_CORE_HANDLE *handle,
-                    unsigned char **pout, int entropy,
-                    size_t min_len, size_t max_len);
- size_t get_user_entropy(const OSSL_CORE_HANDLE *handle,
-                         unsigned char **pout, int entropy,
-                         size_t min_len, size_t max_len);
- void cleanup_entropy(const OSSL_CORE_HANDLE *handle,
-                      unsigned char *buf, size_t len);
- void cleanup_user_entropy(const OSSL_CORE_HANDLE *handle,
-                           unsigned char *buf, size_t len);
- size_t get_nonce(const OSSL_CORE_HANDLE *handle,
-                  unsigned char **pout, size_t min_len, size_t max_len,
-                  const void *salt, size_t salt_len);
- size_t get_user_nonce(const OSSL_CORE_HANDLE *handle,
-                       unsigned char **pout, size_t min_len, size_t max_len,
-                       const void *salt, size_t salt_len);
- void cleanup_nonce(const OSSL_CORE_HANDLE *handle,
-                    unsigned char *buf, size_t len);
- void cleanup_user_nonce(const OSSL_CORE_HANDLE *handle,
-                         unsigned char *buf, size_t len);
+size_t get_entropy(const OSSL_CORE_HANDLE *handle,
+                   unsigned char **pout, int entropy,
+                   size_t min_len, size_t max_len);
+size_t get_user_entropy(const OSSL_CORE_HANDLE *handle,
+                        unsigned char **pout, int entropy,
+                        size_t min_len, size_t max_len);
+void cleanup_entropy(const OSSL_CORE_HANDLE *handle,
+                     unsigned char *buf, size_t len);
+void cleanup_user_entropy(const OSSL_CORE_HANDLE *handle,
+                          unsigned char *buf, size_t len);
+size_t get_nonce(const OSSL_CORE_HANDLE *handle,
+                 unsigned char **pout, size_t min_len, size_t max_len,
+                 const void *salt, size_t salt_len);
+size_t get_user_nonce(const OSSL_CORE_HANDLE *handle,
+                      unsigned char **pout, size_t min_len, size_t max_len,
+                      const void *salt, size_t salt_len);
+void cleanup_nonce(const OSSL_CORE_HANDLE *handle,
+                   unsigned char *buf, size_t len);
+void cleanup_user_nonce(const OSSL_CORE_HANDLE *handle,
+                        unsigned char *buf, size_t len);
 
- /* Functions for querying the providers in the application library context */
- int provider_register_child_cb(const OSSL_CORE_HANDLE *handle,
-                     int (*create_cb)(const OSSL_CORE_HANDLE *provider,
-                                      void *cbdata),
-                     int (*remove_cb)(const OSSL_CORE_HANDLE *provider,
-                                      void *cbdata),
-                     int (*global_props_cb)(const char *props, void *cbdata),
-                     void *cbdata);
- void provider_deregister_child_cb(const OSSL_CORE_HANDLE *handle);
- const char *provider_name(const OSSL_CORE_HANDLE *prov);
- void *provider_get0_provider_ctx(const OSSL_CORE_HANDLE *prov);
- const OSSL_DISPATCH *provider_get0_dispatch(const OSSL_CORE_HANDLE *prov);
- int provider_up_ref(const OSSL_CORE_HANDLE *prov, int activate);
- int provider_free(const OSSL_CORE_HANDLE *prov, int deactivate);
+/* Functions for querying the providers in the application library context */
+int provider_register_child_cb(const OSSL_CORE_HANDLE *handle,
+                    int (*create_cb)(const OSSL_CORE_HANDLE *provider,
+                                     void *cbdata),
+                    int (*remove_cb)(const OSSL_CORE_HANDLE *provider,
+                                     void *cbdata),
+                    int (*global_props_cb)(const char *props, void *cbdata),
+                    void *cbdata);
+void provider_deregister_child_cb(const OSSL_CORE_HANDLE *handle);
+const char *provider_name(const OSSL_CORE_HANDLE *prov);
+void *provider_get0_provider_ctx(const OSSL_CORE_HANDLE *prov);
+const OSSL_DISPATCH *provider_get0_dispatch(const OSSL_CORE_HANDLE *prov);
+int provider_up_ref(const OSSL_CORE_HANDLE *prov, int activate);
+int provider_free(const OSSL_CORE_HANDLE *prov, int deactivate);
 
- /* Functions offered by the provider to libcrypto */
- void provider_teardown(void *provctx);
- const OSSL_ITEM *provider_gettable_params(void *provctx);
- int provider_get_params(void *provctx, OSSL_PARAM params[]);
- const OSSL_ALGORITHM *provider_query_operation(void *provctx,
-                                                int operation_id,
-                                                const int *no_store);
- void provider_unquery_operation(void *provctx, int operation_id,
-                                 const OSSL_ALGORITHM *algs);
- const OSSL_ITEM *provider_get_reason_strings(void *provctx);
- int provider_get_capabilities(void *provctx, const char *capability,
-                               OSSL_CALLBACK *cb, void *arg);
- int provider_self_test(void *provctx);</code></pre>
+/* Functions offered by the provider to libcrypto */
+void provider_teardown(void *provctx);
+const OSSL_ITEM *provider_gettable_params(void *provctx);
+int provider_get_params(void *provctx, OSSL_PARAM params[]);
+const OSSL_ALGORITHM *provider_query_operation(void *provctx,
+                                               int operation_id,
+                                               const int *no_store);
+void provider_unquery_operation(void *provctx, int operation_id,
+                                const OSSL_ALGORITHM *algs);
+const OSSL_ITEM *provider_get_reason_strings(void *provctx);
+int provider_get_capabilities(void *provctx, const char *capability,
+                              OSSL_CALLBACK *cb, void *arg);
+int provider_self_test(void *provctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -167,74 +167,74 @@
 
 <p>All these &quot;functions&quot; have a corresponding function type definition named <b>OSSL_FUNC_{name}_fn</b>, and a helper function to retrieve the function pointer from a <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> element named <b>OSSL_FUNC_{name}</b>. For example, the &quot;function&quot; core_gettable_params() has these:</p>
 
-<pre><code> typedef OSSL_PARAM *
-     (OSSL_FUNC_core_gettable_params_fn)(const OSSL_CORE_HANDLE *handle);
- static ossl_inline OSSL_NAME_core_gettable_params_fn
-     OSSL_FUNC_core_gettable_params(const OSSL_DISPATCH *opf);</code></pre>
+<pre><code>typedef OSSL_PARAM *
+    (OSSL_FUNC_core_gettable_params_fn)(const OSSL_CORE_HANDLE *handle);
+static ossl_inline OSSL_NAME_core_gettable_params_fn
+    OSSL_FUNC_core_gettable_params(const OSSL_DISPATCH *opf);</code></pre>
 
 <p><a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> arrays are indexed by numbers that are provided as macros in <a href="../man7/openssl-core_dispatch.h.html">openssl-core_dispatch.h(7)</a>, as follows:</p>
 
 <p>For <i>in</i> (the <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> array passed from <i>libcrypto</i> to the provider):</p>
 
-<pre><code> core_gettable_params           OSSL_FUNC_CORE_GETTABLE_PARAMS
- core_get_params                OSSL_FUNC_CORE_GET_PARAMS
- core_thread_start              OSSL_FUNC_CORE_THREAD_START
- core_get_libctx                OSSL_FUNC_CORE_GET_LIBCTX
- core_new_error                 OSSL_FUNC_CORE_NEW_ERROR
- core_set_error_debug           OSSL_FUNC_CORE_SET_ERROR_DEBUG
- core_vset_error                OSSL_FUNC_CORE_VSET_ERROR
- core_obj_add_sigid             OSSL_FUNC_CORE_OBJ_ADD_SIGID
- core_obj_create                OSSL_FUNC_CORE_OBJ_CREATE
- CRYPTO_malloc                  OSSL_FUNC_CRYPTO_MALLOC
- CRYPTO_zalloc                  OSSL_FUNC_CRYPTO_ZALLOC
- CRYPTO_free                    OSSL_FUNC_CRYPTO_FREE
- CRYPTO_clear_free              OSSL_FUNC_CRYPTO_CLEAR_FREE
- CRYPTO_realloc                 OSSL_FUNC_CRYPTO_REALLOC
- CRYPTO_clear_realloc           OSSL_FUNC_CRYPTO_CLEAR_REALLOC
- CRYPTO_secure_malloc           OSSL_FUNC_CRYPTO_SECURE_MALLOC
- CRYPTO_secure_zalloc           OSSL_FUNC_CRYPTO_SECURE_ZALLOC
- CRYPTO_secure_free             OSSL_FUNC_CRYPTO_SECURE_FREE
- CRYPTO_secure_clear_free       OSSL_FUNC_CRYPTO_SECURE_CLEAR_FREE
- CRYPTO_secure_allocated        OSSL_FUNC_CRYPTO_SECURE_ALLOCATED
- BIO_new_file                   OSSL_FUNC_BIO_NEW_FILE
- BIO_new_mem_buf                OSSL_FUNC_BIO_NEW_MEMBUF
- BIO_read_ex                    OSSL_FUNC_BIO_READ_EX
- BIO_write_ex                   OSSL_FUNC_BIO_WRITE_EX
- BIO_up_ref                     OSSL_FUNC_BIO_UP_REF
- BIO_free                       OSSL_FUNC_BIO_FREE
- BIO_vprintf                    OSSL_FUNC_BIO_VPRINTF
- BIO_vsnprintf                  OSSL_FUNC_BIO_VSNPRINTF
- BIO_puts                       OSSL_FUNC_BIO_PUTS
- BIO_gets                       OSSL_FUNC_BIO_GETS
- BIO_ctrl                       OSSL_FUNC_BIO_CTRL
- OPENSSL_cleanse                OSSL_FUNC_OPENSSL_CLEANSE
- OSSL_SELF_TEST_set_callback    OSSL_FUNC_SELF_TEST_CB
- ossl_rand_get_entropy          OSSL_FUNC_GET_ENTROPY
- ossl_rand_get_user_entropy     OSSL_FUNC_GET_USER_ENTROPY
- ossl_rand_cleanup_entropy      OSSL_FUNC_CLEANUP_ENTROPY
- ossl_rand_cleanup_user_entropy OSSL_FUNC_CLEANUP_USER_ENTROPY
- ossl_rand_get_nonce            OSSL_FUNC_GET_NONCE
- ossl_rand_get_user_nonce       OSSL_FUNC_GET_USER_NONCE
- ossl_rand_cleanup_nonce        OSSL_FUNC_CLEANUP_NONCE
- ossl_rand_cleanup_user_nonce   OSSL_FUNC_CLEANUP_USER_NONCE
- provider_register_child_cb     OSSL_FUNC_PROVIDER_REGISTER_CHILD_CB
- provider_deregister_child_cb   OSSL_FUNC_PROVIDER_DEREGISTER_CHILD_CB
- provider_name                  OSSL_FUNC_PROVIDER_NAME
- provider_get0_provider_ctx     OSSL_FUNC_PROVIDER_GET0_PROVIDER_CTX
- provider_get0_dispatch         OSSL_FUNC_PROVIDER_GET0_DISPATCH
- provider_up_ref                OSSL_FUNC_PROVIDER_UP_REF
- provider_free                  OSSL_FUNC_PROVIDER_FREE</code></pre>
+<pre><code>core_gettable_params           OSSL_FUNC_CORE_GETTABLE_PARAMS
+core_get_params                OSSL_FUNC_CORE_GET_PARAMS
+core_thread_start              OSSL_FUNC_CORE_THREAD_START
+core_get_libctx                OSSL_FUNC_CORE_GET_LIBCTX
+core_new_error                 OSSL_FUNC_CORE_NEW_ERROR
+core_set_error_debug           OSSL_FUNC_CORE_SET_ERROR_DEBUG
+core_vset_error                OSSL_FUNC_CORE_VSET_ERROR
+core_obj_add_sigid             OSSL_FUNC_CORE_OBJ_ADD_SIGID
+core_obj_create                OSSL_FUNC_CORE_OBJ_CREATE
+CRYPTO_malloc                  OSSL_FUNC_CRYPTO_MALLOC
+CRYPTO_zalloc                  OSSL_FUNC_CRYPTO_ZALLOC
+CRYPTO_free                    OSSL_FUNC_CRYPTO_FREE
+CRYPTO_clear_free              OSSL_FUNC_CRYPTO_CLEAR_FREE
+CRYPTO_realloc                 OSSL_FUNC_CRYPTO_REALLOC
+CRYPTO_clear_realloc           OSSL_FUNC_CRYPTO_CLEAR_REALLOC
+CRYPTO_secure_malloc           OSSL_FUNC_CRYPTO_SECURE_MALLOC
+CRYPTO_secure_zalloc           OSSL_FUNC_CRYPTO_SECURE_ZALLOC
+CRYPTO_secure_free             OSSL_FUNC_CRYPTO_SECURE_FREE
+CRYPTO_secure_clear_free       OSSL_FUNC_CRYPTO_SECURE_CLEAR_FREE
+CRYPTO_secure_allocated        OSSL_FUNC_CRYPTO_SECURE_ALLOCATED
+BIO_new_file                   OSSL_FUNC_BIO_NEW_FILE
+BIO_new_mem_buf                OSSL_FUNC_BIO_NEW_MEMBUF
+BIO_read_ex                    OSSL_FUNC_BIO_READ_EX
+BIO_write_ex                   OSSL_FUNC_BIO_WRITE_EX
+BIO_up_ref                     OSSL_FUNC_BIO_UP_REF
+BIO_free                       OSSL_FUNC_BIO_FREE
+BIO_vprintf                    OSSL_FUNC_BIO_VPRINTF
+BIO_vsnprintf                  OSSL_FUNC_BIO_VSNPRINTF
+BIO_puts                       OSSL_FUNC_BIO_PUTS
+BIO_gets                       OSSL_FUNC_BIO_GETS
+BIO_ctrl                       OSSL_FUNC_BIO_CTRL
+OPENSSL_cleanse                OSSL_FUNC_OPENSSL_CLEANSE
+OSSL_SELF_TEST_set_callback    OSSL_FUNC_SELF_TEST_CB
+ossl_rand_get_entropy          OSSL_FUNC_GET_ENTROPY
+ossl_rand_get_user_entropy     OSSL_FUNC_GET_USER_ENTROPY
+ossl_rand_cleanup_entropy      OSSL_FUNC_CLEANUP_ENTROPY
+ossl_rand_cleanup_user_entropy OSSL_FUNC_CLEANUP_USER_ENTROPY
+ossl_rand_get_nonce            OSSL_FUNC_GET_NONCE
+ossl_rand_get_user_nonce       OSSL_FUNC_GET_USER_NONCE
+ossl_rand_cleanup_nonce        OSSL_FUNC_CLEANUP_NONCE
+ossl_rand_cleanup_user_nonce   OSSL_FUNC_CLEANUP_USER_NONCE
+provider_register_child_cb     OSSL_FUNC_PROVIDER_REGISTER_CHILD_CB
+provider_deregister_child_cb   OSSL_FUNC_PROVIDER_DEREGISTER_CHILD_CB
+provider_name                  OSSL_FUNC_PROVIDER_NAME
+provider_get0_provider_ctx     OSSL_FUNC_PROVIDER_GET0_PROVIDER_CTX
+provider_get0_dispatch         OSSL_FUNC_PROVIDER_GET0_DISPATCH
+provider_up_ref                OSSL_FUNC_PROVIDER_UP_REF
+provider_free                  OSSL_FUNC_PROVIDER_FREE</code></pre>
 
 <p>For <i>*out</i> (the <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> array passed from the provider to <i>libcrypto</i>):</p>
 
-<pre><code> provider_teardown              OSSL_FUNC_PROVIDER_TEARDOWN
- provider_gettable_params       OSSL_FUNC_PROVIDER_GETTABLE_PARAMS
- provider_get_params            OSSL_FUNC_PROVIDER_GET_PARAMS
- provider_query_operation       OSSL_FUNC_PROVIDER_QUERY_OPERATION
- provider_unquery_operation     OSSL_FUNC_PROVIDER_UNQUERY_OPERATION
- provider_get_reason_strings    OSSL_FUNC_PROVIDER_GET_REASON_STRINGS
- provider_get_capabilities      OSSL_FUNC_PROVIDER_GET_CAPABILITIES
- provider_self_test             OSSL_FUNC_PROVIDER_SELF_TEST</code></pre>
+<pre><code>provider_teardown              OSSL_FUNC_PROVIDER_TEARDOWN
+provider_gettable_params       OSSL_FUNC_PROVIDER_GETTABLE_PARAMS
+provider_get_params            OSSL_FUNC_PROVIDER_GET_PARAMS
+provider_query_operation       OSSL_FUNC_PROVIDER_QUERY_OPERATION
+provider_unquery_operation     OSSL_FUNC_PROVIDER_UNQUERY_OPERATION
+provider_get_reason_strings    OSSL_FUNC_PROVIDER_GET_REASON_STRINGS
+provider_get_capabilities      OSSL_FUNC_PROVIDER_GET_CAPABILITIES
+provider_self_test             OSSL_FUNC_PROVIDER_SELF_TEST</code></pre>
 
 <h2 id="Core-functions">Core functions</h2>
 
@@ -402,23 +402,23 @@
 
 <p>For example, let&#39;s say we have the following config example:</p>
 
-<pre><code> config_diagnostics = 1
- openssl_conf = openssl_init
+<pre><code>config_diagnostics = 1
+openssl_conf = openssl_init
 
- [openssl_init]
- providers = providers_sect
+[openssl_init]
+providers = providers_sect
 
- [providers_sect]
- foo = foo_sect
+[providers_sect]
+foo = foo_sect
 
- [foo_sect]
- activate = 1
- data1 = 2
- data2 = str
- more = foo_more
+[foo_sect]
+activate = 1
+data1 = 2
+data2 = str
+more = foo_more
 
- [foo_more]
- data3 = foo,bar</code></pre>
+[foo_more]
+data3 = foo,bar</code></pre>
 
 <p>The provider will have these additional parameters available:</p>
 
@@ -622,187 +622,187 @@
 
 <p>This is an example of a simple provider made available as a dynamically loadable module. It implements the fictitious algorithm <code>FOO</code> for the fictitious operation <code>BAR</code>.</p>
 
-<pre><code> #include &lt;malloc.h&gt;
- #include &lt;openssl/core.h&gt;
- #include &lt;openssl/core_dispatch.h&gt;
+<pre><code>#include &lt;malloc.h&gt;
+#include &lt;openssl/core.h&gt;
+#include &lt;openssl/core_dispatch.h&gt;
 
- /* Errors used in this provider */
- #define E_MALLOC       1
+/* Errors used in this provider */
+#define E_MALLOC       1
 
- static const OSSL_ITEM reasons[] = {
-     { E_MALLOC, &quot;memory allocation failure&quot; }.
-     OSSL_DISPATCH_END
- };
+static const OSSL_ITEM reasons[] = {
+    { E_MALLOC, &quot;memory allocation failure&quot; }.
+    OSSL_DISPATCH_END
+};
 
- /*
-  * To ensure we get the function signature right, forward declare
-  * them using function types provided by openssl/core_dispatch.h
-  */
- OSSL_FUNC_bar_newctx_fn foo_newctx;
- OSSL_FUNC_bar_freectx_fn foo_freectx;
- OSSL_FUNC_bar_init_fn foo_init;
- OSSL_FUNC_bar_update_fn foo_update;
- OSSL_FUNC_bar_final_fn foo_final;
+/*
+ * To ensure we get the function signature right, forward declare
+ * them using function types provided by openssl/core_dispatch.h
+ */
+OSSL_FUNC_bar_newctx_fn foo_newctx;
+OSSL_FUNC_bar_freectx_fn foo_freectx;
+OSSL_FUNC_bar_init_fn foo_init;
+OSSL_FUNC_bar_update_fn foo_update;
+OSSL_FUNC_bar_final_fn foo_final;
 
- OSSL_FUNC_provider_query_operation_fn p_query;
- OSSL_FUNC_provider_get_reason_strings_fn p_reasons;
- OSSL_FUNC_provider_teardown_fn p_teardown;
+OSSL_FUNC_provider_query_operation_fn p_query;
+OSSL_FUNC_provider_get_reason_strings_fn p_reasons;
+OSSL_FUNC_provider_teardown_fn p_teardown;
 
- OSSL_provider_init_fn OSSL_provider_init;
+OSSL_provider_init_fn OSSL_provider_init;
 
- OSSL_FUNC_core_put_error *c_put_error = NULL;
+OSSL_FUNC_core_put_error *c_put_error = NULL;
 
- /* Provider context */
- struct prov_ctx_st {
-     OSSL_CORE_HANDLE *handle;
- }
+/* Provider context */
+struct prov_ctx_st {
+    OSSL_CORE_HANDLE *handle;
+}
 
- /* operation context for the algorithm FOO */
- struct foo_ctx_st {
-     struct prov_ctx_st *provctx;
-     int b;
- };
+/* operation context for the algorithm FOO */
+struct foo_ctx_st {
+    struct prov_ctx_st *provctx;
+    int b;
+};
 
- static void *foo_newctx(void *provctx)
- {
-     struct foo_ctx_st *fooctx = malloc(sizeof(*fooctx));
+static void *foo_newctx(void *provctx)
+{
+    struct foo_ctx_st *fooctx = malloc(sizeof(*fooctx));
 
-     if (fooctx != NULL)
-         fooctx-&gt;provctx = provctx;
-     else
-         c_put_error(provctx-&gt;handle, E_MALLOC, __FILE__, __LINE__);
-     return fooctx;
- }
+    if (fooctx != NULL)
+        fooctx-&gt;provctx = provctx;
+    else
+        c_put_error(provctx-&gt;handle, E_MALLOC, __FILE__, __LINE__);
+    return fooctx;
+}
 
- static void foo_freectx(void *fooctx)
- {
-     free(fooctx);
- }
+static void foo_freectx(void *fooctx)
+{
+    free(fooctx);
+}
 
- static int foo_init(void *vfooctx)
- {
-     struct foo_ctx_st *fooctx = vfooctx;
+static int foo_init(void *vfooctx)
+{
+    struct foo_ctx_st *fooctx = vfooctx;
 
-     fooctx-&gt;b = 0x33;
- }
+    fooctx-&gt;b = 0x33;
+}
 
- static int foo_update(void *vfooctx, unsigned char *in, size_t inl)
- {
-     struct foo_ctx_st *fooctx = vfooctx;
+static int foo_update(void *vfooctx, unsigned char *in, size_t inl)
+{
+    struct foo_ctx_st *fooctx = vfooctx;
 
-     /* did you expect something serious? */
-     if (inl == 0)
-         return 1;
-     for (; inl-- &gt; 0; in++)
-         *in ^= fooctx-&gt;b;
-     return 1;
- }
+    /* did you expect something serious? */
+    if (inl == 0)
+        return 1;
+    for (; inl-- &gt; 0; in++)
+        *in ^= fooctx-&gt;b;
+    return 1;
+}
 
- static int foo_final(void *vfooctx)
- {
-     struct foo_ctx_st *fooctx = vfooctx;
+static int foo_final(void *vfooctx)
+{
+    struct foo_ctx_st *fooctx = vfooctx;
 
-     fooctx-&gt;b = 0x66;
- }
+    fooctx-&gt;b = 0x66;
+}
 
- static const OSSL_DISPATCH foo_fns[] = {
-     { OSSL_FUNC_BAR_NEWCTX, (void (*)(void))foo_newctx },
-     { OSSL_FUNC_BAR_FREECTX, (void (*)(void))foo_freectx },
-     { OSSL_FUNC_BAR_INIT, (void (*)(void))foo_init },
-     { OSSL_FUNC_BAR_UPDATE, (void (*)(void))foo_update },
-     { OSSL_FUNC_BAR_FINAL, (void (*)(void))foo_final },
-     OSSL_DISPATCH_END
- };
+static const OSSL_DISPATCH foo_fns[] = {
+    { OSSL_FUNC_BAR_NEWCTX, (void (*)(void))foo_newctx },
+    { OSSL_FUNC_BAR_FREECTX, (void (*)(void))foo_freectx },
+    { OSSL_FUNC_BAR_INIT, (void (*)(void))foo_init },
+    { OSSL_FUNC_BAR_UPDATE, (void (*)(void))foo_update },
+    { OSSL_FUNC_BAR_FINAL, (void (*)(void))foo_final },
+    OSSL_DISPATCH_END
+};
 
- static const OSSL_ALGORITHM bars[] = {
-     { &quot;FOO&quot;, &quot;provider=chumbawamba&quot;, foo_fns },
-     { NULL, NULL, NULL }
- };
+static const OSSL_ALGORITHM bars[] = {
+    { &quot;FOO&quot;, &quot;provider=chumbawamba&quot;, foo_fns },
+    { NULL, NULL, NULL }
+};
 
- static const OSSL_ALGORITHM *p_query(void *provctx, int operation_id,
-                                      int *no_store)
- {
-     switch (operation_id) {
-     case OSSL_OP_BAR:
-         return bars;
-     }
-     return NULL;
- }
+static const OSSL_ALGORITHM *p_query(void *provctx, int operation_id,
+                                     int *no_store)
+{
+    switch (operation_id) {
+    case OSSL_OP_BAR:
+        return bars;
+    }
+    return NULL;
+}
 
- static const OSSL_ITEM *p_reasons(void *provctx)
- {
-     return reasons;
- }
+static const OSSL_ITEM *p_reasons(void *provctx)
+{
+    return reasons;
+}
 
- static void p_teardown(void *provctx)
- {
-     free(provctx);
- }
+static void p_teardown(void *provctx)
+{
+    free(provctx);
+}
 
- static const OSSL_DISPATCH prov_fns[] = {
-     { OSSL_FUNC_PROVIDER_TEARDOWN, (void (*)(void))p_teardown },
-     { OSSL_FUNC_PROVIDER_QUERY_OPERATION, (void (*)(void))p_query },
-     { OSSL_FUNC_PROVIDER_GET_REASON_STRINGS, (void (*)(void))p_reasons },
-     OSSL_DISPATCH_END
- };
+static const OSSL_DISPATCH prov_fns[] = {
+    { OSSL_FUNC_PROVIDER_TEARDOWN, (void (*)(void))p_teardown },
+    { OSSL_FUNC_PROVIDER_QUERY_OPERATION, (void (*)(void))p_query },
+    { OSSL_FUNC_PROVIDER_GET_REASON_STRINGS, (void (*)(void))p_reasons },
+    OSSL_DISPATCH_END
+};
 
- int OSSL_provider_init(const OSSL_CORE_HANDLE *handle,
-                        const OSSL_DISPATCH *in,
-                        const OSSL_DISPATCH **out,
-                        void **provctx)
- {
-     struct prov_ctx_st *pctx = NULL;
+int OSSL_provider_init(const OSSL_CORE_HANDLE *handle,
+                       const OSSL_DISPATCH *in,
+                       const OSSL_DISPATCH **out,
+                       void **provctx)
+{
+    struct prov_ctx_st *pctx = NULL;
 
-     for (; in-&gt;function_id != 0; in++)
-         switch (in-&gt;function_id) {
-         case OSSL_FUNC_CORE_PUT_ERROR:
-             c_put_error = OSSL_FUNC_core_put_error(in);
-             break;
-         }
+    for (; in-&gt;function_id != 0; in++)
+        switch (in-&gt;function_id) {
+        case OSSL_FUNC_CORE_PUT_ERROR:
+            c_put_error = OSSL_FUNC_core_put_error(in);
+            break;
+        }
 
-     *out = prov_fns;
+    *out = prov_fns;
 
-     if ((pctx = malloc(sizeof(*pctx))) == NULL) {
-         /*
-          * ALEA IACTA EST, if the core retrieves the reason table
-          * regardless, that string will be displayed, otherwise not.
-          */
-         c_put_error(handle, E_MALLOC, __FILE__, __LINE__);
-         return 0;
-     }
-     pctx-&gt;handle = handle;
-     return 1;
- }</code></pre>
+    if ((pctx = malloc(sizeof(*pctx))) == NULL) {
+        /*
+         * ALEA IACTA EST, if the core retrieves the reason table
+         * regardless, that string will be displayed, otherwise not.
+         */
+        c_put_error(handle, E_MALLOC, __FILE__, __LINE__);
+        return 0;
+    }
+    pctx-&gt;handle = handle;
+    return 1;
+}</code></pre>
 
 <p>This relies on a few things existing in <i>openssl/core_dispatch.h</i>:</p>
 
-<pre><code> #define OSSL_OP_BAR            4711
+<pre><code>#define OSSL_OP_BAR            4711
 
- #define OSSL_FUNC_BAR_NEWCTX      1
- typedef void *(OSSL_FUNC_bar_newctx_fn)(void *provctx);
- static ossl_inline OSSL_FUNC_bar_newctx(const OSSL_DISPATCH *opf)
- { return (OSSL_FUNC_bar_newctx_fn *)opf-&gt;function; }
+#define OSSL_FUNC_BAR_NEWCTX      1
+typedef void *(OSSL_FUNC_bar_newctx_fn)(void *provctx);
+static ossl_inline OSSL_FUNC_bar_newctx(const OSSL_DISPATCH *opf)
+{ return (OSSL_FUNC_bar_newctx_fn *)opf-&gt;function; }
 
- #define OSSL_FUNC_BAR_FREECTX     2
- typedef void (OSSL_FUNC_bar_freectx_fn)(void *ctx);
- static ossl_inline OSSL_FUNC_bar_freectx(const OSSL_DISPATCH *opf)
- { return (OSSL_FUNC_bar_freectx_fn *)opf-&gt;function; }
+#define OSSL_FUNC_BAR_FREECTX     2
+typedef void (OSSL_FUNC_bar_freectx_fn)(void *ctx);
+static ossl_inline OSSL_FUNC_bar_freectx(const OSSL_DISPATCH *opf)
+{ return (OSSL_FUNC_bar_freectx_fn *)opf-&gt;function; }
 
- #define OSSL_FUNC_BAR_INIT        3
- typedef void *(OSSL_FUNC_bar_init_fn)(void *ctx);
- static ossl_inline OSSL_FUNC_bar_init(const OSSL_DISPATCH *opf)
- { return (OSSL_FUNC_bar_init_fn *)opf-&gt;function; }
+#define OSSL_FUNC_BAR_INIT        3
+typedef void *(OSSL_FUNC_bar_init_fn)(void *ctx);
+static ossl_inline OSSL_FUNC_bar_init(const OSSL_DISPATCH *opf)
+{ return (OSSL_FUNC_bar_init_fn *)opf-&gt;function; }
 
- #define OSSL_FUNC_BAR_UPDATE      4
- typedef void *(OSSL_FUNC_bar_update_fn)(void *ctx,
-                                       unsigned char *in, size_t inl);
- static ossl_inline OSSL_FUNC_bar_update(const OSSL_DISPATCH *opf)
- { return (OSSL_FUNC_bar_update_fn *)opf-&gt;function; }
+#define OSSL_FUNC_BAR_UPDATE      4
+typedef void *(OSSL_FUNC_bar_update_fn)(void *ctx,
+                                      unsigned char *in, size_t inl);
+static ossl_inline OSSL_FUNC_bar_update(const OSSL_DISPATCH *opf)
+{ return (OSSL_FUNC_bar_update_fn *)opf-&gt;function; }
 
- #define OSSL_FUNC_BAR_FINAL       5
- typedef void *(OSSL_FUNC_bar_final_fn)(void *ctx);
- static ossl_inline OSSL_FUNC_bar_final(const OSSL_DISPATCH *opf)
- { return (OSSL_FUNC_bar_final_fn *)opf-&gt;function; }</code></pre>
+#define OSSL_FUNC_BAR_FINAL       5
+typedef void *(OSSL_FUNC_bar_final_fn)(void *ctx);
+static ossl_inline OSSL_FUNC_bar_final(const OSSL_DISPATCH *opf)
+{ return (OSSL_FUNC_bar_final_fn *)opf-&gt;function; }</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

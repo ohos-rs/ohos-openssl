@@ -4,7 +4,7 @@
 <head>
 <title>property</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -45,8 +45,8 @@
 
 <p>A <i>user defined</i> property name is similar, but it <b>must</b> consist of two or more C-style identifiers, separated by periods. The last identifier in the name can be considered the &#39;true&#39; property name, which is prefixed by some sort of &#39;namespace&#39;. Providers for example could include their name in the prefix and use property names like</p>
 
-<pre><code>  &lt;provider_name&gt;.&lt;property_name&gt;
-  &lt;provider_name&gt;.&lt;algorithm_name&gt;.&lt;property_name&gt;</code></pre>
+<pre><code>&lt;provider_name&gt;.&lt;property_name&gt;
+&lt;provider_name&gt;.&lt;algorithm_name&gt;.&lt;property_name&gt;</code></pre>
 
 <h2 id="Properties">Properties</h2>
 
@@ -102,17 +102,17 @@
 
 <p>The lexical syntax in EBNF is given by:</p>
 
-<pre><code> Definition     ::= PropertyName ( &#39;=&#39; Value )?
-                        ( &#39;,&#39; PropertyName ( &#39;=&#39; Value )? )*
- Query          ::= PropertyQuery ( &#39;,&#39; PropertyQuery )*
- PropertyQuery  ::= &#39;-&#39; PropertyName
-                  | &#39;?&#39;? ( PropertyName (( &#39;=&#39; | &#39;!=&#39; ) Value)?)
- Value          ::= NumberLiteral | StringLiteral
- StringLiteral  ::= QuotedString | UnquotedString
- QuotedString   ::= &#39;&quot;&#39; [^&quot;]* &#39;&quot;&#39; | &quot;&#39;&quot; [^&#39;]* &quot;&#39;&quot;
- UnquotedString ::= [A-Za-z] [^{space},]+
- NumberLiteral  ::= &#39;0&#39; ( [0-7]* | &#39;x&#39; [0-9A-Fa-f]+ ) | &#39;-&#39;? [1-9] [0-9]+
- PropertyName   ::= [A-Za-z] [A-Za-z0-9_]* ( &#39;.&#39; [A-Za-z] [A-Za-z0-9_]* )*</code></pre>
+<pre><code>Definition     ::= PropertyName ( &#39;=&#39; Value )?
+                       ( &#39;,&#39; PropertyName ( &#39;=&#39; Value )? )*
+Query          ::= PropertyQuery ( &#39;,&#39; PropertyQuery )*
+PropertyQuery  ::= &#39;-&#39; PropertyName
+                 | &#39;?&#39;? ( PropertyName (( &#39;=&#39; | &#39;!=&#39; ) Value)?)
+Value          ::= NumberLiteral | StringLiteral
+StringLiteral  ::= QuotedString | UnquotedString
+QuotedString   ::= &#39;&quot;&#39; [^&quot;]* &#39;&quot;&#39; | &quot;&#39;&quot; [^&#39;]* &quot;&#39;&quot;
+UnquotedString ::= [A-Za-z] [^{space},]+
+NumberLiteral  ::= &#39;0&#39; ( [0-7]* | &#39;x&#39; [0-9A-Fa-f]+ ) | &#39;-&#39;? [1-9] [0-9]+
+PropertyName   ::= [A-Za-z] [A-Za-z0-9_]* ( &#39;.&#39; [A-Za-z] [A-Za-z0-9_]* )*</code></pre>
 
 <p>The flavour of EBNF being used is defined by: <a href="https://www.w3.org/TR/2010/REC-xquery-20101214/#EBNFNotation">https://www.w3.org/TR/2010/REC-xquery-20101214/#EBNFNotation</a>.</p>
 

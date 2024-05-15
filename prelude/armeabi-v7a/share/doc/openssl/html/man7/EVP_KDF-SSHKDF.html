@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-SSHKDF</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -123,8 +123,8 @@
 
 <p>A context for SSHKDF can be obtained by calling:</p>
 
-<pre><code> EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;SSHKDF&quot;, NULL);
- EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
+<pre><code>EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;SSHKDF&quot;, NULL);
+EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
 
 <p>The output length of the SSHKDF derivation is specified via the <i>keylen</i> parameter to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function. Since the SSHKDF output length is variable, calling <a href="../man3/EVP_KDF_CTX_get_kdf_size.html">EVP_KDF_CTX_get_kdf_size(3)</a> to obtain the requisite length is not meaningful. The caller must allocate a buffer of the desired length, and pass that buffer to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function along with the desired length.</p>
 
@@ -132,33 +132,33 @@
 
 <p>This example derives an 8 byte IV using SHA-256 with a 1K &quot;key&quot; and appropriate &quot;xcghash&quot; and &quot;session_id&quot; values:</p>
 
-<pre><code> EVP_KDF *kdf;
- EVP_KDF_CTX *kctx;
- char type = EVP_KDF_SSHKDF_TYPE_INITIAL_IV_CLI_TO_SRV;
- unsigned char key[1024] = &quot;01234...&quot;;
- unsigned char xcghash[32] = &quot;012345...&quot;;
- unsigned char session_id[32] = &quot;012345...&quot;;
- unsigned char out[8];
- size_t outlen = sizeof(out);
- OSSL_PARAM params[6], *p = params;
+<pre><code>EVP_KDF *kdf;
+EVP_KDF_CTX *kctx;
+char type = EVP_KDF_SSHKDF_TYPE_INITIAL_IV_CLI_TO_SRV;
+unsigned char key[1024] = &quot;01234...&quot;;
+unsigned char xcghash[32] = &quot;012345...&quot;;
+unsigned char session_id[32] = &quot;012345...&quot;;
+unsigned char out[8];
+size_t outlen = sizeof(out);
+OSSL_PARAM params[6], *p = params;
 
- kdf = EVP_KDF_fetch(NULL, &quot;SSHKDF&quot;, NULL);
- kctx = EVP_KDF_CTX_new(kdf);
- EVP_KDF_free(kdf);
+kdf = EVP_KDF_fetch(NULL, &quot;SSHKDF&quot;, NULL);
+kctx = EVP_KDF_CTX_new(kdf);
+EVP_KDF_free(kdf);
 
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
-                                         SN_sha256, strlen(SN_sha256));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
-                                          key, (size_t)1024);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SSHKDF_XCGHASH,
-                                          xcghash, (size_t)32);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SSHKDF_SESSION_ID,
-                                          session_id, (size_t)32);
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_SSHKDF_TYPE,
-                                         &amp;type, sizeof(type));
- *p = OSSL_PARAM_construct_end();
- if (EVP_KDF_derive(kctx, out, outlen, params) &lt;= 0)
-     /* Error */</code></pre>
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_DIGEST,
+                                        SN_sha256, strlen(SN_sha256));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
+                                         key, (size_t)1024);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SSHKDF_XCGHASH,
+                                         xcghash, (size_t)32);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SSHKDF_SESSION_ID,
+                                         session_id, (size_t)32);
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_SSHKDF_TYPE,
+                                        &amp;type, sizeof(type));
+*p = OSSL_PARAM_construct_end();
+if (EVP_KDF_derive(kctx, out, outlen, params) &lt;= 0)
+    /* Error */</code></pre>
 
 <h1 id="CONFORMING-TO">CONFORMING TO</h1>
 

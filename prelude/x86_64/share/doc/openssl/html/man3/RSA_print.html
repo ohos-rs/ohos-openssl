@@ -4,7 +4,7 @@
 <head>
 <title>RSA_print</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,28 +27,28 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/rsa.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/rsa.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> int RSA_print(BIO *bp, const RSA *x, int offset);
- int RSA_print_fp(FILE *fp, const RSA *x, int offset);
+<pre><code>int RSA_print(BIO *bp, const RSA *x, int offset);
+int RSA_print_fp(FILE *fp, const RSA *x, int offset);
 
- #include &lt;openssl/dsa.h&gt;</code></pre>
-
-<p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
-
-<pre><code> int DSAparams_print(BIO *bp, const DSA *x);
- int DSAparams_print_fp(FILE *fp, const DSA *x);
- int DSA_print(BIO *bp, const DSA *x, int offset);
- int DSA_print_fp(FILE *fp, const DSA *x, int offset);
-
- #include &lt;openssl/dh.h&gt;</code></pre>
+#include &lt;openssl/dsa.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> int DHparams_print(BIO *bp, DH *x);
- int DHparams_print_fp(FILE *fp, const DH *x);</code></pre>
+<pre><code>int DSAparams_print(BIO *bp, const DSA *x);
+int DSAparams_print_fp(FILE *fp, const DSA *x);
+int DSA_print(BIO *bp, const DSA *x, int offset);
+int DSA_print_fp(FILE *fp, const DSA *x, int offset);
+
+#include &lt;openssl/dh.h&gt;</code></pre>
+
+<p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
+
+<pre><code>int DHparams_print(BIO *bp, DH *x);
+int DHparams_print_fp(FILE *fp, const DH *x);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -66,9 +66,9 @@
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
-<pre><code> L&lt;EVP_PKEY_print_params(3)&gt;,
- L&lt;EVP_PKEY_print_private(3)&gt;,
- L&lt;BN_bn2bin(3)&gt;</code></pre>
+<pre><code>L&lt;EVP_PKEY_print_params(3)&gt;,
+L&lt;EVP_PKEY_print_private(3)&gt;,
+L&lt;BN_bn2bin(3)&gt;</code></pre>
 
 <h1 id="HISTORY">HISTORY</h1>
 

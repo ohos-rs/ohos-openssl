@@ -4,7 +4,7 @@
 <head>
 <title>COMP_CTX_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,30 +28,30 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/comp.h&gt;
+<pre><code>#include &lt;openssl/comp.h&gt;
 
- COMP_CTX *COMP_CTX_new(COMP_METHOD *meth);
- void COMP_CTX_free(COMP_CTX *ctx);
- const COMP_METHOD *COMP_CTX_get_method(const COMP_CTX *ctx);
- int COMP_CTX_get_type(const COMP_CTX* comp);
- int COMP_get_type(const COMP_METHOD *meth);
- const char *COMP_get_name(const COMP_METHOD *meth);
+COMP_CTX *COMP_CTX_new(COMP_METHOD *meth);
+void COMP_CTX_free(COMP_CTX *ctx);
+const COMP_METHOD *COMP_CTX_get_method(const COMP_CTX *ctx);
+int COMP_CTX_get_type(const COMP_CTX* comp);
+int COMP_get_type(const COMP_METHOD *meth);
+const char *COMP_get_name(const COMP_METHOD *meth);
 
- int COMP_compress_block(COMP_CTX *ctx, unsigned char *out, int olen,
-                         unsigned char *in, int ilen);
- int COMP_expand_block(COMP_CTX *ctx, unsigned char *out, int olen,
-                       unsigned char *in, int ilen);
+int COMP_compress_block(COMP_CTX *ctx, unsigned char *out, int olen,
+                        unsigned char *in, int ilen);
+int COMP_expand_block(COMP_CTX *ctx, unsigned char *out, int olen,
+                      unsigned char *in, int ilen);
 
- COMP_METHOD *COMP_zlib(void);
- COMP_METHOD *COMP_zlib_oneshot(void);
- COMP_METHOD *COMP_brotli(void);
- COMP_METHOD *COMP_brotli_oneshot(void);
- COMP_METHOD *COMP_zstd(void);
- COMP_METHOD *COMP_zstd_oneshot(void);
+COMP_METHOD *COMP_zlib(void);
+COMP_METHOD *COMP_zlib_oneshot(void);
+COMP_METHOD *COMP_brotli(void);
+COMP_METHOD *COMP_brotli_oneshot(void);
+COMP_METHOD *COMP_zstd(void);
+COMP_METHOD *COMP_zstd_oneshot(void);
 
- const BIO_METHOD *BIO_f_zlib(void);
- const BIO_METHOD *BIO_f_brotli(void);
- const BIO_METHOD *BIO_f_zstd(void);</code></pre>
+const BIO_METHOD *BIO_f_zlib(void);
+const BIO_METHOD *BIO_f_brotli(void);
+const BIO_METHOD *BIO_f_zstd(void);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>EVP_MAC-KMAC</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -92,68 +92,68 @@
 
 <h1 id="EXAMPLES">EXAMPLES</h1>
 
-<pre><code>  #include &lt;openssl/evp.h&gt;
-  #include &lt;openssl/params.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
+#include &lt;openssl/params.h&gt;
 
-  static int do_kmac(const unsigned char *in, size_t in_len,
-                     const unsigned char *key, size_t key_len,
-                     const unsigned char *custom, size_t custom_len,
-                     int xof_enabled, unsigned char *out, int out_len)
-  {
-      EVP_MAC_CTX *ctx = NULL;
-      EVP_MAC *mac = NULL;
-      OSSL_PARAM params[4], *p;
-      int ret = 0;
-      size_t l = 0;
+static int do_kmac(const unsigned char *in, size_t in_len,
+                   const unsigned char *key, size_t key_len,
+                   const unsigned char *custom, size_t custom_len,
+                   int xof_enabled, unsigned char *out, int out_len)
+{
+    EVP_MAC_CTX *ctx = NULL;
+    EVP_MAC *mac = NULL;
+    OSSL_PARAM params[4], *p;
+    int ret = 0;
+    size_t l = 0;
 
-      mac = EVP_MAC_fetch(NULL, &quot;KMAC-128&quot;, NULL);
-      if (mac == NULL)
-          goto err;
-      ctx = EVP_MAC_CTX_new(mac);
-      /* The mac can be freed after it is used by EVP_MAC_CTX_new */
-      EVP_MAC_free(mac);
-      if (ctx == NULL)
-          goto err;
+    mac = EVP_MAC_fetch(NULL, &quot;KMAC-128&quot;, NULL);
+    if (mac == NULL)
+        goto err;
+    ctx = EVP_MAC_CTX_new(mac);
+    /* The mac can be freed after it is used by EVP_MAC_CTX_new */
+    EVP_MAC_free(mac);
+    if (ctx == NULL)
+        goto err;
 
-      /*
-       * Setup parameters required before calling EVP_MAC_init()
-       * The parameters OSSL_MAC_PARAM_XOF and OSSL_MAC_PARAM_SIZE may also be
-       * used at this point.
-       */
-      p = params;
-      *p++ = OSSL_PARAM_construct_octet_string(OSSL_MAC_PARAM_KEY,
-                                               (void *)key, key_len);
-      if (custom != NULL &amp;&amp; custom_len != 0)
-        *p++ = OSSL_PARAM_construct_octet_string(OSSL_MAC_PARAM_CUSTOM,
-                                                 (void *)custom, custom_len);
-      *p = OSSL_PARAM_construct_end();
-      if (!EVP_MAC_CTX_set_params(ctx, params))
-          goto err;
+    /*
+     * Setup parameters required before calling EVP_MAC_init()
+     * The parameters OSSL_MAC_PARAM_XOF and OSSL_MAC_PARAM_SIZE may also be
+     * used at this point.
+     */
+    p = params;
+    *p++ = OSSL_PARAM_construct_octet_string(OSSL_MAC_PARAM_KEY,
+                                             (void *)key, key_len);
+    if (custom != NULL &amp;&amp; custom_len != 0)
+      *p++ = OSSL_PARAM_construct_octet_string(OSSL_MAC_PARAM_CUSTOM,
+                                               (void *)custom, custom_len);
+    *p = OSSL_PARAM_construct_end();
+    if (!EVP_MAC_CTX_set_params(ctx, params))
+        goto err;
 
-      if (!EVP_MAC_init(ctx))
-          goto err;
+    if (!EVP_MAC_init(ctx))
+        goto err;
 
-      /*
-       * Note: the following optional parameters can be set any time
-       * before EVP_MAC_final().
-       */
-      p = params;
-      *p++ = OSSL_PARAM_construct_int(OSSL_MAC_PARAM_XOF, &amp;xof_enabled);
-      *p++ = OSSL_PARAM_construct_int(OSSL_MAC_PARAM_SIZE, &amp;out_len);
-      *p = OSSL_PARAM_construct_end();
-      if (!EVP_MAC_CTX_set_params(ctx, params))
-          goto err;
+    /*
+     * Note: the following optional parameters can be set any time
+     * before EVP_MAC_final().
+     */
+    p = params;
+    *p++ = OSSL_PARAM_construct_int(OSSL_MAC_PARAM_XOF, &amp;xof_enabled);
+    *p++ = OSSL_PARAM_construct_int(OSSL_MAC_PARAM_SIZE, &amp;out_len);
+    *p = OSSL_PARAM_construct_end();
+    if (!EVP_MAC_CTX_set_params(ctx, params))
+        goto err;
 
-      /* The update may be called multiple times here for streamed input */
-      if (!EVP_MAC_update(ctx, in, in_len))
-          goto err;
-      if (!EVP_MAC_final(ctx, out, &amp;l, out_len))
-          goto err;
-      ret = 1;
-  err:
-      EVP_MAC_CTX_free(ctx);
-      return ret;
-  }</code></pre>
+    /* The update may be called multiple times here for streamed input */
+    if (!EVP_MAC_update(ctx, in, in_len))
+        goto err;
+    if (!EVP_MAC_final(ctx, out, &amp;l, out_len))
+        goto err;
+    ret = 1;
+err:
+    EVP_MAC_CTX_free(ctx);
+    return ret;
+}</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

@@ -4,7 +4,7 @@
 <head>
 <title>PKCS12_PBE_keyivgen</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,26 +29,26 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int PKCS12_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
-                         ASN1_TYPE *param, const EVP_CIPHER *cipher,
-                         const EVP_MD *md_type, int en_de);
- int PKCS12_PBE_keyivgen_ex(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
-                            ASN1_TYPE *param, const EVP_CIPHER *cipher,
-                            const EVP_MD *md_type, int en_de,
-                            OSSL_LIB_CTX *libctx, const char *propq);
- unsigned char *PKCS12_pbe_crypt(const X509_ALGOR *algor,
-                                 const char *pass, int passlen,
-                                 const unsigned char *in, int inlen,
-                                 unsigned char **data, int *datalen,
-                                 int en_de);
- unsigned char *PKCS12_pbe_crypt_ex(const X509_ALGOR *algor,
-                                    const char *pass, int passlen,
-                                    const unsigned char *in, int inlen,
-                                    unsigned char **data, int *datalen,
-                                    int en_de, OSSL_LIB_CTX *libctx,
-                                    const char *propq);</code></pre>
+int PKCS12_PBE_keyivgen(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                        ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                        const EVP_MD *md_type, int en_de);
+int PKCS12_PBE_keyivgen_ex(EVP_CIPHER_CTX *ctx, const char *pass, int passlen,
+                           ASN1_TYPE *param, const EVP_CIPHER *cipher,
+                           const EVP_MD *md_type, int en_de,
+                           OSSL_LIB_CTX *libctx, const char *propq);
+unsigned char *PKCS12_pbe_crypt(const X509_ALGOR *algor,
+                                const char *pass, int passlen,
+                                const unsigned char *in, int inlen,
+                                unsigned char **data, int *datalen,
+                                int en_de);
+unsigned char *PKCS12_pbe_crypt_ex(const X509_ALGOR *algor,
+                                   const char *pass, int passlen,
+                                   const unsigned char *in, int inlen,
+                                   unsigned char **data, int *datalen,
+                                   int en_de, OSSL_LIB_CTX *libctx,
+                                   const char *propq);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

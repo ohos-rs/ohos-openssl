@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PBE_CipherInit</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,23 +34,23 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PBE_CipherInit(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
-                        ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de);
- int EVP_PBE_CipherInit_ex(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
-                           ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de,
-                           OSSL_LIB_CTX *libctx, const char *propq);
+int EVP_PBE_CipherInit(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
+                       ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de);
+int EVP_PBE_CipherInit_ex(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
+                          ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de,
+                          OSSL_LIB_CTX *libctx, const char *propq);
 
- int EVP_PBE_find(int type, int pbe_nid, int *pcnid, int *pmnid,
-                  EVP_PBE_KEYGEN **pkeygen);
- int EVP_PBE_find_ex(int type, int pbe_nid, int *pcnid, int *pmnid,
-                     EVP_PBE_KEYGEN **pkeygen, EVP_PBE_KEYGEN_EX **keygen_ex);
+int EVP_PBE_find(int type, int pbe_nid, int *pcnid, int *pmnid,
+                 EVP_PBE_KEYGEN **pkeygen);
+int EVP_PBE_find_ex(int type, int pbe_nid, int *pcnid, int *pmnid,
+                    EVP_PBE_KEYGEN **pkeygen, EVP_PBE_KEYGEN_EX **keygen_ex);
 
- int EVP_PBE_alg_add_type(int pbe_type, int pbe_nid, int cipher_nid,
-                          int md_nid, EVP_PBE_KEYGEN *keygen);
- int EVP_PBE_alg_add(int nid, const EVP_CIPHER *cipher, const EVP_MD *md,
-                     EVP_PBE_KEYGEN *keygen);</code></pre>
+int EVP_PBE_alg_add_type(int pbe_type, int pbe_nid, int cipher_nid,
+                         int md_nid, EVP_PBE_KEYGEN *keygen);
+int EVP_PBE_alg_add(int nid, const EVP_CIPHER *cipher, const EVP_MD *md,
+                    EVP_PBE_KEYGEN *keygen);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
