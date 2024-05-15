@@ -4,7 +4,7 @@
 <head>
 <title>openssl-fipsinstall</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -232,22 +232,22 @@
 
 <p>Calculate the mac of a FIPS module <i>fips.so</i> and run a FIPS self test for the module, and save the <i>fips.cnf</i> configuration file:</p>
 
-<pre><code> openssl fipsinstall -module ./fips.so -out fips.cnf -provider_name fips</code></pre>
+<pre><code>openssl fipsinstall -module ./fips.so -out fips.cnf -provider_name fips</code></pre>
 
 <p>Verify that the configuration file <i>fips.cnf</i> contains the correct info:</p>
 
-<pre><code> openssl fipsinstall -module ./fips.so -in fips.cnf  -provider_name fips -verify</code></pre>
+<pre><code>openssl fipsinstall -module ./fips.so -in fips.cnf  -provider_name fips -verify</code></pre>
 
 <p>Corrupt any self tests which have the description <code>SHA1</code>:</p>
 
-<pre><code> openssl fipsinstall -module ./fips.so -out fips.cnf -provider_name fips \
-         -corrupt_desc &#39;SHA1&#39;</code></pre>
+<pre><code>openssl fipsinstall -module ./fips.so -out fips.cnf -provider_name fips \
+        -corrupt_desc &#39;SHA1&#39;</code></pre>
 
 <p>Validate that the fips module can be loaded from a base configuration file:</p>
 
-<pre><code> export OPENSSL_CONF_INCLUDE=&lt;path of configuration files&gt;
- export OPENSSL_MODULES=&lt;provider-path&gt;
- openssl fipsinstall -config&#39; &#39;default.cnf&#39;</code></pre>
+<pre><code>export OPENSSL_CONF_INCLUDE=&lt;path of configuration files&gt;
+export OPENSSL_MODULES=&lt;provider-path&gt;
+openssl fipsinstall -config&#39; &#39;default.cnf&#39;</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

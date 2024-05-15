@@ -4,7 +4,7 @@
 <head>
 <title>PKCS12_key_gen_utf8_ex</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,29 +29,29 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/pkcs12.h&gt;
+<pre><code>#include &lt;openssl/pkcs12.h&gt;
 
- int PKCS12_key_gen_asc(const char *pass, int passlen, unsigned char *salt,
+int PKCS12_key_gen_asc(const char *pass, int passlen, unsigned char *salt,
+                       int saltlen, int id, int iter, int n,
+                       unsigned char *out, const EVP_MD *md_type);
+int PKCS12_key_gen_asc_ex(const char *pass, int passlen, unsigned char *salt,
+                          int saltlen, int id, int iter, int n,
+                          unsigned char *out, const EVP_MD *md_type,
+                          OSSL_LIB_CTX *ctx, const char *propq);
+int PKCS12_key_gen_uni(unsigned char *pass, int passlen, unsigned char *salt,
+                       int saltlen, int id, int iter, int n,
+                       unsigned char *out, const EVP_MD *md_type);
+int PKCS12_key_gen_uni_ex(unsigned char *pass, int passlen, unsigned char *salt,
+                          int saltlen, int id, int iter, int n,
+                          unsigned char *out, const EVP_MD *md_type,
+                          OSSL_LIB_CTX *ctx, const char *propq);
+int PKCS12_key_gen_utf8(const char *pass, int passlen, unsigned char *salt,
                         int saltlen, int id, int iter, int n,
                         unsigned char *out, const EVP_MD *md_type);
- int PKCS12_key_gen_asc_ex(const char *pass, int passlen, unsigned char *salt,
+int PKCS12_key_gen_utf8_ex(const char *pass, int passlen, unsigned char *salt,
                            int saltlen, int id, int iter, int n,
                            unsigned char *out, const EVP_MD *md_type,
-                           OSSL_LIB_CTX *ctx, const char *propq);
- int PKCS12_key_gen_uni(unsigned char *pass, int passlen, unsigned char *salt,
-                        int saltlen, int id, int iter, int n,
-                        unsigned char *out, const EVP_MD *md_type);
- int PKCS12_key_gen_uni_ex(unsigned char *pass, int passlen, unsigned char *salt,
-                           int saltlen, int id, int iter, int n,
-                           unsigned char *out, const EVP_MD *md_type,
-                           OSSL_LIB_CTX *ctx, const char *propq);
- int PKCS12_key_gen_utf8(const char *pass, int passlen, unsigned char *salt,
-                         int saltlen, int id, int iter, int n,
-                         unsigned char *out, const EVP_MD *md_type);
- int PKCS12_key_gen_utf8_ex(const char *pass, int passlen, unsigned char *salt,
-                            int saltlen, int id, int iter, int n,
-                            unsigned char *out, const EVP_MD *md_type,
-                            OSSL_LIB_CTX *ctx, const char *propq);</code></pre>
+                           OSSL_LIB_CTX *ctx, const char *propq);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

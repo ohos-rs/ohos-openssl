@@ -4,7 +4,7 @@
 <head>
 <title>X509_cmp_time</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,14 +27,14 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> int X509_cmp_time(const ASN1_TIME *asn1_time, time_t *in_tm);
- int X509_cmp_current_time(const ASN1_TIME *asn1_time);
- int X509_cmp_timeframe(const X509_VERIFY_PARAM *vpm,
-                        const ASN1_TIME *start, const ASN1_TIME *end);
- ASN1_TIME *X509_time_adj(ASN1_TIME *asn1_time, long offset_sec, time_t *in_tm);
- ASN1_TIME *X509_time_adj_ex(ASN1_TIME *asn1_time, int offset_day, long
-                             offset_sec, time_t *in_tm);
- ASN1_TIME *X509_gmtime_adj(ASN1_TIME *asn1_time, long offset_sec);</code></pre>
+<pre><code>int X509_cmp_time(const ASN1_TIME *asn1_time, time_t *in_tm);
+int X509_cmp_current_time(const ASN1_TIME *asn1_time);
+int X509_cmp_timeframe(const X509_VERIFY_PARAM *vpm,
+                       const ASN1_TIME *start, const ASN1_TIME *end);
+ASN1_TIME *X509_time_adj(ASN1_TIME *asn1_time, long offset_sec, time_t *in_tm);
+ASN1_TIME *X509_time_adj_ex(ASN1_TIME *asn1_time, int offset_day, long
+                            offset_sec, time_t *in_tm);
+ASN1_TIME *X509_gmtime_adj(ASN1_TIME *asn1_time, long offset_sec);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

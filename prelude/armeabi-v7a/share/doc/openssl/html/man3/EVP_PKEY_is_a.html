@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_is_a</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -32,16 +32,16 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PKEY_is_a(const EVP_PKEY *pkey, const char *name);
- int EVP_PKEY_can_sign(const EVP_PKEY *pkey);
- int EVP_PKEY_type_names_do_all(const EVP_PKEY *pkey,
-                                void (*fn)(const char *name, void *data),
-                                void *data);
- const char *EVP_PKEY_get0_type_name(const EVP_PKEY *key);
- const char *EVP_PKEY_get0_description(const EVP_PKEY *key);
- const OSSL_PROVIDER *EVP_PKEY_get0_provider(const EVP_PKEY *key);</code></pre>
+int EVP_PKEY_is_a(const EVP_PKEY *pkey, const char *name);
+int EVP_PKEY_can_sign(const EVP_PKEY *pkey);
+int EVP_PKEY_type_names_do_all(const EVP_PKEY *pkey,
+                               void (*fn)(const char *name, void *data),
+                               void *data);
+const char *EVP_PKEY_get0_type_name(const EVP_PKEY *key);
+const char *EVP_PKEY_get0_description(const EVP_PKEY *key);
+const OSSL_PROVIDER *EVP_PKEY_get0_provider(const EVP_PKEY *key);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -77,28 +77,28 @@
 
 <p>The loaded providers and what key types they support will ultimately determine what <i>name</i> is possible to use with EVP_PKEY_is_a(). We do know that the default provider supports RSA, DH, DSA and EC keys, so we can use this as an crude example:</p>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- ...
-     /* |pkey| is an EVP_PKEY* */
-     if (EVP_PKEY_is_a(pkey, &quot;RSA&quot;)) {
-         BIGNUM *modulus = NULL;
-         if (EVP_PKEY_get_bn_param(pkey, &quot;n&quot;, &amp;modulus))
-             /* do whatever with the modulus */
-         BN_free(modulus);
-     }</code></pre>
+...
+    /* |pkey| is an EVP_PKEY* */
+    if (EVP_PKEY_is_a(pkey, &quot;RSA&quot;)) {
+        BIGNUM *modulus = NULL;
+        if (EVP_PKEY_get_bn_param(pkey, &quot;n&quot;, &amp;modulus))
+            /* do whatever with the modulus */
+        BN_free(modulus);
+    }</code></pre>
 
 <h2 id="EVP_PKEY_can_sign">EVP_PKEY_can_sign()</h2>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- ...
-     /* |pkey| is an EVP_PKEY* */
-     if (!EVP_PKEY_can_sign(pkey)) {
-         fprintf(stderr, &quot;Not a signing key!&quot;);
-         exit(1);
-     }
-     /* Sign something... */</code></pre>
+...
+    /* |pkey| is an EVP_PKEY* */
+    if (!EVP_PKEY_can_sign(pkey)) {
+        fprintf(stderr, &quot;Not a signing key!&quot;);
+        exit(1);
+    }
+    /* Sign something... */</code></pre>
 
 <h1 id="HISTORY">HISTORY</h1>
 

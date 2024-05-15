@@ -4,7 +4,7 @@
 <head>
 <title>openssl-cmp</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -374,19 +374,19 @@
 
 <p>Reason numbers defined in RFC 5280 are:</p>
 
-<pre><code>   CRLReason ::= ENUMERATED {
-        unspecified             (0),
-        keyCompromise           (1),
-        cACompromise            (2),
-        affiliationChanged      (3),
-        superseded              (4),
-        cessationOfOperation    (5),
-        certificateHold         (6),
-        -- value 7 is not used
-        removeFromCRL           (8),
-        privilegeWithdrawn      (9),
-        aACompromise           (10)
-    }</code></pre>
+<pre><code>CRLReason ::= ENUMERATED {
+     unspecified             (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     -- value 7 is not used
+     removeFromCRL           (8),
+     privilegeWithdrawn      (9),
+     aACompromise           (10)
+ }</code></pre>
 
 </dd>
 </dl>
@@ -713,11 +713,11 @@
 
 <p>As an alternative to using this combination:</p>
 
-<pre><code>    -engine {engineid} -key {keyid} -keyform ENGINE</code></pre>
+<pre><code>-engine {engineid} -key {keyid} -keyform ENGINE</code></pre>
 
 <p>... it&#39;s also possible to just give the key ID in URI form to <b>-key</b>, like this:</p>
 
-<pre><code>    -key org.openssl.engine:{engineid}:{keyid}</code></pre>
+<pre><code>-key org.openssl.engine:{engineid}:{keyid}</code></pre>
 
 <p>This applies to all options specifying keys: <b>-key</b>, <b>-newkey</b>, and <b>-tls_key</b>.</p>
 
@@ -1112,54 +1112,54 @@
 
 <p>In order to enroll an initial certificate from that CA it is sufficient to issue the following shell commands.</p>
 
-<pre><code>  export OPENSSL_CONF=/path/to/openssl/apps/openssl.cnf</code></pre>
+<pre><code>export OPENSSL_CONF=/path/to/openssl/apps/openssl.cnf</code></pre>
 
-<pre><code>  openssl genrsa -out insta.priv.pem
-  openssl cmp -section insta</code></pre>
+<pre><code>openssl genrsa -out insta.priv.pem
+openssl cmp -section insta</code></pre>
 
 <p>This should produce the file <i>insta.cert.pem</i> containing a new certificate for the private key held in <i>insta.priv.pem</i>. It can be viewed using, e.g.,</p>
 
-<pre><code>  openssl x509 -noout -text -in insta.cert.pem</code></pre>
+<pre><code>openssl x509 -noout -text -in insta.cert.pem</code></pre>
 
 <p>In case the network setup requires using an HTTP proxy it may be given as usual via the environment variable <b>http_proxy</b> or via the <b>-proxy</b> option in the configuration file or the CMP command-line argument <b>-proxy</b>, for example</p>
 
-<pre><code>  -proxy http://192.168.1.1:8080</code></pre>
+<pre><code>-proxy http://192.168.1.1:8080</code></pre>
 
 <p>In the Insta Demo CA scenario both clients and the server may use the pre-shared secret <i>insta</i> and the reference value <i>3078</i> to authenticate to each other.</p>
 
 <p>Alternatively, CMP messages may be protected in signature-based manner, where the trust anchor in this case is <i>insta.ca.crt</i> and the client may use any certificate already obtained from that CA, as specified in the <b>[signature]</b> section of the example configuration. This can be used in combination with the <b>[insta]</b> section simply by</p>
 
-<pre><code>  openssl cmp -section insta,signature</code></pre>
+<pre><code>openssl cmp -section insta,signature</code></pre>
 
 <p>By default the CMP IR message type is used, yet CR works equally here. This may be specified directly at the command line:</p>
 
-<pre><code>  openssl cmp -section insta -cmd cr</code></pre>
+<pre><code>openssl cmp -section insta -cmd cr</code></pre>
 
 <p>or by referencing in addition the <b>[cr]</b> section of the example configuration:</p>
 
-<pre><code>  openssl cmp -section insta,cr</code></pre>
+<pre><code>openssl cmp -section insta,cr</code></pre>
 
 <p>In order to update the enrolled certificate one may call</p>
 
-<pre><code>  openssl cmp -section insta,kur</code></pre>
+<pre><code>openssl cmp -section insta,kur</code></pre>
 
 <p>using MAC-based protection with PBM or</p>
 
-<pre><code>  openssl cmp -section insta,kur,signature</code></pre>
+<pre><code>openssl cmp -section insta,kur,signature</code></pre>
 
 <p>using signature-based protection.</p>
 
 <p>In a similar way any previously enrolled certificate may be revoked by</p>
 
-<pre><code>  openssl cmp -section insta,rr -trusted insta.ca.crt</code></pre>
+<pre><code>openssl cmp -section insta,rr -trusted insta.ca.crt</code></pre>
 
 <p>or</p>
 
-<pre><code>  openssl cmp -section insta,rr,signature</code></pre>
+<pre><code>openssl cmp -section insta,rr,signature</code></pre>
 
 <p>Many more options can be given in the configuration file and/or on the command line. For instance, the <b>-reqexts</b> CLI option may refer to a section in the configuration file defining X.509 extensions to use in certificate requests, such as <code>v3_req</code> in <i>openssl/apps/openssl.cnf</i>:</p>
 
-<pre><code>  openssl cmp -section insta,cr -reqexts v3_req</code></pre>
+<pre><code>openssl cmp -section insta,cr -reqexts v3_req</code></pre>
 
 <h2 id="Certificate-enrollment">Certificate enrollment</h2>
 
@@ -1169,22 +1169,22 @@
 
 <p>In below command line usage examples the <code>\</code> at line ends is used just for formatting; each of the command invocations should be on a single line.</p>
 
-<pre><code>  openssl genrsa -out cl_key.pem
-  openssl cmp -cmd ir -server 127.0.0.1:80/pkix/ -recipient &quot;/CN=CMPserver&quot; \
-    -ref 1234 -secret pass:1234-5678 \
-    -newkey cl_key.pem -subject &quot;/CN=MyName&quot; \
-    -cacertsout capubs.pem -certout cl_cert.pem</code></pre>
+<pre><code>openssl genrsa -out cl_key.pem
+openssl cmp -cmd ir -server 127.0.0.1:80/pkix/ -recipient &quot;/CN=CMPserver&quot; \
+  -ref 1234 -secret pass:1234-5678 \
+  -newkey cl_key.pem -subject &quot;/CN=MyName&quot; \
+  -cacertsout capubs.pem -certout cl_cert.pem</code></pre>
 
 <h2 id="Certificate-update">Certificate update</h2>
 
 <p>Then, when the client certificate and its related key pair needs to be updated, the client can send a key update request taking the certs in <code>capubs.pem</code> as trusted for authenticating the server and using the previous cert and key for its own authentication. Then it can start using the new cert and key.</p>
 
-<pre><code>  openssl genrsa -out cl_key_new.pem
-  openssl cmp -cmd kur -server 127.0.0.1:80/pkix/ \
-    -trusted capubs.pem \
-    -cert cl_cert.pem -key cl_key.pem \
-    -newkey cl_key_new.pem -certout cl_cert.pem
-  cp cl_key_new.pem cl_key.pem</code></pre>
+<pre><code>openssl genrsa -out cl_key_new.pem
+openssl cmp -cmd kur -server 127.0.0.1:80/pkix/ \
+  -trusted capubs.pem \
+  -cert cl_cert.pem -key cl_key.pem \
+  -newkey cl_key_new.pem -certout cl_cert.pem
+cp cl_key_new.pem cl_key.pem</code></pre>
 
 <p>This command sequence can be repeated as often as needed.</p>
 
@@ -1192,8 +1192,8 @@
 
 <p>Requesting &quot;all relevant information&quot; with an empty General Message. This prints information about all received ITAV <b>infoType</b>s to stdout.</p>
 
-<pre><code>  openssl cmp -cmd genm -server 127.0.0.1/pkix/ -recipient &quot;/CN=CMPserver&quot; \
-    -ref 1234 -secret pass:1234-5678</code></pre>
+<pre><code>openssl cmp -cmd genm -server 127.0.0.1/pkix/ -recipient &quot;/CN=CMPserver&quot; \
+  -ref 1234 -secret pass:1234-5678</code></pre>
 
 <h2 id="Using-a-custom-configuration-file">Using a custom configuration file</h2>
 
@@ -1201,33 +1201,33 @@
 
 <p>After including in the configuration file the following sections:</p>
 
-<pre><code>  [cmp]
-  server = 127.0.0.1
-  path = pkix/
-  trusted = capubs.pem
-  cert = cl_cert.pem
-  key = cl_key.pem
-  newkey = cl_key.pem
-  certout = cl_cert.pem
+<pre><code>[cmp]
+server = 127.0.0.1
+path = pkix/
+trusted = capubs.pem
+cert = cl_cert.pem
+key = cl_key.pem
+newkey = cl_key.pem
+certout = cl_cert.pem
 
-  [init]
-  recipient = &quot;/CN=CMPserver&quot;
-  trusted =
-  cert =
-  key =
-  ref = 1234
-  secret = pass:1234-5678-1234-567
-  subject = &quot;/CN=MyName&quot;
-  cacertsout = capubs.pem</code></pre>
+[init]
+recipient = &quot;/CN=CMPserver&quot;
+trusted =
+cert =
+key =
+ref = 1234
+secret = pass:1234-5678-1234-567
+subject = &quot;/CN=MyName&quot;
+cacertsout = capubs.pem</code></pre>
 
 <p>the above enrollment transactions reduce to</p>
 
-<pre><code>  openssl cmp -section cmp,init
-  openssl cmp -cmd kur -newkey cl_key_new.pem</code></pre>
+<pre><code>openssl cmp -section cmp,init
+openssl cmp -cmd kur -newkey cl_key_new.pem</code></pre>
 
 <p>and the above transaction using a general message reduces to</p>
 
-<pre><code>  openssl cmp -section cmp,init -cmd genm</code></pre>
+<pre><code>openssl cmp -section cmp,init -cmd genm</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

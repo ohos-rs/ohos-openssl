@@ -4,7 +4,7 @@
 <head>
 <title>SSL_CTX_set_stateless_cookie_generate_cb</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,31 +27,31 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- void SSL_CTX_set_stateless_cookie_generate_cb(
-     SSL_CTX *ctx,
-     int (*gen_stateless_cookie_cb) (SSL *ssl,
-                                     unsigned char *cookie,
-                                     size_t *cookie_len));
- void SSL_CTX_set_stateless_cookie_verify_cb(
-     SSL_CTX *ctx,
-     int (*verify_stateless_cookie_cb) (SSL *ssl,
-                                        const unsigned char *cookie,
-                                        size_t cookie_len));
+void SSL_CTX_set_stateless_cookie_generate_cb(
+    SSL_CTX *ctx,
+    int (*gen_stateless_cookie_cb) (SSL *ssl,
+                                    unsigned char *cookie,
+                                    size_t *cookie_len));
+void SSL_CTX_set_stateless_cookie_verify_cb(
+    SSL_CTX *ctx,
+    int (*verify_stateless_cookie_cb) (SSL *ssl,
+                                       const unsigned char *cookie,
+                                       size_t cookie_len));
 
- void SSL_CTX_set_cookie_generate_cb(SSL_CTX *ctx,
-                                     int (*app_gen_cookie_cb) (SSL *ssl,
-                                                               unsigned char
-                                                               *cookie,
+void SSL_CTX_set_cookie_generate_cb(SSL_CTX *ctx,
+                                    int (*app_gen_cookie_cb) (SSL *ssl,
+                                                              unsigned char
+                                                              *cookie,
+                                                              unsigned int
+                                                              *cookie_len));
+void SSL_CTX_set_cookie_verify_cb(SSL_CTX *ctx,
+                                  int (*app_verify_cookie_cb) (SSL *ssl,
+                                                               const unsigned
+                                                               char *cookie,
                                                                unsigned int
-                                                               *cookie_len));
- void SSL_CTX_set_cookie_verify_cb(SSL_CTX *ctx,
-                                   int (*app_verify_cookie_cb) (SSL *ssl,
-                                                                const unsigned
-                                                                char *cookie,
-                                                                unsigned int
-                                                                cookie_len));</code></pre>
+                                                               cookie_len));</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

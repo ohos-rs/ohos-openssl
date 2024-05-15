@@ -4,7 +4,7 @@
 <head>
 <title>ASYNC_WAIT_CTX_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,36 +28,36 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/async.h&gt;
+<pre><code>#include &lt;openssl/async.h&gt;
 
- #define ASYNC_STATUS_UNSUPPORTED    0
- #define ASYNC_STATUS_ERR            1
- #define ASYNC_STATUS_OK             2
- #define ASYNC_STATUS_EAGAIN         3
- typedef int (*ASYNC_callback_fn)(void *arg);
- ASYNC_WAIT_CTX *ASYNC_WAIT_CTX_new(void);
- void ASYNC_WAIT_CTX_free(ASYNC_WAIT_CTX *ctx);
- int ASYNC_WAIT_CTX_set_wait_fd(ASYNC_WAIT_CTX *ctx, const void *key,
-                                OSSL_ASYNC_FD fd,
-                                void *custom_data,
-                                void (*cleanup)(ASYNC_WAIT_CTX *, const void *,
-                                                OSSL_ASYNC_FD, void *));
- int ASYNC_WAIT_CTX_get_fd(ASYNC_WAIT_CTX *ctx, const void *key,
-                           OSSL_ASYNC_FD *fd, void **custom_data);
- int ASYNC_WAIT_CTX_get_all_fds(ASYNC_WAIT_CTX *ctx, OSSL_ASYNC_FD *fd,
-                                size_t *numfds);
- int ASYNC_WAIT_CTX_get_changed_fds(ASYNC_WAIT_CTX *ctx, OSSL_ASYNC_FD *addfd,
-                                    size_t *numaddfds, OSSL_ASYNC_FD *delfd,
-                                    size_t *numdelfds);
- int ASYNC_WAIT_CTX_clear_fd(ASYNC_WAIT_CTX *ctx, const void *key);
- int ASYNC_WAIT_CTX_set_callback(ASYNC_WAIT_CTX *ctx,
-                                 ASYNC_callback_fn callback,
-                                 void *callback_arg);
- int ASYNC_WAIT_CTX_get_callback(ASYNC_WAIT_CTX *ctx,
-                                 ASYNC_callback_fn *callback,
-                                 void **callback_arg);
- int ASYNC_WAIT_CTX_set_status(ASYNC_WAIT_CTX *ctx, int status);
- int ASYNC_WAIT_CTX_get_status(ASYNC_WAIT_CTX *ctx);</code></pre>
+#define ASYNC_STATUS_UNSUPPORTED    0
+#define ASYNC_STATUS_ERR            1
+#define ASYNC_STATUS_OK             2
+#define ASYNC_STATUS_EAGAIN         3
+typedef int (*ASYNC_callback_fn)(void *arg);
+ASYNC_WAIT_CTX *ASYNC_WAIT_CTX_new(void);
+void ASYNC_WAIT_CTX_free(ASYNC_WAIT_CTX *ctx);
+int ASYNC_WAIT_CTX_set_wait_fd(ASYNC_WAIT_CTX *ctx, const void *key,
+                               OSSL_ASYNC_FD fd,
+                               void *custom_data,
+                               void (*cleanup)(ASYNC_WAIT_CTX *, const void *,
+                                               OSSL_ASYNC_FD, void *));
+int ASYNC_WAIT_CTX_get_fd(ASYNC_WAIT_CTX *ctx, const void *key,
+                          OSSL_ASYNC_FD *fd, void **custom_data);
+int ASYNC_WAIT_CTX_get_all_fds(ASYNC_WAIT_CTX *ctx, OSSL_ASYNC_FD *fd,
+                               size_t *numfds);
+int ASYNC_WAIT_CTX_get_changed_fds(ASYNC_WAIT_CTX *ctx, OSSL_ASYNC_FD *addfd,
+                                   size_t *numaddfds, OSSL_ASYNC_FD *delfd,
+                                   size_t *numdelfds);
+int ASYNC_WAIT_CTX_clear_fd(ASYNC_WAIT_CTX *ctx, const void *key);
+int ASYNC_WAIT_CTX_set_callback(ASYNC_WAIT_CTX *ctx,
+                                ASYNC_callback_fn callback,
+                                void *callback_arg);
+int ASYNC_WAIT_CTX_get_callback(ASYNC_WAIT_CTX *ctx,
+                                ASYNC_callback_fn *callback,
+                                void **callback_arg);
+int ASYNC_WAIT_CTX_set_status(ASYNC_WAIT_CTX *ctx, int status);
+int ASYNC_WAIT_CTX_get_status(ASYNC_WAIT_CTX *ctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

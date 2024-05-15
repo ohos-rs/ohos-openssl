@@ -4,7 +4,7 @@
 <head>
 <title>ERR_put_error</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -37,19 +37,19 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/err.h&gt;
+<pre><code>#include &lt;openssl/err.h&gt;
 
- void ERR_raise(int lib, int reason);
- void ERR_raise_data(int lib, int reason, const char *fmt, ...);
+void ERR_raise(int lib, int reason);
+void ERR_raise_data(int lib, int reason, const char *fmt, ...);
 
- void ERR_add_error_data(int num, ...);
- void ERR_add_error_vdata(int num, va_list arg);
- void ERR_add_error_txt(const char *sep, const char *txt);
- void ERR_add_error_mem_bio(const char *sep, BIO *bio);</code></pre>
+void ERR_add_error_data(int num, ...);
+void ERR_add_error_vdata(int num, va_list arg);
+void ERR_add_error_txt(const char *sep, const char *txt);
+void ERR_add_error_mem_bio(const char *sep, BIO *bio);</code></pre>
 
 <p>The following function has been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> void ERR_put_error(int lib, int func, int reason, const char *file, int line);</code></pre>
+<pre><code>void ERR_put_error(int lib, int func, int reason, const char *file, int line);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -75,7 +75,7 @@
 
 <p>All these macros and the numbers they have as values are specific to OpenSSL&#39;s libraries. OpenSSL reason codes normally consist of textual error descriptions. For example, the function ssl3_read_bytes() reports a &quot;handshake failure&quot; as follows:</p>
 
-<pre><code> ERR_raise(ERR_LIB_SSL, SSL_R_SSL_HANDSHAKE_FAILURE);</code></pre>
+<pre><code>ERR_raise(ERR_LIB_SSL, SSL_R_SSL_HANDSHAKE_FAILURE);</code></pre>
 
 <p>There are two exceptions:</p>
 
@@ -86,7 +86,7 @@
 
 <p>This &quot;library code&quot; indicates that a system error is being reported. In this case, the reason code given to ERR_raise() and ERR_raise_data() <i>must</i> be <a href="../man3/errno.html">errno(3)</a>.</p>
 
-<pre><code> ERR_raise(ERR_LIB_SYS, errno);</code></pre>
+<pre><code>ERR_raise(ERR_LIB_SYS, errno);</code></pre>
 
 </dd>
 <dt id="ERR_R_XXX"><b>ERR_R_XXX</b></dt>
@@ -94,7 +94,7 @@
 
 <p>This set of error codes is considered global, and may be used in combination with any sub-library code.</p>
 
-<pre><code> ERR_raise(ERR_LIB_RSA, ERR_R_PASSED_INVALID_ARGUMENT);</code></pre>
+<pre><code>ERR_raise(ERR_LIB_RSA, ERR_R_PASSED_INVALID_ARGUMENT);</code></pre>
 
 </dd>
 </dl>
@@ -115,15 +115,15 @@
 
 <p>The exceptions mentioned in <a href="#OpenSSL-library-reports">&quot;OpenSSL library reports&quot;</a> above are valid for other pieces of software, i.e. they may use <b>ERR_LIB_SYS</b> to report system errors:</p>
 
-<pre><code> ERR_raise(ERR_LIB_SYS, errno);</code></pre>
+<pre><code>ERR_raise(ERR_LIB_SYS, errno);</code></pre>
 
 <p>... and they may use <b>ERR_R_XXX</b> macros together with their own &quot;library&quot; code.</p>
 
-<pre><code> int app_lib_code = ERR_get_next_error_library();
+<pre><code>int app_lib_code = ERR_get_next_error_library();
 
- /* ... */
+/* ... */
 
- ERR_raise(app_lib_code, ERR_R_PASSED_INVALID_ARGUMENT);</code></pre>
+ERR_raise(app_lib_code, ERR_R_PASSED_INVALID_ARGUMENT);</code></pre>
 
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
 

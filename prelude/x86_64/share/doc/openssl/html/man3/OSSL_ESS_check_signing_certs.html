@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_ESS_check_signing_certs</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,20 +28,20 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ess.h&gt;
+<pre><code>#include &lt;openssl/ess.h&gt;
 
- ESS_SIGNING_CERT *OSSL_ESS_signing_cert_new_init(const X509 *signcert,
-                                                  const STACK_OF(X509) *certs,
-                                                  int set_issuer_serial);
- ESS_SIGNING_CERT_V2 *OSSL_ESS_signing_cert_v2_new_init(const EVP_MD *hash_alg,
-                                                        const X509 *signcert,
-                                                        const
-                                                        STACK_OF(X509) *certs,
-                                                        int set_issuer_serial);
- int OSSL_ESS_check_signing_certs(const ESS_SIGNING_CERT *ss,
-                                  const ESS_SIGNING_CERT_V2 *ssv2,
-                                  const STACK_OF(X509) *chain,
-                                  int require_signing_cert);</code></pre>
+ESS_SIGNING_CERT *OSSL_ESS_signing_cert_new_init(const X509 *signcert,
+                                                 const STACK_OF(X509) *certs,
+                                                 int set_issuer_serial);
+ESS_SIGNING_CERT_V2 *OSSL_ESS_signing_cert_v2_new_init(const EVP_MD *hash_alg,
+                                                       const X509 *signcert,
+                                                       const
+                                                       STACK_OF(X509) *certs,
+                                                       int set_issuer_serial);
+int OSSL_ESS_check_signing_certs(const ESS_SIGNING_CERT *ss,
+                                 const ESS_SIGNING_CERT_V2 *ssv2,
+                                 const STACK_OF(X509) *chain,
+                                 int require_signing_cert);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

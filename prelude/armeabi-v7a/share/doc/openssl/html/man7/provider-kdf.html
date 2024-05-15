@@ -4,7 +4,7 @@
 <head>
 <title>provider-kdf</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,34 +34,34 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core_dispatch.h&gt;
- #include &lt;openssl/core_names.h&gt;
+<pre><code>#include &lt;openssl/core_dispatch.h&gt;
+#include &lt;openssl/core_names.h&gt;
 
- /*
-  * None of these are actual functions, but are displayed like this for
-  * the function signatures for functions that are offered as function
-  * pointers in OSSL_DISPATCH arrays.
-  */
+/*
+ * None of these are actual functions, but are displayed like this for
+ * the function signatures for functions that are offered as function
+ * pointers in OSSL_DISPATCH arrays.
+ */
 
- /* Context management */
- void *OSSL_FUNC_kdf_newctx(void *provctx);
- void OSSL_FUNC_kdf_freectx(void *kctx);
- void *OSSL_FUNC_kdf_dupctx(void *src);
+/* Context management */
+void *OSSL_FUNC_kdf_newctx(void *provctx);
+void OSSL_FUNC_kdf_freectx(void *kctx);
+void *OSSL_FUNC_kdf_dupctx(void *src);
 
- /* Encryption/decryption */
- int OSSL_FUNC_kdf_reset(void *kctx);
- int OSSL_FUNC_kdf_derive(void *kctx, unsigned char *key, size_t keylen,
-                          const OSSL_PARAM params[]);
+/* Encryption/decryption */
+int OSSL_FUNC_kdf_reset(void *kctx);
+int OSSL_FUNC_kdf_derive(void *kctx, unsigned char *key, size_t keylen,
+                         const OSSL_PARAM params[]);
 
- /* KDF parameter descriptors */
- const OSSL_PARAM *OSSL_FUNC_kdf_gettable_params(void *provctx);
- const OSSL_PARAM *OSSL_FUNC_kdf_gettable_ctx_params(void *kcxt, void *provctx);
- const OSSL_PARAM *OSSL_FUNC_kdf_settable_ctx_params(void *kcxt, void *provctx);
+/* KDF parameter descriptors */
+const OSSL_PARAM *OSSL_FUNC_kdf_gettable_params(void *provctx);
+const OSSL_PARAM *OSSL_FUNC_kdf_gettable_ctx_params(void *kcxt, void *provctx);
+const OSSL_PARAM *OSSL_FUNC_kdf_settable_ctx_params(void *kcxt, void *provctx);
 
- /* KDF parameters */
- int OSSL_FUNC_kdf_get_params(OSSL_PARAM params[]);
- int OSSL_FUNC_kdf_get_ctx_params(void *kctx, OSSL_PARAM params[]);
- int OSSL_FUNC_kdf_set_ctx_params(void *kctx, const OSSL_PARAM params[]);</code></pre>
+/* KDF parameters */
+int OSSL_FUNC_kdf_get_params(OSSL_PARAM params[]);
+int OSSL_FUNC_kdf_get_ctx_params(void *kctx, OSSL_PARAM params[]);
+int OSSL_FUNC_kdf_set_ctx_params(void *kctx, const OSSL_PARAM params[]);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -73,26 +73,26 @@
 
 <p>All these &quot;functions&quot; have a corresponding function type definition named <b>OSSL_FUNC_{name}_fn</b>, and a helper function to retrieve the function pointer from an <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> element named <b>OSSL_FUNC_{name}</b>. For example, the &quot;function&quot; OSSL_FUNC_kdf_newctx() has these:</p>
 
-<pre><code> typedef void *(OSSL_FUNC_kdf_newctx_fn)(void *provctx);
- static ossl_inline OSSL_FUNC_kdf_newctx_fn
-     OSSL_FUNC_kdf_newctx(const OSSL_DISPATCH *opf);</code></pre>
+<pre><code>typedef void *(OSSL_FUNC_kdf_newctx_fn)(void *provctx);
+static ossl_inline OSSL_FUNC_kdf_newctx_fn
+    OSSL_FUNC_kdf_newctx(const OSSL_DISPATCH *opf);</code></pre>
 
 <p><a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> array entries are identified by numbers that are provided as macros in <a href="../man7/openssl-core_dispatch.h.html">openssl-core_dispatch.h(7)</a>, as follows:</p>
 
-<pre><code> OSSL_FUNC_kdf_newctx               OSSL_FUNC_KDF_NEWCTX
- OSSL_FUNC_kdf_freectx              OSSL_FUNC_KDF_FREECTX
- OSSL_FUNC_kdf_dupctx               OSSL_FUNC_KDF_DUPCTX
+<pre><code>OSSL_FUNC_kdf_newctx               OSSL_FUNC_KDF_NEWCTX
+OSSL_FUNC_kdf_freectx              OSSL_FUNC_KDF_FREECTX
+OSSL_FUNC_kdf_dupctx               OSSL_FUNC_KDF_DUPCTX
 
- OSSL_FUNC_kdf_reset                OSSL_FUNC_KDF_RESET
- OSSL_FUNC_kdf_derive               OSSL_FUNC_KDF_DERIVE
+OSSL_FUNC_kdf_reset                OSSL_FUNC_KDF_RESET
+OSSL_FUNC_kdf_derive               OSSL_FUNC_KDF_DERIVE
 
- OSSL_FUNC_kdf_get_params           OSSL_FUNC_KDF_GET_PARAMS
- OSSL_FUNC_kdf_get_ctx_params       OSSL_FUNC_KDF_GET_CTX_PARAMS
- OSSL_FUNC_kdf_set_ctx_params       OSSL_FUNC_KDF_SET_CTX_PARAMS
+OSSL_FUNC_kdf_get_params           OSSL_FUNC_KDF_GET_PARAMS
+OSSL_FUNC_kdf_get_ctx_params       OSSL_FUNC_KDF_GET_CTX_PARAMS
+OSSL_FUNC_kdf_set_ctx_params       OSSL_FUNC_KDF_SET_CTX_PARAMS
 
- OSSL_FUNC_kdf_gettable_params      OSSL_FUNC_KDF_GETTABLE_PARAMS
- OSSL_FUNC_kdf_gettable_ctx_params  OSSL_FUNC_KDF_GETTABLE_CTX_PARAMS
- OSSL_FUNC_kdf_settable_ctx_params  OSSL_FUNC_KDF_SETTABLE_CTX_PARAMS</code></pre>
+OSSL_FUNC_kdf_gettable_params      OSSL_FUNC_KDF_GETTABLE_PARAMS
+OSSL_FUNC_kdf_gettable_ctx_params  OSSL_FUNC_KDF_GETTABLE_CTX_PARAMS
+OSSL_FUNC_kdf_settable_ctx_params  OSSL_FUNC_KDF_SETTABLE_CTX_PARAMS</code></pre>
 
 <p>A KDF algorithm implementation may not implement all of these functions. In order to be a consistent set of functions, at least the following functions must be implemented: OSSL_FUNC_kdf_newctx(), OSSL_FUNC_kdf_freectx(), OSSL_FUNC_kdf_set_ctx_params(), OSSL_FUNC_kdf_derive(). All other functions are optional.</p>
 

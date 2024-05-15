@@ -4,7 +4,7 @@
 <head>
 <title>SRP_user_pwd_new</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,16 +27,16 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/srp.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/srp.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> SRP_user_pwd *SRP_user_pwd_new(void);
- void SRP_user_pwd_free(SRP_user_pwd *user_pwd);
+<pre><code>SRP_user_pwd *SRP_user_pwd_new(void);
+void SRP_user_pwd_free(SRP_user_pwd *user_pwd);
 
- int SRP_user_pwd_set1_ids(SRP_user_pwd *user_pwd, const char *id, const char *info);
- void SRP_user_pwd_set_gN(SRP_user_pwd *user_pwd, const BIGNUM *g, const BIGNUM *N);
- int SRP_user_pwd_set0_sv(SRP_user_pwd *user_pwd, BIGNUM *s, BIGNUM *v);</code></pre>
+int SRP_user_pwd_set1_ids(SRP_user_pwd *user_pwd, const char *id, const char *info);
+void SRP_user_pwd_set_gN(SRP_user_pwd *user_pwd, const BIGNUM *g, const BIGNUM *N);
+int SRP_user_pwd_set0_sv(SRP_user_pwd *user_pwd, BIGNUM *s, BIGNUM *v);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

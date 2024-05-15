@@ -4,7 +4,7 @@
 <head>
 <title>provider-mac</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -34,35 +34,35 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core_dispatch.h&gt;
- #include &lt;openssl/core_names.h&gt;
+<pre><code>#include &lt;openssl/core_dispatch.h&gt;
+#include &lt;openssl/core_names.h&gt;
 
- /*
-  * None of these are actual functions, but are displayed like this for
-  * the function signatures for functions that are offered as function
-  * pointers in OSSL_DISPATCH arrays.
-  */
+/*
+ * None of these are actual functions, but are displayed like this for
+ * the function signatures for functions that are offered as function
+ * pointers in OSSL_DISPATCH arrays.
+ */
 
- /* Context management */
- void *OSSL_FUNC_mac_newctx(void *provctx);
- void OSSL_FUNC_mac_freectx(void *mctx);
- void *OSSL_FUNC_mac_dupctx(void *src);
+/* Context management */
+void *OSSL_FUNC_mac_newctx(void *provctx);
+void OSSL_FUNC_mac_freectx(void *mctx);
+void *OSSL_FUNC_mac_dupctx(void *src);
 
- /* Encryption/decryption */
- int OSSL_FUNC_mac_init(void *mctx, unsigned char *key, size_t keylen,
-                        const OSSL_PARAM params[]);
- int OSSL_FUNC_mac_update(void *mctx, const unsigned char *in, size_t inl);
- int OSSL_FUNC_mac_final(void *mctx, unsigned char *out, size_t *outl, size_t outsize);
+/* Encryption/decryption */
+int OSSL_FUNC_mac_init(void *mctx, unsigned char *key, size_t keylen,
+                       const OSSL_PARAM params[]);
+int OSSL_FUNC_mac_update(void *mctx, const unsigned char *in, size_t inl);
+int OSSL_FUNC_mac_final(void *mctx, unsigned char *out, size_t *outl, size_t outsize);
 
- /* MAC parameter descriptors */
- const OSSL_PARAM *OSSL_FUNC_mac_gettable_params(void *provctx);
- const OSSL_PARAM *OSSL_FUNC_mac_gettable_ctx_params(void *mctx, void *provctx);
- const OSSL_PARAM *OSSL_FUNC_mac_settable_ctx_params(void *mctx, void *provctx);
+/* MAC parameter descriptors */
+const OSSL_PARAM *OSSL_FUNC_mac_gettable_params(void *provctx);
+const OSSL_PARAM *OSSL_FUNC_mac_gettable_ctx_params(void *mctx, void *provctx);
+const OSSL_PARAM *OSSL_FUNC_mac_settable_ctx_params(void *mctx, void *provctx);
 
- /* MAC parameters */
- int OSSL_FUNC_mac_get_params(OSSL_PARAM params[]);
- int OSSL_FUNC_mac_get_ctx_params(void *mctx, OSSL_PARAM params[]);
- int OSSL_FUNC_mac_set_ctx_params(void *mctx, const OSSL_PARAM params[]);</code></pre>
+/* MAC parameters */
+int OSSL_FUNC_mac_get_params(OSSL_PARAM params[]);
+int OSSL_FUNC_mac_get_ctx_params(void *mctx, OSSL_PARAM params[]);
+int OSSL_FUNC_mac_set_ctx_params(void *mctx, const OSSL_PARAM params[]);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -74,27 +74,27 @@
 
 <p>All these &quot;functions&quot; have a corresponding function type definition named <b>OSSL_FUNC_{name}_fn</b>, and a helper function to retrieve the function pointer from an <a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> element named <b>OSSL_FUNC_{name}</b>. For example, the &quot;function&quot; OSSL_FUNC_mac_newctx() has these:</p>
 
-<pre><code> typedef void *(OSSL_FUNC_mac_newctx_fn)(void *provctx);
- static ossl_inline OSSL_FUNC_mac_newctx_fn
-     OSSL_FUNC_mac_newctx(const OSSL_DISPATCH *opf);</code></pre>
+<pre><code>typedef void *(OSSL_FUNC_mac_newctx_fn)(void *provctx);
+static ossl_inline OSSL_FUNC_mac_newctx_fn
+    OSSL_FUNC_mac_newctx(const OSSL_DISPATCH *opf);</code></pre>
 
 <p><a href="../man3/OSSL_DISPATCH.html">OSSL_DISPATCH(3)</a> arrays are indexed by numbers that are provided as macros in <a href="../man7/openssl-core_dispatch.h.html">openssl-core_dispatch.h(7)</a>, as follows:</p>
 
-<pre><code> OSSL_FUNC_mac_newctx               OSSL_FUNC_MAC_NEWCTX
- OSSL_FUNC_mac_freectx              OSSL_FUNC_MAC_FREECTX
- OSSL_FUNC_mac_dupctx               OSSL_FUNC_MAC_DUPCTX
+<pre><code>OSSL_FUNC_mac_newctx               OSSL_FUNC_MAC_NEWCTX
+OSSL_FUNC_mac_freectx              OSSL_FUNC_MAC_FREECTX
+OSSL_FUNC_mac_dupctx               OSSL_FUNC_MAC_DUPCTX
 
- OSSL_FUNC_mac_init                 OSSL_FUNC_MAC_INIT
- OSSL_FUNC_mac_update               OSSL_FUNC_MAC_UPDATE
- OSSL_FUNC_mac_final                OSSL_FUNC_MAC_FINAL
+OSSL_FUNC_mac_init                 OSSL_FUNC_MAC_INIT
+OSSL_FUNC_mac_update               OSSL_FUNC_MAC_UPDATE
+OSSL_FUNC_mac_final                OSSL_FUNC_MAC_FINAL
 
- OSSL_FUNC_mac_get_params           OSSL_FUNC_MAC_GET_PARAMS
- OSSL_FUNC_mac_get_ctx_params       OSSL_FUNC_MAC_GET_CTX_PARAMS
- OSSL_FUNC_mac_set_ctx_params       OSSL_FUNC_MAC_SET_CTX_PARAMS
+OSSL_FUNC_mac_get_params           OSSL_FUNC_MAC_GET_PARAMS
+OSSL_FUNC_mac_get_ctx_params       OSSL_FUNC_MAC_GET_CTX_PARAMS
+OSSL_FUNC_mac_set_ctx_params       OSSL_FUNC_MAC_SET_CTX_PARAMS
 
- OSSL_FUNC_mac_gettable_params      OSSL_FUNC_MAC_GETTABLE_PARAMS
- OSSL_FUNC_mac_gettable_ctx_params  OSSL_FUNC_MAC_GETTABLE_CTX_PARAMS
- OSSL_FUNC_mac_settable_ctx_params  OSSL_FUNC_MAC_SETTABLE_CTX_PARAMS</code></pre>
+OSSL_FUNC_mac_gettable_params      OSSL_FUNC_MAC_GETTABLE_PARAMS
+OSSL_FUNC_mac_gettable_ctx_params  OSSL_FUNC_MAC_GETTABLE_CTX_PARAMS
+OSSL_FUNC_mac_settable_ctx_params  OSSL_FUNC_MAC_SETTABLE_CTX_PARAMS</code></pre>
 
 <p>A mac algorithm implementation may not implement all of these functions. In order to be a consistent set of functions, at least the following functions must be implemented: OSSL_FUNC_mac_newctx(), OSSL_FUNC_mac_freectx(), OSSL_FUNC_mac_init(), OSSL_FUNC_mac_update(), OSSL_FUNC_mac_final(). All other functions are optional.</p>
 

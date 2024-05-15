@@ -4,7 +4,7 @@
 <head>
 <title>DH_get0_pqg</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,29 +28,29 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/dh.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/dh.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> void DH_get0_pqg(const DH *dh,
-                  const BIGNUM **p, const BIGNUM **q, const BIGNUM **g);
- int DH_set0_pqg(DH *dh, BIGNUM *p, BIGNUM *q, BIGNUM *g);
- void DH_get0_key(const DH *dh,
-                  const BIGNUM **pub_key, const BIGNUM **priv_key);
- int DH_set0_key(DH *dh, BIGNUM *pub_key, BIGNUM *priv_key);
- const BIGNUM *DH_get0_p(const DH *dh);
- const BIGNUM *DH_get0_q(const DH *dh);
- const BIGNUM *DH_get0_g(const DH *dh);
- const BIGNUM *DH_get0_priv_key(const DH *dh);
- const BIGNUM *DH_get0_pub_key(const DH *dh);
- void DH_clear_flags(DH *dh, int flags);
- int DH_test_flags(const DH *dh, int flags);
- void DH_set_flags(DH *dh, int flags);
+<pre><code>void DH_get0_pqg(const DH *dh,
+                 const BIGNUM **p, const BIGNUM **q, const BIGNUM **g);
+int DH_set0_pqg(DH *dh, BIGNUM *p, BIGNUM *q, BIGNUM *g);
+void DH_get0_key(const DH *dh,
+                 const BIGNUM **pub_key, const BIGNUM **priv_key);
+int DH_set0_key(DH *dh, BIGNUM *pub_key, BIGNUM *priv_key);
+const BIGNUM *DH_get0_p(const DH *dh);
+const BIGNUM *DH_get0_q(const DH *dh);
+const BIGNUM *DH_get0_g(const DH *dh);
+const BIGNUM *DH_get0_priv_key(const DH *dh);
+const BIGNUM *DH_get0_pub_key(const DH *dh);
+void DH_clear_flags(DH *dh, int flags);
+int DH_test_flags(const DH *dh, int flags);
+void DH_set_flags(DH *dh, int flags);
 
- long DH_get_length(const DH *dh);
- int DH_set_length(DH *dh, long length);
+long DH_get_length(const DH *dh);
+int DH_set_length(DH *dh, long length);
 
- ENGINE *DH_get0_engine(DH *d);</code></pre>
+ENGINE *DH_get0_engine(DH *d);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

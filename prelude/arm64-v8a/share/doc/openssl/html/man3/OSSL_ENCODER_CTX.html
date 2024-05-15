@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_ENCODER_CTX</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -32,47 +32,47 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/encoder.h&gt;
+<pre><code>#include &lt;openssl/encoder.h&gt;
 
- typedef struct ossl_encoder_ctx_st OSSL_ENCODER_CTX;
+typedef struct ossl_encoder_ctx_st OSSL_ENCODER_CTX;
 
- OSSL_ENCODER_CTX *OSSL_ENCODER_CTX_new();
- const OSSL_PARAM *OSSL_ENCODER_settable_ctx_params(OSSL_ENCODER *encoder);
- int OSSL_ENCODER_CTX_set_params(OSSL_ENCODER_CTX *ctx,
-                                 const OSSL_PARAM params[]);
- void OSSL_ENCODER_CTX_free(OSSL_ENCODER_CTX *ctx);
+OSSL_ENCODER_CTX *OSSL_ENCODER_CTX_new();
+const OSSL_PARAM *OSSL_ENCODER_settable_ctx_params(OSSL_ENCODER *encoder);
+int OSSL_ENCODER_CTX_set_params(OSSL_ENCODER_CTX *ctx,
+                                const OSSL_PARAM params[]);
+void OSSL_ENCODER_CTX_free(OSSL_ENCODER_CTX *ctx);
 
- int OSSL_ENCODER_CTX_set_selection(OSSL_ENCODER_CTX *ctx, int selection);
- int OSSL_ENCODER_CTX_set_output_type(OSSL_ENCODER_CTX *ctx,
-                                      const char *output_type);
- int OSSL_ENCODER_CTX_set_output_structure(OSSL_ENCODER_CTX *ctx,
-                                           const char *output_structure);
+int OSSL_ENCODER_CTX_set_selection(OSSL_ENCODER_CTX *ctx, int selection);
+int OSSL_ENCODER_CTX_set_output_type(OSSL_ENCODER_CTX *ctx,
+                                     const char *output_type);
+int OSSL_ENCODER_CTX_set_output_structure(OSSL_ENCODER_CTX *ctx,
+                                          const char *output_structure);
 
- int OSSL_ENCODER_CTX_add_encoder(OSSL_ENCODER_CTX *ctx, OSSL_ENCODER *encoder);
- int OSSL_ENCODER_CTX_add_extra(OSSL_ENCODER_CTX *ctx,
-                                OSSL_LIB_CTX *libctx, const char *propq);
- int OSSL_ENCODER_CTX_get_num_encoders(OSSL_ENCODER_CTX *ctx);
+int OSSL_ENCODER_CTX_add_encoder(OSSL_ENCODER_CTX *ctx, OSSL_ENCODER *encoder);
+int OSSL_ENCODER_CTX_add_extra(OSSL_ENCODER_CTX *ctx,
+                               OSSL_LIB_CTX *libctx, const char *propq);
+int OSSL_ENCODER_CTX_get_num_encoders(OSSL_ENCODER_CTX *ctx);
 
- typedef struct ossl_encoder_instance_st OSSL_ENCODER_INSTANCE;
- OSSL_ENCODER *
- OSSL_ENCODER_INSTANCE_get_encoder(OSSL_ENCODER_INSTANCE *encoder_inst);
- void *
- OSSL_ENCODER_INSTANCE_get_encoder_ctx(OSSL_ENCODER_INSTANCE *encoder_inst);
- const char *
- OSSL_ENCODER_INSTANCE_get_output_type(OSSL_ENCODER_INSTANCE *encoder_inst);
- const char *
- OSSL_ENCODER_INSTANCE_get_output_structure(OSSL_ENCODER_INSTANCE *encoder_inst);
+typedef struct ossl_encoder_instance_st OSSL_ENCODER_INSTANCE;
+OSSL_ENCODER *
+OSSL_ENCODER_INSTANCE_get_encoder(OSSL_ENCODER_INSTANCE *encoder_inst);
+void *
+OSSL_ENCODER_INSTANCE_get_encoder_ctx(OSSL_ENCODER_INSTANCE *encoder_inst);
+const char *
+OSSL_ENCODER_INSTANCE_get_output_type(OSSL_ENCODER_INSTANCE *encoder_inst);
+const char *
+OSSL_ENCODER_INSTANCE_get_output_structure(OSSL_ENCODER_INSTANCE *encoder_inst);
 
- typedef const void *OSSL_ENCODER_CONSTRUCT(OSSL_ENCODER_INSTANCE *encoder_inst,
-                                            void *construct_data);
- typedef void OSSL_ENCODER_CLEANUP(void *construct_data);
+typedef const void *OSSL_ENCODER_CONSTRUCT(OSSL_ENCODER_INSTANCE *encoder_inst,
+                                           void *construct_data);
+typedef void OSSL_ENCODER_CLEANUP(void *construct_data);
 
- int OSSL_ENCODER_CTX_set_construct(OSSL_ENCODER_CTX *ctx,
-                                    OSSL_ENCODER_CONSTRUCT *construct);
- int OSSL_ENCODER_CTX_set_construct_data(OSSL_ENCODER_CTX *ctx,
-                                         void *construct_data);
- int OSSL_ENCODER_CTX_set_cleanup(OSSL_ENCODER_CTX *ctx,
-                                  OSSL_ENCODER_CLEANUP *cleanup);</code></pre>
+int OSSL_ENCODER_CTX_set_construct(OSSL_ENCODER_CTX *ctx,
+                                   OSSL_ENCODER_CONSTRUCT *construct);
+int OSSL_ENCODER_CTX_set_construct_data(OSSL_ENCODER_CTX *ctx,
+                                        void *construct_data);
+int OSSL_ENCODER_CTX_set_cleanup(OSSL_ENCODER_CTX *ctx,
+                                 OSSL_ENCODER_CLEANUP *cleanup);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

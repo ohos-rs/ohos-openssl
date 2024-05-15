@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_set1_encoded_public_key</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -33,19 +33,19 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PKEY_set1_encoded_public_key(EVP_PKEY *pkey,
-                                      const unsigned char *pub, size_t publen);
+int EVP_PKEY_set1_encoded_public_key(EVP_PKEY *pkey,
+                                     const unsigned char *pub, size_t publen);
 
- size_t EVP_PKEY_get1_encoded_public_key(EVP_PKEY *pkey, unsigned char **ppub);</code></pre>
+size_t EVP_PKEY_get1_encoded_public_key(EVP_PKEY *pkey, unsigned char **ppub);</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> int EVP_PKEY_set1_tls_encodedpoint(EVP_PKEY *pkey,
-                                    const unsigned char *pt, size_t ptlen);
+<pre><code>int EVP_PKEY_set1_tls_encodedpoint(EVP_PKEY *pkey,
+                                   const unsigned char *pt, size_t ptlen);
 
- size_t EVP_PKEY_get1_tls_encodedpoint(EVP_PKEY *pkey, unsigned char **ppt);</code></pre>
+size_t EVP_PKEY_get1_tls_encodedpoint(EVP_PKEY *pkey, unsigned char **ppt);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -73,47 +73,47 @@
 
 <h2 id="Set-up-a-peers-EVP_PKEY-ready-for-a-key-exchange-operation">Set up a peer&#39;s EVP_PKEY ready for a key exchange operation</h2>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int exchange(EVP_PKEY *ourkey, unsigned char *peer_pub, size_t peer_pub_len)
- {
-     EVP_PKEY *peerkey = EVP_PKEY_new();
+int exchange(EVP_PKEY *ourkey, unsigned char *peer_pub, size_t peer_pub_len)
+{
+    EVP_PKEY *peerkey = EVP_PKEY_new();
 
-     if (peerkey == NULL || EVP_PKEY_copy_parameters(peerkey, ourkey) &lt;= 0)
-         return 0;
+    if (peerkey == NULL || EVP_PKEY_copy_parameters(peerkey, ourkey) &lt;= 0)
+        return 0;
 
-     if (EVP_PKEY_set1_encoded_public_key(peerkey, peer_pub,
-                                          peer_pub_len) &lt;= 0)
-         return 0;
+    if (EVP_PKEY_set1_encoded_public_key(peerkey, peer_pub,
+                                         peer_pub_len) &lt;= 0)
+        return 0;
 
-     /* Do the key exchange here */
+    /* Do the key exchange here */
 
-     EVP_PKEY_free(peerkey);
+    EVP_PKEY_free(peerkey);
 
-     return 1;
- }</code></pre>
+    return 1;
+}</code></pre>
 
 <h2 id="Get-an-encoded-public-key-to-send-to-a-peer">Get an encoded public key to send to a peer</h2>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int get_encoded_pub_key(EVP_PKEY *ourkey)
- {
-     unsigned char *pubkey;
-     size_t pubkey_len;
+int get_encoded_pub_key(EVP_PKEY *ourkey)
+{
+    unsigned char *pubkey;
+    size_t pubkey_len;
 
-    pubkey_len = EVP_PKEY_get1_encoded_public_key(ourkey, &amp;pubkey);
-    if (pubkey_len == 0)
-        return 0;
+   pubkey_len = EVP_PKEY_get1_encoded_public_key(ourkey, &amp;pubkey);
+   if (pubkey_len == 0)
+       return 0;
 
-    /*
-     * Send the encoded public key stored in the buffer at &quot;pubkey&quot; and of
-     * length pubkey_len, to the peer.
-     */
+   /*
+    * Send the encoded public key stored in the buffer at &quot;pubkey&quot; and of
+    * length pubkey_len, to the peer.
+    */
 
-    OPENSSL_free(pubkey);
-    return 1;
- }</code></pre>
+   OPENSSL_free(pubkey);
+   return 1;
+}</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

@@ -20,6 +20,9 @@ For the crate `openssl-sys`, you can use it like be here:
 
 ```shell
 # for arm64-v8a
-export AARCH64_UNKNOWN_LINUX_OHOS_OPENSSL_INCLUDE_DIR=/ohos-openssl/prelude/arm64-v8a/include
-export AARCH64_UNKNOWN_LINUX_OHOS_OPENSSL_LIB_DIR=/ohos-openssl/prelude/arm64-v8a/lib
+export AARCH64_UNKNOWN_LINUX_OHOS_OPENSSL_DIR="/path/to/ohos-openssl/prelude/arm64-v8a/"
+# for armeabi-v7a
+export ARMV7_UNKNOWN_LINUX_OHOS_OPENSSL_DIR="/path/to/ohos-openssl/prelude/armeabi-v7a/"
+# for x86_64
+export X86_64_UNKNOWN_LINUX_OHOS_OPENSSL_DIR="/path/to/ohos-openssl/prelude/x86_64/"
 ```

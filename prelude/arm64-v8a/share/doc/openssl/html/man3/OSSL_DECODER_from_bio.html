@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_DECODER_from_bio</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,12 +28,12 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/decoder.h&gt;
+<pre><code>#include &lt;openssl/decoder.h&gt;
 
- int OSSL_DECODER_from_bio(OSSL_DECODER_CTX *ctx, BIO *in);
- int OSSL_DECODER_from_fp(OSSL_DECODER_CTX *ctx, FILE *fp);
- int OSSL_DECODER_from_data(OSSL_DECODER_CTX *ctx, const unsigned char **pdata,
-                            size_t *pdata_len);</code></pre>
+int OSSL_DECODER_from_bio(OSSL_DECODER_CTX *ctx, BIO *in);
+int OSSL_DECODER_from_fp(OSSL_DECODER_CTX *ctx, FILE *fp);
+int OSSL_DECODER_from_data(OSSL_DECODER_CTX *ctx, const unsigned char **pdata,
+                           size_t *pdata_len);</code></pre>
 
 <p>Feature availability macros:</p>
 
@@ -61,56 +61,56 @@
 
 <p>To decode an RSA key encoded with PEM from a bio:</p>
 
-<pre><code> OSSL_DECODER_CTX *dctx;
- EVP_PKEY *pkey = NULL;
- const char *format = &quot;PEM&quot;;   /* NULL for any format */
- const char *structure = NULL; /* any structure */
- const char *keytype = &quot;RSA&quot;;  /* NULL for any key */
- const unsigned char *pass = &quot;my password&quot;;
+<pre><code>OSSL_DECODER_CTX *dctx;
+EVP_PKEY *pkey = NULL;
+const char *format = &quot;PEM&quot;;   /* NULL for any format */
+const char *structure = NULL; /* any structure */
+const char *keytype = &quot;RSA&quot;;  /* NULL for any key */
+const unsigned char *pass = &quot;my password&quot;;
 
- dctx = OSSL_DECODER_CTX_new_for_pkey(&amp;pkey, format, structure,
-                                      keytype,
-                                      OSSL_KEYMGMT_SELECT_KEYPAIR,
-                                      NULL, NULL);
- if (dctx == NULL) {
-     /* error: no suitable potential decoders found */
- }
- if (pass != NULL)
-     OSSL_DECODER_CTX_set_passphrase(dctx, pass, strlen(pass));
- if (OSSL_DECODER_from_bio(dctx, bio)) {
-     /* pkey is created with the decoded data from the bio */
- } else {
-     /* decoding failure */
- }
- OSSL_DECODER_CTX_free(dctx);</code></pre>
+dctx = OSSL_DECODER_CTX_new_for_pkey(&amp;pkey, format, structure,
+                                     keytype,
+                                     OSSL_KEYMGMT_SELECT_KEYPAIR,
+                                     NULL, NULL);
+if (dctx == NULL) {
+    /* error: no suitable potential decoders found */
+}
+if (pass != NULL)
+    OSSL_DECODER_CTX_set_passphrase(dctx, pass, strlen(pass));
+if (OSSL_DECODER_from_bio(dctx, bio)) {
+    /* pkey is created with the decoded data from the bio */
+} else {
+    /* decoding failure */
+}
+OSSL_DECODER_CTX_free(dctx);</code></pre>
 
 <p>To decode an EC key encoded with DER from a buffer:</p>
 
-<pre><code> OSSL_DECODER_CTX *dctx;
- EVP_PKEY *pkey = NULL;
- const char *format = &quot;DER&quot;;   /* NULL for any format */
- const char *structure = NULL; /* any structure */
- const char *keytype = &quot;EC&quot;;   /* NULL for any key */
- const unsigned char *pass = NULL
- const unsigned char *data = buffer;
- size_t datalen = sizeof(buffer);
+<pre><code>OSSL_DECODER_CTX *dctx;
+EVP_PKEY *pkey = NULL;
+const char *format = &quot;DER&quot;;   /* NULL for any format */
+const char *structure = NULL; /* any structure */
+const char *keytype = &quot;EC&quot;;   /* NULL for any key */
+const unsigned char *pass = NULL
+const unsigned char *data = buffer;
+size_t datalen = sizeof(buffer);
 
- dctx = OSSL_DECODER_CTX_new_for_pkey(&amp;pkey, format, structure,
-                                      keytype,
-                                      OSSL_KEYMGMT_SELECT_KEYPAIR
-                                      | OSSL_KEYMGMT_SELECT_DOMAIN_PARAMETERS,
-                                      NULL, NULL);
- if (dctx == NULL) {
-     /* error: no suitable potential decoders found */
- }
- if (pass != NULL)
-     OSSL_DECODER_CTX_set_passphrase(dctx, pass, strlen(pass));
- if (OSSL_DECODER_from_data(dctx, &amp;data, &amp;datalen)) {
-     /* pkey is created with the decoded data from the buffer */
- } else {
-     /* decoding failure */
- }
- OSSL_DECODER_CTX_free(dctx);</code></pre>
+dctx = OSSL_DECODER_CTX_new_for_pkey(&amp;pkey, format, structure,
+                                     keytype,
+                                     OSSL_KEYMGMT_SELECT_KEYPAIR
+                                     | OSSL_KEYMGMT_SELECT_DOMAIN_PARAMETERS,
+                                     NULL, NULL);
+if (dctx == NULL) {
+    /* error: no suitable potential decoders found */
+}
+if (pass != NULL)
+    OSSL_DECODER_CTX_set_passphrase(dctx, pass, strlen(pass));
+if (OSSL_DECODER_from_data(dctx, &amp;data, &amp;datalen)) {
+    /* pkey is created with the decoded data from the buffer */
+} else {
+    /* decoding failure */
+}
+OSSL_DECODER_CTX_free(dctx);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

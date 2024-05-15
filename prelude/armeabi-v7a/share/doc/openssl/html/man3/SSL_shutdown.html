@@ -4,7 +4,7 @@
 <head>
 <title>SSL_shutdown</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -47,18 +47,18 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- int SSL_shutdown(SSL *ssl);
+int SSL_shutdown(SSL *ssl);
 
- typedef struct ssl_shutdown_ex_args_st {
-     uint64_t    quic_error_code;
-     const char  *quic_reason;
- } SSL_SHUTDOWN_EX_ARGS;
+typedef struct ssl_shutdown_ex_args_st {
+    uint64_t    quic_error_code;
+    const char  *quic_reason;
+} SSL_SHUTDOWN_EX_ARGS;
 
- __owur int SSL_shutdown_ex(SSL *ssl, uint64_t flags,
-                            const SSL_SHUTDOWN_EX_ARGS *args,
-                            size_t args_len);</code></pre>
+__owur int SSL_shutdown_ex(SSL *ssl, uint64_t flags,
+                           const SSL_SHUTDOWN_EX_ARGS *args,
+                           size_t args_len);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

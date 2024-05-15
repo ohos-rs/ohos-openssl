@@ -4,7 +4,7 @@
 <head>
 <title>SSL_get_stream_read_state</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,21 +28,21 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- #define SSL_STREAM_STATE_NONE
- #define SSL_STREAM_STATE_OK
- #define SSL_STREAM_STATE_WRONG_DIR
- #define SSL_STREAM_STATE_FINISHED
- #define SSL_STREAM_STATE_RESET_LOCAL
- #define SSL_STREAM_STATE_RESET_REMOTE
- #define SSL_STREAM_STATE_CONN_CLOSED
+#define SSL_STREAM_STATE_NONE
+#define SSL_STREAM_STATE_OK
+#define SSL_STREAM_STATE_WRONG_DIR
+#define SSL_STREAM_STATE_FINISHED
+#define SSL_STREAM_STATE_RESET_LOCAL
+#define SSL_STREAM_STATE_RESET_REMOTE
+#define SSL_STREAM_STATE_CONN_CLOSED
 
- int SSL_get_stream_read_state(SSL *ssl);
- int SSL_get_stream_write_state(SSL *ssl);
+int SSL_get_stream_read_state(SSL *ssl);
+int SSL_get_stream_write_state(SSL *ssl);
 
- int SSL_get_stream_read_error_code(SSL *ssl, uint64_t *app_error_code);
- int SSL_get_stream_write_error_code(SSL *ssl, uint64_t *app_error_code);</code></pre>
+int SSL_get_stream_read_error_code(SSL *ssl, uint64_t *app_error_code);
+int SSL_get_stream_write_error_code(SSL *ssl, uint64_t *app_error_code);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

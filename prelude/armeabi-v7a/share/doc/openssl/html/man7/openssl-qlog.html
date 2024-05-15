@@ -4,7 +4,7 @@
 <head>
 <title>openssl-qlog</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -54,7 +54,7 @@
 
 <p>The filenames of generated log files under the specified <b>QLOGDIR</b> use the following structure:</p>
 
-<pre><code>    {connection_odcid}_{vantage_point_type}.sqlog</code></pre>
+<pre><code>{connection_odcid}_{vantage_point_type}.sqlog</code></pre>
 
 <p>where <b>{connection_odcid}</b> is the lowercase hexadecimal encoding of a QUIC connection&#39;s Original Destination Connection ID, which is the Destination Connection ID used in the header of the first Initial packet sent as part of the connection process, and <b>{vantage_point_type}</b> is either <code>client</code> or <code>server</code>, reflecting the perspective of the endpoint producing the qlog output.</p>
 
@@ -142,23 +142,23 @@
 
 <p>Formally, the format of the filter specification in ABNF is as follows:</p>
 
-<pre><code>    filter              = *filter-term
+<pre><code>filter              = *filter-term
 
-    filter-term         = add-sub-term
+filter-term         = add-sub-term
 
-    add-sub-term        = [&quot;-&quot; / &quot;+&quot;] specifier
+add-sub-term        = [&quot;-&quot; / &quot;+&quot;] specifier
 
-    specifier           = global-specifier / qualified-specifier
+specifier           = global-specifier / qualified-specifier
 
-    global-specifier    = wildcard
+global-specifier    = wildcard
 
-    qualified-specifier = component-specifier &quot;:&quot; component-specifier
+qualified-specifier = component-specifier &quot;:&quot; component-specifier
 
-    component-specifier = name / wildcard
+component-specifier = name / wildcard
 
-    wildcard            = &quot;*&quot;
+wildcard            = &quot;*&quot;
 
-    name                = 1*(ALPHA / DIGIT / &quot;_&quot; / &quot;-&quot;)</code></pre>
+name                = 1*(ALPHA / DIGIT / &quot;_&quot; / &quot;-&quot;)</code></pre>
 
 <p>Filter terms are interpreted as follows:</p>
 

@@ -4,7 +4,7 @@
 <head>
 <title>openssl-pkeyutl</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -361,53 +361,53 @@
 
 <p>Sign some data using a private key:</p>
 
-<pre><code> openssl pkeyutl -sign -in file -inkey key.pem -out sig</code></pre>
+<pre><code>openssl pkeyutl -sign -in file -inkey key.pem -out sig</code></pre>
 
 <p>Recover the signed data (e.g. if an RSA key is used):</p>
 
-<pre><code> openssl pkeyutl -verifyrecover -in sig -inkey key.pem</code></pre>
+<pre><code>openssl pkeyutl -verifyrecover -in sig -inkey key.pem</code></pre>
 
 <p>Verify the signature (e.g. a DSA key):</p>
 
-<pre><code> openssl pkeyutl -verify -in file -sigfile sig -inkey key.pem</code></pre>
+<pre><code>openssl pkeyutl -verify -in file -sigfile sig -inkey key.pem</code></pre>
 
 <p>Sign data using a message digest value (this is currently only valid for RSA):</p>
 
-<pre><code> openssl pkeyutl -sign -in file -inkey key.pem -out sig -pkeyopt digest:sha256</code></pre>
+<pre><code>openssl pkeyutl -sign -in file -inkey key.pem -out sig -pkeyopt digest:sha256</code></pre>
 
 <p>Derive a shared secret value:</p>
 
-<pre><code> openssl pkeyutl -derive -inkey key.pem -peerkey pubkey.pem -out secret</code></pre>
+<pre><code>openssl pkeyutl -derive -inkey key.pem -peerkey pubkey.pem -out secret</code></pre>
 
 <p>Hexdump 48 bytes of TLS1 PRF using digest <b>SHA256</b> and shared secret and seed consisting of the single byte 0xFF:</p>
 
-<pre><code> openssl pkeyutl -kdf TLS1-PRF -kdflen 48 -pkeyopt md:SHA256 \
-    -pkeyopt hexsecret:ff -pkeyopt hexseed:ff -hexdump</code></pre>
+<pre><code>openssl pkeyutl -kdf TLS1-PRF -kdflen 48 -pkeyopt md:SHA256 \
+   -pkeyopt hexsecret:ff -pkeyopt hexseed:ff -hexdump</code></pre>
 
 <p>Derive a key using <b>scrypt</b> where the password is read from command line:</p>
 
-<pre><code> openssl pkeyutl -kdf scrypt -kdflen 16 -pkeyopt_passin pass \
-    -pkeyopt hexsalt:aabbcc -pkeyopt N:16384 -pkeyopt r:8 -pkeyopt p:1</code></pre>
+<pre><code>openssl pkeyutl -kdf scrypt -kdflen 16 -pkeyopt_passin pass \
+   -pkeyopt hexsalt:aabbcc -pkeyopt N:16384 -pkeyopt r:8 -pkeyopt p:1</code></pre>
 
 <p>Derive using the same algorithm, but read key from environment variable MYPASS:</p>
 
-<pre><code> openssl pkeyutl -kdf scrypt -kdflen 16 -pkeyopt_passin pass:env:MYPASS \
-    -pkeyopt hexsalt:aabbcc -pkeyopt N:16384 -pkeyopt r:8 -pkeyopt p:1</code></pre>
+<pre><code>openssl pkeyutl -kdf scrypt -kdflen 16 -pkeyopt_passin pass:env:MYPASS \
+   -pkeyopt hexsalt:aabbcc -pkeyopt N:16384 -pkeyopt r:8 -pkeyopt p:1</code></pre>
 
 <p>Sign some data using an <a href="../man7/SM2.html">SM2(7)</a> private key and a specific ID:</p>
 
-<pre><code> openssl pkeyutl -sign -in file -inkey sm2.key -out sig -rawin -digest sm3 \
-    -pkeyopt distid:someid</code></pre>
+<pre><code>openssl pkeyutl -sign -in file -inkey sm2.key -out sig -rawin -digest sm3 \
+   -pkeyopt distid:someid</code></pre>
 
 <p>Verify some data using an <a href="../man7/SM2.html">SM2(7)</a> certificate and a specific ID:</p>
 
-<pre><code> openssl pkeyutl -verify -certin -in file -inkey sm2.cert -sigfile sig \
-    -rawin -digest sm3 -pkeyopt distid:someid</code></pre>
+<pre><code>openssl pkeyutl -verify -certin -in file -inkey sm2.cert -sigfile sig \
+   -rawin -digest sm3 -pkeyopt distid:someid</code></pre>
 
 <p>Decrypt some data using a private key with OAEP padding using SHA256:</p>
 
-<pre><code> openssl pkeyutl -decrypt -in file -inkey key.pem -out secret \
-    -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256</code></pre>
+<pre><code>openssl pkeyutl -decrypt -in file -inkey key.pem -out secret \
+   -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

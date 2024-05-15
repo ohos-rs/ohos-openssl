@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_ALGORITHM</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -35,15 +35,15 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/core.h&gt;
+<pre><code>#include &lt;openssl/core.h&gt;
 
- typedef struct ossl_algorithm_st OSSL_ALGORITHM;
- struct ossl_algorithm_st {
-     const char *algorithm_names;     /* key */
-     const char *property_definition; /* key */
-     const OSSL_DISPATCH *implementation;
-     const char *algorithm_description;
- };</code></pre>
+typedef struct ossl_algorithm_st OSSL_ALGORITHM;
+struct ossl_algorithm_st {
+    const char *algorithm_names;     /* key */
+    const char *property_definition; /* key */
+    const OSSL_DISPATCH *implementation;
+    const char *algorithm_description;
+};</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -83,7 +83,7 @@
 
 <p>The resulting <i>algorithm_names</i> string would look like this:</p>
 
-<pre><code> &quot;RSA:rsaEncryption:1.2.840.113549.1.1.1&quot;</code></pre>
+<pre><code>&quot;RSA:rsaEncryption:1.2.840.113549.1.1.1&quot;</code></pre>
 
 <p>The OpenSSL libraries use the first of the algorithm names as the main or canonical name, on a per algorithm implementation basis.</p>
 

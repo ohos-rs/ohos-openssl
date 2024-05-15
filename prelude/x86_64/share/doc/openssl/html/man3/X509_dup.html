@@ -4,7 +4,7 @@
 <head>
 <title>X509_dup</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,24 +27,24 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/asn1t.h&gt;
+<pre><code>#include &lt;openssl/asn1t.h&gt;
 
- DECLARE_ASN1_FUNCTIONS(type)
- IMPLEMENT_ASN1_FUNCTIONS(stname)
+DECLARE_ASN1_FUNCTIONS(type)
+IMPLEMENT_ASN1_FUNCTIONS(stname)
 
- typedef struct ASN1_ITEM_st ASN1_ITEM;
+typedef struct ASN1_ITEM_st ASN1_ITEM;
 
- extern const ASN1_ITEM TYPE_it;
- TYPE *TYPE_new(void);
- TYPE *TYPE_dup(const TYPE *a);
- void TYPE_free(TYPE *a);
- int TYPE_print_ctx(BIO *out, TYPE *a, int indent, const ASN1_PCTX *pctx);</code></pre>
+extern const ASN1_ITEM TYPE_it;
+TYPE *TYPE_new(void);
+TYPE *TYPE_dup(const TYPE *a);
+void TYPE_free(TYPE *a);
+int TYPE_print_ctx(BIO *out, TYPE *a, int indent, const ASN1_PCTX *pctx);</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> DSA *DSAparams_dup(const DSA *dsa);
- RSA *RSAPrivateKey_dup(const RSA *rsa);
- RSA *RSAPublicKey_dup(const RSA *rsa);</code></pre>
+<pre><code>DSA *DSAparams_dup(const DSA *dsa);
+RSA *RSAPrivateKey_dup(const RSA *rsa);
+RSA *RSAPublicKey_dup(const RSA *rsa);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

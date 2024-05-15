@@ -4,7 +4,7 @@
 <head>
 <title>ossl-guide-libcrypto-introduction</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -172,60 +172,60 @@
 
 <p>Fetch any available implementation of SHA2-256 in the default context. Note that some algorithms have aliases. So &quot;SHA256&quot; and &quot;SHA2-256&quot; are synonymous:</p>
 
-<pre><code> EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, NULL);
- ...
- EVP_MD_free(md);</code></pre>
+<pre><code>EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, NULL);
+...
+EVP_MD_free(md);</code></pre>
 
 <p>Fetch any available implementation of AES-128-CBC in the default context:</p>
 
-<pre><code> EVP_CIPHER *cipher = EVP_CIPHER_fetch(NULL, &quot;AES-128-CBC&quot;, NULL);
- ...
- EVP_CIPHER_free(cipher);</code></pre>
+<pre><code>EVP_CIPHER *cipher = EVP_CIPHER_fetch(NULL, &quot;AES-128-CBC&quot;, NULL);
+...
+EVP_CIPHER_free(cipher);</code></pre>
 
 <p>Fetch an implementation of SHA2-256 from the default provider in the default context:</p>
 
-<pre><code> EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, &quot;provider=default&quot;);
- ...
- EVP_MD_free(md);</code></pre>
+<pre><code>EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, &quot;provider=default&quot;);
+...
+EVP_MD_free(md);</code></pre>
 
 <p>Fetch an implementation of SHA2-256 that is not from the default provider in the default context:</p>
 
-<pre><code> EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, &quot;provider!=default&quot;);
- ...
- EVP_MD_free(md);</code></pre>
+<pre><code>EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, &quot;provider!=default&quot;);
+...
+EVP_MD_free(md);</code></pre>
 
 <p>Fetch an implementation of SHA2-256 that is preferably from the FIPS provider in the default context:</p>
 
-<pre><code> EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, &quot;provider=?fips&quot;);
- ...
- EVP_MD_free(md);</code></pre>
+<pre><code>EVP_MD *md = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, &quot;provider=?fips&quot;);
+...
+EVP_MD_free(md);</code></pre>
 
 <p>Fetch an implementation of SHA2-256 from the default provider in the specified library context:</p>
 
-<pre><code> EVP_MD *md = EVP_MD_fetch(libctx, &quot;SHA2-256&quot;, &quot;provider=default&quot;);
- ...
- EVP_MD_free(md);</code></pre>
+<pre><code>EVP_MD *md = EVP_MD_fetch(libctx, &quot;SHA2-256&quot;, &quot;provider=default&quot;);
+...
+EVP_MD_free(md);</code></pre>
 
 <p>Load the legacy provider into the default context and then fetch an implementation of WHIRLPOOL from it:</p>
 
-<pre><code> /* This only needs to be done once - usually at application start up */
- OSSL_PROVIDER *legacy = OSSL_PROVIDER_load(NULL, &quot;legacy&quot;);
+<pre><code>/* This only needs to be done once - usually at application start up */
+OSSL_PROVIDER *legacy = OSSL_PROVIDER_load(NULL, &quot;legacy&quot;);
 
- EVP_MD *md = EVP_MD_fetch(NULL, &quot;WHIRLPOOL&quot;, &quot;provider=legacy&quot;);
- ...
- EVP_MD_free(md);</code></pre>
+EVP_MD *md = EVP_MD_fetch(NULL, &quot;WHIRLPOOL&quot;, &quot;provider=legacy&quot;);
+...
+EVP_MD_free(md);</code></pre>
 
 <p>Note that in the above example the property string &quot;provider=legacy&quot; is optional since, assuming no other providers have been loaded, the only implementation of the &quot;whirlpool&quot; algorithm is in the &quot;legacy&quot; provider. Also note that the default provider should be explicitly loaded if it is required in addition to other providers:</p>
 
-<pre><code> /* This only needs to be done once - usually at application start up */
- OSSL_PROVIDER *legacy = OSSL_PROVIDER_load(NULL, &quot;legacy&quot;);
- OSSL_PROVIDER *default = OSSL_PROVIDER_load(NULL, &quot;default&quot;);
+<pre><code>/* This only needs to be done once - usually at application start up */
+OSSL_PROVIDER *legacy = OSSL_PROVIDER_load(NULL, &quot;legacy&quot;);
+OSSL_PROVIDER *default = OSSL_PROVIDER_load(NULL, &quot;default&quot;);
 
- EVP_MD *md_whirlpool = EVP_MD_fetch(NULL, &quot;whirlpool&quot;, NULL);
- EVP_MD *md_sha256 = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, NULL);
- ...
- EVP_MD_free(md_whirlpool);
- EVP_MD_free(md_sha256);</code></pre>
+EVP_MD *md_whirlpool = EVP_MD_fetch(NULL, &quot;whirlpool&quot;, NULL);
+EVP_MD *md_sha256 = EVP_MD_fetch(NULL, &quot;SHA2-256&quot;, NULL);
+...
+EVP_MD_free(md_whirlpool);
+EVP_MD_free(md_sha256);</code></pre>
 
 <h1 id="USING-ALGORITHMS-IN-APPLICATIONS">USING ALGORITHMS IN APPLICATIONS</h1>
 
@@ -235,74 +235,74 @@
 
 <p>The following shows a complete example for doing this process for digesting data using SHA256. The process is similar for other operations such as encryption/decryption, signatures, message authentication codes, etc. Additional examples can be found in the OpenSSL demos (see <a href="../man7/ossl-guide-libraries-introduction.html">&quot;DEMO APPLICATIONS&quot; in ossl-guide-libraries-introduction(7)</a>).</p>
 
-<pre><code> #include &lt;stdio.h&gt;
- #include &lt;openssl/evp.h&gt;
- #include &lt;openssl/bio.h&gt;
- #include &lt;openssl/err.h&gt;
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;openssl/evp.h&gt;
+#include &lt;openssl/bio.h&gt;
+#include &lt;openssl/err.h&gt;
 
- int main(void)
- {
-     EVP_MD_CTX *ctx = NULL;
-     EVP_MD *sha256 = NULL;
-     const unsigned char msg[] = {
-         0x00, 0x01, 0x02, 0x03
-     };
-     unsigned int len = 0;
-     unsigned char *outdigest = NULL;
-     int ret = 1;
+int main(void)
+{
+    EVP_MD_CTX *ctx = NULL;
+    EVP_MD *sha256 = NULL;
+    const unsigned char msg[] = {
+        0x00, 0x01, 0x02, 0x03
+    };
+    unsigned int len = 0;
+    unsigned char *outdigest = NULL;
+    int ret = 1;
 
-     /* Create a context for the digest operation */
-     ctx = EVP_MD_CTX_new();
-     if (ctx == NULL)
-         goto err;
-
-     /*
-      * Fetch the SHA256 algorithm implementation for doing the digest. We&#39;re
-      * using the &quot;default&quot; library context here (first NULL parameter), and
-      * we&#39;re not supplying any particular search criteria for our SHA256
-      * implementation (second NULL parameter). Any SHA256 implementation will
-      * do.
-      * In a larger application this fetch would just be done once, and could
-      * be used for multiple calls to other operations such as EVP_DigestInit_ex().
-      */
-     sha256 = EVP_MD_fetch(NULL, &quot;SHA256&quot;, NULL);
-     if (sha256 == NULL)
-         goto err;
-
-    /* Initialise the digest operation */
-    if (!EVP_DigestInit_ex(ctx, sha256, NULL))
+    /* Create a context for the digest operation */
+    ctx = EVP_MD_CTX_new();
+    if (ctx == NULL)
         goto err;
 
-     /*
-      * Pass the message to be digested. This can be passed in over multiple
-      * EVP_DigestUpdate calls if necessary
-      */
-     if (!EVP_DigestUpdate(ctx, msg, sizeof(msg)))
-         goto err;
+    /*
+     * Fetch the SHA256 algorithm implementation for doing the digest. We&#39;re
+     * using the &quot;default&quot; library context here (first NULL parameter), and
+     * we&#39;re not supplying any particular search criteria for our SHA256
+     * implementation (second NULL parameter). Any SHA256 implementation will
+     * do.
+     * In a larger application this fetch would just be done once, and could
+     * be used for multiple calls to other operations such as EVP_DigestInit_ex().
+     */
+    sha256 = EVP_MD_fetch(NULL, &quot;SHA256&quot;, NULL);
+    if (sha256 == NULL)
+        goto err;
 
-     /* Allocate the output buffer */
-     outdigest = OPENSSL_malloc(EVP_MD_get_size(sha256));
-     if (outdigest == NULL)
-         goto err;
+   /* Initialise the digest operation */
+   if (!EVP_DigestInit_ex(ctx, sha256, NULL))
+       goto err;
 
-     /* Now calculate the digest itself */
-     if (!EVP_DigestFinal_ex(ctx, outdigest, &amp;len))
-         goto err;
+    /*
+     * Pass the message to be digested. This can be passed in over multiple
+     * EVP_DigestUpdate calls if necessary
+     */
+    if (!EVP_DigestUpdate(ctx, msg, sizeof(msg)))
+        goto err;
 
-     /* Print out the digest result */
-     BIO_dump_fp(stdout, outdigest, len);
+    /* Allocate the output buffer */
+    outdigest = OPENSSL_malloc(EVP_MD_get_size(sha256));
+    if (outdigest == NULL)
+        goto err;
 
-     ret = 0;
+    /* Now calculate the digest itself */
+    if (!EVP_DigestFinal_ex(ctx, outdigest, &amp;len))
+        goto err;
 
-  err:
-     /* Clean up all the resources we allocated */
-     OPENSSL_free(outdigest);
-     EVP_MD_free(sha256);
-     EVP_MD_CTX_free(ctx);
-     if (ret != 0)
-        ERR_print_errors_fp(stderr);
-     return ret;
- }</code></pre>
+    /* Print out the digest result */
+    BIO_dump_fp(stdout, outdigest, len);
+
+    ret = 0;
+
+ err:
+    /* Clean up all the resources we allocated */
+    OPENSSL_free(outdigest);
+    EVP_MD_free(sha256);
+    EVP_MD_CTX_free(ctx);
+    if (ret != 0)
+       ERR_print_errors_fp(stderr);
+    return ret;
+}</code></pre>
 
 <h1 id="ENCODING-AND-DECODING-KEYS">ENCODING AND DECODING KEYS</h1>
 

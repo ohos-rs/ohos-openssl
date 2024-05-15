@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-KRB5KDF</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -73,8 +73,8 @@
 
 <p>A context for KRB5KDF can be obtained by calling:</p>
 
-<pre><code> EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;KRB5KDF&quot;, NULL);
- EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
+<pre><code>EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;KRB5KDF&quot;, NULL);
+EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
 
 <p>The output length of the KRB5KDF derivation is specified via the <i>keylen</i> parameter to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function, and MUST match the key length for the chosen cipher or an error is returned. Moreover, the constant&#39;s length must not exceed the block size of the cipher. Since the KRB5KDF output length depends on the chosen cipher, calling <a href="../man3/EVP_KDF_CTX_get_kdf_size.html">EVP_KDF_CTX_get_kdf_size(3)</a> to obtain the requisite length returns the correct length only after the cipher is set. Prior to that <b>EVP_MAX_KEY_LENGTH</b> is returned. The caller must allocate a buffer of the correct length for the chosen cipher, and pass that buffer to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function along with that length.</p>
 
@@ -82,30 +82,30 @@
 
 <p>This example derives a key using the AES-128-CBC cipher:</p>
 
-<pre><code> EVP_KDF *kdf;
- EVP_KDF_CTX *kctx;
- unsigned char key[16] = &quot;01234...&quot;;
- unsigned char constant[] = &quot;I&#39;m a constant&quot;;
- unsigned char out[16];
- size_t outlen = sizeof(out);
- OSSL_PARAM params[4], *p = params;
+<pre><code>EVP_KDF *kdf;
+EVP_KDF_CTX *kctx;
+unsigned char key[16] = &quot;01234...&quot;;
+unsigned char constant[] = &quot;I&#39;m a constant&quot;;
+unsigned char out[16];
+size_t outlen = sizeof(out);
+OSSL_PARAM params[4], *p = params;
 
- kdf = EVP_KDF_fetch(NULL, &quot;KRB5KDF&quot;, NULL);
- kctx = EVP_KDF_CTX_new(kdf);
- EVP_KDF_free(kdf);
+kdf = EVP_KDF_fetch(NULL, &quot;KRB5KDF&quot;, NULL);
+kctx = EVP_KDF_CTX_new(kdf);
+EVP_KDF_free(kdf);
 
- *p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_CIPHER,
-                                         SN_aes_128_cbc,
-                                         strlen(SN_aes_128_cbc));
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
-                                          key, (size_t)16);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_CONSTANT,
-                                          constant, strlen(constant));
- *p = OSSL_PARAM_construct_end();
- if (EVP_KDF_derive(kctx, out, outlen, params) &lt;= 0)
-     /* Error */
+*p++ = OSSL_PARAM_construct_utf8_string(OSSL_KDF_PARAM_CIPHER,
+                                        SN_aes_128_cbc,
+                                        strlen(SN_aes_128_cbc));
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_KEY,
+                                         key, (size_t)16);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_CONSTANT,
+                                         constant, strlen(constant));
+*p = OSSL_PARAM_construct_end();
+if (EVP_KDF_derive(kctx, out, outlen, params) &lt;= 0)
+    /* Error */
 
- EVP_KDF_CTX_free(kctx);</code></pre>
+EVP_KDF_CTX_free(kctx);</code></pre>
 
 <h1 id="CONFORMING-TO">CONFORMING TO</h1>
 

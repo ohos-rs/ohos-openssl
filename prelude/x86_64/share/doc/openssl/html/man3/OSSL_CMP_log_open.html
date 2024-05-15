@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_CMP_log_open</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,29 +28,29 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/cmp_util.h&gt;
+<pre><code>#include &lt;openssl/cmp_util.h&gt;
 
- int  OSSL_CMP_log_open(void);
- void OSSL_CMP_log_close(void);
+int  OSSL_CMP_log_open(void);
+void OSSL_CMP_log_close(void);
 
- /* severity level declarations resemble those from syslog.h */
- typedef int OSSL_CMP_severity;
- #define OSSL_CMP_LOG_EMERG   0
- #define OSSL_CMP_LOG_ALERT   1
- #define OSSL_CMP_LOG_CRIT    2
- #define OSSL_CMP_LOG_ERR     3
- #define OSSL_CMP_LOG_WARNING 4
- #define OSSL_CMP_LOG_NOTICE  5
- #define OSSL_CMP_LOG_INFO    6
- #define OSSL_CMP_LOG_DEBUG   7
- #define OSSL_CMP_LOG_TRACE   8
+/* severity level declarations resemble those from syslog.h */
+typedef int OSSL_CMP_severity;
+#define OSSL_CMP_LOG_EMERG   0
+#define OSSL_CMP_LOG_ALERT   1
+#define OSSL_CMP_LOG_CRIT    2
+#define OSSL_CMP_LOG_ERR     3
+#define OSSL_CMP_LOG_WARNING 4
+#define OSSL_CMP_LOG_NOTICE  5
+#define OSSL_CMP_LOG_INFO    6
+#define OSSL_CMP_LOG_DEBUG   7
+#define OSSL_CMP_LOG_TRACE   8
 
- typedef int (*OSSL_CMP_log_cb_t)(const char *component,
-                                  const char *file, int line,
-                                  OSSL_CMP_severity level, const char *msg);
- int OSSL_CMP_print_to_bio(BIO *bio, const char *component, const char *file,
-                           int line, OSSL_CMP_severity level, const char *msg);
- void OSSL_CMP_print_errors_cb(OSSL_CMP_log_cb_t log_fn);</code></pre>
+typedef int (*OSSL_CMP_log_cb_t)(const char *component,
+                                 const char *file, int line,
+                                 OSSL_CMP_severity level, const char *msg);
+int OSSL_CMP_print_to_bio(BIO *bio, const char *component, const char *file,
+                          int line, OSSL_CMP_severity level, const char *msg);
+void OSSL_CMP_print_errors_cb(OSSL_CMP_log_cb_t log_fn);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -58,9 +58,9 @@
 
 <p>When an interesting activity is performed or an error occurs, some detail should be provided for user information, debugging, and auditing purposes. A CMP application can obtain this information by providing a callback function with the following type:</p>
 
-<pre><code> typedef int (*OSSL_CMP_log_cb_t)(const char *component,
-                                  const char *file, int line,
-                                  OSSL_CMP_severity level, const char *msg);</code></pre>
+<pre><code>typedef int (*OSSL_CMP_log_cb_t)(const char *component,
+                                 const char *file, int line,
+                                 OSSL_CMP_severity level, const char *msg);</code></pre>
 
 <p>The parameters may provide some component info (which may be a module name and/or function name) or NULL, a file pathname or NULL, a line number or 0 indicating the source code location, a severity level, and a message string describing the nature of the event, terminated by &#39;\n&#39;.</p>
 

@@ -4,7 +4,7 @@
 <head>
 <title>ossl-guide-migration</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -491,19 +491,19 @@
 
 <p>For example code that previously looked like this:</p>
 
-<pre><code> EVP_MD_CTX md_ctx;
+<pre><code>EVP_MD_CTX md_ctx;
 
- /* This line will now generate compiler errors */
- EVP_MD_CTX_init(&amp;md_ctx);</code></pre>
+/* This line will now generate compiler errors */
+EVP_MD_CTX_init(&amp;md_ctx);</code></pre>
 
 <p>The code needs to be amended to look like this:</p>
 
-<pre><code> EVP_MD_CTX *md_ctx;
+<pre><code>EVP_MD_CTX *md_ctx;
 
- md_ctx = EVP_MD_CTX_new();
- ...
- ...
- EVP_MD_CTX_free(md_ctx);</code></pre>
+md_ctx = EVP_MD_CTX_new();
+...
+...
+EVP_MD_CTX_free(md_ctx);</code></pre>
 
 </li>
 <li><p>Support for TLSv1.3 has been added.</p>

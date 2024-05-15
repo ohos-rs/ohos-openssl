@@ -4,7 +4,7 @@
 <head>
 <title>SMIME_read_CMS</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,11 +29,11 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/cms.h&gt;
+<pre><code>#include &lt;openssl/cms.h&gt;
 
- CMS_ContentInfo *SMIME_read_CMS_ex(BIO *bio, int flags, BIO **bcont,
-                                    CMS_ContentInfo **cms);
- CMS_ContentInfo *SMIME_read_CMS(BIO *in, BIO **bcont);</code></pre>
+CMS_ContentInfo *SMIME_read_CMS_ex(BIO *bio, int flags, BIO **bcont,
+                                   CMS_ContentInfo **cms);
+CMS_ContentInfo *SMIME_read_CMS(BIO *in, BIO **bcont);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -55,10 +55,10 @@
 
 <p>To support future functionality if <b>bcont</b> is not NULL <b>*bcont</b> should be initialized to NULL. For example:</p>
 
-<pre><code> BIO *cont = NULL;
- CMS_ContentInfo *cms;
+<pre><code>BIO *cont = NULL;
+CMS_ContentInfo *cms;
 
- cms = SMIME_read_CMS(in, &amp;cont);</code></pre>
+cms = SMIME_read_CMS(in, &amp;cont);</code></pre>
 
 <h1 id="BUGS">BUGS</h1>
 

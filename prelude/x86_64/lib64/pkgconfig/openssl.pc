@@ -1,7 +1,0 @@
-libdir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/x86_64/lib64
-includedir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/x86_64/include
-
-Name: OpenSSL
-Description: Secure Sockets Layer and cryptography libraries and tools
-Version: 3.3.0-dev
-Requires: libssl libcrypto

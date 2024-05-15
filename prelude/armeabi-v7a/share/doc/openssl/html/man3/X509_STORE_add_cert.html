@@ -4,7 +4,7 @@
 <head>
 <title>X509_STORE_add_cert</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,35 +27,35 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/x509_vfy.h&gt;
+<pre><code>#include &lt;openssl/x509_vfy.h&gt;
 
- typedef x509_store_st X509_STORE;
+typedef x509_store_st X509_STORE;
 
- int X509_STORE_add_cert(X509_STORE *xs, X509 *x);
- int X509_STORE_add_crl(X509_STORE *xs, X509_CRL *x);
- int X509_STORE_set_depth(X509_STORE *store, int depth);
- int X509_STORE_set_flags(X509_STORE *xs, unsigned long flags);
- int X509_STORE_set_purpose(X509_STORE *xs, int purpose);
- int X509_STORE_set_trust(X509_STORE *xs, int trust);
+int X509_STORE_add_cert(X509_STORE *xs, X509 *x);
+int X509_STORE_add_crl(X509_STORE *xs, X509_CRL *x);
+int X509_STORE_set_depth(X509_STORE *store, int depth);
+int X509_STORE_set_flags(X509_STORE *xs, unsigned long flags);
+int X509_STORE_set_purpose(X509_STORE *xs, int purpose);
+int X509_STORE_set_trust(X509_STORE *xs, int trust);
 
- X509_LOOKUP *X509_STORE_add_lookup(X509_STORE *store,
-                                    X509_LOOKUP_METHOD *meth);
+X509_LOOKUP *X509_STORE_add_lookup(X509_STORE *store,
+                                   X509_LOOKUP_METHOD *meth);
 
- int X509_STORE_set_default_paths_ex(X509_STORE *xs, OSSL_LIB_CTX *libctx,
-                                     const char *propq);
- int X509_STORE_set_default_paths(X509_STORE *xs);
- int X509_STORE_load_file_ex(X509_STORE *xs, const char *file,
+int X509_STORE_set_default_paths_ex(X509_STORE *xs, OSSL_LIB_CTX *libctx,
+                                    const char *propq);
+int X509_STORE_set_default_paths(X509_STORE *xs);
+int X509_STORE_load_file_ex(X509_STORE *xs, const char *file,
+                            OSSL_LIB_CTX *libctx, const char *propq);
+int X509_STORE_load_file(X509_STORE *xs, const char *file);
+int X509_STORE_load_path(X509_STORE *xs, const char *dir);
+int X509_STORE_load_store_ex(X509_STORE *xs, const char *uri,
                              OSSL_LIB_CTX *libctx, const char *propq);
- int X509_STORE_load_file(X509_STORE *xs, const char *file);
- int X509_STORE_load_path(X509_STORE *xs, const char *dir);
- int X509_STORE_load_store_ex(X509_STORE *xs, const char *uri,
-                              OSSL_LIB_CTX *libctx, const char *propq);
- int X509_STORE_load_store(X509_STORE *xs, const char *uri);
- int X509_STORE_load_locations_ex(X509_STORE *xs, const char *file,
-                                  const char *dir, OSSL_LIB_CTX *libctx,
-                                  const char *propq);
- int X509_STORE_load_locations(X509_STORE *xs,
-                               const char *file, const char *dir);</code></pre>
+int X509_STORE_load_store(X509_STORE *xs, const char *uri);
+int X509_STORE_load_locations_ex(X509_STORE *xs, const char *file,
+                                 const char *dir, OSSL_LIB_CTX *libctx,
+                                 const char *propq);
+int X509_STORE_load_locations(X509_STORE *xs,
+                              const char *file, const char *dir);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

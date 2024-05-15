@@ -4,7 +4,7 @@
 <head>
 <title>openssl-ts</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -479,71 +479,71 @@
 
 <p>To create a timestamp request for <i>design1.txt</i> with SHA-256 digest, without nonce and policy, and without requirement for a certificate in the response:</p>
 
-<pre><code>  openssl ts -query -data design1.txt -no_nonce \
-        -out design1.tsq</code></pre>
+<pre><code>openssl ts -query -data design1.txt -no_nonce \
+      -out design1.tsq</code></pre>
 
 <p>To create a similar timestamp request with specifying the message imprint explicitly:</p>
 
-<pre><code>  openssl ts -query -digest b7e5d3f93198b38379852f2c04e78d73abdd0f4b \
-         -no_nonce -out design1.tsq</code></pre>
+<pre><code>openssl ts -query -digest b7e5d3f93198b38379852f2c04e78d73abdd0f4b \
+       -no_nonce -out design1.tsq</code></pre>
 
 <p>To print the content of the previous request in human readable format:</p>
 
-<pre><code>  openssl ts -query -in design1.tsq -text</code></pre>
+<pre><code>openssl ts -query -in design1.tsq -text</code></pre>
 
 <p>To create a timestamp request which includes the SHA-512 digest of <i>design2.txt</i>, requests the signer certificate and nonce, and specifies a policy id (assuming the tsa_policy1 name is defined in the OID section of the config file):</p>
 
-<pre><code>  openssl ts -query -data design2.txt -sha512 \
-        -tspolicy tsa_policy1 -cert -out design2.tsq</code></pre>
+<pre><code>openssl ts -query -data design2.txt -sha512 \
+      -tspolicy tsa_policy1 -cert -out design2.tsq</code></pre>
 
 <h2 id="Timestamp-Response">Timestamp Response</h2>
 
 <p>Before generating a response a signing certificate must be created for the TSA that contains the <b>timeStamping</b> critical extended key usage extension without any other key usage extensions. You can add this line to the user certificate section of the config file to generate a proper certificate;</p>
 
-<pre><code>   extendedKeyUsage = critical,timeStamping</code></pre>
+<pre><code>extendedKeyUsage = critical,timeStamping</code></pre>
 
 <p>See <a href="../man1/openssl-req.html">openssl-req(1)</a>, <a href="../man1/openssl-ca.html">openssl-ca(1)</a>, and <a href="../man1/openssl-x509.html">openssl-x509(1)</a> for instructions. The examples below assume that <i>cacert.pem</i> contains the certificate of the CA, <i>tsacert.pem</i> is the signing certificate issued by <i>cacert.pem</i> and <i>tsakey.pem</i> is the private key of the TSA.</p>
 
 <p>To create a timestamp response for a request:</p>
 
-<pre><code>  openssl ts -reply -queryfile design1.tsq -inkey tsakey.pem \
-        -signer tsacert.pem -out design1.tsr</code></pre>
+<pre><code>openssl ts -reply -queryfile design1.tsq -inkey tsakey.pem \
+      -signer tsacert.pem -out design1.tsr</code></pre>
 
 <p>If you want to use the settings in the config file you could just write:</p>
 
-<pre><code>  openssl ts -reply -queryfile design1.tsq -out design1.tsr</code></pre>
+<pre><code>openssl ts -reply -queryfile design1.tsq -out design1.tsr</code></pre>
 
 <p>To print a timestamp reply to stdout in human readable format:</p>
 
-<pre><code>  openssl ts -reply -in design1.tsr -text</code></pre>
+<pre><code>openssl ts -reply -in design1.tsr -text</code></pre>
 
 <p>To create a timestamp token instead of timestamp response:</p>
 
-<pre><code>  openssl ts -reply -queryfile design1.tsq -out design1_token.der -token_out</code></pre>
+<pre><code>openssl ts -reply -queryfile design1.tsq -out design1_token.der -token_out</code></pre>
 
 <p>To print a timestamp token to stdout in human readable format:</p>
 
-<pre><code>  openssl ts -reply -in design1_token.der -token_in -text -token_out</code></pre>
+<pre><code>openssl ts -reply -in design1_token.der -token_in -text -token_out</code></pre>
 
 <p>To extract the timestamp token from a response:</p>
 
-<pre><code>  openssl ts -reply -in design1.tsr -out design1_token.der -token_out</code></pre>
+<pre><code>openssl ts -reply -in design1.tsr -out design1_token.der -token_out</code></pre>
 
 <p>To add &#39;granted&#39; status info to a timestamp token thereby creating a valid response:</p>
 
-<pre><code>  openssl ts -reply -in design1_token.der -token_in -out design1.tsr</code></pre>
+<pre><code>openssl ts -reply -in design1_token.der -token_in -out design1.tsr</code></pre>
 
 <h2 id="Timestamp-Verification">Timestamp Verification</h2>
 
 <p>To verify a timestamp reply against a request:</p>
 
-<pre><code>  openssl ts -verify -queryfile design1.tsq -in design1.tsr \
-        -CAfile cacert.pem -untrusted tsacert.pem</code></pre>
+<pre><code>openssl ts -verify -queryfile design1.tsq -in design1.tsr \
+      -CAfile cacert.pem -untrusted tsacert.pem</code></pre>
 
 <p>To verify a timestamp reply that includes the certificate chain:</p>
 
-<pre><code>  openssl ts -verify -queryfile design2.tsq -in design2.tsr \
-        -CAfile cacert.pem</code></pre>
+<pre><code>openssl ts -verify -queryfile design2.tsq -in design2.tsr \
+      -CAfile cacert.pem</code></pre>
 
 <p>To verify a timestamp token against the original data file: openssl ts -verify -data design2.txt -in design2.tsr \ -CAfile cacert.pem</p>
 

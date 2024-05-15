@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_decapsulate</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,14 +29,14 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PKEY_decapsulate_init(EVP_PKEY_CTX *ctx, const OSSL_PARAM params[]);
- int EVP_PKEY_auth_decapsulate_init(EVP_PKEY_CTX *ctx, EVP_PKEY *authpub,
-                                   const OSSL_PARAM params[]);
- int EVP_PKEY_decapsulate(EVP_PKEY_CTX *ctx,
-                          unsigned char *unwrapped, size_t *unwrappedlen,
-                          const unsigned char *wrapped, size_t wrappedlen);</code></pre>
+int EVP_PKEY_decapsulate_init(EVP_PKEY_CTX *ctx, const OSSL_PARAM params[]);
+int EVP_PKEY_auth_decapsulate_init(EVP_PKEY_CTX *ctx, EVP_PKEY *authpub,
+                                  const OSSL_PARAM params[]);
+int EVP_PKEY_decapsulate(EVP_PKEY_CTX *ctx,
+                         unsigned char *unwrapped, size_t *unwrappedlen,
+                         const unsigned char *wrapped, size_t wrappedlen);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -58,38 +58,38 @@
 
 <p>Decapsulate data using RSA:</p>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- /*
-  * NB: assumes rsa_priv_key is an RSA private key,
-  * and that in, inlen are already set up to contain encapsulated data.
-  */
+/*
+ * NB: assumes rsa_priv_key is an RSA private key,
+ * and that in, inlen are already set up to contain encapsulated data.
+ */
 
- EVP_PKEY_CTX *ctx = NULL;
- size_t secretlen = 0;
- unsigned char *secret = NULL;;
+EVP_PKEY_CTX *ctx = NULL;
+size_t secretlen = 0;
+unsigned char *secret = NULL;;
 
- ctx = EVP_PKEY_CTX_new_from_pkey(libctx, rsa_priv_key, NULL);
- if (ctx = NULL)
-     /* Error */
- if (EVP_PKEY_decapsulate_init(ctx, NULL) &lt;= 0)
-     /* Error */
+ctx = EVP_PKEY_CTX_new_from_pkey(libctx, rsa_priv_key, NULL);
+if (ctx = NULL)
+    /* Error */
+if (EVP_PKEY_decapsulate_init(ctx, NULL) &lt;= 0)
+    /* Error */
 
- /* Set the mode - only &#39;RSASVE&#39; is currently supported */
- if (EVP_PKEY_CTX_set_kem_op(ctx, &quot;RSASVE&quot;) &lt;= 0)
-     /* Error */
+/* Set the mode - only &#39;RSASVE&#39; is currently supported */
+if (EVP_PKEY_CTX_set_kem_op(ctx, &quot;RSASVE&quot;) &lt;= 0)
+    /* Error */
 
- /* Determine buffer length */
- if (EVP_PKEY_decapsulate(ctx, NULL, &amp;secretlen, in, inlen) &lt;= 0)
-     /* Error */
+/* Determine buffer length */
+if (EVP_PKEY_decapsulate(ctx, NULL, &amp;secretlen, in, inlen) &lt;= 0)
+    /* Error */
 
- secret = OPENSSL_malloc(secretlen);
- if (secret == NULL)
-     /* malloc failure */
+secret = OPENSSL_malloc(secretlen);
+if (secret == NULL)
+    /* malloc failure */
 
- /* Decapsulated secret data is secretlen bytes long */
- if (EVP_PKEY_decapsulate(ctx, secret, &amp;secretlen, in, inlen) &lt;= 0)
-     /* Error */</code></pre>
+/* Decapsulated secret data is secretlen bytes long */
+if (EVP_PKEY_decapsulate(ctx, secret, &amp;secretlen, in, inlen) &lt;= 0)
+    /* Error */</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

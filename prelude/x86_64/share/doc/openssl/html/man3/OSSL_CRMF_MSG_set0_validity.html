@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_CRMF_MSG_set0_validity</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,30 +27,30 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/crmf.h&gt;
+<pre><code>#include &lt;openssl/crmf.h&gt;
 
- int OSSL_CRMF_MSG_set0_validity(OSSL_CRMF_MSG *crm,
-                                 ASN1_TIME *notBefore, ASN1_TIME *notAfter);
+int OSSL_CRMF_MSG_set0_validity(OSSL_CRMF_MSG *crm,
+                                ASN1_TIME *notBefore, ASN1_TIME *notAfter);
 
- int OSSL_CRMF_MSG_set_certReqId(OSSL_CRMF_MSG *crm, int rid);
+int OSSL_CRMF_MSG_set_certReqId(OSSL_CRMF_MSG *crm, int rid);
 
- int OSSL_CRMF_CERTTEMPLATE_fill(OSSL_CRMF_CERTTEMPLATE *tmpl,
-                                 EVP_PKEY *pubkey,
-                                 const X509_NAME *subject,
-                                 const X509_NAME *issuer,
-                                 const ASN1_INTEGER *serial);
+int OSSL_CRMF_CERTTEMPLATE_fill(OSSL_CRMF_CERTTEMPLATE *tmpl,
+                                EVP_PKEY *pubkey,
+                                const X509_NAME *subject,
+                                const X509_NAME *issuer,
+                                const ASN1_INTEGER *serial);
 
- int OSSL_CRMF_MSG_set0_extensions(OSSL_CRMF_MSG *crm, X509_EXTENSIONS *exts);
+int OSSL_CRMF_MSG_set0_extensions(OSSL_CRMF_MSG *crm, X509_EXTENSIONS *exts);
 
- int OSSL_CRMF_MSG_push0_extension(OSSL_CRMF_MSG *crm, X509_EXTENSION *ext);
+int OSSL_CRMF_MSG_push0_extension(OSSL_CRMF_MSG *crm, X509_EXTENSION *ext);
 
- int OSSL_CRMF_MSG_create_popo(int meth, OSSL_CRMF_MSG *crm,
-                               EVP_PKEY *pkey, const EVP_MD *digest,
-                               OSSL_LIB_CTX *libctx, const char *propq);
+int OSSL_CRMF_MSG_create_popo(int meth, OSSL_CRMF_MSG *crm,
+                              EVP_PKEY *pkey, const EVP_MD *digest,
+                              OSSL_LIB_CTX *libctx, const char *propq);
 
- int OSSL_CRMF_MSGS_verify_popo(const OSSL_CRMF_MSGS *reqs,
-                                int rid, int acceptRAVerified,
-                                OSSL_LIB_CTX *libctx, const char *propq);</code></pre>
+int OSSL_CRMF_MSGS_verify_popo(const OSSL_CRMF_MSGS *reqs,
+                               int rid, int acceptRAVerified,
+                               OSSL_LIB_CTX *libctx, const char *propq);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

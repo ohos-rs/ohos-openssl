@@ -4,7 +4,7 @@
 <head>
 <title>CMS_get1_ReceiptRequest</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,21 +28,21 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/cms.h&gt;
+<pre><code>#include &lt;openssl/cms.h&gt;
 
- CMS_ReceiptRequest *CMS_ReceiptRequest_create0_ex(
-     unsigned char *id, int idlen, int allorfirst,
-     STACK_OF(GENERAL_NAMES) *receiptList, STACK_OF(GENERAL_NAMES) *receiptsTo,
-     OSSL_LIB_CTX *libctx);
- CMS_ReceiptRequest *CMS_ReceiptRequest_create0(
-     unsigned char *id, int idlen, int allorfirst,
-     STACK_OF(GENERAL_NAMES) *receiptList, STACK_OF(GENERAL_NAMES) *receiptsTo);
- int CMS_add1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest *rr);
- int CMS_get1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest **prr);
- void CMS_ReceiptRequest_get0_values(CMS_ReceiptRequest *rr, ASN1_STRING **pcid,
-                                     int *pallorfirst,
-                                     STACK_OF(GENERAL_NAMES) **plist,
-                                     STACK_OF(GENERAL_NAMES) **prto);</code></pre>
+CMS_ReceiptRequest *CMS_ReceiptRequest_create0_ex(
+    unsigned char *id, int idlen, int allorfirst,
+    STACK_OF(GENERAL_NAMES) *receiptList, STACK_OF(GENERAL_NAMES) *receiptsTo,
+    OSSL_LIB_CTX *libctx);
+CMS_ReceiptRequest *CMS_ReceiptRequest_create0(
+    unsigned char *id, int idlen, int allorfirst,
+    STACK_OF(GENERAL_NAMES) *receiptList, STACK_OF(GENERAL_NAMES) *receiptsTo);
+int CMS_add1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest *rr);
+int CMS_get1_ReceiptRequest(CMS_SignerInfo *si, CMS_ReceiptRequest **prr);
+void CMS_ReceiptRequest_get0_values(CMS_ReceiptRequest *rr, ASN1_STRING **pcid,
+                                    int *pallorfirst,
+                                    STACK_OF(GENERAL_NAMES) **plist,
+                                    STACK_OF(GENERAL_NAMES) **prto);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

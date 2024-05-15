@@ -4,7 +4,7 @@
 <head>
 <title>ossl-guide-libraries-introduction</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -174,8 +174,8 @@
 
 <p>For example the functions:</p>
 
-<pre><code> int X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);
- int X509_add1_trust_object(X509 *x, const ASN1_OBJECT *obj);</code></pre>
+<pre><code>int X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);
+int X509_add1_trust_object(X509 *x, const ASN1_OBJECT *obj);</code></pre>
 
 <p>In the <b>0</b> version the ownership of the object is passed to (for an add or set) or retained by (for a get) the parent object. For example after calling the X509_CRL_add0_revoked() function above, ownership of the <i>rev</i> object is passed to the <i>crl</i> object. Therefore, after calling this function <i>rev</i> should not be freed directly. It will be freed implicitly when <i>crl</i> is freed.</p>
 

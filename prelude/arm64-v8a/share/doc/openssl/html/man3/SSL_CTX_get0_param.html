@@ -4,7 +4,7 @@
 <head>
 <title>SSL_CTX_get0_param</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,18 +29,18 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx);
- X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl);
- int SSL_CTX_set1_param(SSL_CTX *ctx, X509_VERIFY_PARAM *vpm);
- int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm);
+X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx);
+X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl);
+int SSL_CTX_set1_param(SSL_CTX *ctx, X509_VERIFY_PARAM *vpm);
+int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm);
 
- int SSL_CTX_set_purpose(SSL_CTX *ctx, int purpose);
- int SSL_set_purpose(SSL *ssl, int purpose);
+int SSL_CTX_set_purpose(SSL_CTX *ctx, int purpose);
+int SSL_set_purpose(SSL *ssl, int purpose);
 
- int SSL_CTX_set_trust(SSL_CTX *ctx, int trust);
- int SSL_set_trust(SSL *ssl, int trust);</code></pre>
+int SSL_CTX_set_trust(SSL_CTX *ctx, int trust);
+int SSL_set_trust(SSL *ssl, int trust);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -66,8 +66,8 @@
 
 <p>Check hostname matches &quot;www.foo.com&quot; in peer certificate:</p>
 
-<pre><code> X509_VERIFY_PARAM *vpm = SSL_get0_param(ssl);
- X509_VERIFY_PARAM_set1_host(vpm, &quot;www.foo.com&quot;, 0);</code></pre>
+<pre><code>X509_VERIFY_PARAM *vpm = SSL_get0_param(ssl);
+X509_VERIFY_PARAM_set1_host(vpm, &quot;www.foo.com&quot;, 0);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

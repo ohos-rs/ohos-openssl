@@ -4,7 +4,7 @@
 <head>
 <title>X509_ATTRIBUTE</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -26,55 +26,55 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/x509.h&gt;
+<pre><code>#include &lt;openssl/x509.h&gt;
 
- typedef struct x509_attributes_st X509_ATTRIBUTE;
+typedef struct x509_attributes_st X509_ATTRIBUTE;
 
- int X509at_get_attr_count(const STACK_OF(X509_ATTRIBUTE) *x);
- int X509at_get_attr_by_NID(const STACK_OF(X509_ATTRIBUTE) *x, int nid,
-                            int lastpos);
- int X509at_get_attr_by_OBJ(const STACK_OF(X509_ATTRIBUTE) *sk,
-                            const ASN1_OBJECT *obj, int lastpos);
- X509_ATTRIBUTE *X509at_get_attr(const STACK_OF(X509_ATTRIBUTE) *x, int loc);
- X509_ATTRIBUTE *X509at_delete_attr(STACK_OF(X509_ATTRIBUTE) *x, int loc);
- STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr(STACK_OF(X509_ATTRIBUTE) **x,
-                                            X509_ATTRIBUTE *attr);
- STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr_by_OBJ(STACK_OF(X509_ATTRIBUTE)
-                                                   **x, const ASN1_OBJECT *obj,
-                                                   int type,
-                                                   const unsigned char *bytes,
-                                                   int len);
- STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr_by_NID(STACK_OF(X509_ATTRIBUTE)
-                                                   **x, int nid, int type,
-                                                   const unsigned char *bytes,
-                                                   int len);
- STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr_by_txt(STACK_OF(X509_ATTRIBUTE)
-                                                   **x, const char *attrname,
-                                                   int type,
-                                                   const unsigned char *bytes,
-                                                   int len);
- void *X509at_get0_data_by_OBJ(const STACK_OF(X509_ATTRIBUTE) *x,
-                               const ASN1_OBJECT *obj, int lastpos, int type);
- X509_ATTRIBUTE *X509_ATTRIBUTE_create(int nid, int atrtype, void *value);
- X509_ATTRIBUTE *X509_ATTRIBUTE_create_by_NID(X509_ATTRIBUTE **attr, int nid,
-                                              int atrtype, const void *data,
-                                              int len);
- X509_ATTRIBUTE *X509_ATTRIBUTE_create_by_OBJ(X509_ATTRIBUTE **attr,
-                                              const ASN1_OBJECT *obj,
-                                              int atrtype, const void *data,
-                                              int len);
- X509_ATTRIBUTE *X509_ATTRIBUTE_create_by_txt(X509_ATTRIBUTE **attr,
-                                              const char *atrname, int type,
-                                              const unsigned char *bytes,
-                                              int len);
- int X509_ATTRIBUTE_set1_object(X509_ATTRIBUTE *attr, const ASN1_OBJECT *obj);
- int X509_ATTRIBUTE_set1_data(X509_ATTRIBUTE *attr, int attrtype,
-                              const void *data, int len);
- void *X509_ATTRIBUTE_get0_data(X509_ATTRIBUTE *attr, int idx, int atrtype,
-                                void *data);
- int X509_ATTRIBUTE_count(const X509_ATTRIBUTE *attr);
- ASN1_OBJECT *X509_ATTRIBUTE_get0_object(X509_ATTRIBUTE *attr);
- ASN1_TYPE *X509_ATTRIBUTE_get0_type(X509_ATTRIBUTE *attr, int idx);</code></pre>
+int X509at_get_attr_count(const STACK_OF(X509_ATTRIBUTE) *x);
+int X509at_get_attr_by_NID(const STACK_OF(X509_ATTRIBUTE) *x, int nid,
+                           int lastpos);
+int X509at_get_attr_by_OBJ(const STACK_OF(X509_ATTRIBUTE) *sk,
+                           const ASN1_OBJECT *obj, int lastpos);
+X509_ATTRIBUTE *X509at_get_attr(const STACK_OF(X509_ATTRIBUTE) *x, int loc);
+X509_ATTRIBUTE *X509at_delete_attr(STACK_OF(X509_ATTRIBUTE) *x, int loc);
+STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr(STACK_OF(X509_ATTRIBUTE) **x,
+                                           X509_ATTRIBUTE *attr);
+STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr_by_OBJ(STACK_OF(X509_ATTRIBUTE)
+                                                  **x, const ASN1_OBJECT *obj,
+                                                  int type,
+                                                  const unsigned char *bytes,
+                                                  int len);
+STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr_by_NID(STACK_OF(X509_ATTRIBUTE)
+                                                  **x, int nid, int type,
+                                                  const unsigned char *bytes,
+                                                  int len);
+STACK_OF(X509_ATTRIBUTE) *X509at_add1_attr_by_txt(STACK_OF(X509_ATTRIBUTE)
+                                                  **x, const char *attrname,
+                                                  int type,
+                                                  const unsigned char *bytes,
+                                                  int len);
+void *X509at_get0_data_by_OBJ(const STACK_OF(X509_ATTRIBUTE) *x,
+                              const ASN1_OBJECT *obj, int lastpos, int type);
+X509_ATTRIBUTE *X509_ATTRIBUTE_create(int nid, int atrtype, void *value);
+X509_ATTRIBUTE *X509_ATTRIBUTE_create_by_NID(X509_ATTRIBUTE **attr, int nid,
+                                             int atrtype, const void *data,
+                                             int len);
+X509_ATTRIBUTE *X509_ATTRIBUTE_create_by_OBJ(X509_ATTRIBUTE **attr,
+                                             const ASN1_OBJECT *obj,
+                                             int atrtype, const void *data,
+                                             int len);
+X509_ATTRIBUTE *X509_ATTRIBUTE_create_by_txt(X509_ATTRIBUTE **attr,
+                                             const char *atrname, int type,
+                                             const unsigned char *bytes,
+                                             int len);
+int X509_ATTRIBUTE_set1_object(X509_ATTRIBUTE *attr, const ASN1_OBJECT *obj);
+int X509_ATTRIBUTE_set1_data(X509_ATTRIBUTE *attr, int attrtype,
+                             const void *data, int len);
+void *X509_ATTRIBUTE_get0_data(X509_ATTRIBUTE *attr, int idx, int atrtype,
+                               void *data);
+int X509_ATTRIBUTE_count(const X509_ATTRIBUTE *attr);
+ASN1_OBJECT *X509_ATTRIBUTE_get0_object(X509_ATTRIBUTE *attr);
+ASN1_TYPE *X509_ATTRIBUTE_get0_type(X509_ATTRIBUTE *attr, int idx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -82,23 +82,23 @@
 
 <p>The <b>X509_ATTRIBUTE</b> object is used to represent the ASN.1 Attribute as defined in RFC 5280, i.e.</p>
 
-<pre><code> Attribute ::= SEQUENCE {
-   type             AttributeType,
-   values    SET OF AttributeValue }
+<pre><code>Attribute ::= SEQUENCE {
+  type             AttributeType,
+  values    SET OF AttributeValue }
 
- AttributeType ::= OBJECT IDENTIFIER
- AttributeValue ::= ANY -- DEFINED BY AttributeType</code></pre>
+AttributeType ::= OBJECT IDENTIFIER
+AttributeValue ::= ANY -- DEFINED BY AttributeType</code></pre>
 
 <p>For example CMS defines the signing-time attribute as:</p>
 
-<pre><code>  id-signingTime OBJECT IDENTIFIER ::= { iso(1) member-body(2)
-      us(840) rsadsi(113549) pkcs(1) pkcs9(9) 5 }
+<pre><code>id-signingTime OBJECT IDENTIFIER ::= { iso(1) member-body(2)
+    us(840) rsadsi(113549) pkcs(1) pkcs9(9) 5 }
 
-  SigningTime ::= Time
+SigningTime ::= Time
 
-  Time ::= CHOICE {
-    utcTime UTCTime,
-    generalizedTime GeneralizedTime }</code></pre>
+Time ::= CHOICE {
+  utcTime UTCTime,
+  generalizedTime GeneralizedTime }</code></pre>
 
 <p>In OpenSSL <b>AttributeType</b> maps to an <b>ASN1_OBJECT</b> object and <b>AttributeValue</b> maps to a list of <b>ASN1_TYPE</b> objects.</p>
 

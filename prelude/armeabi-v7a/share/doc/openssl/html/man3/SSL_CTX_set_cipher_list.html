@@ -4,7 +4,7 @@
 <head>
 <title>SSL_CTX_set_cipher_list</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,16 +28,16 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);
- int SSL_set_cipher_list(SSL *ssl, const char *str);
+int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str);
+int SSL_set_cipher_list(SSL *ssl, const char *str);
 
- int SSL_CTX_set_ciphersuites(SSL_CTX *ctx, const char *str);
- int SSL_set_ciphersuites(SSL *s, const char *str);
+int SSL_CTX_set_ciphersuites(SSL_CTX *ctx, const char *str);
+int SSL_set_ciphersuites(SSL *s, const char *str);
 
- const char *OSSL_default_cipher_list(void);
- const char *OSSL_default_ciphersuites(void);</code></pre>
+const char *OSSL_default_cipher_list(void);
+const char *OSSL_default_ciphersuites(void);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

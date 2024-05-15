@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_encapsulate</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,14 +29,14 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PKEY_encapsulate_init(EVP_PKEY_CTX *ctx, const OSSL_PARAM params[]);
- int EVP_PKEY_auth_encapsulate_init(EVP_PKEY_CTX *ctx, EVP_PKEY *authpriv,
-                                   const OSSL_PARAM params[]);
- int EVP_PKEY_encapsulate(EVP_PKEY_CTX *ctx,
-                          unsigned char *wrappedkey, size_t *wrappedkeylen,
-                          unsigned char *genkey, size_t *genkeylen);</code></pre>
+int EVP_PKEY_encapsulate_init(EVP_PKEY_CTX *ctx, const OSSL_PARAM params[]);
+int EVP_PKEY_auth_encapsulate_init(EVP_PKEY_CTX *ctx, EVP_PKEY *authpriv,
+                                  const OSSL_PARAM params[]);
+int EVP_PKEY_encapsulate(EVP_PKEY_CTX *ctx,
+                         unsigned char *wrappedkey, size_t *wrappedkeylen,
+                         unsigned char *genkey, size_t *genkeylen);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -58,41 +58,41 @@
 
 <p>Encapsulate an RSASVE key (for RSA keys).</p>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- /*
-  * NB: assumes rsa_pub_key is an public key of another party.
-  */
+/*
+ * NB: assumes rsa_pub_key is an public key of another party.
+ */
 
- EVP_PKEY_CTX *ctx = NULL;
- size_t secretlen = 0, outlen = 0;
- unsigned char *out = NULL, *secret = NULL;
+EVP_PKEY_CTX *ctx = NULL;
+size_t secretlen = 0, outlen = 0;
+unsigned char *out = NULL, *secret = NULL;
 
- ctx = EVP_PKEY_CTX_new_from_pkey(libctx, rsa_pub_key, NULL);
- if (ctx = NULL)
-     /* Error */
- if (EVP_PKEY_encapsulate_init(ctx, NULL) &lt;= 0)
-     /* Error */
+ctx = EVP_PKEY_CTX_new_from_pkey(libctx, rsa_pub_key, NULL);
+if (ctx = NULL)
+    /* Error */
+if (EVP_PKEY_encapsulate_init(ctx, NULL) &lt;= 0)
+    /* Error */
 
- /* Set the mode - only &#39;RSASVE&#39; is currently supported */
-  if (EVP_PKEY_CTX_set_kem_op(ctx, &quot;RSASVE&quot;) &lt;= 0)
-     /* Error */
- /* Determine buffer length */
- if (EVP_PKEY_encapsulate(ctx, NULL, &amp;outlen, NULL, &amp;secretlen) &lt;= 0)
-     /* Error */
+/* Set the mode - only &#39;RSASVE&#39; is currently supported */
+ if (EVP_PKEY_CTX_set_kem_op(ctx, &quot;RSASVE&quot;) &lt;= 0)
+    /* Error */
+/* Determine buffer length */
+if (EVP_PKEY_encapsulate(ctx, NULL, &amp;outlen, NULL, &amp;secretlen) &lt;= 0)
+    /* Error */
 
- out = OPENSSL_malloc(outlen);
- secret = OPENSSL_malloc(secretlen);
- if (out == NULL || secret == NULL)
-     /* malloc failure */
+out = OPENSSL_malloc(outlen);
+secret = OPENSSL_malloc(secretlen);
+if (out == NULL || secret == NULL)
+    /* malloc failure */
 
- /*
-  * The generated &#39;secret&#39; can be used as key material.
-  * The encapsulated &#39;out&#39; can be sent to another party who can
-  * decapsulate it using their private key to retrieve the &#39;secret&#39;.
-  */
- if (EVP_PKEY_encapsulate(ctx, out, &amp;outlen, secret, &amp;secretlen) &lt;= 0)
-     /* Error */</code></pre>
+/*
+ * The generated &#39;secret&#39; can be used as key material.
+ * The encapsulated &#39;out&#39; can be sent to another party who can
+ * decapsulate it using their private key to retrieve the &#39;secret&#39;.
+ */
+if (EVP_PKEY_encapsulate(ctx, out, &amp;outlen, secret, &amp;secretlen) &lt;= 0)
+    /* Error */</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

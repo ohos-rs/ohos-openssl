@@ -4,7 +4,7 @@
 <head>
 <title>BIO_sendmmsg</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -27,26 +27,26 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- typedef struct bio_msg_st {
-     void *data;
-     size_t data_len;
-     BIO_ADDR *peer, *local;
-     uint64_t flags;
- } BIO_MSG;
+typedef struct bio_msg_st {
+    void *data;
+    size_t data_len;
+    BIO_ADDR *peer, *local;
+    uint64_t flags;
+} BIO_MSG;
 
- int BIO_sendmmsg(BIO *b, BIO_MSG *msg,
-                  size_t stride, size_t num_msg, uint64_t flags,
-                  size_t *msgs_processed);
- int BIO_recvmmsg(BIO *b, BIO_MSG *msg,
-                  size_t stride, size_t num_msg, uint64_t flags,
-                  size_t *msgs_processed);
+int BIO_sendmmsg(BIO *b, BIO_MSG *msg,
+                 size_t stride, size_t num_msg, uint64_t flags,
+                 size_t *msgs_processed);
+int BIO_recvmmsg(BIO *b, BIO_MSG *msg,
+                 size_t stride, size_t num_msg, uint64_t flags,
+                 size_t *msgs_processed);
 
- int BIO_dgram_set_local_addr_enable(BIO *b, int enable);
- int BIO_dgram_get_local_addr_enable(BIO *b, int *enable);
- int BIO_dgram_get_local_addr_cap(BIO *b);
- int BIO_err_is_non_fatal(unsigned int errcode);</code></pre>
+int BIO_dgram_set_local_addr_enable(BIO *b, int enable);
+int BIO_dgram_get_local_addr_enable(BIO *b, int *enable);
+int BIO_dgram_get_local_addr_cap(BIO *b);
+int BIO_err_is_non_fatal(unsigned int errcode);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

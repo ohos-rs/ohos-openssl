@@ -4,7 +4,7 @@
 <head>
 <title>EVP_PKEY_print_private</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,20 +28,20 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/evp.h&gt;
+<pre><code>#include &lt;openssl/evp.h&gt;
 
- int EVP_PKEY_print_public(BIO *out, const EVP_PKEY *pkey,
+int EVP_PKEY_print_public(BIO *out, const EVP_PKEY *pkey,
+                          int indent, ASN1_PCTX *pctx);
+int EVP_PKEY_print_public_fp(FILE *fp, const EVP_PKEY *pkey,
+                             int indent, ASN1_PCTX *pctx);
+int EVP_PKEY_print_private(BIO *out, const EVP_PKEY *pkey,
                            int indent, ASN1_PCTX *pctx);
- int EVP_PKEY_print_public_fp(FILE *fp, const EVP_PKEY *pkey,
+int EVP_PKEY_print_private_fp(FILE *fp, const EVP_PKEY *pkey,
                               int indent, ASN1_PCTX *pctx);
- int EVP_PKEY_print_private(BIO *out, const EVP_PKEY *pkey,
-                            int indent, ASN1_PCTX *pctx);
- int EVP_PKEY_print_private_fp(FILE *fp, const EVP_PKEY *pkey,
-                               int indent, ASN1_PCTX *pctx);
- int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
-                           int indent, ASN1_PCTX *pctx);
- int EVP_PKEY_print_params_fp(FILE *fp, const EVP_PKEY *pkey,
-                              int indent, ASN1_PCTX *pctx);</code></pre>
+int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
+                          int indent, ASN1_PCTX *pctx);
+int EVP_PKEY_print_params_fp(FILE *fp, const EVP_PKEY *pkey,
+                             int indent, ASN1_PCTX *pctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

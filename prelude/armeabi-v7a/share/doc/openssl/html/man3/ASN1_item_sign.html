@@ -4,7 +4,7 @@
 <head>
 <title>ASN1_item_sign</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,34 +28,34 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/x509.h&gt;
+<pre><code>#include &lt;openssl/x509.h&gt;
 
- int ASN1_item_sign_ex(const ASN1_ITEM *it, X509_ALGOR *algor1,
+int ASN1_item_sign_ex(const ASN1_ITEM *it, X509_ALGOR *algor1,
+                      X509_ALGOR *algor2, ASN1_BIT_STRING *signature,
+                      const void *data, const ASN1_OCTET_STRING *id,
+                      EVP_PKEY *pkey, const EVP_MD *md, OSSL_LIB_CTX *libctx,
+                      const char *propq);
+
+int ASN1_item_sign(const ASN1_ITEM *it, X509_ALGOR *algor1, X509_ALGOR *algor2,
+                   ASN1_BIT_STRING *signature, const void *data,
+                   EVP_PKEY *pkey, const EVP_MD *md);
+
+int ASN1_item_sign_ctx(const ASN1_ITEM *it, X509_ALGOR *algor1,
                        X509_ALGOR *algor2, ASN1_BIT_STRING *signature,
-                       const void *data, const ASN1_OCTET_STRING *id,
-                       EVP_PKEY *pkey, const EVP_MD *md, OSSL_LIB_CTX *libctx,
-                       const char *propq);
+                       const void *data, EVP_MD_CTX *ctx);
 
- int ASN1_item_sign(const ASN1_ITEM *it, X509_ALGOR *algor1, X509_ALGOR *algor2,
-                    ASN1_BIT_STRING *signature, const void *data,
-                    EVP_PKEY *pkey, const EVP_MD *md);
+int ASN1_item_verify_ex(const ASN1_ITEM *it, const X509_ALGOR *alg,
+                        const ASN1_BIT_STRING *signature, const void *data,
+                        const ASN1_OCTET_STRING *id, EVP_PKEY *pkey,
+                        OSSL_LIB_CTX *libctx, const char *propq);
 
- int ASN1_item_sign_ctx(const ASN1_ITEM *it, X509_ALGOR *algor1,
-                        X509_ALGOR *algor2, ASN1_BIT_STRING *signature,
-                        const void *data, EVP_MD_CTX *ctx);
+int ASN1_item_verify(const ASN1_ITEM *it, const X509_ALGOR *alg,
+                     const ASN1_BIT_STRING *signature, const void *data,
+                     EVP_PKEY *pkey);
 
- int ASN1_item_verify_ex(const ASN1_ITEM *it, const X509_ALGOR *alg,
+int ASN1_item_verify_ctx(const ASN1_ITEM *it, const X509_ALGOR *alg,
                          const ASN1_BIT_STRING *signature, const void *data,
-                         const ASN1_OCTET_STRING *id, EVP_PKEY *pkey,
-                         OSSL_LIB_CTX *libctx, const char *propq);
-
- int ASN1_item_verify(const ASN1_ITEM *it, const X509_ALGOR *alg,
-                      const ASN1_BIT_STRING *signature, const void *data,
-                      EVP_PKEY *pkey);
-
- int ASN1_item_verify_ctx(const ASN1_ITEM *it, const X509_ALGOR *alg,
-                          const ASN1_BIT_STRING *signature, const void *data,
-                          EVP_MD_CTX *ctx);</code></pre>
+                         EVP_MD_CTX *ctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

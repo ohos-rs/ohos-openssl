@@ -4,7 +4,7 @@
 <head>
 <title>RAND_set_rand_method</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,15 +28,15 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/rand.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/rand.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> RAND_METHOD *RAND_OpenSSL(void);
+<pre><code>RAND_METHOD *RAND_OpenSSL(void);
 
- int RAND_set_rand_method(const RAND_METHOD *meth);
+int RAND_set_rand_method(const RAND_METHOD *meth);
 
- const RAND_METHOD *RAND_get_rand_method(void);</code></pre>
+const RAND_METHOD *RAND_get_rand_method(void);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -54,14 +54,14 @@
 
 <h1 id="THE-RAND_METHOD-STRUCTURE">THE RAND_METHOD STRUCTURE</h1>
 
-<pre><code> typedef struct rand_meth_st {
-     int (*seed)(const void *buf, int num);
-     int (*bytes)(unsigned char *buf, int num);
-     void (*cleanup)(void);
-     int (*add)(const void *buf, int num, double entropy);
-     int (*pseudorand)(unsigned char *buf, int num);
-     int (*status)(void);
- } RAND_METHOD;</code></pre>
+<pre><code>typedef struct rand_meth_st {
+    int (*seed)(const void *buf, int num);
+    int (*bytes)(unsigned char *buf, int num);
+    void (*cleanup)(void);
+    int (*add)(const void *buf, int num, double entropy);
+    int (*pseudorand)(unsigned char *buf, int num);
+    int (*status)(void);
+} RAND_METHOD;</code></pre>
 
 <p>The fields point to functions that are used by, in order, RAND_seed(), RAND_bytes(), internal RAND cleanup, RAND_add(), RAND_pseudo_rand() and RAND_status(). Each pointer may be NULL if the function is not implemented.</p>
 

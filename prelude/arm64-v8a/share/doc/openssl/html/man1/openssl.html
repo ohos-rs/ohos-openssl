@@ -4,7 +4,7 @@
 <head>
 <title>openssl</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -61,14 +61,14 @@
 
 <p>The <b>openssl</b> program is a command line program for using the various cryptography functions of OpenSSL&#39;s <b>crypto</b> library from the shell. It can be used for</p>
 
-<pre><code> o  Creation and management of private keys, public keys and parameters
- o  Public key cryptographic operations
- o  Creation of X.509 certificates, CSRs and CRLs
- o  Calculation of Message Digests and Message Authentication Codes
- o  Encryption and Decryption with Ciphers
- o  SSL/TLS Client and Server Tests
- o  Handling of S/MIME signed or encrypted mail
- o  Timestamp requests, generation and verification</code></pre>
+<pre><code>o  Creation and management of private keys, public keys and parameters
+o  Public key cryptographic operations
+o  Creation of X.509 certificates, CSRs and CRLs
+o  Calculation of Message Digests and Message Authentication Codes
+o  Encryption and Decryption with Ciphers
+o  SSL/TLS Client and Server Tests
+o  Handling of S/MIME signed or encrypted mail
+o  Timestamp requests, generation and verification</code></pre>
 
 <h1 id="COMMAND-SUMMARY">COMMAND SUMMARY</h1>
 
@@ -727,7 +727,7 @@
 
 <p>This terminates the list of options. It is mostly useful if any filename parameters start with a minus sign:</p>
 
-<pre><code> openssl verify [flags...] -- -cert1.pem...</code></pre>
+<pre><code>openssl verify [flags...] -- -cert1.pem...</code></pre>
 
 </dd>
 </dl>
@@ -810,15 +810,15 @@
 
 <p>Options specifying keys, like <b>-key</b> and similar, can use the generic OpenSSL engine key loading URI scheme <code>org.openssl.engine:</code> to retrieve private keys and public keys. The URI syntax is as follows, in simplified form:</p>
 
-<pre><code>    org.openssl.engine:{engineid}:{keyid}</code></pre>
+<pre><code>org.openssl.engine:{engineid}:{keyid}</code></pre>
 
 <p>Where <code>{engineid}</code> is the identity/name of the engine, and <code>{keyid}</code> is a key identifier that&#39;s acceptable by that engine. For example, when using an engine that interfaces against a PKCS#11 implementation, the generic key URI would be something like this (this happens to be an example for the PKCS#11 engine that&#39;s part of OpenSC):</p>
 
-<pre><code>    -key org.openssl.engine:pkcs11:label_some-private-key</code></pre>
+<pre><code>-key org.openssl.engine:pkcs11:label_some-private-key</code></pre>
 
 <p>As a third possibility, for engines and providers that have implemented their own <a href="../man3/OSSL_STORE_LOADER.html">OSSL_STORE_LOADER(3)</a>, <code>org.openssl.engine:</code> should not be necessary. For a PKCS#11 implementation that has implemented such a loader, the PKCS#11 URI as defined in RFC 7512 should be possible to use directly:</p>
 
-<pre><code>    -key pkcs11:object=some-private-key;pin-value=1234</code></pre>
+<pre><code>-key pkcs11:object=some-private-key;pin-value=1234</code></pre>
 
 <h2 id="Provider-Options">Provider Options</h2>
 

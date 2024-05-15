@@ -4,7 +4,7 @@
 <head>
 <title>SMIME_read_PKCS7</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,10 +29,10 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/pkcs7.h&gt;
+<pre><code>#include &lt;openssl/pkcs7.h&gt;
 
- PKCS7 *SMIME_read_PKCS7_ex(BIO *bio, BIO **bcont, PKCS7 **p7);
- PKCS7 *SMIME_read_PKCS7(BIO *in, BIO **bcont);</code></pre>
+PKCS7 *SMIME_read_PKCS7_ex(BIO *bio, BIO **bcont, PKCS7 **p7);
+PKCS7 *SMIME_read_PKCS7(BIO *in, BIO **bcont);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -54,10 +54,10 @@
 
 <p>To support future functionality if <b>bcont</b> is not <b>NULL</b> <b>*bcont</b> should be initialized to <b>NULL</b>. For example:</p>
 
-<pre><code> BIO *cont = NULL;
- PKCS7 *p7;
+<pre><code>BIO *cont = NULL;
+PKCS7 *p7;
 
- p7 = SMIME_read_PKCS7(in, &amp;cont);</code></pre>
+p7 = SMIME_read_PKCS7(in, &amp;cont);</code></pre>
 
 <h1 id="BUGS">BUGS</h1>
 

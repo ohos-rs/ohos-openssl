@@ -4,7 +4,7 @@
 <head>
 <title>BIO_s_dgram_pair</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,19 +29,19 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/bio.h&gt;
+<pre><code>#include &lt;openssl/bio.h&gt;
 
- const BIO_METHOD *BIO_s_dgram_pair(void);
+const BIO_METHOD *BIO_s_dgram_pair(void);
 
- int BIO_new_bio_dgram_pair(BIO **bio1, size_t writebuf1,
-                            BIO **bio2, size_t writebuf2);
- int BIO_dgram_set_no_trunc(BIO *bio, int enable);
- int BIO_dgram_get_no_trunc(BIO *bio);
- uint32_t BIO_dgram_get_effective_caps(BIO *bio);
- uint32_t BIO_dgram_get_caps(BIO *bio);
- int BIO_dgram_set_caps(BIO *bio, uint32_t caps);
- int BIO_dgram_set_mtu(BIO *bio, unsigned int mtu);
- unsigned int BIO_dgram_get_mtu(BIO *bio);</code></pre>
+int BIO_new_bio_dgram_pair(BIO **bio1, size_t writebuf1,
+                           BIO **bio2, size_t writebuf2);
+int BIO_dgram_set_no_trunc(BIO *bio, int enable);
+int BIO_dgram_get_no_trunc(BIO *bio);
+uint32_t BIO_dgram_get_effective_caps(BIO *bio);
+uint32_t BIO_dgram_get_caps(BIO *bio);
+int BIO_dgram_set_caps(BIO *bio, uint32_t caps);
+int BIO_dgram_set_mtu(BIO *bio, unsigned int mtu);
+unsigned int BIO_dgram_get_mtu(BIO *bio);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

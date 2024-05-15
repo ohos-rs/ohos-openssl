@@ -4,7 +4,7 @@
 <head>
 <title>EVP_KDF-SCRYPT</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -91,8 +91,8 @@
 
 <p>A context for scrypt can be obtained by calling:</p>
 
-<pre><code> EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;SCRYPT&quot;, NULL);
- EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
+<pre><code>EVP_KDF *kdf = EVP_KDF_fetch(NULL, &quot;SCRYPT&quot;, NULL);
+EVP_KDF_CTX *kctx = EVP_KDF_CTX_new(kdf);</code></pre>
 
 <p>The output length of an scrypt key derivation is specified via the &quot;keylen&quot; parameter to the <a href="../man3/EVP_KDF_derive.html">EVP_KDF_derive(3)</a> function.</p>
 
@@ -100,43 +100,43 @@
 
 <p>This example derives a 64-byte long test vector using scrypt with the password &quot;password&quot;, salt &quot;NaCl&quot; and N = 1024, r = 8, p = 16.</p>
 
-<pre><code> EVP_KDF *kdf;
- EVP_KDF_CTX *kctx;
- unsigned char out[64];
- OSSL_PARAM params[6], *p = params;
+<pre><code>EVP_KDF *kdf;
+EVP_KDF_CTX *kctx;
+unsigned char out[64];
+OSSL_PARAM params[6], *p = params;
 
- kdf = EVP_KDF_fetch(NULL, &quot;SCRYPT&quot;, NULL);
- kctx = EVP_KDF_CTX_new(kdf);
- EVP_KDF_free(kdf);
+kdf = EVP_KDF_fetch(NULL, &quot;SCRYPT&quot;, NULL);
+kctx = EVP_KDF_CTX_new(kdf);
+EVP_KDF_free(kdf);
 
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_PASSWORD,
-                                          &quot;password&quot;, (size_t)8);
- *p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
-                                          &quot;NaCl&quot;, (size_t)4);
- *p++ = OSSL_PARAM_construct_uint64(OSSL_KDF_PARAM_SCRYPT_N, (uint64_t)1024);
- *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_SCRYPT_R, (uint32_t)8);
- *p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_SCRYPT_P, (uint32_t)16);
- *p = OSSL_PARAM_construct_end();
- if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0) {
-     error(&quot;EVP_KDF_derive&quot;);
- }
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_PASSWORD,
+                                         &quot;password&quot;, (size_t)8);
+*p++ = OSSL_PARAM_construct_octet_string(OSSL_KDF_PARAM_SALT,
+                                         &quot;NaCl&quot;, (size_t)4);
+*p++ = OSSL_PARAM_construct_uint64(OSSL_KDF_PARAM_SCRYPT_N, (uint64_t)1024);
+*p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_SCRYPT_R, (uint32_t)8);
+*p++ = OSSL_PARAM_construct_uint32(OSSL_KDF_PARAM_SCRYPT_P, (uint32_t)16);
+*p = OSSL_PARAM_construct_end();
+if (EVP_KDF_derive(kctx, out, sizeof(out), params) &lt;= 0) {
+    error(&quot;EVP_KDF_derive&quot;);
+}
 
- {
-     const unsigned char expected[sizeof(out)] = {
-         0xfd, 0xba, 0xbe, 0x1c, 0x9d, 0x34, 0x72, 0x00,
-         0x78, 0x56, 0xe7, 0x19, 0x0d, 0x01, 0xe9, 0xfe,
-         0x7c, 0x6a, 0xd7, 0xcb, 0xc8, 0x23, 0x78, 0x30,
-         0xe7, 0x73, 0x76, 0x63, 0x4b, 0x37, 0x31, 0x62,
-         0x2e, 0xaf, 0x30, 0xd9, 0x2e, 0x22, 0xa3, 0x88,
-         0x6f, 0xf1, 0x09, 0x27, 0x9d, 0x98, 0x30, 0xda,
-         0xc7, 0x27, 0xaf, 0xb9, 0x4a, 0x83, 0xee, 0x6d,
-         0x83, 0x60, 0xcb, 0xdf, 0xa2, 0xcc, 0x06, 0x40
-     };
+{
+    const unsigned char expected[sizeof(out)] = {
+        0xfd, 0xba, 0xbe, 0x1c, 0x9d, 0x34, 0x72, 0x00,
+        0x78, 0x56, 0xe7, 0x19, 0x0d, 0x01, 0xe9, 0xfe,
+        0x7c, 0x6a, 0xd7, 0xcb, 0xc8, 0x23, 0x78, 0x30,
+        0xe7, 0x73, 0x76, 0x63, 0x4b, 0x37, 0x31, 0x62,
+        0x2e, 0xaf, 0x30, 0xd9, 0x2e, 0x22, 0xa3, 0x88,
+        0x6f, 0xf1, 0x09, 0x27, 0x9d, 0x98, 0x30, 0xda,
+        0xc7, 0x27, 0xaf, 0xb9, 0x4a, 0x83, 0xee, 0x6d,
+        0x83, 0x60, 0xcb, 0xdf, 0xa2, 0xcc, 0x06, 0x40
+    };
 
-     assert(!memcmp(out, expected, sizeof(out)));
- }
+    assert(!memcmp(out, expected, sizeof(out)));
+}
 
- EVP_KDF_CTX_free(kctx);</code></pre>
+EVP_KDF_CTX_free(kctx);</code></pre>
 
 <h1 id="CONFORMING-TO">CONFORMING TO</h1>
 

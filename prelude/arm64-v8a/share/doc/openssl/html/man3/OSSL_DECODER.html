@@ -4,7 +4,7 @@
 <head>
 <title>OSSL_DECODER</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,27 +29,27 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/decoder.h&gt;
+<pre><code>#include &lt;openssl/decoder.h&gt;
 
- typedef struct ossl_decoder_st OSSL_DECODER;
+typedef struct ossl_decoder_st OSSL_DECODER;
 
- OSSL_DECODER *OSSL_DECODER_fetch(OSSL_LIB_CTX *ctx, const char *name,
-                                  const char *properties);
- int OSSL_DECODER_up_ref(OSSL_DECODER *decoder);
- void OSSL_DECODER_free(OSSL_DECODER *decoder);
- const OSSL_PROVIDER *OSSL_DECODER_get0_provider(const OSSL_DECODER *decoder);
- const char *OSSL_DECODER_get0_properties(const OSSL_DECODER *decoder);
- int OSSL_DECODER_is_a(const OSSL_DECODER *decoder, const char *name);
- const char *OSSL_DECODER_get0_name(const OSSL_DECODER *decoder);
- const char *OSSL_DECODER_get0_description(const OSSL_DECODER *decoder);
- void OSSL_DECODER_do_all_provided(OSSL_LIB_CTX *libctx,
-                                   void (*fn)(OSSL_DECODER *decoder, void *arg),
-                                   void *arg);
- int OSSL_DECODER_names_do_all(const OSSL_DECODER *decoder,
-                               void (*fn)(const char *name, void *data),
-                               void *data);
- const OSSL_PARAM *OSSL_DECODER_gettable_params(OSSL_DECODER *decoder);
- int OSSL_DECODER_get_params(OSSL_DECODER_CTX *ctx, const OSSL_PARAM params[]);</code></pre>
+OSSL_DECODER *OSSL_DECODER_fetch(OSSL_LIB_CTX *ctx, const char *name,
+                                 const char *properties);
+int OSSL_DECODER_up_ref(OSSL_DECODER *decoder);
+void OSSL_DECODER_free(OSSL_DECODER *decoder);
+const OSSL_PROVIDER *OSSL_DECODER_get0_provider(const OSSL_DECODER *decoder);
+const char *OSSL_DECODER_get0_properties(const OSSL_DECODER *decoder);
+int OSSL_DECODER_is_a(const OSSL_DECODER *decoder, const char *name);
+const char *OSSL_DECODER_get0_name(const OSSL_DECODER *decoder);
+const char *OSSL_DECODER_get0_description(const OSSL_DECODER *decoder);
+void OSSL_DECODER_do_all_provided(OSSL_LIB_CTX *libctx,
+                                  void (*fn)(OSSL_DECODER *decoder, void *arg),
+                                  void *arg);
+int OSSL_DECODER_names_do_all(const OSSL_DECODER *decoder,
+                              void (*fn)(const char *name, void *data),
+                              void *data);
+const OSSL_PARAM *OSSL_DECODER_gettable_params(OSSL_DECODER *decoder);
+int OSSL_DECODER_get_params(OSSL_DECODER_CTX *ctx, const OSSL_PARAM params[]);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -107,42 +107,42 @@
 
 <p>To list all decoders in a provider to a bio_out:</p>
 
-<pre><code> static void collect_decoders(OSSL_DECODER *decoder, void *stack)
- {
-     STACK_OF(OSSL_DECODER) *decoder_stack = stack;
+<pre><code>static void collect_decoders(OSSL_DECODER *decoder, void *stack)
+{
+    STACK_OF(OSSL_DECODER) *decoder_stack = stack;
 
-     sk_OSSL_DECODER_push(decoder_stack, decoder);
-     OSSL_DECODER_up_ref(decoder);
- }
+    sk_OSSL_DECODER_push(decoder_stack, decoder);
+    OSSL_DECODER_up_ref(decoder);
+}
 
- void print_name(const char *name, void *vdata)
- {
-     BIO *bio = vdata;
+void print_name(const char *name, void *vdata)
+{
+    BIO *bio = vdata;
 
-     BIO_printf(bio, &quot;%s &quot;, name);
- }
+    BIO_printf(bio, &quot;%s &quot;, name);
+}
 
 
- STACK_OF(OSSL_DECODER) *decoders;
- int i;
+STACK_OF(OSSL_DECODER) *decoders;
+int i;
 
- decoders = sk_OSSL_DECODER_new_null();
+decoders = sk_OSSL_DECODER_new_null();
 
- BIO_printf(bio_out, &quot;DECODERs provided by %s:\n&quot;, provider);
- OSSL_DECODER_do_all_provided(NULL, collect_decoders,
-                              decoders);
+BIO_printf(bio_out, &quot;DECODERs provided by %s:\n&quot;, provider);
+OSSL_DECODER_do_all_provided(NULL, collect_decoders,
+                             decoders);
 
- for (i = 0; i &lt; sk_OSSL_DECODER_num(decoders); i++) {
-     OSSL_DECODER *decoder = sk_OSSL_DECODER_value(decoders, i);
+for (i = 0; i &lt; sk_OSSL_DECODER_num(decoders); i++) {
+    OSSL_DECODER *decoder = sk_OSSL_DECODER_value(decoders, i);
 
-     if (strcmp(OSSL_PROVIDER_get0_name(OSSL_DECODER_get0_provider(decoder)),
-                provider) != 0)
-         continue;
+    if (strcmp(OSSL_PROVIDER_get0_name(OSSL_DECODER_get0_provider(decoder)),
+               provider) != 0)
+        continue;
 
-     if (OSSL_DECODER_names_do_all(decoder, print_name, bio_out))
-            BIO_printf(bio_out, &quot;\n&quot;);
- }
- sk_OSSL_DECODER_pop_free(decoders, OSSL_DECODER_free);</code></pre>
+    if (OSSL_DECODER_names_do_all(decoder, print_name, bio_out))
+           BIO_printf(bio_out, &quot;\n&quot;);
+}
+sk_OSSL_DECODER_pop_free(decoders, OSSL_DECODER_free);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 

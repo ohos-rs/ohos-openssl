@@ -4,7 +4,7 @@
 <head>
 <title>RIPEMD160_Init</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -29,16 +29,16 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ripemd.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/ripemd.h&gt;</code></pre>
 
 <p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> unsigned char *RIPEMD160(const unsigned char *d, unsigned long n,
-                          unsigned char *md);
+<pre><code>unsigned char *RIPEMD160(const unsigned char *d, unsigned long n,
+                         unsigned char *md);
 
- int RIPEMD160_Init(RIPEMD160_CTX *c);
- int RIPEMD160_Update(RIPEMD160_CTX *c, const void *data, unsigned long len);
- int RIPEMD160_Final(unsigned char *md, RIPEMD160_CTX *c);</code></pre>
+int RIPEMD160_Init(RIPEMD160_CTX *c);
+int RIPEMD160_Update(RIPEMD160_CTX *c, const void *data, unsigned long len);
+int RIPEMD160_Final(unsigned char *md, RIPEMD160_CTX *c);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 

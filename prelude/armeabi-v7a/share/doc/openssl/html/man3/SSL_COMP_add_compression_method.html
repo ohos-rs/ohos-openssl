@@ -4,7 +4,7 @@
 <head>
 <title>SSL_COMP_add_compression_method</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:root@jq78l.p1s.plx.sd.apple.com" />
+<link rev="made" href="mailto:root@mxccv.p1s.plx.sd.apple.com" />
 </head>
 
 <body>
@@ -28,16 +28,16 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> #include &lt;openssl/ssl.h&gt;
+<pre><code>#include &lt;openssl/ssl.h&gt;
 
- int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);
- STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
- const char *SSL_COMP_get0_name(const SSL_COMP *comp);
- int SSL_COMP_get_id(const SSL_COMP *comp);</code></pre>
+int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);
+STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
+const char *SSL_COMP_get0_name(const SSL_COMP *comp);
+int SSL_COMP_get_id(const SSL_COMP *comp);</code></pre>
 
 <p>The following function has been deprecated since OpenSSL 1.1.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
 
-<pre><code> void SSL_COMP_free_compression_methods(void);</code></pre>
+<pre><code>void SSL_COMP_free_compression_methods(void);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
