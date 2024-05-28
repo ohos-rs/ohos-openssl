@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CRYPTO_GET_EX_NEW_INDEX 3ossl"
-.TH CRYPTO_GET_EX_NEW_INDEX 3ossl "2024-05-15" "3.3.0-dev" "OpenSSL"
+.TH CRYPTO_GET_EX_NEW_INDEX 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
