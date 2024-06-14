@@ -18,21 +18,18 @@
   <li><a href="#RETURN-VALUES">RETURN VALUES</a></li>
   <li><a href="#WARNINGS">WARNINGS</a></li>
   <li><a href="#SEE-ALSO">SEE ALSO</a></li>
-  <li><a href="#HISTORY">HISTORY</a></li>
   <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
 </ul>
 
 <h1 id="NAME">NAME</h1>
 
-<p>RSA_padding_add_PKCS1_type_1, RSA_padding_check_PKCS1_type_1, RSA_padding_add_PKCS1_type_2, RSA_padding_check_PKCS1_type_2, RSA_padding_add_PKCS1_OAEP, RSA_padding_check_PKCS1_OAEP, RSA_padding_add_PKCS1_OAEP_mgf1, RSA_padding_check_PKCS1_OAEP_mgf1, RSA_padding_add_none, RSA_padding_check_none - asymmetric encryption padding</p>
+<p>RSA_padding_add_PKCS1_type_1, RSA_padding_check_PKCS1_type_1, RSA_padding_add_PKCS1_type_2, RSA_padding_check_PKCS1_type_2, RSA_padding_add_PKCS1_OAEP, RSA_padding_check_PKCS1_OAEP, RSA_padding_add_PKCS1_OAEP_mgf1, RSA_padding_check_PKCS1_OAEP_mgf1, RSA_padding_add_SSLv23, RSA_padding_check_SSLv23, RSA_padding_add_none, RSA_padding_check_none - asymmetric encryption padding</p>
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code>#include &lt;openssl/rsa.h&gt;</code></pre>
+<pre><code>#include &lt;openssl/rsa.h&gt;
 
-<p>The following functions have been deprecated since OpenSSL 3.0, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
-
-<pre><code>int RSA_padding_add_PKCS1_type_1(unsigned char *to, int tlen,
+int RSA_padding_add_PKCS1_type_1(unsigned char *to, int tlen,
                                  const unsigned char *f, int fl);
 
 int RSA_padding_check_PKCS1_type_1(unsigned char *to, int tlen,
@@ -62,6 +59,12 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(unsigned char *to, int tlen,
                                       const unsigned char *p, int pl,
                                       const EVP_MD *md, const EVP_MD *mgf1md);
 
+int RSA_padding_add_SSLv23(unsigned char *to, int tlen,
+                           const unsigned char *f, int fl);
+
+int RSA_padding_check_SSLv23(unsigned char *to, int tlen,
+                             const unsigned char *f, int fl, int rsa_len);
+
 int RSA_padding_add_none(unsigned char *to, int tlen,
                          const unsigned char *f, int fl);
 
@@ -69,8 +72,6 @@ int RSA_padding_check_none(unsigned char *to, int tlen,
                            const unsigned char *f, int fl, int rsa_len);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
-
-<p>All of the functions described on this page are deprecated. Applications should instead use the EVP PKEY APIs.</p>
 
 <p>The RSA_padding_xxx_xxx() functions are called from the RSA encrypt, decrypt, sign and verify functions. Normally they should not be called from application programs.</p>
 
@@ -100,6 +101,12 @@ int RSA_padding_check_none(unsigned char *to, int tlen,
 <p>PKCS #1 v2.0 EME-OAEP</p>
 
 </dd>
+<dt id="SSLv23">SSLv23</dt>
+<dd>
+
+<p>PKCS #1 EME-PKCS1-v1_5 with SSL-specific modification</p>
+
+</dd>
 <dt id="none">none</dt>
 <dd>
 
@@ -122,23 +129,17 @@ int RSA_padding_check_none(unsigned char *to, int tlen,
 
 <h1 id="WARNINGS">WARNINGS</h1>
 
-<p>The result of RSA_padding_check_PKCS1_type_2() is exactly the information which is used to mount a classical Bleichenbacher padding oracle attack. This is an inherent weakness in the PKCS #1 v1.5 padding design. Prefer PKCS1_OAEP padding. If that is not possible, the result of RSA_padding_check_PKCS1_type_2() should be checked in constant time if it matches the expected length of the plaintext and additionally some application specific consistency checks on the plaintext need to be performed in constant time. If the plaintext is rejected it must be kept secret which of the checks caused the application to reject the message. Do not remove the zero-padding from the decrypted raw RSA data which was computed by RSA_private_decrypt() with <b>RSA_NO_PADDING</b>, as this would create a small timing side channel which could be used to mount a Bleichenbacher attack against any padding mode including PKCS1_OAEP.</p>
-
-<p>You should prefer the use of EVP PKEY APIs for PKCS#1 v1.5 decryption as they implement the necessary workarounds internally.</p>
+<p>The result of RSA_padding_check_PKCS1_type_2() is a very sensitive information which can potentially be used to mount a Bleichenbacher padding oracle attack. This is an inherent weakness in the PKCS #1 v1.5 padding design. Prefer PKCS1_OAEP padding. If that is not possible, the result of RSA_padding_check_PKCS1_type_2() should be checked in constant time if it matches the expected length of the plaintext and additionally some application specific consistency checks on the plaintext need to be performed in constant time. If the plaintext is rejected it must be kept secret which of the checks caused the application to reject the message. Do not remove the zero-padding from the decrypted raw RSA data which was computed by RSA_private_decrypt() with <b>RSA_NO_PADDING</b>, as this would create a small timing side channel which could be used to mount a Bleichenbacher attack against any padding mode including PKCS1_OAEP.</p>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
 <p><a href="../man3/RSA_public_encrypt.html">RSA_public_encrypt(3)</a>, <a href="../man3/RSA_private_decrypt.html">RSA_private_decrypt(3)</a>, <a href="../man3/RSA_sign.html">RSA_sign(3)</a>, <a href="../man3/RSA_verify.html">RSA_verify(3)</a>, <a href="../man7/RAND.html">RAND(7)</a></p>
 
-<h1 id="HISTORY">HISTORY</h1>
-
-<p>All of these functions were deprecated in OpenSSL 3.0.</p>
-
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2000-2021 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2000-2019 The OpenSSL Project Authors. All Rights Reserved.</p>
 
-<p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
+<p>Licensed under the OpenSSL license (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 
 
 </body>

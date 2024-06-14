@@ -3,6 +3,7 @@
 patch_file="${PWD}/patchs/openssl.patch"
 pushd "openssl"
 git apply "${patch_file}"
+make clean || true
 popd
 
 build_architecture() {
@@ -15,20 +16,18 @@ build_architecture() {
     echo "Start to build ${arch}"
     if source "${script_path}"; then
         pushd "openssl"
-        make clean && \
         ./Configure ${openssl_arch} --prefix="${output_dir}" --libdir=lib && \
         make && \
         make install && \
         popd
     else
         echo "Failed to source script for ${arch}"
-        exit
     fi
 }
 
-build_architecture "arm64-v8a" "ohos-aarch64"
+# build_architecture "arm64-v8a" "ohos-aarch64"
 
-build_architecture "armeabi-v7a" "ohos-arm"
+# build_architecture "armeabi-v7a" "ohos-arm"
 
 build_architecture "x86_64" "ohos-x86_64"
 

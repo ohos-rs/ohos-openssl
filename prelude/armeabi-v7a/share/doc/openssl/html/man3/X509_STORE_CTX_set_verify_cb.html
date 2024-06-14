@@ -26,14 +26,13 @@
 
 <h1 id="NAME">NAME</h1>
 
-<p>X509_STORE_CTX_get_cleanup, X509_STORE_CTX_get_lookup_crls, X509_STORE_CTX_get_lookup_certs, X509_STORE_CTX_get_check_policy, X509_STORE_CTX_get_cert_crl, X509_STORE_CTX_get_check_crl, X509_STORE_CTX_get_get_crl, X509_STORE_CTX_set_get_crl, X509_STORE_CTX_get_check_revocation, X509_STORE_CTX_get_check_issued, X509_STORE_CTX_get_get_issuer, X509_STORE_CTX_get_verify_cb, X509_STORE_CTX_set_verify_cb, X509_STORE_CTX_verify_cb, X509_STORE_CTX_print_verify_cb, X509_STORE_CTX_set_current_reasons - get and set X509_STORE_CTX components such as verification callback</p>
+<p>X509_STORE_CTX_get_cleanup, X509_STORE_CTX_get_lookup_crls, X509_STORE_CTX_get_lookup_certs, X509_STORE_CTX_get_check_policy, X509_STORE_CTX_get_cert_crl, X509_STORE_CTX_get_check_crl, X509_STORE_CTX_get_get_crl, X509_STORE_CTX_get_check_revocation, X509_STORE_CTX_get_check_issued, X509_STORE_CTX_get_get_issuer, X509_STORE_CTX_get_verify_cb, X509_STORE_CTX_set_verify_cb, X509_STORE_CTX_verify_cb - get and set verification callback</p>
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
 <pre><code>#include &lt;openssl/x509_vfy.h&gt;
 
 typedef int (*X509_STORE_CTX_verify_cb)(int, X509_STORE_CTX *);
-int X509_STORE_CTX_print_verify_cb(int ok, X509_STORE_CTX *ctx);
 
 X509_STORE_CTX_verify_cb X509_STORE_CTX_get_verify_cb(X509_STORE_CTX *ctx);
 
@@ -43,26 +42,19 @@ void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,
 X509_STORE_CTX_get_issuer_fn X509_STORE_CTX_get_get_issuer(X509_STORE_CTX *ctx);
 X509_STORE_CTX_check_issued_fn X509_STORE_CTX_get_check_issued(X509_STORE_CTX *ctx);
 X509_STORE_CTX_check_revocation_fn X509_STORE_CTX_get_check_revocation(X509_STORE_CTX *ctx);
-
 X509_STORE_CTX_get_crl_fn X509_STORE_CTX_get_get_crl(X509_STORE_CTX *ctx);
-
-void X509_STORE_CTX_set_get_crl(X509_STORE_CTX *ctx,
-                                X509_STORE_CTX_get_crl_fn get_crl);
-
 X509_STORE_CTX_check_crl_fn X509_STORE_CTX_get_check_crl(X509_STORE_CTX *ctx);
 X509_STORE_CTX_cert_crl_fn X509_STORE_CTX_get_cert_crl(X509_STORE_CTX *ctx);
 X509_STORE_CTX_check_policy_fn X509_STORE_CTX_get_check_policy(X509_STORE_CTX *ctx);
 X509_STORE_CTX_lookup_certs_fn X509_STORE_CTX_get_lookup_certs(X509_STORE_CTX *ctx);
 X509_STORE_CTX_lookup_crls_fn X509_STORE_CTX_get_lookup_crls(X509_STORE_CTX *ctx);
-X509_STORE_CTX_cleanup_fn X509_STORE_CTX_get_cleanup(X509_STORE_CTX *ctx);
-void X509_STORE_CTX_set_current_reasons(X509_STORE_CTX *ctx,
-                                        unsigned int current_reasons);</code></pre>
+X509_STORE_CTX_cleanup_fn X509_STORE_CTX_get_cleanup(X509_STORE_CTX *ctx);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
 <p>X509_STORE_CTX_set_verify_cb() sets the verification callback of <b>ctx</b> to <b>verify_cb</b> overwriting any existing callback.</p>
 
-<p>The verification callback can be used to customise the operation of certificate verification, for instance by overriding error conditions or logging errors for debugging purposes.</p>
+<p>The verification callback can be used to customise the operation of certificate verification, either by overriding error conditions or logging errors for debugging purposes.</p>
 
 <p>However, a verification callback is <b>not</b> essential and the default operation is often sufficient.</p>
 
@@ -70,15 +62,9 @@ void X509_STORE_CTX_set_current_reasons(X509_STORE_CTX *ctx,
 
 <p>The <b>ctx</b> parameter to the callback is the <b>X509_STORE_CTX</b> structure that is performing the verification operation. A callback can examine this structure and receive additional information about the error, for example by calling X509_STORE_CTX_get_current_cert(). Additional application data can be passed to the callback via the <b>ex_data</b> mechanism.</p>
 
-<p>X509_STORE_CTX_print_verify_cb() is a verification callback function that, when a certificate verification has failed, adds an entry to the error queue with code <b>X509_R_CERTIFICATE_VERIFICATION_FAILED</b> and with diagnostic details, including the most relevant fields of the target certificate that failed to verify and, if appropriate, of the available untrusted and trusted certificates.</p>
-
 <p>X509_STORE_CTX_get_verify_cb() returns the value of the current callback for the specific <b>ctx</b>.</p>
 
 <p>X509_STORE_CTX_get_get_issuer(), X509_STORE_CTX_get_check_issued(), X509_STORE_CTX_get_check_revocation(), X509_STORE_CTX_get_get_crl(), X509_STORE_CTX_get_check_crl(), X509_STORE_CTX_get_cert_crl(), X509_STORE_CTX_get_check_policy(), X509_STORE_CTX_get_lookup_certs(), X509_STORE_CTX_get_lookup_crls() and X509_STORE_CTX_get_cleanup() return the function pointers cached from the corresponding <b>X509_STORE</b>, please see <a href="../man3/X509_STORE_set_verify.html">X509_STORE_set_verify(3)</a> for more information.</p>
-
-<p>X509_STORE_CTX_set_get_crl() sets the function to get the crl for a given certificate <i>x</i>. When found, the crl must be assigned to <i>*crl</i>. This function must return 0 on failure and 1 on success. <i>If no function to get the issuer is provided, the internal default function will be used instead.</i></p>
-
-<p>X509_STORE_CTX_set_current_reasons() is used in conjunction with X509_STORE_CTX_get_crl_fn. The X509_STORE_CTX_get_crl_fn callback must use this method to set the reason why the certificate is invalid.</p>
 
 <h1 id="WARNINGS">WARNINGS</h1>
 
@@ -184,13 +170,11 @@ void X509_STORE_CTX_set_current_reasons(X509_STORE_CTX *ctx,
 
 <p>The X509_STORE_CTX_get_get_issuer(), X509_STORE_CTX_get_check_issued(), X509_STORE_CTX_get_check_revocation(), X509_STORE_CTX_get_get_crl(), X509_STORE_CTX_get_check_crl(), X509_STORE_CTX_get_cert_crl(), X509_STORE_CTX_get_check_policy(), X509_STORE_CTX_get_lookup_certs(), X509_STORE_CTX_get_lookup_crls() and X509_STORE_CTX_get_cleanup() functions were added in OpenSSL 1.1.0.</p>
 
-<p>X509_STORE_CTX_print_verify_cb() was added in OpenSSL 3.0.</p>
-
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2009-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2009-2020 The OpenSSL Project Authors. All Rights Reserved.</p>
 
-<p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
+<p>Licensed under the OpenSSL license (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 
 
 </body>

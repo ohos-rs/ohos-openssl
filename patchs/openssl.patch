@@ -1,26 +1,23 @@
 diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index c9db9aac28..6dad34819a 100644
+index f815a09b23..f89ab36d40 100644
 --- a/Configurations/10-main.conf
 +++ b/Configurations/10-main.conf
-@@ -900,7 +900,20 @@ my %targets = (
-         perlasm_scheme   => "elf32",
-         multilib         => "x32",
+@@ -720,6 +720,20 @@ my %targets = (
+         inherit_from     => [ "linux-generic64", asm("aarch64_asm") ],
+         perlasm_scheme   => "linux64",
      },
--
 +    "ohos-aarch64" => {
 +        inherit_from     => [ "linux-aarch64" ],
 +        shared_extension => ".so"
 +    },
 +    "ohos-arm" => {
-+        inherit_from     => [ "linux-generic32" ],
-+        asm_arch         => 'armv4',
-+        perlasm_scheme   => "linux32",
++        inherit_from     => [ "linux-armv4" ],
 +        shared_extension => ".so"
 +    },
 +    "ohos-x86_64" => {
 +        inherit_from     => [ "linux-x86_64" ],
 +        shared_extension => ".so"
 +    },
-     "linux-ia64" => {
-         inherit_from     => [ "linux-generic64" ],
-         bn_ops           => "SIXTY_FOUR_BIT_LONG",
+     "linux-arm64ilp32" => {  # https://wiki.linaro.org/Platform/arm64-ilp32
+         inherit_from     => [ "linux-generic32", asm("aarch64_asm") ],
+         cflags           => add("-mabi=ilp32"),

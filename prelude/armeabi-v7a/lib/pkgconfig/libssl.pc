@@ -1,9 +1,11 @@
-libdir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a/lib
-includedir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a/include
+prefix=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 Name: OpenSSL-libssl
 Description: Secure Sockets Layer and cryptography libraries
-Version: 3.3.0-dev
+Version: 1.1.1x-dev
 Requires.private: libcrypto
 Libs: -L${libdir} -lssl
 Cflags: -I${includedir}

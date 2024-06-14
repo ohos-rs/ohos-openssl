@@ -1,11 +1,12 @@
-libdir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a/lib
-includedir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a/include
-enginesdir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a/lib/engines-3
-modulesdir=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a/lib/ossl-modules
+prefix=/Users/ranger/Desktop/project/ohos-rs/ohos-openssl/prelude/armeabi-v7a
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+enginesdir=${libdir}/engines-1.1
 
 Name: OpenSSL-libcrypto
 Description: OpenSSL cryptography library
-Version: 3.3.0-dev
+Version: 1.1.1x-dev
 Libs: -L${libdir} -lcrypto
-Libs.private: -ldl -pthread
+Libs.private: -ldl -pthread 
 Cflags: -I${includedir}

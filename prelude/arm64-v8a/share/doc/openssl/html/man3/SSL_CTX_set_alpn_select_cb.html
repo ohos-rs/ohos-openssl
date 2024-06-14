@@ -61,7 +61,7 @@ int SSL_select_next_proto(unsigned char **out, unsigned char *outlen,
                           const unsigned char *server,
                           unsigned int server_len,
                           const unsigned char *client,
-                          unsigned int client_len);
+                          unsigned int client_len)
 void SSL_get0_next_proto_negotiated(const SSL *s, const unsigned char **data,
                             unsigned *len);</code></pre>
 
@@ -82,8 +82,6 @@ void SSL_get0_next_proto_negotiated(const SSL *s, const unsigned char **data,
 <p>SSL_get0_alpn_selected() returns a pointer to the selected protocol in <b>data</b> with length <b>len</b>. It is not NUL-terminated. <b>data</b> is set to NULL and <b>len</b> is set to 0 if no protocol has been selected. <b>data</b> must not be freed.</p>
 
 <p>SSL_get0_next_proto_negotiated() sets <b>data</b> and <b>len</b> to point to the client&#39;s requested protocol for this connection. If the client did not request any protocol or NPN is not enabled, then <b>data</b> is set to NULL and <b>len</b> to 0. Note that the client can request any protocol it chooses. The value returned from this function need not be a member of the list of supported protocols provided by the callback.</p>
-
-<p>NPN functionality cannot be used with QUIC SSL objects. Use of ALPN is mandatory when using QUIC SSL objects. SSL_CTX_set_next_protos_advertised_cb() and SSL_CTX_set_next_proto_select_cb() have no effect if called on a QUIC SSL context.</p>
 
 <h1 id="NOTES">NOTES</h1>
 
@@ -157,9 +155,9 @@ unsigned int length = sizeof(vector);</code></pre>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2016-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2016-2020 The OpenSSL Project Authors. All Rights Reserved.</p>
 
-<p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
+<p>Licensed under the OpenSSL license (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 
 
 </body>

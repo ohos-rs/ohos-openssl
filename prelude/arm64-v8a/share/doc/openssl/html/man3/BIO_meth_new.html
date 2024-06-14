@@ -23,7 +23,7 @@
 
 <h1 id="NAME">NAME</h1>
 
-<p>BIO_get_new_index, BIO_meth_new, BIO_meth_free, BIO_meth_get_read_ex, BIO_meth_set_read_ex, BIO_meth_get_write_ex, BIO_meth_set_write_ex, BIO_meth_get_write, BIO_meth_set_write, BIO_meth_get_read, BIO_meth_set_read, BIO_meth_get_puts, BIO_meth_set_puts, BIO_meth_get_gets, BIO_meth_set_gets, BIO_meth_get_ctrl, BIO_meth_set_ctrl, BIO_meth_get_create, BIO_meth_set_create, BIO_meth_get_destroy, BIO_meth_set_destroy, BIO_meth_get_callback_ctrl, BIO_meth_set_callback_ctrl, BIO_meth_set_sendmmsg, BIO_meth_get_sendmmsg, BIO_meth_set_recvmmsg, BIO_meth_get_recvmmsg - Routines to build up BIO methods</p>
+<p>BIO_get_new_index, BIO_meth_new, BIO_meth_free, BIO_meth_get_read_ex, BIO_meth_set_read_ex, BIO_meth_get_write_ex, BIO_meth_set_write_ex, BIO_meth_get_write, BIO_meth_set_write, BIO_meth_get_read, BIO_meth_set_read, BIO_meth_get_puts, BIO_meth_set_puts, BIO_meth_get_gets, BIO_meth_set_gets, BIO_meth_get_ctrl, BIO_meth_set_ctrl, BIO_meth_get_create, BIO_meth_set_create, BIO_meth_get_destroy, BIO_meth_set_destroy, BIO_meth_get_callback_ctrl, BIO_meth_set_callback_ctrl - Routines to build up BIO methods</p>
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
@@ -68,35 +68,15 @@ int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy)(BIO *));
 
 long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))(BIO *, int, BIO_info_cb *);
 int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
-                               long (*callback_ctrl)(BIO *, int, BIO_info_cb *));
-
-ossl_ssize_t (*BIO_meth_get_sendmmsg(const BIO_METHOD *biom))(BIO *,
-                                                              BIO_MSG *,
-                                                              size_t,
-                                                              size_t,
-                                                              uint64_t);
-int BIO_meth_set_sendmmsg(BIO_METHOD *biom,
-                          ossl_ssize_t (*f) (BIO *, BIO_MSG *, size_t,
-                                             size_t, uint64_t));
-
-ossl_ssize_t (*BIO_meth_get_recvmmsg(const BIO_METHOD *biom))(BIO *,
-                                                              BIO_MSG *,
-                                                              size_t,
-                                                              size_t,
-                                                              uint64_t);
-int BIO_meth_set_recvmmsg(BIO_METHOD *biom,
-                          ossl_ssize_t (*f) (BIO *, BIO_MSG *, size_t,
-                                             size_t, uint64_t));</code></pre>
+                               long (*callback_ctrl)(BIO *, int, BIO_info_cb *));</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
-<p>The <b>BIO_METHOD</b> type is a structure used for the implementation of new BIO types. It provides a set of functions used by OpenSSL for the implementation of the various BIO capabilities. See the <a href="../man7/bio.html">bio(7)</a> page for more information.</p>
+<p>The <b>BIO_METHOD</b> type is a structure used for the implementation of new BIO types. It provides a set of functions used by OpenSSL for the implementation of the various BIO capabilities. See the <a href="/../man7/bio.html">bio</a> page for more information.</p>
 
-<p>BIO_meth_new() creates a new <b>BIO_METHOD</b> structure that contains a type identifier <i>type</i> and a string that represents its <b>name</b>. <b>type</b> can be set to either <b>BIO_TYPE_NONE</b> or via BIO_get_new_index() if a unique type is required for searching (See <a href="../man3/BIO_find_type.html">BIO_find_type(3)</a>)</p>
+<p>BIO_meth_new() creates a new <b>BIO_METHOD</b> structure. It should be given a unique integer <b>type</b> and a string that represents its <b>name</b>. Use BIO_get_new_index() to get the value for <b>type</b>.</p>
 
-<p>Note that BIO_get_new_index() can only be used 127 times before it returns an error.</p>
-
-<p>The set of standard OpenSSL provided BIO types is provided in <i>&lt;openssl/bio.h&gt;</i>. Some examples include <b>BIO_TYPE_BUFFER</b> and <b>BIO_TYPE_CIPHER</b>. Filter BIOs should have a type which have the &quot;filter&quot; bit set (<b>BIO_TYPE_FILTER</b>). Source/sink BIOs should have the &quot;source/sink&quot; bit set (<b>BIO_TYPE_SOURCE_SINK</b>). File descriptor based BIOs (e.g. socket, fd, connect, accept etc) should additionally have the &quot;descriptor&quot; bit set (<b>BIO_TYPE_DESCRIPTOR</b>). See the <a href="../man3/BIO_find_type.html">BIO_find_type(3)</a> page for more information.</p>
+<p>The set of standard OpenSSL provided BIO types is provided in <b>bio.h</b>. Some examples include <b>BIO_TYPE_BUFFER</b> and <b>BIO_TYPE_CIPHER</b>. Filter BIOs should have a type which have the &quot;filter&quot; bit set (<b>BIO_TYPE_FILTER</b>). Source/sink BIOs should have the &quot;source/sink&quot; bit set (<b>BIO_TYPE_SOURCE_SINK</b>). File descriptor based BIOs (e.g. socket, fd, connect, accept etc) should additionally have the &quot;descriptor&quot; bit set (<b>BIO_TYPE_DESCRIPTOR</b>). See the <a href="/../man3/BIO_find_type.html">BIO_find_type</a> page for more information.</p>
 
 <p>BIO_meth_free() destroys a <b>BIO_METHOD</b> structure and frees up any memory associated with it.</p>
 
@@ -108,15 +88,13 @@ int BIO_meth_set_recvmmsg(BIO_METHOD *biom,
 
 <p>BIO_meth_get_gets() and BIO_meth_set_gets() get and set the function typically used for reading a line of data from the BIO respectively (see the <a href="../man3/BIO_gets.html">BIO_gets(3)</a> page for more information). This function will be called in response to the application calling BIO_gets(). The parameters for the function have the same meaning as for BIO_gets().</p>
 
-<p>BIO_meth_get_ctrl() and BIO_meth_set_ctrl() get and set the function used for processing ctrl messages in the BIO respectively. See the <a href="../man3/BIO_ctrl.html">BIO_ctrl(3)</a> page for more information. This function will be called in response to the application calling BIO_ctrl(). The parameters for the function have the same meaning as for BIO_ctrl().</p>
+<p>BIO_meth_get_ctrl() and BIO_meth_set_ctrl() get and set the function used for processing ctrl messages in the BIO respectively. See the <a href="/../man3/BIO_ctrl.html">BIO_ctrl</a> page for more information. This function will be called in response to the application calling BIO_ctrl(). The parameters for the function have the same meaning as for BIO_ctrl().</p>
 
-<p>BIO_meth_get_create() and BIO_meth_set_create() get and set the function used for creating a new instance of the BIO respectively. This function will be called in response to the application calling BIO_new() and passing in a pointer to the current BIO_METHOD. The BIO_new() function will allocate the memory for the new BIO, and a pointer to this newly allocated structure will be passed as a parameter to the function. If a create function is set, BIO_new() will not mark the BIO as initialised on allocation. <a href="../man3/BIO_set_init.html">BIO_set_init(3)</a> must then be called either by the create function, or later, by a BIO ctrl function, once BIO initialisation is complete.</p>
+<p>BIO_meth_get_create() and BIO_meth_set_create() get and set the function used for creating a new instance of the BIO respectively. This function will be called in response to the application calling BIO_new() and passing in a pointer to the current BIO_METHOD. The BIO_new() function will allocate the memory for the new BIO, and a pointer to this newly allocated structure will be passed as a parameter to the function.</p>
 
 <p>BIO_meth_get_destroy() and BIO_meth_set_destroy() get and set the function used for destroying an instance of a BIO respectively. This function will be called in response to the application calling BIO_free(). A pointer to the BIO to be destroyed is passed as a parameter. The destroy function should be used for BIO specific clean up. The memory for the BIO itself should not be freed by this function.</p>
 
 <p>BIO_meth_get_callback_ctrl() and BIO_meth_set_callback_ctrl() get and set the function used for processing callback ctrl messages in the BIO respectively. See the <a href="../man3/BIO_callback_ctrl.html">BIO_callback_ctrl(3)</a> page for more information. This function will be called in response to the application calling BIO_callback_ctrl(). The parameters for the function have the same meaning as for BIO_callback_ctrl().</p>
-
-<p>BIO_meth_get_sendmmsg(), BIO_meth_set_sendmmsg(), BIO_meth_get_recvmmsg() and BIO_meth_set_recvmmsg() get and set the functions used for handling BIO_sendmmsg() and BIO_recvmmsg() calls respectively. See <a href="../man3/BIO_sendmmsg.html">BIO_sendmmsg(3)</a> for more information.</p>
 
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
 
@@ -130,7 +108,7 @@ int BIO_meth_set_recvmmsg(BIO_METHOD *biom,
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
-<p><a href="../man7/bio.html">bio(7)</a>, <a href="../man3/BIO_find_type.html">BIO_find_type(3)</a>, <a href="../man3/BIO_ctrl.html">BIO_ctrl(3)</a>, <a href="../man3/BIO_read_ex.html">BIO_read_ex(3)</a>, <a href="../man3/BIO_new.html">BIO_new(3)</a></p>
+<p><a href="/../man7/bio.html">bio</a>, <a href="/../man3/BIO_find_type.html">BIO_find_type</a>, <a href="/../man3/BIO_ctrl.html">BIO_ctrl</a>, <a>BIO_read_ex</a>, <a href="/../man3/BIO_new.html">BIO_new</a></p>
 
 <h1 id="HISTORY">HISTORY</h1>
 
@@ -138,9 +116,9 @@ int BIO_meth_set_recvmmsg(BIO_METHOD *biom,
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2016-2022 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2016-2018 The OpenSSL Project Authors. All Rights Reserved.</p>
 
-<p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
+<p>Licensed under the OpenSSL license (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 
 
 </body>

@@ -62,7 +62,7 @@ X509_LOOKUP_ctrl_fn X509_LOOKUP_meth_get_ctrl(const X509_LOOKUP_METHOD *method);
 
 typedef int (*X509_LOOKUP_get_by_subject_fn)(X509_LOOKUP *ctx,
                                              X509_LOOKUP_TYPE type,
-                                             const X509_NAME *name,
+                                             X509_NAME *name,
                                              X509_OBJECT *ret);
 int X509_LOOKUP_meth_set_get_by_subject(X509_LOOKUP_METHOD *method,
     X509_LOOKUP_get_by_subject_fn fn);
@@ -71,8 +71,8 @@ X509_LOOKUP_get_by_subject_fn X509_LOOKUP_meth_get_get_by_subject(
 
 typedef int (*X509_LOOKUP_get_by_issuer_serial_fn)(X509_LOOKUP *ctx,
                                                    X509_LOOKUP_TYPE type,
-                                                   const X509_NAME *name,
-                                                   const ASN1_INTEGER *serial,
+                                                   X509_NAME *name,
+                                                   ASN1_INTEGER *serial,
                                                    X509_OBJECT *ret);
 int X509_LOOKUP_meth_set_get_by_issuer_serial(
     X509_LOOKUP_METHOD *method, X509_LOOKUP_get_by_issuer_serial_fn fn);
@@ -122,7 +122,7 @@ int X509_OBJECT_set1_X509_CRL(X509_OBJECT *a, X509_CRL *obj);</code></pre>
 
 <p>X509_LOOKUP_set_get_by_subject(), X509_LOOKUP_set_get_by_issuer_serial(), X509_LOOKUP_set_get_by_fingerprint(), X509_LOOKUP_set_get_by_alias() set the functions used to retrieve an X509 or X509_CRL object by the object&#39;s subject, issuer, fingerprint, and alias respectively. These functions are given the X509_LOOKUP context, the type of the X509_OBJECT being requested, parameters related to the lookup, and an X509_OBJECT that will receive the requested object.</p>
 
-<p>Implementations must add objects they find to the <b>X509_STORE</b> object using X509_STORE_add_cert() or X509_STORE_add_crl(). This increments its reference count. However, the <a href="../man3/X509_STORE_CTX_get_by_subject.html">X509_STORE_CTX_get_by_subject(3)</a> function also increases the reference count which leads to one too many references being held. Therefore, applications should additionally call X509_free() or X509_CRL_free() to decrement the reference count again.</p>
+<p>Implementations must add objects they find to the <b>X509_STORE</b> object using X509_STORE_add_cert() or X509_STORE_add_crl(). This increments its reference count. However, the X509_STORE_CTX_get_by_subject() function also increases the reference count which leads to one too many references being held. Therefore, applications should additionally call X509_free() or X509_CRL_free() to decrement the reference count again.</p>
 
 <p>Implementations should also use either X509_OBJECT_set1_X509() or X509_OBJECT_set1_X509_CRL() to set the result. Note that this also increments the result&#39;s reference count.</p>
 
@@ -138,7 +138,7 @@ int X509_OBJECT_set1_X509_CRL(X509_OBJECT *a, X509_CRL *obj);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
-<p><a href="../man3/X509_STORE_CTX_get_by_subject.html">X509_STORE_CTX_get_by_subject(3)</a>, <a href="../man3/X509_STORE_new.html">X509_STORE_new(3)</a>, <a href="../man3/SSL_CTX_set_cert_store.html">SSL_CTX_set_cert_store(3)</a></p>
+<p><a href="../man3/X509_STORE_new.html">X509_STORE_new(3)</a>, <a href="../man3/SSL_CTX_set_cert_store.html">SSL_CTX_set_cert_store(3)</a></p>
 
 <h1 id="HISTORY">HISTORY</h1>
 
@@ -148,7 +148,7 @@ int X509_OBJECT_set1_X509_CRL(X509_OBJECT *a, X509_CRL *obj);</code></pre>
 
 <p>Copyright 2018-2020 The OpenSSL Project Authors. All Rights Reserved.</p>
 
-<p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
+<p>Licensed under the OpenSSL license (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 
 
 </body>

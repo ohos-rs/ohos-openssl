@@ -68,54 +68,6 @@ SRTP_PROTECTION_PROFILE *SSL_get_selected_srtp_profile(SSL *s);</code></pre>
 <p>This corresponds to the profile of the same name defined in RFC7714.</p>
 
 </dd>
-<dt id="SRTP_DOUBLE_AEAD_AES_128_GCM_AEAD_AES_128_GCM">SRTP_DOUBLE_AEAD_AES_128_GCM_AEAD_AES_128_GCM</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8723.</p>
-
-</dd>
-<dt id="SRTP_DOUBLE_AEAD_AES_256_GCM_AEAD_AES_256_GCM">SRTP_DOUBLE_AEAD_AES_256_GCM_AEAD_AES_256_GCM</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8723.</p>
-
-</dd>
-<dt id="SRTP_ARIA_128_CTR_HMAC_SHA1_80">SRTP_ARIA_128_CTR_HMAC_SHA1_80</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8269.</p>
-
-</dd>
-<dt id="SRTP_ARIA_128_CTR_HMAC_SHA1_32">SRTP_ARIA_128_CTR_HMAC_SHA1_32</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8269.</p>
-
-</dd>
-<dt id="SRTP_ARIA_256_CTR_HMAC_SHA1_80">SRTP_ARIA_256_CTR_HMAC_SHA1_80</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8269.</p>
-
-</dd>
-<dt id="SRTP_ARIA_256_CTR_HMAC_SHA1_32">SRTP_ARIA_256_CTR_HMAC_SHA1_32</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8269.</p>
-
-</dd>
-<dt id="SRTP_AEAD_ARIA_128_GCM">SRTP_AEAD_ARIA_128_GCM</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8269.</p>
-
-</dd>
-<dt id="SRTP_AEAD_ARIA_256_GCM">SRTP_AEAD_ARIA_256_GCM</dt>
-<dd>
-
-<p>This corresponds to the profile of the same name defined in RFC8269.</p>
-
-</dd>
 </dl>
 
 <p>Supplying an unrecognised protection profile name will result in an error.</p>
@@ -128,8 +80,6 @@ SRTP_PROTECTION_PROFILE *SSL_get_selected_srtp_profile(SSL *s);</code></pre>
 
 <p>If an SRTP protection profile has been successfully negotiated then the SRTP keying material (on both the client and server) should be obtained via a call to <a href="../man3/SSL_export_keying_material.html">SSL_export_keying_material(3)</a>. This call should provide a label value of &quot;EXTRACTOR-dtls_srtp&quot; and a NULL context value (use_context is 0). The total length of keying material obtained should be equal to two times the sum of the master key length and the salt length as defined for the protection profile in use. This provides the client write master key, the server write master key, the client write master salt and the server write master salt in that order.</p>
 
-<p>These functions cannot be used with QUIC SSL objects. SSL_CTX_set_tlsext_use_srtp() fails if called on a QUIC SSL context. SSL_set_tlsext_use_srtp() fails if called on a QUIC SSL object.</p>
-
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
 
 <p>SSL_CTX_set_tlsext_use_srtp() and SSL_set_tlsext_use_srtp() return 0 on success or 1 on error.</p>
@@ -140,13 +90,13 @@ SRTP_PROTECTION_PROFILE *SSL_get_selected_srtp_profile(SSL *s);</code></pre>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
-<p><a href="../man7/ssl.html">ssl(7)</a>, <a href="../man3/SSL_export_keying_material.html">SSL_export_keying_material(3)</a></p>
+<p><a href="../man3/SSL_export_keying_material.html">SSL_export_keying_material(3)</a></p>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2017-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2017-2018 The OpenSSL Project Authors. All Rights Reserved.</p>
 
-<p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
+<p>Licensed under the OpenSSL license (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 
 
 </body>
