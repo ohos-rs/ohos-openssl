@@ -2,3 +2,4 @@
 	path = openssl
 	url = https://github.com/openssl/openssl
 	shallow = true
+	branch = OpenSSL_1_1_1-stable
