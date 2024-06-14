@@ -26,3 +26,7 @@ export ARMV7_UNKNOWN_LINUX_OHOS_OPENSSL_DIR="/path/to/ohos-openssl/prelude/armea
 # for x86_64
 export X86_64_UNKNOWN_LINUX_OHOS_OPENSSL_DIR="/path/to/ohos-openssl/prelude/x86_64/"
 ```
+
+### for openssl1.1.1
+
+Use branch [111](https://github.com/ohos-rs/ohos-openssl/tree/111)
