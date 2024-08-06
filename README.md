@@ -30,3 +30,9 @@ export X86_64_UNKNOWN_LINUX_OHOS_OPENSSL_DIR="/path/to/ohos-openssl/prelude/x86_
 ### for openssl1.1.1
 
 Use branch [111](https://github.com/ohos-rs/ohos-openssl/tree/111)
+
+## F & Q
+
+### Why isn't there a rust crate?
+
+We can't guarantee that the code will run prior to rust-openssl's build.rs.
