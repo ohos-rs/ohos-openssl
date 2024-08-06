@@ -2,3 +2,5 @@
 
 .vscode/
 .idea/
+crates/ohos-openssl/prelude/
+target/

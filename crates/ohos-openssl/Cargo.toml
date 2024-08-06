@@ -1,0 +1,18 @@
+[package]
+authors = [
+  "richerfu <southorange0929@foxmail.com>",
+]
+description = "N-API bindings"
+name = "ohos-openssl"
+version = "0.0.1"
+edition = "2021"
+include = ["prelude/*","Cargo.toml"]
+license = "MIT"
+readme = "README.md"
+keywords = ["openssl","HarmonyOS","OpenHarmony","HarmonyNext"]
+
+
+[dependencies]
+
+[lib]
+doctest = false
