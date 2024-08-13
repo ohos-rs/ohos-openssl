@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL_SECURE_MALLOC 3ossl"
-.TH OPENSSL_SECURE_MALLOC 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL_SECURE_MALLOC 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -219,13 +219,15 @@ If \fBCRYPTO_secure_malloc_init()\fR is not called, this is equivalent to
 calling \fBOPENSSL_free()\fR.
 It exists for consistency with \fBOPENSSL_secure_malloc()\fR , and
 is a macro that expands to \fBCRYPTO_secure_free()\fR and adds the \f(CW\*(C`_\|_FILE_\|_\*(C'\fR
-and \f(CW\*(C`_\|_LINE_\|_\*(C'\fR parameters..
+and \f(CW\*(C`_\|_LINE_\|_\*(C'\fR parameters..  If the argument to \fBOPENSSL_secure_free()\fR
+is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBOPENSSL_secure_clear_free()\fR is similar to \fBOPENSSL_secure_free()\fR except
 that it has an additional \f(CW\*(C`num\*(C'\fR parameter which is used to clear
 the memory if it was not allocated from the secure heap.
 If \fBCRYPTO_secure_malloc_init()\fR is not called, this is equivalent to
-calling \fBOPENSSL_clear_free()\fR.
+calling \fBOPENSSL_clear_free()\fR. If the argument to \fBOPENSSL_secure_clear_free()\fR
+is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBOPENSSL_secure_actual_size()\fR tells the actual size allocated to the
 pointer; implementations may allocate more space than initially

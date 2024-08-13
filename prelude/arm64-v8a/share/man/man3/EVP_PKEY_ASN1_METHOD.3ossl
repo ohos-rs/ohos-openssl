@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_PKEY_ASN1_METHOD 3ossl"
-.TH EVP_PKEY_ASN1_METHOD 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_PKEY_ASN1_METHOD 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -541,7 +541,7 @@ This function is not thread safe, it's recommended to only use this
 when initializing the application.
 .PP
 \&\fBEVP_PKEY_asn1_free()\fR frees an existing \fB\s-1EVP_PKEY_ASN1_METHOD\s0\fR pointed
-by \fBameth\fR.
+by \fBameth\fR. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBEVP_PKEY_asn1_add0()\fR adds \fBameth\fR to the user defined stack of
 methods unless another \fB\s-1EVP_PKEY_ASN1_METHOD\s0\fR with the same \s-1NID\s0 is

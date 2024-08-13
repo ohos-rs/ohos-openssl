@@ -567,7 +567,9 @@ DANE TLSA 2 1 1 ...ee12d2cc90180517616e8a18 matched TA certificate at depth 1
 <dt id="curves-curvelist"><b>-curves</b> <i>curvelist</i></dt>
 <dd>
 
-<p>Specifies the list of supported curves to be sent by the client. The curve is ultimately selected by the server. For a list of all curves, use:</p>
+<p>Specifies the list of supported curves to be sent by the client. The curve is ultimately selected by the server.</p>
+
+<p>The list of all supported groups includes named EC parameters as well as X25519 and X448 or FFDHE groups, and may also include groups implemented in 3rd-party providers. For a list of named EC parameters, use:</p>
 
 <pre><code>$ openssl ecparam -list_curves</code></pre>
 
@@ -899,7 +901,7 @@ DANE TLSA 2 1 1 ...ee12d2cc90180517616e8a18 matched TA certificate at depth 1
 <dt id="keyup"><b>keyup</b></dt>
 <dd>
 
-<p>Send a Key Update message. TLSv1.3 only. This command takes an optional argument. If the argument &quot;req&quot; is supplied then the peer is also requested to update its keys. Otherwise if &quot;noreq&quot; is supplied the the peer is not requested to update its keys. The default is &quot;req&quot;.</p>
+<p>Send a Key Update message. TLSv1.3 only. This command takes an optional argument. If the argument &quot;req&quot; is supplied then the peer is also requested to update its keys. Otherwise if &quot;noreq&quot; is supplied the peer is not requested to update its keys. The default is &quot;req&quot;.</p>
 
 </dd>
 <dt id="reneg"><b>reneg</b></dt>

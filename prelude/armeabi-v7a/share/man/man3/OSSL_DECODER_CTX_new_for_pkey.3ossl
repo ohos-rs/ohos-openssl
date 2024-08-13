@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL_DECODER_CTX_NEW_FOR_PKEY 3ossl"
-.TH OSSL_DECODER_CTX_NEW_FOR_PKEY 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL_DECODER_CTX_NEW_FOR_PKEY 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -219,7 +219,7 @@ choice of preferred pass phrase callback form.  These are called indirectly,
 through an internal \s-1\fBOSSL_PASSPHRASE_CALLBACK\s0\fR\|(3) function.
 .PP
 The internal \s-1\fBOSSL_PASSPHRASE_CALLBACK\s0\fR\|(3) function caches the pass phrase, to
-be re-used in all decodings that are performed in the same decoding run (for
+be reused in all decodings that are performed in the same decoding run (for
 example, within one \fBOSSL_DECODER_from_bio\fR\|(3) call).
 .SS "Input Types"
 .IX Subsection "Input Types"

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_GET_SERIALNUMBER 3ossl"
-.TH X509_GET_SERIALNUMBER 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_GET_SERIALNUMBER 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -141,7 +141,9 @@
 .SH "NAME"
 X509_get_serialNumber,
 X509_get0_serialNumber,
-X509_set_serialNumber
+X509_set_serialNumber,
+X509_ACERT_get0_serialNumber,
+X509_ACERT_set1_serialNumber
 \&\- get or set certificate serial number
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
@@ -151,6 +153,11 @@ X509_set_serialNumber
 \& ASN1_INTEGER *X509_get_serialNumber(X509 *x);
 \& const ASN1_INTEGER *X509_get0_serialNumber(const X509 *x);
 \& int X509_set_serialNumber(X509 *x, ASN1_INTEGER *serial);
+\&
+\& #include <openssl/x509_acert.h>
+\&
+\& ASN1_INTEGER *X509_ACERT_get0_serialNumber(X509_ACERT *x);
+\& int X509_ACERT_set1_serialNumber(X509_ACERT *x, ASN1_INTEGER *serial);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -164,12 +171,19 @@ accepts a const parameter and returns a const result.
 \&\fBX509_set_serialNumber()\fR sets the serial number of certificate \fBx\fR to
 \&\fBserial\fR. A copy of the serial number is used internally so \fBserial\fR should
 be freed up after use.
+.PP
+\&\fBX509_ACERT_get0_serialNumber()\fR performs the same operation as
+\&\fBX509_get_serialNumber()\fR for attribute certificates.
+.PP
+\&\fBX509_ACERT_set1_serialNumber()\fR performs the same operation as
+\&\fBX509_set_serialNumber()\fR for attribute certificates.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
-\&\fBX509_get_serialNumber()\fR and \fBX509_get0_serialNumber()\fR return an \fB\s-1ASN1_INTEGER\s0\fR
-structure.
+\&\fBX509_get_serialNumber()\fR, \fBX509_get0_serialNumber()\fR and
+\&\fBX509_ACERT_get0_serialNumber()\fR return a pointer to an \fB\s-1ASN1_INTEGER\s0\fR structure.
 .PP
-\&\fBX509_set_serialNumber()\fR returns 1 for success and 0 for failure.
+\&\fBX509_set_serialNumber()\fR and \fBX509_ACERT_set1_serialNumber()\fR return 1 for success
+and 0 for failure.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBd2i_X509\fR\|(3),
@@ -193,6 +207,8 @@ structure.
 The \fBX509_get_serialNumber()\fR and \fBX509_set_serialNumber()\fR functions are
 available in all versions of OpenSSL.
 The \fBX509_get0_serialNumber()\fR function was added in OpenSSL 1.1.0.
+The \fBX509_ACERT_get0_serialNumber()\fR and \fBX509_ACERT_set1_serialNumber()\fR
+functions were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2016 The OpenSSL Project Authors. All Rights Reserved.

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_CTX_SET_CIPHER_LIST 3ossl"
-.TH SSL_CTX_SET_CIPHER_LIST 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_CTX_SET_CIPHER_LIST 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -185,9 +185,13 @@ ciphersuite names in order of preference. Valid TLSv1.3 ciphersuite names are:
 .IX Item "TLS_AES_128_CCM_SHA256"
 .IP "\s-1TLS_AES_128_CCM_8_SHA256\s0" 4
 .IX Item "TLS_AES_128_CCM_8_SHA256"
+.IP "\s-1TLS_SHA384_SHA384\s0 \- integrity-only" 4
+.IX Item "TLS_SHA384_SHA384 - integrity-only"
+.IP "\s-1TLS_SHA256_SHA256\s0 \- integrity-only" 4
+.IX Item "TLS_SHA256_SHA256 - integrity-only"
 .PD
 .PP
-An empty list is permissible. The default value for the this setting is:
+An empty list is permissible. The default value for this setting is:
 .PP
 \&\*(L"\s-1TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256\*(R"\s0
 .PP

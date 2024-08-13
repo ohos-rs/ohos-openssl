@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_ENCRYPTINIT 3ossl"
-.TH EVP_ENCRYPTINIT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_ENCRYPTINIT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -406,20 +406,21 @@ Increments the reference count for an \fB\s-1EVP_CIPHER\s0\fR structure.
 .IX Item "EVP_CIPHER_free()"
 Decrements the reference count for the fetched \fB\s-1EVP_CIPHER\s0\fR structure.
 If the reference count drops to 0 then the structure is freed.
+If the argument is \s-1NULL,\s0 nothing is done.
 .IP "\fBEVP_CIPHER_CTX_new()\fR" 4
 .IX Item "EVP_CIPHER_CTX_new()"
 Allocates and returns a cipher context.
 .IP "\fBEVP_CIPHER_CTX_free()\fR" 4
 .IX Item "EVP_CIPHER_CTX_free()"
 Clears all information from a cipher context and frees any allocated memory
-associated with it, including \fIctx\fR itself. This function should be called after
-all operations using a cipher are complete so sensitive information does not
-remain in memory.
+associated with it, including \fIctx\fR itself. This function should be called
+after all operations using a cipher are complete so sensitive information does
+not remain in memory. If the argument is \s-1NULL,\s0 nothing is done.
 .IP "\fBEVP_CIPHER_CTX_dup()\fR" 4
 .IX Item "EVP_CIPHER_CTX_dup()"
 Can be used to duplicate the cipher state from \fIin\fR.  This is useful
-to avoid multiple \fBEVP_MD_fetch()\fR calls or if large amounts of data are to be
-hashed which only differ in the last few bytes.
+to avoid multiple \fBEVP_CIPHER_fetch()\fR calls or if large amounts of data are to be
+fed which only differ in the last few bytes.
 .IP "\fBEVP_CIPHER_CTX_copy()\fR" 4
 .IX Item "EVP_CIPHER_CTX_copy()"
 Can be used to copy the cipher state from \fIin\fR to \fIout\fR.
@@ -494,9 +495,13 @@ exists.
 .IX Item "EVP_EncryptUpdate()"
 Encrypts \fIinl\fR bytes from the buffer \fIin\fR and writes the encrypted version to
 \&\fIout\fR. The pointers \fIout\fR and \fIin\fR may point to the same location, in which
-case the encryption will be done in-place. If \fIout\fR and \fIin\fR point to different
-locations, the two buffers must be disjoint, otherwise the operation might fail
-or the outcome might be undefined.
+case the encryption will be done in-place. However, in-place encryption is
+guaranteed to work only if the encryption context (\fIctx\fR) has processed data in
+multiples of the block size. If the context contains an incomplete data block
+from previous operations, in-place encryption will fail.
+.Sp
+If \fIout\fR and \fIin\fR point to different locations, the two buffers must be
+disjoint, otherwise the operation might fail or the outcome might be undefined.
 .Sp
 This function can be called multiple times to encrypt successive blocks
 of data. The amount of data written depends on the block alignment of the
@@ -808,6 +813,12 @@ cached value.
 Gets 1 if the cipher algorithm \fIcipher\fR supports the gettable \s-1EVP_CIPHER_CTX\s0
 parameter \fB\s-1OSSL_CIPHER_PARAM_RANDOM_KEY\s0\fR. Only \s-1DES\s0 and 3DES set this to 1,
 all other OpenSSL ciphers return 0.
+.ie n .IP """decrypt-only"" (\fB\s-1OSSL_CIPHER_PARAM_DECRYPT_ONLY\s0) <integer\fR" 4
+.el .IP "``decrypt-only'' (\fB\s-1OSSL_CIPHER_PARAM_DECRYPT_ONLY\s0) <integer\fR" 4
+.IX Item "decrypt-only (OSSL_CIPHER_PARAM_DECRYPT_ONLY) <integer"
+Gets 1 if the cipher algorithm \fIcipher\fR implementation supports only
+the decryption operation such as the 3DES ciphers in the fips provider.
+Otherwise gets 0 or the parameter might not be present at all.
 .SS "Gettable and Settable \s-1EVP_CIPHER_CTX\s0 parameters"
 .IX Subsection "Gettable and Settable EVP_CIPHER_CTX parameters"
 The following \s-1\fBOSSL_PARAM\s0\fR\|(3) keys can be used with both \fBEVP_CIPHER_CTX_get_params()\fR
@@ -958,6 +969,12 @@ Gets the result of running the \*(L"tls1multi_aad\*(R" operation.
 .el .IP "``tls-mac'' (\fB\s-1OSSL_CIPHER_PARAM_TLS_MAC\s0\fR) <octet ptr>" 4
 .IX Item "tls-mac (OSSL_CIPHER_PARAM_TLS_MAC) <octet ptr>"
 Used to pass the \s-1TLS MAC\s0 data.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling a cipher final operation such as
+\&\fBEVP_EncryptFinal_ex()\fR. It may return 0 if the \*(L"encrypt-check\*(R" option is set to 0.
 .SS "Settable \s-1EVP_CIPHER_CTX\s0 parameters"
 .IX Subsection "Settable EVP_CIPHER_CTX parameters"
 The following \s-1\fBOSSL_PARAM\s0\fR\|(3) keys can be used with \fBEVP_CIPHER_CTX_set_params()\fR:
@@ -1099,6 +1116,16 @@ The \s-1IEEE\s0 Std. 1619\-2007 variant of \s-1SM4\-XTS\s0 algorithm.
 .Sp
 The default value is \*(L"\s-1GB\*(R".\s0
 .RE
+.ie n .IP """encrypt-check"" (\fB\s-1OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK\s0\fR) <integer>" 4
+.el .IP "``encrypt-check'' (\fB\s-1OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK\s0\fR) <integer>" 4
+.IX Item "encrypt-check (OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK) <integer>"
+If required this parameter should be set early via an cipher encrypt init
+function such as \fBEVP_EncryptInit_ex2()\fR.
+The default value of 1 causes an error when an encryption operation is triggered.
+Setting this to 0 will ignore the error and set the approved \*(L"fips-indicator\*(R" to
+0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
 .SH "CONTROLS"
 .IX Header "CONTROLS"
 The Mappings from \fBEVP_CIPHER_CTX_ctrl()\fR identifiers to \s-1PARAMETERS\s0 are listed
@@ -1262,7 +1289,7 @@ and \fB\s-1NULL\s0\fR for failure.
 \&\fBEVP_CIPHER_CTX_new()\fR returns a pointer to a newly created
 \&\fB\s-1EVP_CIPHER_CTX\s0\fR for success and \fB\s-1NULL\s0\fR for failure.
 .PP
-\&\fBEVP_CIPHER_CTX_dup()\fR returns a new \s-1EVP_MD_CTX\s0 if successful or \s-1NULL\s0 on failure.
+\&\fBEVP_CIPHER_CTX_dup()\fR returns a new \s-1EVP_CIPHER_CTX\s0 if successful or \s-1NULL\s0 on failure.
 .PP
 \&\fBEVP_CIPHER_CTX_copy()\fR returns 1 if successful or 0 for failure.
 .PP
@@ -1435,7 +1462,7 @@ indicates if the operation was successful. If it does not indicate success
 the authentication operation has failed and any output data \fB\s-1MUST NOT\s0\fR
 be used as it is corrupted.
 .PP
-The \s-1API\s0 does not store the the \s-1SIV\s0 (Synthetic Initialization Vector) in
+The \s-1API\s0 does not store the \s-1SIV\s0 (Synthetic Initialization Vector) in
 the cipher text. Instead, it is stored as the tag within the \s-1EVP_CIPHER_CTX.\s0
 The \s-1SIV\s0 must be retrieved from the context after encryption, and set into
 the context before decryption.
@@ -1781,7 +1808,7 @@ The \fBEVP_CIPHER_CTX_flags()\fR macro was deprecated in OpenSSL 1.1.0.
 \&\fBEVP_CIPHER_CTX_dup()\fR was added in OpenSSL 3.2.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

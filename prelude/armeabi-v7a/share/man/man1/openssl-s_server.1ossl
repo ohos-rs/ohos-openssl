@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-S_SERVER 1ossl"
-.TH OPENSSL-S_SERVER 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-S_SERVER 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -792,7 +792,10 @@ Signature algorithms to support for client certificate authentication
 .IP "\fB\-named_curve\fR \fIval\fR" 4
 .IX Item "-named_curve val"
 Specifies the elliptic curve to use. \s-1NOTE:\s0 this is single curve, not a list.
-For a list of all possible curves, use:
+.Sp
+The list of all supported groups includes named \s-1EC\s0 parameters as well as X25519
+and X448 or \s-1FFDHE\s0 groups, and may also include groups implemented in 3rd\-party
+providers. For a list of named \s-1EC\s0 parameters, use:
 .Sp
 .Vb 1
 \&    $ openssl ecparam \-list_curves
@@ -1108,7 +1111,7 @@ and \fB\-tfo\fR
 options were added in OpenSSL 3.2.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

@@ -48,7 +48,7 @@ void OSSL_ERR_STATE_free(ERR_STATE *es);</code></pre>
 
 <p>OSSL_ERR_STATE_restore() adds all the error entries from the saved state <i>es</i> to the thread error state. Existing entries in the thread error state are not affected if there is enough space for all the added entries. Any allocated data in the saved error entries is duplicated on adding to the thread state.</p>
 
-<p>OSSL_ERR_STATE_free() frees the saved error state <i>es</i>.</p>
+<p>OSSL_ERR_STATE_free() frees the saved error state <i>es</i>. If the argument is NULL, nothing is done.</p>
 
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
 

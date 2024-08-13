@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_CTX_SET_CT_VALIDATION_CALLBACK 3ossl"
-.TH SSL_CTX_SET_CT_VALIDATION_CALLBACK 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_CTX_SET_CT_VALIDATION_CALLBACK 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -237,7 +237,7 @@ otherwise.
 When \s-1SCT\s0 processing is enabled, \s-1OCSP\s0 stapling will be enabled. This is because
 one possible source of SCTs is the \s-1OCSP\s0 response from a server.
 .PP
-The time returned by \fBSSL_SESSION_get_time()\fR will be used to evaluate whether any
+The time returned by \fBSSL_SESSION_get_time_ex()\fR will be used to evaluate whether any
 presented SCTs have timestamps that are in the future (and therefore invalid).
 .SH "RESTRICTIONS"
 .IX Header "RESTRICTIONS"

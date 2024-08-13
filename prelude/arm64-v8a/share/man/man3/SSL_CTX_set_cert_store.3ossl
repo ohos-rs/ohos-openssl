@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_CTX_SET_CERT_STORE 3ossl"
-.TH SSL_CTX_SET_CERT_STORE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_CTX_SET_CERT_STORE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -153,7 +153,9 @@ SSL_CTX_set_cert_store, SSL_CTX_set1_cert_store, SSL_CTX_get_cert_store \- manip
 .IX Header "DESCRIPTION"
 \&\fBSSL_CTX_set_cert_store()\fR sets/replaces the certificate verification storage
 of \fBctx\fR to/with \fBstore\fR. If another X509_STORE object is currently
-set in \fBctx\fR, it will be \fBX509_STORE_free()\fRed.
+set in \fBctx\fR, it will be \fBX509_STORE_free()\fRed. \fBSSL_CTX_set_cert_store()\fR will
+take ownership of the \fBstore\fR, i.e., the call \f(CW\*(C`X509_STORE_free(store)\*(C'\fR is no
+longer needed.
 .PP
 \&\fBSSL_CTX_set1_cert_store()\fR sets/replaces the certificate verification storage
 of \fBctx\fR to/with \fBstore\fR. The \fBstore\fR's reference count is incremented.

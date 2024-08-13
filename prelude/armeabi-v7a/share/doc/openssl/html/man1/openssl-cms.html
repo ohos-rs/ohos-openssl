@@ -445,7 +445,9 @@
 <dt id="certfile-file"><b>-certfile</b> <i>file</i></dt>
 <dd>
 
-<p>Allows additional certificates to be specified. When signing these will be included with the message. When verifying these will be searched for the signers certificates. The input can be in PEM, DER, or PKCS#12 format.</p>
+<p>Allows additional certificates to be specified. When signing these will be included with the message. When verifying, these will be searched for signer certificates and will be used for chain building.</p>
+
+<p>The input can be in PEM, DER, or PKCS#12 format.</p>
 
 </dd>
 <dt id="cades"><b>-cades</b></dt>

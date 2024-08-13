@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509V3_GET_D2I 3ossl"
-.TH X509V3_GET_D2I 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509V3_GET_D2I 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -141,9 +141,10 @@
 .SH "NAME"
 X509V3_get_d2i, X509V3_add1_i2d, X509V3_EXT_d2i, X509V3_EXT_i2d,
 X509_get_ext_d2i, X509_add1_ext_i2d,
+X509_ACERT_get_ext_d2i, X509_ACERT_add1_ext_i2d,
 X509_CRL_get_ext_d2i, X509_CRL_add1_ext_i2d,
 X509_REVOKED_get_ext_d2i, X509_REVOKED_add1_ext_i2d,
-X509_get0_extensions, X509_CRL_get0_extensions,
+X509_get0_extensions, X509_ACERT_get0_extensions, X509_CRL_get0_extensions,
 X509_REVOKED_get0_extensions \- X509 extension decode and encode functions
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
@@ -162,6 +163,10 @@ X509_REVOKED_get0_extensions \- X509 extension decode and encode functions
 \& int X509_add1_ext_i2d(X509 *x, int nid, void *value, int crit,
 \&                       unsigned long flags);
 \&
+\& void *X509_ACERT_get_ext_d2i(const X509_ACERT *x, int nid, int *crit, int *idx);
+\& int X509_ACERT_add1_ext_i2d(X509_ACERT *x, int nid, void *value, int crit,
+\&                             unsigned long flags);
+\&
 \& void *X509_CRL_get_ext_d2i(const X509_CRL *crl, int nid, int *crit, int *idx);
 \& int X509_CRL_add1_ext_i2d(X509_CRL *crl, int nid, void *value, int crit,
 \&                           unsigned long flags);
@@ -171,6 +176,7 @@ X509_REVOKED_get0_extensions \- X509 extension decode and encode functions
 \&                               unsigned long flags);
 \&
 \& const STACK_OF(X509_EXTENSION) *X509_get0_extensions(const X509 *x);
+\& const STACK_OF(X509_EXTENSION) *X509_ACERT_get0_extensions(const X509 *x);
 \& const STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(const X509_CRL *crl);
 \& const STACK_OF(X509_EXTENSION) *X509_REVOKED_get0_extensions(const X509_REVOKED *r);
 .Ve
@@ -201,6 +207,10 @@ with \s-1OID\s0 \fIext_nid\fR and criticality \fIcrit\fR.
 certificate \fIx\fR. They are otherwise identical to \fBX509V3_get_d2i()\fR and
 \&\fBX509V3_add1_i2d()\fR.
 .PP
+\&\fBX509_ACERT_get_ext_d2i()\fR and \fBX509_ACERT_add1_ext_i2d()\fR operate on the extensions
+of \fBX509_ACERT\fR structure \fIx\fR. They are otherwise identical to \fBX509V3_get_d2i()\fR
+and \fBX509V3_add1_i2d()\fR.
+.PP
 \&\fBX509_CRL_get_ext_d2i()\fR and \fBX509_CRL_add1_ext_i2d()\fR operate on the extensions
 of \s-1CRL\s0 \fIcrl\fR. They are otherwise identical to \fBX509V3_get_d2i()\fR and
 \&\fBX509V3_add1_i2d()\fR.
@@ -209,9 +219,10 @@ of \s-1CRL\s0 \fIcrl\fR. They are otherwise identical to \fBX509V3_get_d2i()\fR 
 extensions of \fBX509_REVOKED\fR structure \fIr\fR (i.e for \s-1CRL\s0 entry extensions).
 They are otherwise identical to \fBX509V3_get_d2i()\fR and \fBX509V3_add1_i2d()\fR.
 .PP
-\&\fBX509_get0_extensions()\fR, \fBX509_CRL_get0_extensions()\fR and
-\&\fBX509_REVOKED_get0_extensions()\fR return a \s-1STACK\s0 of all the extensions
-of a certificate, a \s-1CRL\s0 or a \s-1CRL\s0 entry respectively.
+\&\fBX509_get0_extensions()\fR, \fBX509_ACERT_get0_extensions()\fR,
+\&\fBX509_CRL_get0_extensions()\fR and \fBX509_REVOKED_get0_extensions()\fR return a
+\&\s-1STACK\s0 of all the extensions of a certificate, an attribute certificate,
+a \s-1CRL\s0 or a \s-1CRL\s0 entry respectively.
 .SH "NOTES"
 .IX Header "NOTES"
 In almost all cases an extension can occur at most once and multiple
@@ -244,6 +255,7 @@ The function \fBX509V3_get_d2i()\fR and its variants
 will return \s-1NULL\s0 if the extension is not
 found, occurs multiple times or cannot be decoded. It is possible to
 determine the precise reason by checking the value of \fI*crit\fR.
+The returned pointer must be explicitly freed.
 .PP
 The function \fBX509V3_add1_i2d()\fR and its variants allocate \fBX509_EXTENSION\fR
 objects on \s-1STACK\s0 \fI*x\fR depending on \fIflags\fR. The \fBX509_EXTENSION\fR objects

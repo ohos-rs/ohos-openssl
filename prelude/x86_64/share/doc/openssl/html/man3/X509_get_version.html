@@ -24,7 +24,7 @@
 
 <h1 id="NAME">NAME</h1>
 
-<p>X509_get_version, X509_set_version, X509_REQ_get_version, X509_REQ_set_version, X509_CRL_get_version, X509_CRL_set_version - get or set certificate, certificate request or CRL version</p>
+<p>X509_get_version, X509_set_version, X509_REQ_get_version, X509_REQ_set_version, X509_ACERT_get_version, X509_ACERT_set_version, X509_CRL_get_version, X509_CRL_set_version - get or set certificate, certificate request or CRL version</p>
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
@@ -37,7 +37,12 @@ long X509_REQ_get_version(const X509_REQ *req);
 int X509_REQ_set_version(X509_REQ *x, long version);
 
 long X509_CRL_get_version(const X509_CRL *crl);
-int X509_CRL_set_version(X509_CRL *x, long version);</code></pre>
+int X509_CRL_set_version(X509_CRL *x, long version);
+
+#include &lt;openssl/x509_acert.h&gt;
+
+int X509_ACERT_set_version(X509_ACERT *x, long version);
+long X509_ACERT_get_version(const X509_ACERT *x);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -45,7 +50,7 @@ int X509_CRL_set_version(X509_CRL *x, long version);</code></pre>
 
 <p>X509_set_version() sets the numerical value of the version field of certificate <i>x</i> to <i>version</i>.</p>
 
-<p>Similarly X509_REQ_get_version(), X509_REQ_set_version(), X509_CRL_get_version() and X509_CRL_set_version() get and set the version number of certificate requests and CRLs. They use constants <b>X509_REQ_VERSION_1</b>, <b>X509_CRL_VERSION_1</b>, and <b>X509_CRL_VERSION_2</b>.</p>
+<p>Similarly X509_REQ_get_version(), X509_REQ_set_version(), X509_ACERT_get_version(), X509_ACERT_set_version(), X509_CRL_get_version() and X509_CRL_set_version() get and set the version number of certificate requests and CRLs. They use constants <b>X509_REQ_VERSION_1</b>, <b>X509_ACERT_VERSION_2</b>, <b>X509_CRL_VERSION_1</b>, and <b>X509_CRL_VERSION_2</b>.</p>
 
 <h1 id="NOTES">NOTES</h1>
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_KDF-KB 7ossl"
-.TH EVP_KDF-KB 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_KDF-KB 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -203,6 +203,23 @@ Set the fixed value 'r', indicating the length of the counter in bits.
 .Sp
 Supported values are \fB8\fR, \fB16\fR, \fB24\fR, and \fB32\fR.
 The default value of \fB32\fR will be used if unspecified.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_KDF_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_KDF_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_KDF_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling EVP_KDF_derive. It returns 0 if any \*(L"***\-check\*(R"
+related parameter is set to 0 and the check fails.
+This option is used by the OpenSSL \s-1FIPS\s0 provider.
+.ie n .IP """key-check"" (\fB\s-1OSSL_KDF_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.el .IP "``key-check'' (\fB\s-1OSSL_KDF_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.IX Item "key-check (OSSL_KDF_PARAM_FIPS_KEY_CHECK) <integer>"
+The default value of 1 causes an error during \fBEVP_KDF_CTX_set_params()\fR if the
+length of used key-derivation key (\fB\s-1OSSL_KDF_PARAM_KEY\s0\fR) is shorter than 112
+bits.
+Setting this to zero will ignore the error and set the approved
+\&\*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
 .PP
 Depending on whether mac is \s-1CMAC\s0 or \s-1HMAC,\s0 either digest or cipher is required
 (respectively) and the other is unused. They are unused for \s-1KMAC128\s0 and \s-1KMAC256.\s0

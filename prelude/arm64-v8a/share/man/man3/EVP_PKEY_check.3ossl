@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_PKEY_CHECK 3ossl"
-.TH EVP_PKEY_CHECK 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_PKEY_CHECK 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -196,6 +196,11 @@ should be called during key establishment.
 It is not necessary to call these functions after locally calling an approved key
 generation method, but may be required for assurance purposes when receiving
 keys from a third party.
+.PP
+The \fBEVP_PKEY_pairwise_check()\fR and \fBEVP_PKEY_private_check()\fR might not be bounded
+by any key size limits as private keys are not expected to be supplied by
+attackers. For that reason they might take an unbounded time if run on
+arbitrarily large keys.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 All functions return 1 for success or others for failure.

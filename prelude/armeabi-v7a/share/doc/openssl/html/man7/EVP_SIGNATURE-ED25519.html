@@ -45,7 +45,7 @@
 
 <h2 id="ED25519-and-ED448-Signature-Parameters">ED25519 and ED448 Signature Parameters</h2>
 
-<p>Two parameters can be set during signing or verification: the EdDSA <b>instance name</b> and the <b>context-string value</b>. They can be set by passing an OSSL_PARAM array to EVP_DigestSignInit_ex().</p>
+<p>The following parameters can be set during signing or verification by passing an OSSL_PARAM array to EVP_DigestSignInit_ex() or EVP_PKEY_CTX_set_params():</p>
 
 <ul>
 
@@ -63,9 +63,14 @@
 <p>A string of octets with length at most 255.</p>
 
 </li>
+<li><p>&quot;verify-digested&quot; (<b>OSSL_SIGNATURE_PARAM_EDDSA_VERIFY_DIGESTED</b> &lt;integer&gt;</p>
+
+<p>If set to a nonzero value, EdDSA can be used to verify a hash of a message. If zero, EdDSA will digest the message internally.</p>
+
+</li>
 </ul>
 
-<p>Both of these parameters are optional.</p>
+<p>All of these parameters are optional.</p>
 
 <p>If the instance name is not specified, then the default &quot;Ed25519&quot; or &quot;Ed448&quot; is used.</p>
 
@@ -86,6 +91,9 @@
 
 </li>
 <li><p>&quot;context-string&quot; (<b>OSSL_SIGNATURE_PARAM_CONTEXT_STRING</b>) &lt;octet string&gt;</p>
+
+</li>
+<li><p>&quot;fips-indicator&quot; (<b>OSSL_SIGNATURE_PARAM_FIPS_APPROVED_INDICATOR</b>) &lt;integer&gt;</p>
 
 </li>
 </ul>

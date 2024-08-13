@@ -1,8 +1,8 @@
 diff --git a/Configurations/10-main.conf b/Configurations/10-main.conf
-index c9db9aac28..6dad34819a 100644
+index cba57b4127..5257f89755 100644
 --- a/Configurations/10-main.conf
 +++ b/Configurations/10-main.conf
-@@ -900,7 +900,20 @@ my %targets = (
+@@ -907,7 +907,21 @@ my %targets = (
          perlasm_scheme   => "elf32",
          multilib         => "x32",
      },
@@ -15,6 +15,7 @@ index c9db9aac28..6dad34819a 100644
 +        inherit_from     => [ "linux-generic32" ],
 +        asm_arch         => 'armv4',
 +        perlasm_scheme   => "linux32",
++        ex_libs          => add(threads("-lclang_rt.builtins")),
 +        shared_extension => ".so"
 +    },
 +    "ohos-x86_64" => {

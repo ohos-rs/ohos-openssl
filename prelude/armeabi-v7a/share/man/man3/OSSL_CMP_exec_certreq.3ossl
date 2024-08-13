@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL_CMP_EXEC_CERTREQ 3ossl"
-.TH OSSL_CMP_EXEC_CERTREQ 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL_CMP_EXEC_CERTREQ 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -152,7 +152,9 @@ OSSL_CMP_try_certreq,
 OSSL_CMP_exec_RR_ses,
 OSSL_CMP_exec_GENM_ses,
 OSSL_CMP_get1_caCerts,
-OSSL_CMP_get1_rootCaKeyUpdate
+OSSL_CMP_get1_rootCaKeyUpdate,
+OSSL_CMP_get1_crlUpdate,
+OSSL_CMP_get1_certReqTemplate
 \&\- functions implementing CMP client transactions
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
@@ -178,9 +180,15 @@ OSSL_CMP_get1_rootCaKeyUpdate
 \& int OSSL_CMP_get1_rootCaKeyUpdate(OSSL_CMP_CTX *ctx,
 \&                                   const X509 *oldWithOld, X509 **newWithNew,
 \&                                   X509 **newWithOld, X509 **oldWithNew);
+\& int OSSL_CMP_get1_crlUpdate(OSSL_CMP_CTX *ctx, const X509 *crlcert,
+\&                             const X509_CRL *last_crl,
+\&                             X509_CRL **crl);
+\& int OSSL_CMP_get1_certReqTemplate(OSSL_CMP_CTX *ctx,
+\&                                   OSSL_CRMF_CERTTEMPLATE **certTemplate,
+\&                                   OSSL_CMP_ATAVS **keySpec);
+\&=head1 DESCRIPTION
 .Ve
-.SH "DESCRIPTION"
-.IX Header "DESCRIPTION"
+.PP
 This is the OpenSSL \s-1API\s0 for doing \s-1CMP\s0 (Certificate Management Protocol)
 client-server transactions, i.e., sequences of \s-1CMP\s0 requests and responses.
 .PP
@@ -293,6 +301,23 @@ The \fInewWithNew\fR certificate is meant to be a certificate that will be trust
 The trust placed in it cannot be stronger than the trust placed in
 the \fIoldwithold\fR certificate if present, otherwise it cannot be stronger than
 the weakest trust in any of the certificates in the trust store of \fIctx\fR.
+.PP
+\&\fBOSSL_CMP_get1_crlUpdate()\fR uses a genm request message with infoType crlStatusList
+to obtain \s-1CRL\s0 from the \s-1CMP\s0 server referenced by \fIctx\fR in a genp response message
+with infoType crls. It uses \fIlast_crl\fR and \fIcrlcert\fR to create  
+a request with a status field as described for \fBOSSL_CMP_CRLSTATUS_create\fR\|(3). 
+On success it assigns to \fI*crl\fR the \s-1CRL\s0 received.
+\&\s-1NULL\s0 means that no \s-1CRL\s0 was provided by the server.
+The \s-1CRL\s0 obtained this way must be freed by the caller.
+.PP
+\&\fBOSSL_CMP_get1_certReqTemplate()\fR uses a genm request message with
+infoType certReqTemplate to obtain a certificate request template from the
+\&\s-1CMP\s0 server referenced by \fIctx\fR. On success it assigns to \fI*certTemplate\fR
+the certificate template received. \s-1NULL\s0 output means that no certificate
+request template was provided by the server.
+The optional \fIkeySpec\fR output parameter is assigned the key specification
+if received, otherwise it set to \s-1NULL.\s0
+Both must be freed by the caller.
 .SH "NOTES"
 .IX Header "NOTES"
 \&\s-1CMP\s0 is defined in \s-1RFC 4210\s0 (and \s-1CRMF\s0 in \s-1RFC 4211\s0).
@@ -328,7 +353,8 @@ and the output parameter \fIcheckAfter\fR has been used to
 assign the received value unless \fIcheckAfter\fR is \s-1NULL.\s0
 .PP
 \&\fBOSSL_CMP_exec_RR_ses()\fR, \fBOSSL_CMP_get1_caCerts()\fR,
-and \fBOSSL_CMP_get1_rootCaKeyUpdate()\fR
+\&\fBOSSL_CMP_get1_rootCaKeyUpdate()\fR, \fBOSSL_CMP_get1_crlUpdate()\fR
+and \fBOSSL_CMP_get1_certReqTemplate()\fR
 return 1 on success, 0 on error.
 .PP
 \&\fBOSSL_CMP_exec_GENM_ses()\fR returns \s-1NULL\s0 on error,
@@ -344,7 +370,7 @@ functions.
 \&\fBOSSL_CMP_CTX_set1_subjectName\fR\|(3), \fBOSSL_CMP_CTX_set0_newPkey\fR\|(3),
 \&\fBOSSL_CMP_CTX_set1_p10CSR\fR\|(3), \fBOSSL_CMP_CTX_set1_oldCert\fR\|(3),
 \&\fBOSSL_CMP_CTX_get0_newCert\fR\|(3), \fBOSSL_CMP_CTX_push0_genm_ITAV\fR\|(3),
-\&\fBOSSL_CMP_MSG_http_perform\fR\|(3)
+\&\fBOSSL_CMP_MSG_http_perform\fR\|(3), \fBOSSL_CMP_CRLSTATUS_create\fR\|(3)
 .SH "HISTORY"
 .IX Header "HISTORY"
 The OpenSSL \s-1CMP\s0 support was added in OpenSSL 3.0.
@@ -354,6 +380,9 @@ were added in OpenSSL 3.2.
 .PP
 Support for delayed delivery of all types of response messages
 was added in OpenSSL 3.3.
+.PP
+\&\fBOSSL_CMP_get1_crlUpdate()\fR and \fBOSSL_CMP_get1_certReqTemplate()\fR
+were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2007\-2023 The OpenSSL Project Authors. All Rights Reserved.

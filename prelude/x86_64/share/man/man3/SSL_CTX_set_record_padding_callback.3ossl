@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_CTX_SET_RECORD_PADDING_CALLBACK 3ossl"
-.TH SSL_CTX_SET_RECORD_PADDING_CALLBACK 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_CTX_SET_RECORD_PADDING_CALLBACK 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -146,7 +146,9 @@ SSL_set_record_padding_callback_arg,
 SSL_CTX_get_record_padding_callback_arg,
 SSL_get_record_padding_callback_arg,
 SSL_CTX_set_block_padding,
-SSL_set_block_padding \- install callback to specify TLS 1.3 record padding
+SSL_CTX_set_block_padding_ex,
+SSL_set_block_padding,
+SSL_set_block_padding_ex \- install callback to specify TLS 1.3 record padding
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 .Vb 1
@@ -163,6 +165,8 @@ SSL_set_block_padding \- install callback to specify TLS 1.3 record padding
 \&
 \& int SSL_CTX_set_block_padding(SSL_CTX *ctx, size_t block_size);
 \& int SSL_set_block_padding(SSL *ssl, size_t block_size);
+\& int SSL_CTX_set_block_padding_ex(SSL_CTX *ctx, size_t app_block_size, size_t hs_block_size);
+\& int SSL_set_block_padding_ex(SSL *ssl, size_t app_block_size, size_t hs_block_size);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -182,6 +186,10 @@ retrieve the \fBarg\fR value that is passed to the callback.
 \&\fBSSL_CTX_set_block_padding()\fR and \fBSSL_set_block_padding()\fR pads the record to a multiple
 of the \fBblock_size\fR. A \fBblock_size\fR of 0 or 1 disables block padding. The limit of
 \&\fBblock_size\fR is \s-1SSL3_RT_MAX_PLAIN_LENGTH.\s0
+.PP
+\&\fBSSL_CTX_set_block_padding_ex()\fR and \fBSSL_set_block_padding_ex()\fR do similarly but
+allow the caller to separately specify the padding block size to be applied to
+handshake and application data messages.
 .PP
 The callback is invoked for every record before encryption.
 The \fBtype\fR parameter is the \s-1TLS\s0 record type that is being processed; may be

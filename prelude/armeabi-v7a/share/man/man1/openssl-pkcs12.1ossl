@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-PKCS12 1ossl"
-.TH OPENSSL-PKCS12 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-PKCS12 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -206,6 +206,8 @@ PKCS#12 output (export) options:
 [\fB\-certpbe\fR \fIcipher\fR]
 [\fB\-descert\fR]
 [\fB\-macalg\fR \fIdigest\fR]
+[\fB\-pbmac1_pbkdf2\fR]
+[\fB\-pbmac1_pbkdf2_md\fR \fIdigest\fR]
 [\fB\-iter\fR \fIcount\fR]
 [\fB\-noiter\fR]
 [\fB\-nomaciter\fR]
@@ -448,6 +450,13 @@ then both, the private key and the certificates are encrypted using triple \s-1D
 .IP "\fB\-macalg\fR \fIdigest\fR" 4
 .IX Item "-macalg digest"
 Specify the \s-1MAC\s0 digest algorithm. If not included \s-1SHA256\s0 will be used.
+.IP "\fB\-pbmac1_pbkdf2\fR" 4
+.IX Item "-pbmac1_pbkdf2"
+Use \s-1PBMAC1\s0 with \s-1PBKDF2\s0 for \s-1MAC\s0 protection of the PKCS#12 file.
+.IP "\fB\-pbmac1_pbkdf2_md\fR \fIdigest\fR" 4
+.IX Item "-pbmac1_pbkdf2_md digest"
+Specify the \s-1PBKDF2 KDF\s0 digest algorithm. If not specified, \s-1SHA256\s0 will be used.
+Unless \f(CW\*(C`\-pbmac1_pbkdf2\*(C'\fR is specified, this parameter is ignored.
 .IP "\fB\-iter\fR \fIcount\fR" 4
 .IX Item "-iter count"
 This option specifies the iteration count for the encryption key and \s-1MAC.\s0 The

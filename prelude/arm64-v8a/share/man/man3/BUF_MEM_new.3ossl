@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BUF_MEM_NEW 3ossl"
-.TH BUF_MEM_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH BUF_MEM_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -171,6 +171,7 @@ should be allocated on the secure heap; see \fBCRYPTO_secure_malloc\fR\|(3).
 .PP
 \&\fBBUF_MEM_free()\fR frees up an already existing buffer. The data is zeroed
 before freeing up in case the buffer contains sensitive data.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBBUF_MEM_grow()\fR changes the size of an already existing buffer to
 \&\fBlen\fR. Any data already in the buffer is preserved if it increases in

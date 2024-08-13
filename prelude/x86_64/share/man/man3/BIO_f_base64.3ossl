@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BIO_F_BASE64 3ossl"
-.TH BIO_F_BASE64 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH BIO_F_BASE64 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -156,25 +156,23 @@ any data read through it.
 .PP
 Base64 BIOs do not support \fBBIO_gets()\fR or \fBBIO_puts()\fR.
 .PP
-For writing, output is by default divided to lines of length 64
-characters and there is always a newline at the end of output.
+For writing, by default output is divided to lines of length 64
+characters and there is a newline at the end of output.
+This behavior can be changed with \fB\s-1BIO_FLAGS_BASE64_NO_NL\s0\fR flag.
 .PP
-For reading, first line should be at most 1024
-characters long. If it is longer then it is ignored completely.
-Other input lines can be of any length. There must be a newline
-at the end of input.
-.PP
-This behavior can be changed with \s-1BIO_FLAGS_BASE64_NO_NL\s0 flag.
+For reading, first line should be at most 1024 bytes long including newline
+unless the flag \fB\s-1BIO_FLAGS_BASE64_NO_NL\s0\fR is set.
+Further input lines can be of any length (i.e., newlines may appear anywhere
+in the input) and a newline at the end of input is not needed.
 .PP
 \&\fBBIO_flush()\fR on a base64 \s-1BIO\s0 that is being written through is
 used to signal that no more data is to be encoded: this is used
 to flush the final block through the \s-1BIO.\s0
 .PP
-The flag \s-1BIO_FLAGS_BASE64_NO_NL\s0 can be set with \fBBIO_set_flags()\fR.
+The flag \fB\s-1BIO_FLAGS_BASE64_NO_NL\s0\fR can be set with \fBBIO_set_flags()\fR.
 For writing, it causes all data to be written on one line without
 newline at the end.
-For reading, it expects the data to be all on one line (with or
-without a trailing newline).
+For reading, it removes all expectations on newlines in the input data.
 .SH "NOTES"
 .IX Header "NOTES"
 Because of the format of base64 encoding the end of the encoded
@@ -220,6 +218,10 @@ data to standard output:
 .Ve
 .SH "BUGS"
 .IX Header "BUGS"
+On decoding, if the flag \fB\s-1BIO_FLAGS_BASE64_NO_NL\s0\fR is not set and
+the first 1024 bytes of input do not include a newline character
+the first two lines of input are ignored.
+.PP
 The ambiguity of \s-1EOF\s0 in base64 encoded data can cause additional
 data following the base64 encoded block to be misinterpreted.
 .PP

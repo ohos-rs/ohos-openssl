@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_CIPHER-DES 7ossl"
-.TH EVP_CIPHER-DES 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_CIPHER-DES 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -200,7 +200,7 @@ The following algorithms are available in the legacy provider:
 .SS "Parameters"
 .IX Subsection "Parameters"
 This implementation supports the parameters described in
-\&\*(L"\s-1PARAMETERS\*(R"\s0 in \fBEVP_EncryptInit\fR\|(3).
+\&\*(L"\s-1PARAMETERS\*(R"\s0 in \fBEVP_EncryptInit\fR\|(3) including \*(L"encrypt-check\*(R" and \*(L"fips-indicator\*(R".
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBprovider\-cipher\fR\|(7), \s-1\fBOSSL_PROVIDER\-FIPS\s0\fR\|(7), \fBOSSL_PROVIDER\-default\fR\|(7),

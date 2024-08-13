@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CTLOG_STORE_NEW 3ossl"
-.TH CTLOG_STORE_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH CTLOG_STORE_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -191,7 +191,7 @@ The expected format of the file is:
 .PP
 Once a \s-1CTLOG_STORE\s0 is no longer required, it should be passed to
 \&\fBCTLOG_STORE_free()\fR. This will delete all of the CTLOGs stored within, along
-with the \s-1CTLOG_STORE\s0 itself.
+with the \s-1CTLOG_STORE\s0 itself. If the argument is \s-1NULL,\s0 nothing is done.
 .SH "NOTES"
 .IX Header "NOTES"
 If there are any invalid \s-1CT\s0 logs in a file, they are skipped and the remaining

@@ -83,7 +83,7 @@ int DH_meth_set_generate_params(DH_METHOD *dhm,
 
 <p>DH_meth_dup() creates a duplicate copy of the <b>DH_METHOD</b> object passed as a parameter. This might be useful for creating a new <b>DH_METHOD</b> based on an existing one, but with some differences.</p>
 
-<p>DH_meth_free() destroys a <b>DH_METHOD</b> structure and frees up any memory associated with it.</p>
+<p>DH_meth_free() destroys a <b>DH_METHOD</b> structure and frees up any memory associated with it. If the argument is NULL, nothing is done.</p>
 
 <p>DH_meth_get0_name() will return a pointer to the name of this DH_METHOD. This is a pointer to the internal name string and so should not be freed by the caller. DH_meth_set1_name() sets the name of the DH_METHOD to <b>name</b>. The string is duplicated and the copy is stored in the DH_METHOD structure, so the caller remains responsible for freeing the memory associated with the name.</p>
 

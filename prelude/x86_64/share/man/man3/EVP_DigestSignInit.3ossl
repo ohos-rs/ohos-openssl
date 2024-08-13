@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_DIGESTSIGNINIT 3ossl"
-.TH EVP_DIGESTSIGNINIT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_DIGESTSIGNINIT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -253,13 +253,12 @@ the \fIsiglen\fR parameter. If \fIsig\fR is not \s-1NULL\s0 then before the call
 call is successful the signature is written to \fIsig\fR and the amount of data
 written to \fIsiglen\fR.
 .PP
-\&\fBEVP_DigestSign()\fR signs \fItbslen\fR bytes of data at \fItbs\fR and places the
-signature in \fIsig\fR and its length in \fIsiglen\fR in a similar way to
-\&\fBEVP_DigestSignFinal()\fR. In the event of a failure \fBEVP_DigestSign()\fR cannot be
-called again without reinitialising the \s-1EVP_MD_CTX.\s0 If \fIsig\fR is \s-1NULL\s0 before the
-call then \fIsiglen\fR will be populated with the required size for the \fIsig\fR
-buffer. If \fIsig\fR is non-NULL before the call then \fIsiglen\fR should contain the
-length of the \fIsig\fR buffer.
+\&\fBEVP_DigestSign()\fR is similar to a single call to \fBEVP_DigestSignUpdate()\fR and
+\&\fBEVP_DigestSignFinal()\fR.
+Unless \fIsig\fR is \s-1NULL,\s0 \fBEVP_DigestSign()\fR signs the data \fItbs\fR of length \fItbslen\fR
+bytes and places the signature in a buffer \fIsig\fR of size \fIsiglen\fR.
+If \fIsig\fR is \s-1NULL,\s0 the maximum necessary size of the signature buffer is written
+to the \fIsiglen\fR parameter.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 \&\fBEVP_DigestSignInit()\fR, \fBEVP_DigestSignUpdate()\fR, \fBEVP_DigestSignFinal()\fR and
@@ -301,6 +300,10 @@ finalize the digest context and attempting to process additional data via
 multiple times on a context and the parameters set by previous calls should be
 preserved if the \fIpkey\fR parameter is \s-1NULL.\s0 The call then just resets the state
 of the \fIctx\fR.
+.PP
+\&\fBEVP_DigestSign()\fR can not be called again, once a signature is generated (by
+passing \fIsig\fR as non \s-1NULL\s0), unless the \fB\s-1EVP_MD_CTX\s0\fR is reinitialised by
+calling \fBEVP_DigestSignInit_ex()\fR.
 .PP
 Ignoring failure returns of \fBEVP_DigestSignInit()\fR and \fBEVP_DigestSignInit_ex()\fR
 functions can lead to subsequent undefined behavior when calling

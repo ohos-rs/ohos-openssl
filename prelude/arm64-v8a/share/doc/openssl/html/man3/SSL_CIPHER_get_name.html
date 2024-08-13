@@ -84,7 +84,7 @@ NID_auth_psk</code></pre>
 
 <p>SSL_CIPHER_get_protocol_id() returns the two-byte ID used in the TLS protocol of the given cipher <b>c</b>.</p>
 
-<p>SSL_CIPHER_description() returns a textual description of the cipher used into the buffer <b>buf</b> of length <b>len</b> provided. If <b>buf</b> is provided, it must be at least 128 bytes, otherwise a buffer will be allocated using OPENSSL_malloc(). If the provided buffer is too small, or the allocation fails, <b>NULL</b> is returned.</p>
+<p>SSL_CIPHER_description() returns a textual description of the cipher used into the buffer <b>buf</b> of length <b>len</b> provided. If <b>buf</b> is provided, it must be at least 128 bytes. If <b>buf</b> is NULL it will be allocated using OPENSSL_malloc(). If the provided buffer is too small, or the allocation fails, <b>NULL</b> is returned.</p>
 
 <p>The string returned by SSL_CIPHER_description() consists of several fields separated by whitespace:</p>
 

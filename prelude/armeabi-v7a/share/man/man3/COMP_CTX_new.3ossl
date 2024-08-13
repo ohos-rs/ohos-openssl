@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "COMP_CTX_NEW 3ossl"
-.TH COMP_CTX_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH COMP_CTX_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -191,7 +191,9 @@ These functions provide compression support for OpenSSL. Compression is used wit
 the OpenSSL library to support \s-1TLS\s0 record and certificate compression.
 .PP
 \&\fBCOMP_CTX_new()\fR is used to create a new \fB\s-1COMP_CTX\s0\fR structure used to compress data.
+.PP
 \&\fBCOMP_CTX_free()\fR is used to free the returned \fB\s-1COMP_CTX\s0\fR.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBCOMP_CTX_get_method()\fR returns the \fB\s-1COMP_METHOD\s0\fR of the given \fIctx\fR.
 .PP

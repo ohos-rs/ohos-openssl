@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "PROVIDER-ASYM_CIPHER 7ossl"
-.TH PROVIDER-ASYM_CIPHER 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH PROVIDER-ASYM_CIPHER 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -374,7 +374,24 @@ decryption. When set (non zero value), the decryption \s-1API\s0 will return
 a deterministically random value if the PKCS#1 v1.5 padding check fails.
 This makes exploitation of the Bleichenbacher significantly harder, even
 if the code using the \s-1RSA\s0 decryption \s-1API\s0 is not implemented in side-channel
-free manner. Set by default.
+free manner. Set by default. Requires provider support.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling either \fBOSSL_FUNC_asym_cipher_encrypt()\fR or
+\&\fBOSSL_FUNC_asym_cipher_decrypt()\fR. It may return 0 if \*(L"key-check\*(R" is set to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider.
+.ie n .IP """key-check"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.el .IP "``key-check'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.IX Item "key-check (OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK) <integer>"
+If required this parameter should be set using either
+\&\fBOSSL_FUNC_asym_cipher_encrypt_init()\fR or \fBOSSL_FUNC_asym_cipher_decrypt_init()\fR.
+The default value of 1 causes an error during the init if the key is not \s-1FIPS\s0
+approved (e.g. The key has a security strength of less than 112 bits). Setting
+this to 0 will ignore the error and set the approved \*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
 .PP
 \&\fBOSSL_FUNC_asym_cipher_gettable_ctx_params()\fR and \fBOSSL_FUNC_asym_cipher_settable_ctx_params()\fR
 get a constant \s-1\fBOSSL_PARAM\s0\fR\|(3) array that describes the gettable and settable
@@ -392,6 +409,8 @@ All other functions should return 1 for success or 0 on error.
 .SH "HISTORY"
 .IX Header "HISTORY"
 The provider \s-1ASYM_CIPHER\s0 interface was introduced in OpenSSL 3.0.
+The Asymmetric Cipher Parameters \*(L"fips-indicator\*(R" and \*(L"key-check\*(R"
+were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2019\-2023 The OpenSSL Project Authors. All Rights Reserved.

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-ENC 1ossl"
-.TH OPENSSL-ENC 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-ENC 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -223,12 +223,18 @@ Decrypt the input data.
 Base64 process the data. This means that if encryption is taking place
 the data is base64 encoded after encryption. If decryption is set then
 the input data is base64 decoded before being decrypted.
+.Sp
+When the \fB\-A\fR option not given,
+on encoding a newline is inserted after each 64 characters, and
+on decoding a newline is expected among the first 1024 bytes of input.
 .IP "\fB\-base64\fR" 4
 .IX Item "-base64"
 Same as \fB\-a\fR
 .IP "\fB\-A\fR" 4
 .IX Item "-A"
-If the \fB\-a\fR option is set then base64 process the data on one line.
+If the \fB\-a\fR option is set then base64 encoding produces output without any
+newline character, and base64 decoding does not require any newlines.
+Therefore it can be helpful to use the \fB\-A\fR option when decoding unknown input.
 .IP "\fB\-k\fR \fIpassword\fR" 4
 .IX Item "-k password"
 The password to derive the key from. This is for compatibility with previous
@@ -587,6 +593,9 @@ Base64 decode a file then decrypt it using a password supplied in a file:
 .SH "BUGS"
 .IX Header "BUGS"
 The \fB\-A\fR option when used with large files doesn't work properly.
+On the other hand, when base64 decoding without the \fB\-A\fR option,
+if the first 1024 bytes of input do not include a newline character
+the first two lines of input are ignored.
 .PP
 The \fBopenssl enc\fR command only supports a fixed number of algorithms with
 certain parameters. So if, for example, you want to use \s-1RC2\s0 with a

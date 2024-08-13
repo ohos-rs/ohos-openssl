@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_ASYM_CIPHER_FREE 3ossl"
-.TH EVP_ASYM_CIPHER_FREE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_ASYM_CIPHER_FREE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -182,7 +182,7 @@ The returned value must eventually be freed with \fBEVP_ASYM_CIPHER_free()\fR.
 \&\fBEVP_ASYM_CIPHER_free()\fR decrements the reference count for the \fB\s-1EVP_ASYM_CIPHER\s0\fR
 structure. Typically this structure will have been obtained from an earlier call
 to \fBEVP_ASYM_CIPHER_fetch()\fR. If the reference count drops to 0 then the
-structure is freed.
+structure is freed. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBEVP_ASYM_CIPHER_up_ref()\fR increments the reference count for an
 \&\fB\s-1EVP_ASYM_CIPHER\s0\fR structure.

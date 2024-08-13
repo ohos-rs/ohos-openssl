@@ -111,6 +111,8 @@ void SSL_set_post_handshake_auth(SSL *ssl, int val);</code></pre>
 
 <p>If the <b>mode</b> is SSL_VERIFY_NONE none of the other flags may be set.</p>
 
+<p>If verification flags are not modified explicitly by <code>SSL_CTX_set_verify()</code> or <code>SSL_set_verify()</code>, the default value will be SSL_VERIFY_NONE.</p>
+
 <p>The actual verification procedure is performed either using the built-in verification procedure or using another application provided verification function set with <a href="../man3/SSL_CTX_set_cert_verify_callback.html">SSL_CTX_set_cert_verify_callback(3)</a>. The following descriptions apply in the case of the built-in procedure. An application provided procedure also has access to the verify depth information and the verify_callback() function, but the way this information is used may be different.</p>
 
 <p>SSL_CTX_set_verify_depth() and SSL_set_verify_depth() set a limit on the number of certificates between the end-entity and trust-anchor certificates. Neither the end-entity nor the trust-anchor certificates count against <b>depth</b>. If the certificate chain needed to reach a trusted issuer is longer than <b>depth+2</b>, X509_V_ERR_CERT_CHAIN_TOO_LONG will be issued. The depth count is &quot;level 0:peer certificate&quot;, &quot;level 1: CA certificate&quot;, &quot;level 2: higher level CA certificate&quot;, and so on. Setting the maximum depth to 2 allows the levels 0, 1, 2 and 3 (0 being the end-entity and 3 the trust-anchor). The default depth limit is 100, allowing for the peer certificate, at most 100 intermediate CA certificates and a final trust anchor certificate.</p>

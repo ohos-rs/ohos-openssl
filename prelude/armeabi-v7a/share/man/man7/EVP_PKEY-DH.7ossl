@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_PKEY-DH 7ossl"
-.TH EVP_PKEY-DH 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_PKEY-DH 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -143,11 +143,12 @@ EVP_PKEY\-DH, EVP_PKEY\-DHX, EVP_KEYMGMT\-DH, EVP_KEYMGMT\-DHX
 \&\- EVP_PKEY DH and DHX keytype and algorithm support
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-For \fB\s-1DH\s0\fR \s-1FFC\s0 key agreement, two classes of domain parameters can be used:
-\&\*(L"safe\*(R" domain parameters that are associated with approved named safe-prime
-groups, and a class of \*(L"FIPS186\-type\*(R" domain parameters. FIPS186\-type domain
-parameters should only be used for backward compatibility with existing
-applications that cannot be upgraded to use the approved safe-prime groups.
+For finite field Diffie-Hellman key agreement, two classes of domain
+parameters can be used: \*(L"safe\*(R" domain parameters that are associated with
+approved named safe-prime groups, and a class of \*(L"FIPS186\-type\*(R" domain
+parameters. FIPS186\-type domain parameters should only be used for backward
+compatibility with existing applications that cannot be upgraded to use the
+approved safe-prime groups.
 .PP
 See \s-1\fBEVP_PKEY\-FFC\s0\fR\|(7) for more information about \s-1FFC\s0 keys.
 .PP
@@ -156,10 +157,10 @@ The \fB\s-1DH\s0\fR key type uses PKCS#3 format which saves \fIp\fR and \fIg\fR,
 The \fB\s-1DHX\s0\fR key type uses X9.42 format which saves the value of \fIq\fR and this
 must be used for \s-1FIPS186\-4.\s0 If key validation is required, users should be aware
 of the nuances associated with \s-1FIPS186\-4\s0 style parameters as discussed in
-\&\*(L"\s-1DH\s0 key validation\*(R".
+\&\*(L"\s-1DH\s0 and \s-1DHX\s0 key validation\*(R".
 .SS "\s-1DH\s0 and \s-1DHX\s0 domain parameters"
 .IX Subsection "DH and DHX domain parameters"
-In addition to the common \s-1FCC\s0 parameters that all \s-1FFC\s0 keytypes should support
+In addition to the common \s-1FFC\s0 parameters that all \s-1FFC\s0 keytypes should support
 (see \*(L"\s-1FFC\s0 parameters\*(R" in \s-1\fBEVP_PKEY\-FFC\s0\fR\|(7)) the \fB\s-1DHX\s0\fR and \fB\s-1DH\s0\fR keytype
 implementations support the following:
 .ie n .IP """group"" (\fB\s-1OSSL_PKEY_PARAM_GROUP_NAME\s0\fR) <\s-1UTF8\s0 string>" 4
@@ -250,43 +251,44 @@ The default value used if this is not set is the maximum value of
 BN_num_bits(\fIq\fR)). The minimum value that this can be set to is 2 * s.
 Where s is the security strength of the key which has values of
 112, 128, 152, 176 and 200 for key sizes of 2048, 3072, 4096, 6144 and 8192.
-.SS "\s-1DH\s0 key validation"
-.IX Subsection "DH key validation"
-For \fB\s-1DHX\s0\fR that is not a named group the \s-1FIPS186\-4\s0 standard specifies that the
+.SS "\s-1DH\s0 and \s-1DHX\s0 key validation"
+.IX Subsection "DH and DHX key validation"
+For keys that are not a named group the \s-1FIPS186\-4\s0 standard specifies that the
 values used for \s-1FFC\s0 parameter generation are also required for parameter
 validation. This means that optional \s-1FFC\s0 domain parameter values for
 \&\fIseed\fR, \fIpcounter\fR and \fIgindex\fR or \fIhindex\fR may need to be stored for
 validation purposes.
 For \fB\s-1DHX\s0\fR the \fIseed\fR and \fIpcounter\fR can be stored in \s-1ASN1\s0 data
 (but the \fIgindex\fR or \fIhindex\fR cannot be stored). It is recommended to use a
-named safe prime group instead.
+\&\fB\s-1DH\s0\fR parameters with named safe prime group instead.
 .PP
-For \s-1DH\s0 keys, \fBEVP_PKEY_param_check\fR\|(3) behaves in the following way:
-The OpenSSL \s-1FIPS\s0 provider tests if the parameters are either an approved safe
-prime group \s-1OR\s0 that the \s-1FFC\s0 parameters conform to \s-1FIPS186\-4\s0 as defined in
-SP800\-56Ar3 \fIAssurances of Domain-Parameter Validity\fR.
+With the OpenSSL \s-1FIPS\s0 provider, \fBEVP_PKEY_param_check\fR\|(3) and
+\&\fBEVP_PKEY_param_check_quick\fR\|(3) behave in the following way: the parameters
+are tested if they are either an approved safe prime group \s-1OR\s0 that the \s-1FFC\s0
+parameters conform to \s-1FIPS186\-4\s0 as defined in SP800\-56Ar3 \fIAssurances of
+Domain-Parameter Validity\fR.
+.PP
 The OpenSSL default provider uses simpler checks that allows there to be no \fIq\fR
-value for backwards compatibility.
+value for backwards compatibility, however the \fBEVP_PKEY_param_check\fR\|(3) will
+test the \fIp\fR value for being a prime (and a safe prime if \fIq\fR is missing)
+which can take significant time. The \fBEVP_PKEY_param_check_quick\fR\|(3) avoids
+the prime tests.
 .PP
-For \s-1DH\s0 keys, \fBEVP_PKEY_param_check_quick\fR\|(3) is equivalent to
-\&\fBEVP_PKEY_param_check\fR\|(3).
+\&\fBEVP_PKEY_public_check\fR\|(3) conforms to SP800\-56Ar3
+\&\fI\s-1FFC\s0 Full Public-Key Validation\fR.
 .PP
-For \s-1DH\s0 keys, \fBEVP_PKEY_public_check\fR\|(3) conforms to
-SP800\-56Ar3 \fI\s-1FFC\s0 Full Public-Key Validation\fR.
+\&\fBEVP_PKEY_public_check_quick\fR\|(3) conforms to SP800\-56Ar3
+\&\fI\s-1FFC\s0 Partial Public-Key Validation\fR when the key is an approved named safe
+prime group, otherwise it is the same as \fBEVP_PKEY_public_check\fR\|(3).
 .PP
-For \s-1DH\s0 keys, \fBEVP_PKEY_public_check_quick\fR\|(3) conforms to
-SP800\-56Ar3 \fI\s-1FFC\s0 Partial Public-Key Validation\fR when the
-\&\s-1DH\s0 key is an approved named safe prime group, otherwise it is the same as
-\&\fBEVP_PKEY_public_check\fR\|(3).
-.PP
-For \s-1DH\s0 Keys, \fBEVP_PKEY_private_check\fR\|(3) tests that the private key is in the
-correct range according to SP800\-56Ar3. The OpenSSL \s-1FIPS\s0 provider requires the
-value of \fIq\fR to be set (note that this is set for named safe prime groups).
+\&\fBEVP_PKEY_private_check\fR\|(3) tests that the private key is in the correct range
+according to SP800\-56Ar3. The OpenSSL \s-1FIPS\s0 provider requires the value of \fIq\fR
+to be set (note that this is implicitly set for named safe prime groups).
 For backwards compatibility the OpenSSL default provider only requires \fIp\fR to
 be set.
 .PP
-For \s-1DH\s0 keys, \fBEVP_PKEY_pairwise_check\fR\|(3) conforms to
-SP800\-56Ar3 \fIOwner Assurance of Pair-wise Consistency\fR.
+\&\fBEVP_PKEY_pairwise_check\fR\|(3) conforms to SP800\-56Ar3
+\&\fIOwner Assurance of Pair-wise Consistency\fR.
 .SH "EXAMPLES"
 .IX Header "EXAMPLES"
 An \fB\s-1EVP_PKEY\s0\fR context can be obtained by calling:

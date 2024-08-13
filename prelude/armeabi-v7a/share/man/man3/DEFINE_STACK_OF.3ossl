@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "DEFINE_STACK_OF 3ossl"
-.TH DEFINE_STACK_OF 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH DEFINE_STACK_OF 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -176,8 +176,8 @@ OPENSSL_sk_unshift, OPENSSL_sk_value, OPENSSL_sk_zero
 \& STACK_OF(TYPE) *sk_TYPE_new(sk_TYPE_compfunc compare);
 \& STACK_OF(TYPE) *sk_TYPE_new_null(void);
 \& int sk_TYPE_reserve(STACK_OF(TYPE) *sk, int n);
-\& void sk_TYPE_free(const STACK_OF(TYPE) *sk);
-\& void sk_TYPE_zero(const STACK_OF(TYPE) *sk);
+\& void sk_TYPE_free(STACK_OF(TYPE) *sk);
+\& void sk_TYPE_zero(STACK_OF(TYPE) *sk);
 \& TYPE *sk_TYPE_delete(STACK_OF(TYPE) *sk, int i);
 \& TYPE *sk_TYPE_delete_ptr(STACK_OF(TYPE) *sk, TYPE *ptr);
 \& int sk_TYPE_push(STACK_OF(TYPE) *sk, const TYPE *ptr);
@@ -440,7 +440,7 @@ Before OpenSSL 3.3.0 \fBsk_\f(BI\s-1TYPE\s0\fB_push\fR() returned \-1 if \fIsk\f
 was changed to return 0 in this condition as for other errors.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

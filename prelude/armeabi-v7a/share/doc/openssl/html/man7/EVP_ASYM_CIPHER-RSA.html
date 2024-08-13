@@ -52,6 +52,8 @@
 <dt id="pkcs1-OSSL_PKEY_RSA_PAD_MODE_PKCSV15">&quot;pkcs1&quot; (<b>OSSL_PKEY_RSA_PAD_MODE_PKCSV15</b>)</dt>
 <dd>
 
+<p>This padding mode is no longer supported by the FIPS provider for key agreement and key transport. (This is a FIPS 140-3 requirement)</p>
+
 </dd>
 <dt id="x931-OSSL_PKEY_RSA_PAD_MODE_X931">&quot;x931&quot; (<b>OSSL_PKEY_RSA_PAD_MODE_X931</b>)</dt>
 <dd>
@@ -69,6 +71,8 @@
 
 <dt id="RSA_PKCS1_PADDING">1 (<b>RSA_PKCS1_PADDING</b>)</dt>
 <dd>
+
+<p>This padding mode is no longer supported by the FIPS provider for key agreement and key transport. (This is a FIPS 140-3 requirement)</p>
 
 </dd>
 <dt id="RSA_NO_PADDING">3 (<b>RSA_NO_PADDING</b>)</dt>
@@ -108,6 +112,14 @@
 <dd>
 
 </dd>
+<dt id="fips-indicator-OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR-integer">&quot;fips-indicator&quot; (<b>OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR</b>) &lt;integer&gt;</dt>
+<dd>
+
+</dd>
+<dt id="key-check-OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK-integer">&quot;key-check&quot; (<b>OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK</b>) &lt;integer&gt;</dt>
+<dd>
+
+</dd>
 <dt id="tls-client-version-OSSL_ASYM_CIPHER_PARAM_TLS_CLIENT_VERSION-unsigned-integer">&quot;tls-client-version&quot; (<b>OSSL_ASYM_CIPHER_PARAM_TLS_CLIENT_VERSION</b>) &lt;unsigned integer&gt;</dt>
 <dd>
 
@@ -120,6 +132,12 @@
 <p>See <b>RSA_PKCS1_WITH_TLS_PADDING</b> on the page <a href="../man3/EVP_PKEY_CTX_set_rsa_padding.html">EVP_PKEY_CTX_set_rsa_padding(3)</a>.</p>
 
 <p>See <a href="../man7/provider-asym_cipher.html">&quot;Asymmetric Cipher Parameters&quot; in provider-asym_cipher(7)</a> for more information.</p>
+
+</dd>
+<dt id="pkcs15-padding-disabled-OSSL_ASYM_CIPHER_PARAM_PKCS15_PADDING_DISABLED-integer">&quot;pkcs15-padding-disabled&quot; (<b>OSSL_ASYM_CIPHER_PARAM_PKCS15_PADDING_DISABLED</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>If nonzero, PKCS#1 version 1.5 padding is disabled. This option is used by the OpenSSL FIPS provider.</p>
 
 </dd>
 </dl>

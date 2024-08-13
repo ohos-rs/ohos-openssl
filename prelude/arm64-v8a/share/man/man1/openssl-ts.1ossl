@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-TS 1ossl"
-.TH OPENSSL-TS 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-TS 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -307,9 +307,9 @@ use its own default policy. (Optional)
 .IP "\fB\-no_nonce\fR" 4
 .IX Item "-no_nonce"
 No nonce is specified in the request if this option is
-given. Otherwise a 64 bit long pseudo-random none is
-included in the request. It is recommended to use nonce to
-protect against replay-attacks. (Optional)
+given. Otherwise, a 64\-bit long pseudo-random nonce is
+included in the request. It is recommended to use a nonce to
+protect against replay attacks. (Optional)
 .IP "\fB\-cert\fR" 4
 .IX Item "-cert"
 The \s-1TSA\s0 is expected to include its signing certificate in the
@@ -752,7 +752,7 @@ The \fB\-engine\fR option was deprecated in OpenSSL 3.0.
 \&\fBossl_store\-file\fR\|(7)
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2006\-2021 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2006\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

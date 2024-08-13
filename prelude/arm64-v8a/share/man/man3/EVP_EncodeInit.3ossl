@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_ENCODEINIT 3ossl"
-.TH EVP_ENCODEINIT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_ENCODEINIT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -178,7 +178,7 @@ character.
 the encode/decode functions.
 .PP
 \&\fBEVP_ENCODE_CTX_free()\fR cleans up an encode/decode context \fBctx\fR and frees up the
-space allocated to it.
+space allocated to it. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 Encoding of binary data is performed in blocks of 48 input bytes (or less for
 the final block). For each 48 byte input block encoded 64 bytes of base 64 data

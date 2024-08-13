@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_RAND-TEST-RAND 7ossl"
-.TH EVP_RAND-TEST-RAND 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_RAND-TEST-RAND 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -154,6 +154,11 @@ The supported parameters are:
 .ie n .IP """state"" (\fB\s-1OSSL_RAND_PARAM_STATE\s0\fR) <integer>" 4
 .el .IP "``state'' (\fB\s-1OSSL_RAND_PARAM_STATE\s0\fR) <integer>" 4
 .IX Item "state (OSSL_RAND_PARAM_STATE) <integer>"
+.PD 0
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+.PD
 These parameter works as described in \*(L"\s-1PARAMETERS\*(R"\s0 in \s-1\fBEVP_RAND\s0\fR\|(3).
 .ie n .IP """strength"" (\fB\s-1OSSL_RAND_PARAM_STRENGTH\s0\fR) <unsigned integer>" 4
 .el .IP "``strength'' (\fB\s-1OSSL_RAND_PARAM_STRENGTH\s0\fR) <unsigned integer>" 4

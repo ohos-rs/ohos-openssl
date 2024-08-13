@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_CONF_CMD 3ossl"
-.TH SSL_CONF_CMD 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_CONF_CMD 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -237,15 +237,18 @@ algorithms to support.
 .Sp
 The \fBalgs\fR argument should be a colon separated list of signature
 algorithms in order of decreasing preference of the form \fBalgorithm+hash\fR
-or \fBsignature_scheme\fR. \fBalgorithm\fR is one of \fB\s-1RSA\s0\fR, \fB\s-1DSA\s0\fR or \fB\s-1ECDSA\s0\fR and
+or \fBsignature_scheme\fR. For the default providers shipped with OpenSSL,
+\&\fBalgorithm\fR is one of \fB\s-1RSA\s0\fR, \fB\s-1DSA\s0\fR or \fB\s-1ECDSA\s0\fR and
 \&\fBhash\fR is a supported algorithm \s-1OID\s0 short name such as \fB\s-1SHA1\s0\fR, \fB\s-1SHA224\s0\fR,
-\&\fB\s-1SHA256\s0\fR, \fB\s-1SHA384\s0\fR of \fB\s-1SHA512\s0\fR.  Note: algorithm and hash names are case
+\&\fB\s-1SHA256\s0\fR, \fB\s-1SHA384\s0\fR or \fB\s-1SHA512\s0\fR.  Note: algorithm and hash names are case
 sensitive.  \fBsignature_scheme\fR is one of the signature schemes defined in
 TLSv1.3, specified using the \s-1IETF\s0 name, e.g., \fBecdsa_secp256r1_sha256\fR,
-\&\fBed25519\fR, or \fBrsa_pss_pss_sha256\fR.
+\&\fBed25519\fR, or \fBrsa_pss_pss_sha256\fR. Additional providers may make available
+further algorithms via the \s-1TLS_SIGALG\s0 capability.
+See \*(L"\s-1CAPABILITIES\*(R"\s0 in \fBprovider\-base\fR\|(7).
 .Sp
-If this option is not set then all signature algorithms supported by the
-OpenSSL library are permissible.
+If this option is not set then all signature algorithms supported by all
+activated providers are permissible.
 .Sp
 Note: algorithms which specify a PKCS#1 v1.5 signature scheme (either by
 using \fB\s-1RSA\s0\fR as the \fBalgorithm\fR or by using one of the \fBrsa_pkcs1_*\fR
@@ -330,9 +333,15 @@ To restrict the supported protocol versions use these commands rather than the
 deprecated alternative commands below.
 .IP "\fB\-record_padding\fR \fIpadding\fR" 4
 .IX Item "-record_padding padding"
-Attempts to pad TLSv1.3 records so that they are a multiple of \fBpadding\fR
-in length on send. A \fBpadding\fR of 0 or 1 turns off padding. Otherwise,
-the \fBpadding\fR must be >1 or <=16384.
+Controls use of TLSv1.3 record layer padding.  \fBpadding\fR is a string of the
+form \*(L"number[,number]\*(R" where the (required) first number is the padding block
+size (in octets) for application data, and the optional second number is the
+padding block size for handshake and alert messages.  If the optional second
+number is omitted, the same padding will be applied to all messages.
+.Sp
+Padding attempts to pad TLSv1.3 records so that they are a multiple of the set
+length on send. A value of 0 or 1 turns off padding as relevant. Otherwise, the
+values must be >1 or <=16384.
 .IP "\fB\-debug_broken_protocol\fR" 4
 .IX Item "-debug_broken_protocol"
 Ignored.
@@ -436,9 +445,15 @@ the appropriate context. This option is only supported if certificate
 operations are permitted.
 .IP "\fBRecordPadding\fR" 4
 .IX Item "RecordPadding"
-Attempts to pad TLSv1.3 records so that they are a multiple of \fBvalue\fR in
-length on send. A \fBvalue\fR of 0 or 1 turns off padding. Otherwise, the
-\&\fBvalue\fR must be >1 or <=16384.
+Controls use of TLSv1.3 record layer padding.  \fBvalue\fR is a string of the form
+\&\*(L"number[,number]\*(R" where the (required) first number is the padding block size
+(in octets) for application data, and the optional second number is the padding
+block size for handshake and alert messages.  If the optional second number is
+omitted, the same padding will be applied to all messages.
+.Sp
+Padding attempts to pad TLSv1.3 records so that they are a multiple of the set
+length on send. A value of 0 or 1 turns off padding as relevant. Otherwise, the
+values must be >1 or <=16384.
 .IP "\fBSignatureAlgorithms\fR" 4
 .IX Item "SignatureAlgorithms"
 This sets the supported signature algorithms for TLSv1.2 and TLSv1.3.
@@ -448,16 +463,19 @@ servers it is used to determine which signature algorithms to support.
 .Sp
 The \fBvalue\fR argument should be a colon separated list of signature algorithms
 in order of decreasing preference of the form \fBalgorithm+hash\fR or
-\&\fBsignature_scheme\fR. \fBalgorithm\fR
-is one of \fB\s-1RSA\s0\fR, \fB\s-1DSA\s0\fR or \fB\s-1ECDSA\s0\fR and \fBhash\fR is a supported algorithm
-\&\s-1OID\s0 short name such as \fB\s-1SHA1\s0\fR, \fB\s-1SHA224\s0\fR, \fB\s-1SHA256\s0\fR, \fB\s-1SHA384\s0\fR of \fB\s-1SHA512\s0\fR.
+\&\fBsignature_scheme\fR. For the default providers shipped with OpenSSL,
+\&\fBalgorithm\fR is one of \fB\s-1RSA\s0\fR, \fB\s-1DSA\s0\fR or \fB\s-1ECDSA\s0\fR and \fBhash\fR is a supported
+algorithm \s-1OID\s0 short name such as \fB\s-1SHA1\s0\fR, \fB\s-1SHA224\s0\fR, \fB\s-1SHA256\s0\fR, \fB\s-1SHA384\s0\fR
+or \fB\s-1SHA512\s0\fR.
 Note: algorithm and hash names are case sensitive.
 \&\fBsignature_scheme\fR is one of the signature schemes defined in TLSv1.3,
 specified using the \s-1IETF\s0 name, e.g., \fBecdsa_secp256r1_sha256\fR, \fBed25519\fR,
 or \fBrsa_pss_pss_sha256\fR.
+Additional providers may make available further algorithms via the \s-1TLS_SIGALG\s0
+capability. See \*(L"\s-1CAPABILITIES\*(R"\s0 in \fBprovider\-base\fR\|(7).
 .Sp
-If this option is not set then all signature algorithms supported by the
-OpenSSL library are permissible.
+If this option is not set then all signature algorithms supported by all
+activated providers are permissible.
 .Sp
 Note: algorithms which specify a PKCS#1 v1.5 signature scheme (either by
 using \fB\s-1RSA\s0\fR as the \fBalgorithm\fR or by using one of the \fBrsa_pkcs1_*\fR

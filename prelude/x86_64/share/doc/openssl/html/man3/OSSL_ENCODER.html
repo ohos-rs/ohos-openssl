@@ -57,7 +57,7 @@ int OSSL_ENCODER_get_params(OSSL_ENCODER_CTX *ctx, const OSSL_PARAM params[]);</
 
 <p>OSSL_ENCODER_up_ref() increments the reference count for the given <i>encoder</i>.</p>
 
-<p>OSSL_ENCODER_free() decrements the reference count for the given <i>encoder</i>, and when the count reaches zero, frees it.</p>
+<p>OSSL_ENCODER_free() decrements the reference count for the given <i>encoder</i>, and when the count reaches zero, frees it. If the argument is NULL, nothing is done.</p>
 
 <p>OSSL_ENCODER_get0_provider() returns the provider of the given <i>encoder</i>.</p>
 

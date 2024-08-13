@@ -59,7 +59,7 @@ key = &lt;base64-encoded DER SubjectPublicKeyInfo here&gt;
 description = Log 2
 key = &lt;base64-encoded DER SubjectPublicKeyInfo here&gt;</code></pre>
 
-<p>Once a CTLOG_STORE is no longer required, it should be passed to CTLOG_STORE_free(). This will delete all of the CTLOGs stored within, along with the CTLOG_STORE itself.</p>
+<p>Once a CTLOG_STORE is no longer required, it should be passed to CTLOG_STORE_free(). This will delete all of the CTLOGs stored within, along with the CTLOG_STORE itself. If the argument is NULL, nothing is done.</p>
 
 <h1 id="NOTES">NOTES</h1>
 

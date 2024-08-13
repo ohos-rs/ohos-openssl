@@ -133,14 +133,15 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_GET_VERSION 3ossl"
-.TH X509_GET_VERSION 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_GET_VERSION 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
 .SH "NAME"
 X509_get_version, X509_set_version, X509_REQ_get_version, X509_REQ_set_version,
-X509_CRL_get_version, X509_CRL_set_version \- get or set certificate,
+X509_ACERT_get_version, X509_ACERT_set_version, X509_CRL_get_version,
+X509_CRL_set_version \- get or set certificate,
 certificate request or CRL version
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
@@ -155,6 +156,11 @@ certificate request or CRL version
 \&
 \& long X509_CRL_get_version(const X509_CRL *crl);
 \& int X509_CRL_set_version(X509_CRL *x, long version);
+\&
+\& #include <openssl/x509_acert.h>
+\&
+\& int X509_ACERT_set_version(X509_ACERT *x, long version);
+\& long X509_ACERT_get_version(const X509_ACERT *x);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -168,9 +174,11 @@ version. So \fBX509_VERSION_3\fR has value 2 and \fBX509_VERSION_1\fR has value 
 \&\fIx\fR to \fIversion\fR.
 .PP
 Similarly \fBX509_REQ_get_version()\fR, \fBX509_REQ_set_version()\fR,
+\&\fBX509_ACERT_get_version()\fR, \fBX509_ACERT_set_version()\fR,
 \&\fBX509_CRL_get_version()\fR and \fBX509_CRL_set_version()\fR get and set the version
 number of certificate requests and CRLs. They use constants
-\&\fBX509_REQ_VERSION_1\fR, \fBX509_CRL_VERSION_1\fR, and \fBX509_CRL_VERSION_2\fR.
+\&\fBX509_REQ_VERSION_1\fR, \fBX509_ACERT_VERSION_2\fR, \fBX509_CRL_VERSION_1\fR,
+and \fBX509_CRL_VERSION_2\fR.
 .SH "NOTES"
 .IX Header "NOTES"
 The version field of certificates, certificate requests and CRLs has a

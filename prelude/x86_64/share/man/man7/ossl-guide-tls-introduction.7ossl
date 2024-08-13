@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL-GUIDE-TLS-INTRODUCTION 7ossl"
-.TH OSSL-GUIDE-TLS-INTRODUCTION 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL-GUIDE-TLS-INTRODUCTION 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -369,7 +369,8 @@ circumstances where you want them to be different.
 .PP
 It is up to the application programmer to create the \fB\s-1BIO\s0\fR objects that are
 needed and supply them to the \fB\s-1SSL\s0\fR object. See
-\&\fBossl\-guide\-tls\-client\-block\fR\|(7) for further information.
+\&\fBossl\-guide\-tls\-client\-block\fR\|(7) and \fBossl\-guide\-tls\-server\-block\fR\|(7) for
+usage examples.
 .PP
 Finally, an endpoint can establish a \*(L"session\*(R" with its peer. The session holds
 various \s-1TLS\s0 parameters about the connection between the client and the server.
@@ -432,14 +433,17 @@ Once shutdown is complete a \s-1TLS\s0 application must clean up by freeing the 
 object.
 .SH "FURTHER READING"
 .IX Header "FURTHER READING"
-See \fBossl\-guide\-tls\-client\-block\fR\|(7) to see an example of applying these
+See \fBossl\-guide\-tls\-client\-block\fR\|(7) for an example of how to apply these
 concepts in order to write a simple \s-1TLS\s0 client based on a blocking socket.
+See \fBossl\-guide\-tls\-server\-block\fR\|(7) for an example of how to apply these
+concepts in order to write a simple \s-1TLS\s0 server handling one client at a time
+over a blocking socket.
 See \fBossl\-guide\-quic\-introduction\fR\|(7) for an introduction to \s-1QUIC\s0 in OpenSSL.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBossl\-guide\-introduction\fR\|(7), \fBossl\-guide\-libraries\-introduction\fR\|(7),
 \&\fBossl\-guide\-libssl\-introduction\fR\|(7), \fBossl\-guide\-tls\-client\-block\fR\|(7),
-\&\fBossl\-guide\-quic\-introduction\fR\|(7)
+\&\fBossl\-guide\-tls\-server\-block\fR\|(7), \fBossl\-guide\-quic\-introduction\fR\|(7)
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2023 The OpenSSL Project Authors. All Rights Reserved.

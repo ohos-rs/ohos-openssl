@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BIO_ADDR 3ossl"
-.TH BIO_ADDR 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH BIO_ADDR 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -155,7 +155,7 @@ BIO_ADDR_path_string \- BIO_ADDR routines
 \& BIO_ADDR *BIO_ADDR_new(void);
 \& int BIO_ADDR_copy(BIO_ADDR *dst, const BIO_ADDR *src);
 \& BIO_ADDR *BIO_ADDR_dup(const BIO_ADDR *ap);
-\& void BIO_ADDR_free(BIO_ADDR *);
+\& void BIO_ADDR_free(BIO_ADDR *ap);
 \& void BIO_ADDR_clear(BIO_ADDR *ap);
 \& int BIO_ADDR_rawmake(BIO_ADDR *ap, int family,
 \&                      const void *where, size_t wherelen, unsigned short port);
@@ -184,7 +184,7 @@ with routines that will fill it with information, such as
 address data in \fBap\fR.
 .PP
 \&\fBBIO_ADDR_free()\fR frees a \fB\s-1BIO_ADDR\s0\fR created with \fBBIO_ADDR_new()\fR
-or \fBBIO_ADDR_dup()\fR;
+or \fBBIO_ADDR_dup()\fR. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBBIO_ADDR_clear()\fR clears any data held within the provided \fB\s-1BIO_ADDR\s0\fR and sets
 it back to an uninitialised state.

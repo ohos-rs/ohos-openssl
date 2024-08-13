@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_ASYM_CIPHER-RSA 7ossl"
-.TH EVP_ASYM_CIPHER-RSA 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_ASYM_CIPHER-RSA 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -161,12 +161,17 @@ The default provider understands these \s-1RSA\s0 padding modes in string form:
 .ie n .IP """pkcs1"" (\fB\s-1OSSL_PKEY_RSA_PAD_MODE_PKCSV15\s0\fR)" 4
 .el .IP "``pkcs1'' (\fB\s-1OSSL_PKEY_RSA_PAD_MODE_PKCSV15\s0\fR)" 4
 .IX Item "pkcs1 (OSSL_PKEY_RSA_PAD_MODE_PKCSV15)"
+.PD
+This padding mode is no longer supported by the \s-1FIPS\s0 provider for key
+agreement and key transport.
+(This is a \s-1FIPS 140\-3\s0 requirement)
 .ie n .IP """x931"" (\fB\s-1OSSL_PKEY_RSA_PAD_MODE_X931\s0\fR)" 4
 .el .IP "``x931'' (\fB\s-1OSSL_PKEY_RSA_PAD_MODE_X931\s0\fR)" 4
 .IX Item "x931 (OSSL_PKEY_RSA_PAD_MODE_X931)"
 .RE
 .RS 4
 .RE
+.PD 0
 .ie n .IP """pad-mode"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_PAD_MODE\s0\fR) <integer>" 4
 .el .IP "``pad-mode'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_PAD_MODE\s0\fR) <integer>" 4
 .IX Item "pad-mode (OSSL_ASYM_CIPHER_PARAM_PAD_MODE) <integer>"
@@ -175,9 +180,12 @@ The default provider understands these \s-1RSA\s0 padding modes in integer form:
 .RS 4
 .IP "1 (\fB\s-1RSA_PKCS1_PADDING\s0\fR)" 4
 .IX Item "1 (RSA_PKCS1_PADDING)"
-.PD 0
+This padding mode is no longer supported by the \s-1FIPS\s0 provider for key
+agreement and key transport.
+(This is a \s-1FIPS 140\-3\s0 requirement)
 .IP "3 (\fB\s-1RSA_NO_PADDING\s0\fR)" 4
 .IX Item "3 (RSA_NO_PADDING)"
+.PD 0
 .IP "4 (\fB\s-1RSA_PKCS1_OAEP_PADDING\s0\fR)" 4
 .IX Item "4 (RSA_PKCS1_OAEP_PADDING)"
 .IP "5 (\fB\s-1RSA_X931_PADDING\s0\fR)" 4
@@ -204,6 +212,12 @@ See \fBEVP_PKEY_CTX_set_rsa_padding\fR\|(3) for further details.
 .ie n .IP """oaep-label"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_OAEP_LABEL\s0\fR) <octet string>" 4
 .el .IP "``oaep-label'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_OAEP_LABEL\s0\fR) <octet string>" 4
 .IX Item "oaep-label (OSSL_ASYM_CIPHER_PARAM_OAEP_LABEL) <octet string>"
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_ASYM_CIPHER_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+.ie n .IP """key-check"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.el .IP "``key-check'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.IX Item "key-check (OSSL_ASYM_CIPHER_PARAM_FIPS_KEY_CHECK) <integer>"
 .ie n .IP """tls-client-version"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_TLS_CLIENT_VERSION\s0\fR) <unsigned integer>" 4
 .el .IP "``tls-client-version'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_TLS_CLIENT_VERSION\s0\fR) <unsigned integer>" 4
 .IX Item "tls-client-version (OSSL_ASYM_CIPHER_PARAM_TLS_CLIENT_VERSION) <unsigned integer>"
@@ -215,6 +229,11 @@ See \fB\s-1RSA_PKCS1_WITH_TLS_PADDING\s0\fR on the page \fBEVP_PKEY_CTX_set_rsa_
 See \fB\s-1RSA_PKCS1_WITH_TLS_PADDING\s0\fR on the page \fBEVP_PKEY_CTX_set_rsa_padding\fR\|(3).
 .Sp
 See \*(L"Asymmetric Cipher Parameters\*(R" in \fBprovider\-asym_cipher\fR\|(7) for more information.
+.ie n .IP """pkcs15\-padding\-disabled"" (\fB\s-1OSSL_ASYM_CIPHER_PARAM_PKCS15_PADDING_DISABLED\s0\fR) <integer>" 4
+.el .IP "``pkcs15\-padding\-disabled'' (\fB\s-1OSSL_ASYM_CIPHER_PARAM_PKCS15_PADDING_DISABLED\s0\fR) <integer>" 4
+.IX Item "pkcs15-padding-disabled (OSSL_ASYM_CIPHER_PARAM_PKCS15_PADDING_DISABLED) <integer>"
+If nonzero, PKCS#1 version 1.5 padding is disabled.
+This option is used by the OpenSSL \s-1FIPS\s0 provider.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\s-1\fBEVP_PKEY\-RSA\s0\fR\|(7),

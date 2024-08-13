@@ -33,7 +33,7 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<p><b>openssl</b> <b>req</b> [<b>-help</b>] [<b>-inform</b> <b>DER</b>|<b>PEM</b>] [<b>-outform</b> <b>DER</b>|<b>PEM</b>] [<b>-in</b> <i>filename</i>] [<b>-passin</b> <i>arg</i>] [<b>-out</b> <i>filename</i>] [<b>-passout</b> <i>arg</i>] [<b>-text</b>] [<b>-pubkey</b>] [<b>-noout</b>] [<b>-verify</b>] [<b>-modulus</b>] [<b>-new</b>] [<b>-newkey</b> <i>arg</i>] [<b>-pkeyopt</b> <i>opt</i>:<i>value</i>] [<b>-noenc</b>] [<b>-nodes</b>] [<b>-key</b> <i>filename</i>|<i>uri</i>] [<b>-keyform</b> <b>DER</b>|<b>PEM</b>|<b>P12</b>|<b>ENGINE</b>] [<b>-keyout</b> <i>filename</i>] [<b>-keygen_engine</b> <i>id</i>] [<b>-<i>digest</i></b>] [<b>-config</b> <i>filename</i>] [<b>-section</b> <i>name</i>] [<b>-x509</b>] [<b>-x509v1</b>] [<b>-CA</b> <i>filename</i>|<i>uri</i>] [<b>-CAkey</b> <i>filename</i>|<i>uri</i>] [<b>-days</b> <i>n</i>] [<b>-set_serial</b> <i>n</i>] [<b>-newhdr</b>] [<b>-copy_extensions</b> <i>arg</i>] [<b>-extensions</b> <i>section</i>] [<b>-reqexts</b> <i>section</i>] [<b>-addext</b> <i>ext</i>] [<b>-precert</b>] [<b>-utf8</b>] [<b>-reqopt</b>] [<b>-subject</b>] [<b>-subj</b> <i>arg</i>] [<b>-multivalue-rdn</b>] [<b>-sigopt</b> <i>nm</i>:<i>v</i>] [<b>-vfyopt</b> <i>nm</i>:<i>v</i>] [<b>-batch</b>] [<b>-verbose</b>] [<b>-quiet</b>] [<b>-nameopt</b> <i>option</i>] [<b>-rand</b> <i>files</i>] [<b>-writerand</b> <i>file</i>] [<b>-engine</b> <i>id</i>] [<b>-provider</b> <i>name</i>] [<b>-provider-path</b> <i>path</i>] [<b>-propquery</b> <i>propq</i>]</p>
+<p><b>openssl</b> <b>req</b> [<b>-help</b>] [<b>-inform</b> <b>DER</b>|<b>PEM</b>] [<b>-outform</b> <b>DER</b>|<b>PEM</b>] [<b>-in</b> <i>filename</i>] [<b>-passin</b> <i>arg</i>] [<b>-out</b> <i>filename</i>] [<b>-passout</b> <i>arg</i>] [<b>-text</b>] [<b>-pubkey</b>] [<b>-noout</b>] [<b>-verify</b>] [<b>-modulus</b>] [<b>-new</b>] [<b>-newkey</b> <i>arg</i>] [<b>-pkeyopt</b> <i>opt</i>:<i>value</i>] [<b>-noenc</b>] [<b>-nodes</b>] [<b>-key</b> <i>filename</i>|<i>uri</i>] [<b>-keyform</b> <b>DER</b>|<b>PEM</b>|<b>P12</b>|<b>ENGINE</b>] [<b>-keyout</b> <i>filename</i>] [<b>-keygen_engine</b> <i>id</i>] [<b>-<i>digest</i></b>] [<b>-config</b> <i>filename</i>] [<b>-section</b> <i>name</i>] [<b>-x509</b>] [<b>-x509v1</b>] [<b>-CA</b> <i>filename</i>|<i>uri</i>] [<b>-CAkey</b> <i>filename</i>|<i>uri</i>] [<b>-not_before</b> <i>date</i>] [<b>-not_after</b> <i>date</i>] [<b>-days</b> <i>n</i>] [<b>-set_serial</b> <i>n</i>] [<b>-newhdr</b>] [<b>-copy_extensions</b> <i>arg</i>] [<b>-extensions</b> <i>section</i>] [<b>-reqexts</b> <i>section</i>] [<b>-addext</b> <i>ext</i>] [<b>-precert</b>] [<b>-utf8</b>] [<b>-reqopt</b>] [<b>-subject</b>] [<b>-subj</b> <i>arg</i>] [<b>-multivalue-rdn</b>] [<b>-sigopt</b> <i>nm</i>:<i>v</i>] [<b>-vfyopt</b> <i>nm</i>:<i>v</i>] [<b>-batch</b>] [<b>-verbose</b>] [<b>-quiet</b>] [<b>-nameopt</b> <i>option</i>] [<b>-rand</b> <i>files</i>] [<b>-writerand</b> <i>file</i>] [<b>-engine</b> <i>id</i>] [<b>-provider</b> <i>name</i>] [<b>-provider-path</b> <i>path</i>] [<b>-propquery</b> <i>propq</i>]</p>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -132,7 +132,7 @@
 <dt id="verify"><b>-verify</b></dt>
 <dd>
 
-<p>Verifies the self-signature on the request.</p>
+<p>Verifies the self-signature on the request. If the verification fails, the program will immediately exit, i.e. further option processing (e.g. <b>-text</b>) is skipped.</p>
 
 </dd>
 <dt id="new"><b>-new</b></dt>
@@ -275,10 +275,26 @@
 <p>Sets the &quot;CA&quot; private key to sign a certificate with. The private key must match the public key of the certificate given with <b>-CA</b>. If this option is not provided then the key must be present in the <b>-CA</b> input.</p>
 
 </dd>
+<dt id="not_before-date"><b>-not_before</b> <i>date</i></dt>
+<dd>
+
+<p>When <b>-x509</b> is in use this allows the start date to be explicitly set, otherwise it is ignored. The format of <i>date</i> is YYMMDDHHMMSSZ (the same as an ASN1 UTCTime structure), or YYYYMMDDHHMMSSZ (the same as an ASN1 GeneralizedTime structure). In both formats, seconds SS and timezone Z must be present. Alternatively, you can also use &quot;today&quot;.</p>
+
+</dd>
+<dt id="not_after-date"><b>-not_after</b> <i>date</i></dt>
+<dd>
+
+<p>When <b>-x509</b> is in use this allows the expiry date to be explicitly set, otherwise it is ignored. The format of <i>date</i> is YYMMDDHHMMSSZ (the same as an ASN1 UTCTime structure), or YYYYMMDDHHMMSSZ (the same as an ASN1 GeneralizedTime structure). In both formats, seconds SS and timezone Z must be present. Alternatively, you can also use &quot;today&quot;.</p>
+
+<p>This overrides the <b>-days</b> option.</p>
+
+</dd>
 <dt id="days-n"><b>-days</b> <i>n</i></dt>
 <dd>
 
-<p>When <b>-x509</b> is in use this specifies the number of days to certify the certificate for, otherwise it is ignored. <i>n</i> should be a positive integer. The default is 30 days.</p>
+<p>When <b>-x509</b> is in use this specifies the number of days from today to certify the certificate for, otherwise it is ignored. <i>n</i> should be a positive integer. The default is 30 days.</p>
+
+<p>Regardless of the option <b>-not_before</b>, the days are always counted from today. When used together with the option <b>-not_after</b>, the explicit expiry date takes precedence.</p>
 
 </dd>
 <dt id="set_serial-n"><b>-set_serial</b> <i>n</i></dt>
@@ -306,7 +322,9 @@
 
 <p>Add a specific extension to the certificate (if <b>-x509</b> is in use) or certificate request. The argument must have the form of a <code>key=value</code> pair as it would appear in a config file.</p>
 
-<p>This option can be given multiple times.</p>
+<p>If an extension is added using this option that has the same OID as one defined in the extension section of the config file, it overrides that one.</p>
+
+<p>This option can be given multiple times. Doing so, the same key most not be given more than once.</p>
 
 </dd>
 <dt id="precert"><b>-precert</b></dt>
@@ -456,15 +474,35 @@
 <dt id="string_mask"><b>string_mask</b></dt>
 <dd>
 
-<p>This option masks out the use of certain string types in certain fields. Most users will not need to change this option.</p>
+<p>This option masks out the use of certain string types in certain fields. Most users will not need to change this option. It can be set to several values:</p>
 
-<p>It can be set to several values <b>default</b> which is also the default option uses PrintableStrings, T61Strings and BMPStrings if the <b>pkix</b> value is used then only PrintableStrings and BMPStrings will be used. This follows the PKIX recommendation in RFC2459. If the <b>utf8only</b> option is used then only UTF8Strings will be used: this is the PKIX recommendation in RFC2459 after 2003. Finally the <b>nombstr</b> option just uses PrintableStrings and T61Strings: certain software has problems with BMPStrings and UTF8Strings: in particular Netscape.</p>
+<dl>
+
+<dt id="utf8only---only-UTF8Strings-are-used-this-is-the-default-value"><b>utf8only</b> - only UTF8Strings are used (this is the default value)</dt>
+<dd>
+
+</dd>
+<dt id="pkix---any-string-type-except-T61Strings"><b>pkix</b> - any string type except T61Strings</dt>
+<dd>
+
+</dd>
+<dt id="nombstr---any-string-type-except-BMPStrings-and-UTF8Strings"><b>nombstr</b> - any string type except BMPStrings and UTF8Strings</dt>
+<dd>
+
+</dd>
+<dt id="default---any-kind-of-string-type"><b>default</b> - any kind of string type</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>Note that <b>utf8only</b> is the PKIX recommendation in RFC2459 after 2003, and the default <b>string_mask</b>; <b>default</b> is not the default option. The <b>nombstr</b> value is a workaround for some software that has problems with variable-sized BMPStrings and UTF8Strings.</p>
 
 </dd>
 <dt id="req_extensions"><b>req_extensions</b></dt>
 <dd>
 
-<p>This specifies the configuration file section containing a list of extensions to add to the certificate request. It can be overridden by the <b>-reqexts</b> command line switch. See the <a href="../man5/x509v3_config.html">x509v3_config(5)</a> manual page for details of the extension section format.</p>
+<p>This specifies the configuration file section containing a list of extensions to add to the certificate request. It can be overridden by the <b>-reqexts</b> (or <b>-extensions</b>) command line switch. See the <a href="../man5/x509v3_config.html">x509v3_config(5)</a> manual page for details of the extension section format.</p>
 
 </dd>
 <dt id="x509_extensions"><b>x509_extensions</b></dt>
@@ -684,9 +722,11 @@ problems making Certificate Request</code></pre>
 
 <p>Since OpenSSL 3.2, generated certificates bear X.509 version 3 unless <b>-x509v1</b> is given, and key identifier extensions are included by default.</p>
 
+<p>Since OpenSSL 3.3, the <b>-verify</b> option will exit with 1 on failure.</p>
+
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2000-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2000-2024 The OpenSSL Project Authors. All Rights Reserved.</p>
 
 <p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 

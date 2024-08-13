@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_REQ_GET_EXTENSIONS 3ossl"
-.TH X509_REQ_GET_EXTENSIONS 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_REQ_GET_EXTENSIONS 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -147,7 +147,7 @@ X509_REQ_add_extensions, X509_REQ_add_extensions_nid
 .Vb 1
 \& #include <openssl/x509.h>
 \&
-\& STACK_OF(X509_EXTENSION) *X509_REQ_get_extensions(X509_REQ *req);
+\& STACK_OF(X509_EXTENSION) *X509_REQ_get_extensions(const X509_REQ *req);
 \& int X509_REQ_add_extensions(X509_REQ *req, const STACK_OF(X509_EXTENSION) *exts);
 \& int X509_REQ_add_extensions_nid(X509_REQ *req,
 \&                                 const STACK_OF(X509_EXTENSION) *exts, int nid);
@@ -159,13 +159,15 @@ found in the attributes of \fIreq\fR.
 The returned list is empty if there are no such extensions in \fIreq\fR.
 The caller is responsible for freeing the list obtained.
 .PP
-\&\fBX509_REQ_add_extensions()\fR adds to \fIreq\fR a list of X.509 extensions \fIexts\fR,
-which must not be \s-1NULL,\s0 using the default \fBNID_ext_req\fR.
-This function must not be called more than once on the same \fIreq\fR.
+\&\fBX509_REQ_add_extensions_nid()\fR adds to \fIreq\fR a list of X.509 extensions \fIexts\fR,
+using \fInid\fR to identify the extensions attribute.
+\&\fIreq\fR is unchanged if \fIexts\fR is \s-1NULL\s0 or an empty list.
+This function may be called more than once on the same \fIreq\fR and \fInid\fR.
+In such case any previous extensions are augmented, where an extension to be
+added that has the same \s-1OID\s0 as a pre-existing one replaces this earlier one.
 .PP
-\&\fBX509_REQ_add_extensions_nid()\fR is like \fBX509_REQ_add_extensions()\fR
-except that \fInid\fR is used to identify the extensions attribute.
-This function must not be called more than once with the same \fIreq\fR and \fInid\fR.
+\&\fBX509_REQ_add_extensions()\fR is like \fBX509_REQ_add_extensions_nid()\fR
+except that the default \fBNID_ext_req\fR is used.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 \&\fBX509_REQ_get_extensions()\fR returns a pointer to \fB\s-1STACK_OF\s0(X509_EXTENSION)\fR

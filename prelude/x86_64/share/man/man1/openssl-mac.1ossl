@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-MAC 1ossl"
-.TH OPENSSL-MAC 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-MAC 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -297,7 +297,7 @@ Use \f(CW\*(C`openssl list \-mac\-algorithms\*(C'\fR to list them.
 \&\fBEVP_MAC\-Poly1305\fR\|(7)
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2018\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2018\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_MD-SHAKE 7ossl"
-.TH EVP_MD-SHAKE 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_MD-SHAKE 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -185,15 +185,10 @@ settable for an \fB\s-1EVP_MD_CTX\s0\fR with \fBEVP_MD_CTX_set_params\fR\|(3):
 Sets the digest length for extendable output functions.
 The length of the \*(L"xoflen\*(R" parameter should not exceed that of a \fBsize_t\fR.
 .Sp
-For backwards compatibility reasons the default xoflen length for \s-1SHAKE\-128\s0 is
-16 (bytes) which results in a security strength of only 64 bits. To ensure the
-maximum security strength of 128 bits, the xoflen should be set to at least 32.
+The \s-1SHAKE\-128\s0 and \s-1SHAKE\-256\s0 implementations do not have any default digest
+length.
 .Sp
-For backwards compatibility reasons the default xoflen length for \s-1SHAKE\-256\s0 is
-32 (bytes) which results in a security strength of only 128 bits. To ensure the
-maximum security strength of 256 bits, the xoflen should be set to at least 64.
-.Sp
-This parameter may be used when calling either \fBEVP_DigestFinal_ex()\fR or
+This parameter must be set before calling either \fBEVP_DigestFinal_ex()\fR or
 \&\fBEVP_DigestFinal()\fR, since these functions were not designed to handle variable
 length output. It is recommended to either use \fBEVP_DigestSqueeze()\fR or
 \&\fBEVP_DigestFinalXOF()\fR instead.
@@ -207,6 +202,10 @@ length passed to \fBEVP_DigestFinalXOF()\fR should be at least 64.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBEVP_MD_CTX_set_params\fR\|(3), \fBprovider\-digest\fR\|(7), \fBOSSL_PROVIDER\-default\fR\|(7)
+.SH "HISTORY"
+.IX Header "HISTORY"
+Since OpenSSL 3.4 the \s-1SHAKE\-128\s0 and \s-1SHAKE\-256\s0 implementations have no default
+digest length.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2020\-2023 The OpenSSL Project Authors. All Rights Reserved.

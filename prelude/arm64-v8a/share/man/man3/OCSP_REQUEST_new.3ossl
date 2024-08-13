@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OCSP_REQUEST_NEW 3ossl"
-.TH OCSP_REQUEST_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OCSP_REQUEST_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -166,6 +166,7 @@ OCSP_request_onereq_get0 \- OCSP request functions
 \&\fBOCSP_REQUEST_new()\fR allocates and returns an empty \fB\s-1OCSP_REQUEST\s0\fR structure.
 .PP
 \&\fBOCSP_REQUEST_free()\fR frees up the request structure \fBreq\fR.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBOCSP_request_add0_id()\fR adds certificate \s-1ID\s0 \fBcid\fR to \fBreq\fR. It returns
 the \fB\s-1OCSP_ONEREQ\s0\fR structure added so an application can add additional

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CMS_ADD0_CERT 3ossl"
-.TH CMS_ADD0_CERT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH CMS_ADD0_CERT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -192,8 +192,9 @@ For enveloped data they are added to \fBOriginatorInfo\fR.
 \&\fBCMS_add0_cert()\fR, \fBCMS_add1_cert()\fR and \fBCMS_add0_crl()\fR and \fBCMS_add1_crl()\fR return
 1 for success and 0 for failure.
 .PP
-\&\fBCMS_get1_certs()\fR and \fBCMS_get1_crls()\fR return the \s-1STACK\s0 of certificates or CRLs
-or \s-1NULL\s0 if there are none or an error occurs. The only error which will occur
+\&\fBCMS_get1_certs()\fR and \fBCMS_get1_crls()\fR return the \s-1STACK\s0 of certificates or CRLs,
+which is empty if there are none. They return \s-1NULL\s0 on error.
+Besides out-of-memory, the only error which will occur
 in practice is if the \fIcms\fR type is invalid.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"

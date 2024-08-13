@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL_CMP_CTX_NEW 3ossl"
-.TH OSSL_CMP_CTX_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL_CMP_CTX_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -327,6 +327,7 @@ the message timeout is set to 120 seconds,
 and the proof-of-possession method is set to \s-1OSSL_CRMF_POPO_SIGNATURE.\s0
 .PP
 \&\fBOSSL_CMP_CTX_free()\fR deallocates an \s-1OSSL_CMP_CTX\s0 structure.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBOSSL_CMP_CTX_reinit()\fR prepares the given \fIctx\fR for a further transaction by
 clearing the internal \s-1CMP\s0 transaction (aka session) status, PKIStatusInfo,
@@ -488,9 +489,14 @@ The following options can be set:
 .Ve
 .IP "\fB\s-1OSSL_CMP_OPT_PERMIT_TA_IN_EXTRACERTS_FOR_IR\s0\fR" 4
 .IX Item "OSSL_CMP_OPT_PERMIT_TA_IN_EXTRACERTS_FOR_IR"
-.Vb 2
+.Vb 3
 \&        Allow retrieving a trust anchor from extraCerts and using that
 \&        to validate the certificate chain of an IP message.
+\&        This is a quirk option added to support 3GPP TS 33.310.
+\&
+\&        Note that using this option is dangerous as the certificate obtained
+\&        this way has not been authenticated (at least not at CMP level).
+\&        Taking it over as a trust anchor implements trust\-on\-first\-use (TOFU).
 .Ve
 .IP "\fB\s-1OSSL_CMP_OPT_NO_CACHE_EXTRACERTS\s0\fR" 4
 .IX Item "OSSL_CMP_OPT_NO_CACHE_EXTRACERTS"
@@ -794,6 +800,8 @@ If the callback argument is \s-1NULL\s0 the function tries building an approxima
 chain as far as possible using the same untrusted certificates from the \fIctx\fR,
 and if this fails it takes the received extraCerts as fallback.
 The resulting cert chain can be retrieved using \fBOSSL_CMP_CTX_get1_newChain()\fR.
+This chain excludes the leaf certificate, i.e., the newly enrolled certificate.
+Also the trust anchor (the root certificate) is not included.
 .PP
 \&\fBOSSL_CMP_CTX_set_certConf_cb()\fR sets the callback used for evaluating the newly
 enrolled certificate before the library sends, depending on its result,
@@ -1021,7 +1029,7 @@ in OpenSSL 3.2.
 \&\fBOSSL_CMP_CTX_get0_geninfo_ITAVs()\fR was added in OpenSSL 3.3.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2007\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2007\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

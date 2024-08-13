@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "ECDSA_SIG_NEW 3ossl"
-.TH ECDSA_SIG_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH ECDSA_SIG_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -168,6 +168,7 @@ in the \*(L"\s-1EXAMPLES\*(R"\s0.
 Note: before OpenSSL 1.1.0, the \fIr\fR and \fIs\fR components were initialised.
 .PP
 \&\fBECDSA_SIG_free()\fR frees the \fB\s-1ECDSA_SIG\s0\fR structure \fIsig\fR.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBECDSA_SIG_get0()\fR returns internal pointers the \fIr\fR and \fIs\fR values contained
 in \fIsig\fR and stores them in \fI*pr\fR and \fI*ps\fR, respectively.

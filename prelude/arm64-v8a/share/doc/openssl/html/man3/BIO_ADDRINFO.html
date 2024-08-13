@@ -71,7 +71,7 @@ void BIO_ADDRINFO_free(BIO_ADDRINFO *bai);</code></pre>
 
 <p>BIO_ADDRINFO_next() returns the next <b>BIO_ADDRINFO</b> in the chain from the given one.</p>
 
-<p>BIO_ADDRINFO_free() frees the chain of <b>BIO_ADDRINFO</b> starting with the given one.</p>
+<p>BIO_ADDRINFO_free() frees the chain of <b>BIO_ADDRINFO</b> starting with the given one. If the argument is NULL, nothing is done.</p>
 
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
 

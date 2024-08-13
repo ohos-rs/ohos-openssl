@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL_LH_COMPFUNC 3ossl"
-.TH OPENSSL_LH_COMPFUNC 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL_LH_COMPFUNC 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -287,7 +287,7 @@ Then a hash table of \fB\f(BI\s-1TYPE\s0\fB\fR objects can be created using this
 \&\fBlh_\f(BI\s-1TYPE\s0\fB_free\fR() frees the \fB\s-1LHASH_OF\s0\fR(\fB\f(BI\s-1TYPE\s0\fB\fR) structure
 \&\fItable\fR. Allocated hash table entries will not be freed; consider
 using \fBlh_\f(BI\s-1TYPE\s0\fB_doall\fR() to deallocate any remaining entries in the
-hash table (see below).
+hash table (see below). If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBlh_\f(BI\s-1TYPE\s0\fB_flush\fR() empties the \fB\s-1LHASH_OF\s0\fR(\fB\f(BI\s-1TYPE\s0\fB\fR) structure \fItable\fR. New
 entries can be added to the flushed table.  Allocated hash table entries
@@ -467,7 +467,7 @@ In OpenSSL 3.1, \fB\s-1DEFINE_LHASH_OF_EX\s0\fR() was introduced and \fB\s-1DEFI
 was deprecated.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2021 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

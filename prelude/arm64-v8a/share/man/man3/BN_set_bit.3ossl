@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BN_SET_BIT 3ossl"
-.TH BN_SET_BIT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH BN_SET_BIT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -170,8 +170,11 @@ error occurs if \fBa\fR is shorter than \fBn\fR bits.
 \&\fBBN_is_bit_set()\fR tests if bit \fBn\fR in \fBa\fR is set.
 .PP
 \&\fBBN_mask_bits()\fR truncates \fBa\fR to an \fBn\fR bit number
-(\f(CW\*(C`a&=~((~0)<<n)\*(C'\fR).  An error occurs if \fBa\fR already is
-shorter than \fBn\fR bits.
+(\f(CW\*(C`a&=~((~0)<<n)\*(C'\fR). An error occurs if \fBn\fR is negative. An error is
+also returned if the internal representation of \fBa\fR is already shorter than
+\&\fBn\fR bits. The internal representation depends on the platform's word size, and
+this error can be safely ignored. Use \fBBN_num_bits\fR\|(3) to determine the exact
+number of bits if needed.
 .PP
 \&\fBBN_lshift()\fR shifts \fBa\fR left by \fBn\fR bits and places the result in
 \&\fBr\fR (\f(CW\*(C`r=a*2^n\*(C'\fR). Note that \fBn\fR must be nonnegative. \fBBN_lshift1()\fR shifts

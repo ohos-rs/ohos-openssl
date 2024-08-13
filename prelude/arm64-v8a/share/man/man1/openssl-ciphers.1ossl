@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-CIPHERS 1ossl"
-.TH OPENSSL-CIPHERS 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-CIPHERS 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -829,6 +829,16 @@ Note: the \s-1CBC\s0 modes mentioned in this \s-1RFC\s0 are not supported.
 \& TLS_AES_128_CCM_SHA256                     TLS_AES_128_CCM_SHA256
 \& TLS_AES_128_CCM_8_SHA256                   TLS_AES_128_CCM_8_SHA256
 .Ve
+.SS "\s-1TLS\s0 v1.3 integrity-only cipher suites according to \s-1RFC 9150\s0"
+.IX Subsection "TLS v1.3 integrity-only cipher suites according to RFC 9150"
+.Vb 2
+\& TLS_SHA256_SHA256          TLS_SHA256_SHA256
+\& TLS_SHA384_SHA384          TLS_SHA384_SHA384
+.Ve
+.PP
+Note: these ciphers are purely \s-1HMAC\s0 based and do not provide any confidentiality
+and thus are disabled by default.
+These ciphers are only available at security level 0.
 .SS "Older names used by OpenSSL"
 .IX Subsection "Older names used by OpenSSL"
 The following names are accepted by older releases:
@@ -904,9 +914,11 @@ The \fB\-convert\fR option was added in OpenSSL 1.1.1.
 .PP
 Support for standard \s-1IANA\s0 names in cipher lists was added in
 OpenSSL 3.2.0.
+.PP
+The support for \s-1TLS\s0 v1.3 integrity-only cipher suites was added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2021 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

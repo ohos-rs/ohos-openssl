@@ -236,6 +236,8 @@
 <dt id="RSA-see-EVP_SIGNATURE-RSA-7">RSA, see <a href="../man7/EVP_SIGNATURE-RSA.html">EVP_SIGNATURE-RSA(7)</a></dt>
 <dd>
 
+<p>The <b>X931</b> padding mode &quot;OSSL_PKEY_RSA_PAD_MODE_X931&quot; is no longer supported for signature generation, but may be used for verification for legacy use cases. (This is a FIPS 140-3 requirement)</p>
+
 </dd>
 <dt id="DSA-see-EVP_SIGNATURE-DSA-7">DSA, see <a href="../man7/EVP_SIGNATURE-DSA.html">EVP_SIGNATURE-DSA(7)</a></dt>
 <dd>
@@ -318,9 +320,13 @@
 <dt id="X25519-see-EVP_KEYMGMT-X25519-7">X25519, see <a href="../man7/EVP_KEYMGMT-X25519.html">EVP_KEYMGMT-X25519(7)</a></dt>
 <dd>
 
+<p>This is an unapproved algorithm.</p>
+
 </dd>
 <dt id="X448-see-EVP_KEYMGMT-X448-7">X448, see <a href="../man7/EVP_KEYMGMT-X448.html">EVP_KEYMGMT-X448(7)</a></dt>
 <dd>
+
+<p>This is an unapproved algorithm.</p>
 
 </dd>
 <dt id="ED25519-see-EVP_KEYMGMT-ED25519-7">ED25519, see <a href="../man7/EVP_KEYMGMT-ED25519.html">EVP_KEYMGMT-ED25519(7)</a></dt>
@@ -700,7 +706,7 @@ err:
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2019-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2019-2024 The OpenSSL Project Authors. All Rights Reserved.</p>
 
 <p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 

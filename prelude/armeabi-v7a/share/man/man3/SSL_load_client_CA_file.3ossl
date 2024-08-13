@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_LOAD_CLIENT_CA_FILE 3ossl"
-.TH SSL_LOAD_CLIENT_CA_FILE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_LOAD_CLIENT_CA_FILE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -233,7 +233,7 @@ Load names of CAs from file and use it as a client \s-1CA\s0 list:
 were added in OpenSSL 3.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2021 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

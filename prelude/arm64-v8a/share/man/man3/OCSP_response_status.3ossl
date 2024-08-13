@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OCSP_RESPONSE_STATUS 3ossl"
-.TH OCSP_RESPONSE_STATUS 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OCSP_RESPONSE_STATUS 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -183,6 +183,7 @@ contained in \fIresp\fR.
 \&\fIstatus\fR and optionally including basic response \fIbs\fR.
 .PP
 \&\fBOCSP_RESPONSE_free()\fR frees up \s-1OCSP\s0 response \fIresp\fR.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBOCSP_RESPID_set_by_name()\fR sets the name of the \s-1OCSP_RESPID\s0 to be the same as the
 subject name in the supplied X509 certificate \fIcert\fR for the \s-1OCSP\s0 responder.

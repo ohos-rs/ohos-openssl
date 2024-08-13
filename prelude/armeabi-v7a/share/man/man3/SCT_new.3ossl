@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SCT_NEW 3ossl"
-.TH SCT_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SCT_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -268,6 +268,12 @@ The \s-1SCT\s0 signature, base64 encoded.
 \&\fBSCT_set_source()\fR can be used to record where the \s-1SCT\s0 was found
 (\s-1TLS\s0 extension, X.509 certificate extension or \s-1OCSP\s0 response). This is not
 required for verifying the \s-1SCT.\s0
+.PP
+\&\fBSCT_free()\fR frees the specified \s-1SCT.\s0
+If the argument is \s-1NULL,\s0 nothing is done.
+.PP
+\&\fBSCT_LIST_free()\fR frees the specified stack of SCTs.
+If the argument is \s-1NULL,\s0 nothing is done.
 .SH "NOTES"
 .IX Header "NOTES"
 Some of the setters return int, instead of void. These will all return 1 on

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "PROVIDER-KEYMGMT 7ossl"
-.TH PROVIDER-KEYMGMT 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH PROVIDER-KEYMGMT 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -159,7 +159,10 @@ provider\-keymgmt \- The KEYMGMT library <\-> provider functions
 \& void *OSSL_FUNC_keymgmt_gen_init(void *provctx, int selection,
 \&                                  const OSSL_PARAM params[]);
 \& int OSSL_FUNC_keymgmt_gen_set_template(void *genctx, void *template);
+\& int OSSL_FUNC_keymgmt_gen_get_params(void *genctx, OSSL_PARAM params[]);
 \& int OSSL_FUNC_keymgmt_gen_set_params(void *genctx, const OSSL_PARAM params[]);
+\& const OSSL_PARAM *OSSL_FUNC_keymgmt_gen_gettable_params(void *genctx,
+\&                                                         void *provctx);
 \& const OSSL_PARAM *OSSL_FUNC_keymgmt_gen_settable_params(void *genctx,
 \&                                                         void *provctx);
 \& void *OSSL_FUNC_keymgmt_gen(void *genctx, OSSL_CALLBACK *cb, void *cbarg);
@@ -237,6 +240,8 @@ macros in \fBopenssl\-core_dispatch.h\fR\|(7), as follows:
 \&
 \& OSSL_FUNC_keymgmt_gen_init             OSSL_FUNC_KEYMGMT_GEN_INIT
 \& OSSL_FUNC_keymgmt_gen_set_template     OSSL_FUNC_KEYMGMT_GEN_SET_TEMPLATE
+\& OSSL_FUNC_keymgmt_gen_get_params       OSSL_FUNC_KEYMGMT_GEN_GET_PARAMS
+\& OSSL_FUNC_keymgmt_gen_gettable_params  OSSL_FUNC_KEYMGMT_GEN_GETTABLE_PARAMS
 \& OSSL_FUNC_keymgmt_gen_set_params       OSSL_FUNC_KEYMGMT_GEN_SET_PARAMS
 \& OSSL_FUNC_keymgmt_gen_settable_params  OSSL_FUNC_KEYMGMT_GEN_SETTABLE_PARAMS
 \& OSSL_FUNC_keymgmt_gen                  OSSL_FUNC_KEYMGMT_GEN
@@ -337,6 +342,7 @@ key object, but that is not mandatory.
 \&\fBOSSL_FUNC_keymgmt_free()\fR should free the passed \fIkeydata\fR.
 .PP
 \&\fBOSSL_FUNC_keymgmt_gen_init()\fR, \fBOSSL_FUNC_keymgmt_gen_set_template()\fR,
+\&\fBOSSL_FUNC_keymgmt_gen_get_params()\fR, \fBOSSL_FUNC_keymgmt_gen_gettable_params()\fR,
 \&\fBOSSL_FUNC_keymgmt_gen_set_params()\fR, \fBOSSL_FUNC_keymgmt_gen_settable_params()\fR,
 \&\fBOSSL_FUNC_keymgmt_gen()\fR and \fBOSSL_FUNC_keymgmt_gen_cleanup()\fR work together as a
 more elaborate context based key object constructor.
@@ -353,6 +359,13 @@ with the same \s-1KEYMGMT,\s0 and from which content that the implementation
 chooses can be used as a template for the key object to be generated.
 Typically, the generation of a \s-1DSA\s0 or \s-1DH\s0 key would get the domain
 parameters from this \fItemplate\fR.
+.PP
+\&\fBOSSL_FUNC_keymgmt_gen_get_params()\fR should retrieve parameters into
+\&\fIparams\fR in the key object generation context \fIgenctx\fR.
+.PP
+\&\fBOSSL_FUNC_keymgmt_gen_gettable_params()\fR should return a constant array of
+descriptor \s-1\fBOSSL_PARAM\s0\fR\|(3), for parameters that
+\&\fBOSSL_FUNC_keymgmt_gen_get_params()\fR can handle.
 .PP
 \&\fBOSSL_FUNC_keymgmt_gen_set_params()\fR should set additional parameters from
 \&\fIparams\fR in the key object generation context \fIgenctx\fR.
@@ -534,6 +547,23 @@ If the keymgmt implementation fills in the value \f(CW""\fR or \f(CW"UNDEF"\fR,
 its argument \fImdname\fR.  This signifies that no digest has to be specified
 with the corresponding signature operation, but may be specified as an
 option.
+.ie n .IP """sign-check"" (\fB\s-1OSSL_PKEY_PARAM_FIPS_SIGN_CHECK\s0\fR) <int>" 4
+.el .IP "``sign-check'' (\fB\s-1OSSL_PKEY_PARAM_FIPS_SIGN_CHECK\s0\fR) <int>" 4
+.IX Item "sign-check (OSSL_PKEY_PARAM_FIPS_SIGN_CHECK) <int>"
+If required this parameter should be set before the \fBOSSL_FUNC_keymgmt_gen()\fR
+function. This value is not supported by all keygen algorithms.
+The default value of 1 will cause an error if the generated key is not
+allowed to be used for signing.
+Setting this to 0 will ignore the error and set the approved \*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_PKEY_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_PKEY_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_PKEY_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling \fBOSSL_FUNC_keymgmt_gen()\fR function. It may
+return 0 if either the \*(L"digest-check\*(R", \*(L"key-check\*(R", or \*(L"sign-check\*(R" are set to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 \&\fBOSSL_FUNC_keymgmt_new()\fR and \fBOSSL_FUNC_keymgmt_dup()\fR should return a valid
@@ -572,9 +602,14 @@ The \s-1KEYMGMT\s0 interface was introduced in OpenSSL 3.0.
 .PP
 Functions \fBOSSL_FUNC_keymgmt_import_types_ex()\fR, and \fBOSSL_FUNC_keymgmt_export_types_ex()\fR
 were added with OpenSSL 3.2.
+.PP
+The functions \fBOSSL_FUNC_keymgmt_gen_get_params()\fR and
+\&\fBOSSL_FUNC_keymgmt_gen_gettable_params()\fR were added in OpenSSL 3.4.
+.PP
+The parameters \*(L"sign-check\*(R" and \*(L"fips-indicator\*(R" were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2019\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2019\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

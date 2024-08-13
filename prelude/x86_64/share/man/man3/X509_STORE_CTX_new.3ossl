@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_STORE_CTX_NEW 3ossl"
-.TH X509_STORE_CTX_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_STORE_CTX_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -448,7 +448,7 @@ The \fBX509_STORE_CTX_init_rpk()\fR, \fBX509_STORE_CTX_get0_rpk()\fR, and
 There is no need to call \fBX509_STORE_CTX_cleanup()\fR explicitly since OpenSSL 3.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2009\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2009\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

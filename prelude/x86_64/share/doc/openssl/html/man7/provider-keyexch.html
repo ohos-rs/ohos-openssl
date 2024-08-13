@@ -166,6 +166,24 @@ OSSL_FUNC_keyexch_gettable_ctx_params   OSSL_FUNC_KEYEXCH_GETTABLE_CTX_PARAMS</c
 <p>Gets a pointer to the User Key Material to be used as part of the selected Key Derivation Function associated with the given key exchange ctx. Providers usually do not need to support this gettable parameter as its sole purpose is to support functionality of the deprecated EVP_PKEY_CTX_get0_ecdh_kdf_ukm() and EVP_PKEY_CTX_get0_dh_kdf_ukm() functions.</p>
 
 </dd>
+<dt id="fips-indicator-OSSL_EXCHANGE_PARAM_FIPS_APPROVED_INDICATOR-integer">&quot;fips-indicator&quot; (<b>OSSL_EXCHANGE_PARAM_FIPS_APPROVED_INDICATOR</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>A getter that returns 1 if the operation is FIPS approved, or 0 otherwise. This may be used after calling OSSL_FUNC_keyexch_derive(). It may return 0 if either the &quot;digest-check&quot; or the &quot;key-check&quot; are set to 0. This option is used by the OpenSSL FIPS provider.</p>
+
+</dd>
+<dt id="key-check-OSSL_EXCHANGE_PARAM_FIPS_KEY_CHECK-integer">&quot;key-check&quot; (<b>OSSL_EXCHANGE_PARAM_FIPS_KEY_CHECK</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>If required this parameter should be set using OSSL_FUNC_keyexch_init(). The default value of 1 causes an error during the init if the key is not FIPS approved (e.g. The key has a security strength of less than 112 bits). Setting this to 0 will ignore the error and set the approved &quot;fips-indicator&quot; to 0. This option is used by the OpenSSL FIPS provider, and breaks FIPS compliance if set to 0.</p>
+
+</dd>
+<dt id="digest-check-OSSL_EXCHANGE_PARAM_FIPS_DIGEST_CHECK-integer">&quot;digest-check&quot; (<b>OSSL_EXCHANGE_PARAM_FIPS_DIGEST_CHECK</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>If required this parameter should be set before any optional digest is set. The default value of 1 causes an error when the digest is set if the digest is not FIPS approved. Setting this to 0 will ignore the error and set the approved &quot;fips-indicator&quot; to 0. This option is used by the OpenSSL FIPS provider, and breaks FIPS compliance if set to 0.</p>
+
+</dd>
 </dl>
 
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
@@ -183,6 +201,8 @@ OSSL_FUNC_keyexch_gettable_ctx_params   OSSL_FUNC_KEYEXCH_GETTABLE_CTX_PARAMS</c
 <h1 id="HISTORY">HISTORY</h1>
 
 <p>The provider KEYEXCH interface was introduced in OpenSSL 3.0.</p>
+
+<p>The Key Exchange Parameters &quot;fips-indicator&quot;, &quot;key-check&quot; and &quot;digest-check&quot; were added in OpenSSL 3.4.</p>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 

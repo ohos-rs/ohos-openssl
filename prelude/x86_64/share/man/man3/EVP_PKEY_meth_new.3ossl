@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_PKEY_METH_NEW 3ossl"
-.TH EVP_PKEY_METH_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_PKEY_METH_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -576,7 +576,7 @@ of an \fB\s-1EVP_PKEY_METHOD\s0\fR is always called by the \s-1EVP\s0 framework 
 digest signing operation by calling \fBEVP_DigestSignFinal\fR\|(3).
 .PP
 \&\fBEVP_PKEY_meth_free()\fR frees an existing \fB\s-1EVP_PKEY_METHOD\s0\fR pointed by
-\&\fBpmeth\fR.
+\&\fBpmeth\fR. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBEVP_PKEY_meth_copy()\fR copies an \fB\s-1EVP_PKEY_METHOD\s0\fR object from \fBsrc\fR
 to \fBdst\fR.
