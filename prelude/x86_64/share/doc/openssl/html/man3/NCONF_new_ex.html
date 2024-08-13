@@ -51,7 +51,7 @@ STACK_OF(OPENSSL_CSTRING) *NCONF_get_section_names(const CONF *conf);</code></pr
 
 <p>NCONF_new() is similar to NCONF_new_ex() but sets the <i>libctx</i> to NULL.</p>
 
-<p>NCONF_free() frees the data associated with <i>conf</i> and then frees the <i>conf</i> object.</p>
+<p>NCONF_free() frees the data associated with <i>conf</i> and then frees the <i>conf</i> object. If the argument is NULL, nothing is done.</p>
 
 <p>NCONF_load() parses the file named <i>filename</i> and adds the values found to <i>conf</i>. If an error occurs <i>file</i> and <i>eline</i> list the file and line that the load failed on if they are not NULL.</p>
 

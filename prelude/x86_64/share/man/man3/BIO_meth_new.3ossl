@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BIO_METH_NEW 3ossl"
-.TH BIO_METH_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH BIO_METH_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -236,7 +236,7 @@ additionally have the \*(L"descriptor\*(R" bit set (\fB\s-1BIO_TYPE_DESCRIPTOR\s
 \&\fBBIO_find_type\fR\|(3) page for more information.
 .PP
 \&\fBBIO_meth_free()\fR destroys a \fB\s-1BIO_METHOD\s0\fR structure and frees up any memory
-associated with it.
+associated with it. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBBIO_meth_get_write_ex()\fR and \fBBIO_meth_set_write_ex()\fR get and set the function
 used for writing arbitrary length data to the \s-1BIO\s0 respectively. This function
@@ -318,7 +318,7 @@ The \fBBIO_meth_get\fR functions return the corresponding function pointers.
 The functions described here were added in OpenSSL 1.1.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2016\-2022 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2016\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

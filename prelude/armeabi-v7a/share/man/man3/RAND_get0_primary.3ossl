@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "RAND_GET0_PRIMARY 3ossl"
-.TH RAND_GET0_PRIMARY 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH RAND_GET0_PRIMARY 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -203,7 +203,7 @@ To set the type of \s-1DRBG\s0 that will be instantiated, use the
 \&\fBRAND_set_DRBG_type\fR\|(3) call before accessing the random number generation
 infrastructure.
 .PP
-The two set functions, operate on the the current thread.  If you want to
+The two set functions, operate on the current thread.  If you want to
 use the same random number generator across all threads, each thread
 must individually call the set functions.
 .SH "SEE ALSO"

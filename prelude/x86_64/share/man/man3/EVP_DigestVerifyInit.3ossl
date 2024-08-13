@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_DIGESTVERIFYINIT 3ossl"
-.TH EVP_DIGESTVERIFYINIT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_DIGESTVERIFYINIT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -290,6 +290,9 @@ finalize the digest context and attempting to process additional data via
 multiple times on a context and the parameters set by previous calls should be
 preserved if the \fIpkey\fR parameter is \s-1NULL.\s0 The call then just resets the state
 of the \fIctx\fR.
+.PP
+\&\fBEVP_DigestVerify()\fR can only be called once, and cannot be used again without
+reinitialising the \fB\s-1EVP_MD_CTX\s0\fR by calling \fBEVP_DigestVerifyInit_ex()\fR.
 .PP
 Ignoring failure returns of \fBEVP_DigestVerifyInit()\fR and \fBEVP_DigestVerifyInit_ex()\fR
 functions can lead to subsequent undefined behavior when calling

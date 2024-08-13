@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CMS_VERIFY 3ossl"
-.TH CMS_VERIFY 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH CMS_VERIFY 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -163,6 +163,8 @@ CMS_get0_signers \- verify a CMS SignedData structure
 \&\fIcms\fR points to the \fBCMS_ContentInfo\fR structure to verify.
 The optional \fIcerts\fR parameter refers to a set of certificates
 in which to search for signing certificates.
+It is also used
+as a source of untrusted intermediate \s-1CA\s0 certificates for chain building.
 \&\fIcms\fR may contain extra untrusted \s-1CA\s0 certificates that may be used for
 chain building as well as CRLs that may be used for certificate validation.
 \&\fIstore\fR may be \s-1NULL\s0 or point to

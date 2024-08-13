@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_MAC-CMAC 7ossl"
-.TH EVP_MAC-CMAC 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_MAC-CMAC 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -175,6 +175,17 @@ must be \s-1CBC.\s0
 Sets the properties to be queried when trying to fetch the underlying cipher.
 This must be given together with the cipher naming parameter to be considered
 valid.
+.ie n .IP """encrypt-check"" (\fB\s-1OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK\s0\fR) <integer>" 4
+.el .IP "``encrypt-check'' (\fB\s-1OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK\s0\fR) <integer>" 4
+.IX Item "encrypt-check (OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK) <integer>"
+If required this parameter should be set before \fBEVP_MAC_init()\fR
+.Sp
+The default value of 1 causes an error when a unapproved Triple-DES encryption
+operation is triggered.
+Setting this to 0 will ignore the error and set the approved \*(L"fips-indicator\*(R" to
+0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
 .PP
 The following parameters can be retrieved with
 \&\fBEVP_MAC_CTX_get_params()\fR:
@@ -188,6 +199,12 @@ The length of the \*(L"size\*(R" parameter is equal to that of an \fBunsigned in
 .IX Item "block-size (OSSL_MAC_PARAM_BLOCK_SIZE) <unsigned integer>"
 Gets the \s-1MAC\s0 block size.  The \*(L"block-size\*(R" parameter can also be retrieved with
 \&\fBEVP_MAC_CTX_get_block_size()\fR.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling \fBEVP_MAC_final()\fR.
+It may return 0 if the \*(L"encrypt-check\*(R" option is set to 0.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBEVP_MAC_CTX_get_params\fR\|(3), \fBEVP_MAC_CTX_set_params\fR\|(3),

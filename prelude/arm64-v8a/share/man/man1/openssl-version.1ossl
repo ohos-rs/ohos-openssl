@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-VERSION 1ossl"
-.TH OPENSSL-VERSION 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-VERSION 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -155,6 +155,7 @@ openssl\-version \- print OpenSSL version information
 [\fB\-m\fR]
 [\fB\-r\fR]
 [\fB\-c\fR]
+[\fB\-w\fR]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
 This command is used to print out version information about OpenSSL.
@@ -196,6 +197,26 @@ The random number generator source settings.
 .IP "\fB\-c\fR" 4
 .IX Item "-c"
 The OpenSSL \s-1CPU\s0 settings info.
+.IP "\fB\-w\fR" 4
+.IX Item "-w"
+The OpenSSL \fB\s-1OSSL_WINCTX\s0\fR build time variable, if set.
+Used for computing Windows registry key names.  This option is unavailable on
+non-Windows platforms.
+.SH "HISTORY"
+.IX Header "HISTORY"
+In OpenSSL versions prior to 3.4, OpenSSL had a limitation regarding the
+\&\fB\s-1OPENSSLDIR\s0\fR, \fB\s-1MODULESDIR\s0\fR and \fB\s-1ENGINESDIR\s0\fR build time macros.  These macros
+were defined at build time, and represented filesystem paths.  This is common
+practice on unix like systems, as there was an expectation that a given build
+would be installed to a pre-determined location.  On Windows however, there is
+no such expectation, as libraries can be installed to arbitrary locations.
+\&\fB\s-1OSSL_WINCTX\s0\fR was introduced as a new build time variable to define a set of
+registry keys identified by the name openssl\-<version>\-<ctx>, in which the
+<version> value is derived from the version string in the openssl source, and
+the <ctx> extension is derived from the \fB\s-1OSSL_WINCTX\s0\fR variable.  The values of
+\&\fB\s-1OPENSSLDIR\s0\fR, \fB\s-1ENGINESDIR\s0\fR and \fB\s-1MODULESDIR\s0\fR can be set to various paths
+underneath this key to break the requirement to predict the installation path at
+build time.
 .SH "NOTES"
 .IX Header "NOTES"
 The output of \f(CW\*(C`openssl version \-a\*(C'\fR would typically be used when sending

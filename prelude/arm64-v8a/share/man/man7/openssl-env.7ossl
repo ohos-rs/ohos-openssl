@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-ENV 7ossl"
-.TH OPENSSL-ENV 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-ENV 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -202,7 +202,7 @@ OpenSSL supports a number of different algorithm implementations for
 various machines and, by default, it determines which to use based on the
 processor capabilities and run time feature enquiry.  These environment
 variables can be used to exert more control over this selection process.
-See \fBOPENSSL_ia32cap\fR\|(3), \fBOPENSSL_s390xcap\fR\|(3).
+See \fBOPENSSL_ia32cap\fR\|(3), \fBOPENSSL_s390xcap\fR\|(3) and \fBOPENSSL_riscvcap\fR\|(3).
 .IP "\fB\s-1NO_PROXY\s0\fR, \fB\s-1HTTPS_PROXY\s0\fR, \fB\s-1HTTP_PROXY\s0\fR" 4
 .IX Item "NO_PROXY, HTTPS_PROXY, HTTP_PROXY"
 Specify a proxy hostname.
@@ -215,7 +215,7 @@ Specifies a \s-1QUIC\s0 qlog output directory. See \fBopenssl\-qlog\fR\|(7).
 Used to set a \s-1QUIC\s0 qlog filter specification. See \fBopenssl\-qlog\fR\|(7).
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2019\-2022 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2019\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

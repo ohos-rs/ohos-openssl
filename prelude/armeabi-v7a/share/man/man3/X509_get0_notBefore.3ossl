@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_GET0_NOTBEFORE 3ossl"
-.TH X509_GET0_NOTBEFORE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_GET0_NOTBEFORE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -141,6 +141,8 @@
 .SH "NAME"
 X509_get0_notBefore, X509_getm_notBefore, X509_get0_notAfter,
 X509_getm_notAfter, X509_set1_notBefore, X509_set1_notAfter,
+X509_ACERT_get0_notBefore, X509_ACERT_get0_notAfter,
+X509_ACERT_set1_notBefore, X509_ACERT_set1_notAfter,
 X509_CRL_get0_lastUpdate, X509_CRL_get0_nextUpdate, X509_CRL_set1_lastUpdate,
 X509_CRL_set1_nextUpdate \- get or set certificate or CRL dates
 .SH "SYNOPSIS"
@@ -156,6 +158,12 @@ X509_CRL_set1_nextUpdate \- get or set certificate or CRL dates
 \&
 \& int X509_set1_notBefore(X509 *x, const ASN1_TIME *tm);
 \& int X509_set1_notAfter(X509 *x, const ASN1_TIME *tm);
+\&
+\& const ASN1_GENERALIZEDTIME *X509_ACERT_get0_notBefore(const X509 *x);
+\& const ASN1_GENERALIZEDTIME *X509_ACERT_get0_notAfter(const X509 *x);
+\&
+\& int X509_ACERT_set1_notBefore(X509_ACERT *x, const ASN1_GENERALIZEDTIME *tm);
+\& int X509_ACERT_set1_notAfter(X509_ACERT *x, const ASN1_GENERALIZEDTIME *tm);
 \&
 \& const ASN1_TIME *X509_CRL_get0_lastUpdate(const X509_CRL *crl);
 \& const ASN1_TIME *X509_CRL_get0_nextUpdate(const X509_CRL *crl);
@@ -180,6 +188,16 @@ and \fBnotAfter\fR fields of \fIx\fR to \fItm\fR. Ownership of the passed
 parameter \fItm\fR is not transferred by these functions so it must
 be freed up after the call.
 .PP
+\&\fBX509_ACERT_get0_notBefore()\fR and \fBX509_ACERT_get0_notAfter()\fR return
+the \fBnotBefore\fR and \fBnotAfter\fR fields of certificate \fBx\fR respectively.
+returned is an internal pointer which must not be freed up after
+the call.
+.PP
+\&\fBX509_ACERT_set1_notBefore()\fR and \fBX509_ACERT_set1_notAfter()\fR set the \fBnotBefore\fR
+and \fBnotAfter\fR fields of \fBx\fR to \fBtm\fR. Ownership of the passed
+parameter \fBtm\fR is not transferred by these functions so it must
+be freed up after the call.
+.PP
 \&\fBX509_CRL_get0_lastUpdate()\fR and \fBX509_CRL_get0_nextUpdate()\fR return the
 \&\fBlastUpdate\fR and \fBnextUpdate\fR fields of \fIcrl\fR. The value
 returned is an internal pointer which must not be freed up after
@@ -202,9 +220,15 @@ or \s-1NULL\s0 if the \fBlastUpdate\fR field is absent.
 .PP
 \&\fBX509_set1_notBefore()\fR, \fBX509_set1_notAfter()\fR, \fBX509_CRL_set1_lastUpdate()\fR and
 \&\fBX509_CRL_set1_nextUpdate()\fR return 1 for success or 0 for failure.
+.SH "NOTES"
+.IX Header "NOTES"
+Unlike the \fBX509\fR and \fBX509_CRL\fR routines, the \fBX509_ACERT\fR routines
+use the \s-1ASN1_GENERALIZEDTIME\s0 format instead of \s-1ASN1_TIME\s0 for holding time
+data.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBd2i_X509\fR\|(3),
+\&\fBASN1_GENERALIZEDTIME_check\fR\|(3)
 \&\fBERR_get_error\fR\|(3),
 \&\fBX509_CRL_get0_by_serial\fR\|(3),
 \&\fBX509_get0_signature\fR\|(3),

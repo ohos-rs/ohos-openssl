@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_CIPHER_METH_NEW 3ossl"
-.TH EVP_CIPHER_METH_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_CIPHER_METH_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -219,6 +219,7 @@ implementation.
 \&\fBEVP_CIPHER_meth_dup()\fR creates a copy of \fBcipher\fR.
 .PP
 \&\fBEVP_CIPHER_meth_free()\fR destroys a \fB\s-1EVP_CIPHER\s0\fR structure.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBEVP_CIPHER_meth_set_iv_length()\fR sets the length of the \s-1IV.\s0
 This is only needed when the implemented cipher mode requires it.

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-S_CLIENT 1ossl"
-.TH OPENSSL-S_CLIENT 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-S_CLIENT 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -787,7 +787,11 @@ For example strings, see \fBSSL_CTX_set1_sigalgs\fR\|(3)
 .IP "\fB\-curves\fR \fIcurvelist\fR" 4
 .IX Item "-curves curvelist"
 Specifies the list of supported curves to be sent by the client. The curve is
-ultimately selected by the server. For a list of all curves, use:
+ultimately selected by the server.
+.Sp
+The list of all supported groups includes named \s-1EC\s0 parameters as well as X25519
+and X448 or \s-1FFDHE\s0 groups, and may also include groups implemented in 3rd\-party
+providers. For a list of named \s-1EC\s0 parameters, use:
 .Sp
 .Vb 1
 \&    $ openssl ecparam \-list_curves
@@ -1050,7 +1054,7 @@ Reconnect to the peer and attempt a resumption handshake
 .IX Item "keyup"
 Send a Key Update message. TLSv1.3 only. This command takes an optional
 argument. If the argument \*(L"req\*(R" is supplied then the peer is also requested to
-update its keys. Otherwise if \*(L"noreq\*(R" is supplied the the peer is not requested
+update its keys. Otherwise if \*(L"noreq\*(R" is supplied the peer is not requested
 to update its keys. The default is \*(L"req\*(R".
 .IP "\fBreneg\fR" 4
 .IX Item "reneg"

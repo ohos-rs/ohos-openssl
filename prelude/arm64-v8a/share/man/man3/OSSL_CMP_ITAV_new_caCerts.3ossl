@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL_CMP_ITAV_NEW_CACERTS 3ossl"
-.TH OSSL_CMP_ITAV_NEW_CACERTS 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL_CMP_ITAV_NEW_CACERTS 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -144,7 +144,16 @@ OSSL_CMP_ITAV_get0_caCerts,
 OSSL_CMP_ITAV_new_rootCaCert,
 OSSL_CMP_ITAV_get0_rootCaCert,
 OSSL_CMP_ITAV_new_rootCaKeyUpdate,
-OSSL_CMP_ITAV_get0_rootCaKeyUpdate
+OSSL_CMP_ITAV_get0_rootCaKeyUpdate,
+OSSL_CMP_CRLSTATUS_new1,
+OSSL_CMP_CRLSTATUS_create,
+OSSL_CMP_CRLSTATUS_get0,
+OSSL_CMP_ITAV_new0_crlStatusList,
+OSSL_CMP_ITAV_get0_crlStatusList,
+OSSL_CMP_ITAV_new_crls,
+OSSL_CMP_ITAV_get0_crls,
+OSSL_CMP_ITAV_new0_certReqTemplate,
+OSSL_CMP_ITAV_get1_certReqTemplate
 \&\- CMP utility functions for handling specific genm and genp messages
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
@@ -163,6 +172,27 @@ OSSL_CMP_ITAV_get0_rootCaKeyUpdate
 \&                                        X509 **newWithNew,
 \&                                        X509 **newWithOld,
 \&                                        X509 **oldWithNew);
+\&
+\& OSSL_CMP_CRLSTATUS *OSSL_CMP_CRLSTATUS_new1(const DIST_POINT_NAME *dpn,
+\&                                             const GENERAL_NAMES *issuer,
+\&                                             const ASN1_TIME *thisUpdate);
+\& OSSL_CMP_CRLSTATUS *OSSL_CMP_CRLSTATUS_create(const X509_CRL *crl,
+\&                                               const X509 *cert, int only_DN);
+\& int OSSL_CMP_CRLSTATUS_get0(const OSSL_CMP_CRLSTATUS *crlstatus,
+\&                             DIST_POINT_NAME **dpn, GENERAL_NAMES **issuer,
+\&                             ASN1_TIME **thisUpdate);
+\& OSSL_CMP_ITAV
+\& *OSSL_CMP_ITAV_new0_crlStatusList(STACK_OF(OSSL_CMP_CRLSTATUS) *crlStatusList);
+\& int OSSL_CMP_ITAV_get0_crlStatusList(const OSSL_CMP_ITAV *itav,
+\&                                      STACK_OF(OSSL_CMP_CRLSTATUS) **out);
+\& OSSL_CMP_ITAV *OSSL_CMP_ITAV_new_crls(const X509_CRL *crl);
+\& int OSSL_CMP_ITAV_get0_crls(const OSSL_CMP_ITAV *itav, STACK_OF(X509_CRL) **out);
+\& OSSL_CMP_ITAV
+\& *OSSL_CMP_ITAV_new0_certReqTemplate(OSSL_CRMF_CERTTEMPLATE *certTemplate,
+\&                                     OSSL_CMP_ATAVS *keySpec);
+\& int OSSL_CMP_ITAV_get1_certReqTemplate(const OSSL_CMP_ITAV *itav,
+\&                                        OSSL_CRMF_CERTTEMPLATE **certTemplate,
+\&                                        OSSL_CMP_ATAVS **keySpec);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -186,6 +216,8 @@ the internal pointer to the certificate contained in the infoValue field.
 \&\fBOSSL_CMP_ITAV_new_rootCaKeyUpdate()\fR creates a new \fB\s-1OSSL_CMP_ITAV\s0\fR structure
 of type \fBrootCaKeyUpdate\fR that includes an RootCaKeyUpdateContent structure
 with the optional \fInewWithNew\fR, \fInewWithOld\fR, and \fIoldWithNew\fR certificates.
+An RootCaKeyUpdateContent structure is included only if \fInewWithNew\fR
+is not \s-1NULL.\s0
 .PP
 \&\fBOSSL_CMP_ITAV_get0_rootCaKeyUpdate()\fR requires that \fIitav\fR has infoType
 \&\fBrootCaKeyUpdate\fR.
@@ -196,18 +228,97 @@ If \fInewWithOld\fR is not \s-1NULL,\s0 it assigns to \fI*newWithOld\fR the inte
 to the certificate contained in the newWithOld infoValue sub-field of \fIitav\fR.
 If \fIoldWithNew\fR is not \s-1NULL,\s0 it assigns to \fI*oldWithNew\fR the internal pointer
 to the certificate contained in the oldWithNew infoValue sub-field of \fIitav\fR.
-Each of these pointers will be \s-1NULL\s0 if the respective sub-field is not set.
+Each of these pointers will be set to \s-1NULL\s0 if no root \s-1CA\s0 certificate update 
+is present or the respective sub-field is not included.
+.PP
+\&\fBOSSL_CMP_CRLSTATUS_new1()\fR allocates a new \fB\s-1OSSL_CMP_CRLSTATUS\s0\fR structure
+that contains either a copy of the distribution point name \fIdpn\fR
+or a copy of the certificate issuer \fIissuer\fR, while giving both is an error.
+If given, a copy of the \s-1CRL\s0 issuance time \fIthisUpdate\fR is also included.
+.PP
+\&\fBOSSL_CMP_CRLSTATUS_create()\fR is a high-level variant of \fBOSSL_CMP_CRLSTATUS_new1()\fR.
+It fills the thisUpdate field with a copy of the thisUpdate field of \fIcrl\fR if present.
+It fills the CRLSource field with a copy of the first data item found using the \fIcrl\fR
+and/or \fIcert\fR parameters as follows.
+Any available distribution point name is preferred over issuer names.
+Data from \fIcert\fR, if present, is preferred over data from \fIcrl\fR.
+If no distribution point names are available,
+candidate issuer names are taken from following sources, as far as present:
+.PP
+\&\fBOSSL_CMP_ITAV_new0_certReqTemplate()\fR creates an \fB\s-1OSSL_CMP_ITAV\s0\fR structure
+of type \fBcertReqTemplate\fR.
+If \fIcertTemplate\fR is \s-1NULL\s0 then also \fIkeySpec\fR must be \s-1NULL,\s0
+and the resulting \s-1ITAV\s0 can be used in a \fBgenm\fR message to obtain the
+requirements a \s-1PKI\s0 has on the certificate template used to request certificates,
+or in a \fBgenp\fR message stating that there are no such requirements.
+Otherwise the resulting \s-1ITAV\s0 includes a CertReqTemplateValue structure
+with \fIcertTemplate\fR of type \fB\s-1OSSL_CRMF_CERTTEMPLATE\s0\fR and an optional list
+of key specifications \fIkeySpec\fR, each being of type \fB\s-1OSSL_CMP_ATAV\s0\fR, and
+the resulting \s-1ATAV\s0 can be used in a \fBgenp\fR message to provide requirements.
+.PP
+\&\fBOSSL_CMP_ITAV_get1_certReqTemplate()\fR
+requires that \fIitav\fR has type \fBcertReqTemplate\fR.
+If assigns \s-1NULL\s0 to \fI*certTemplate\fR if no \fB\s-1OSSL_CRMF_CERTTEMPLATE\s0\fR structure
+with a certificate template value is in \fIitav\fR,
+otherwise a copy of the certTemplate field value.
+If \fIkeySpec\fR is not \s-1NULL,\s0 it is assigned \s-1NULL\s0
+if the structure is not present in \fIitav\fR or the keySpec field is absent.
+Otherwise, the function checks that all elements of keySpec field are of type
+\&\fBalgId\fR or \fBrsaKeyLen\fR and assigns to \fI*keySpec\fR a copy of the keySpec field.
+.IP "the list of distribution points in the first cRLDistributionPoints extension of \fIcert\fR," 4
+.IX Item "the list of distribution points in the first cRLDistributionPoints extension of cert,"
+.PD 0
+.IP "the issuer field of the authority key identifier of \fIcert\fR," 4
+.IX Item "the issuer field of the authority key identifier of cert,"
+.IP "the issuer \s-1DN\s0 of \fIcert\fR," 4
+.IX Item "the issuer DN of cert,"
+.IP "the issuer field of the authority key identifier of \fIcrl\fR, and" 4
+.IX Item "the issuer field of the authority key identifier of crl, and"
+.IP "the issuer \s-1DN\s0 of \fIcrl\fR." 4
+.IX Item "the issuer DN of crl."
+.PD
+.PP
+If <only_DN> is set, a candidate issuer name of type \fB\s-1GENERAL_NAMES\s0\fR is
+accepted only if it contains exactly one general name of type directoryName.
+.PP
+\&\fBOSSL_CMP_CRLSTATUS_get0()\fR reads the fields of \fIcrlstatus\fR
+and assigns them to \fI*dpn\fR, \fI*issuer\fR, and \fI*thisUpdate\fR.
+\&\fI*thisUpdate\fR is assigned only if the \fIthisUpdate\fR argument is not \s-1NULL.\s0
+Depending on the choice present, either \fI*dpn\fR or \fI*issuer\fR will be \s-1NULL.\s0
+\&\fI*thisUpdate\fR can also be \s-1NULL\s0 if the field is not present.
+.PP
+\&\fBOSSL_CMP_ITAV_new0_crlStatusList()\fR creates a new \fB\s-1OSSL_CMP_ITAV\s0\fR structure of
+type \fBcrlStatusList\fR that includes the optionally given list of
+\&\s-1CRL\s0 status data, each of which is of type \fB\s-1OSSL_CMP_CRLSTATUS\s0\fR.
+.PP
+\&\fBOSSL_CMP_ITAV_get0_crlStatusList()\fR on success assigns to \fI*out\fR an internal
+pointer to the list of \s-1CRL\s0 status data in the infoValue field of \fIitav\fR.
+The pointer may be \s-1NULL\s0 if no \s-1CRL\s0 status data is included.
+It is an error if the infoType of \fIitav\fR is not \fBcrlStatusList\fR.
+.PP
+\&\fBOSSL_CMP_ITAV_new_crls()\fR creates a new \fB\s-1OSSL_CMP_ITAV\s0\fR structure
+of type \fBcrls\fR including an empty list of CRLs if the \fIcrl\fR argument is \s-1NULL\s0
+or including a singleton list a with copy of the provided \s-1CRL\s0 otherwise.
+.PP
+\&\fBOSSL_CMP_ITAV_get0_crls()\fR on success assigns to \fI*out\fR an internal pointer to
+the list of CRLs contained in the infoValue field of \fIitav\fR.
+The pointer may be \s-1NULL\s0 if no \s-1CRL\s0 is included.
+It is an error if the infoType of \fIitav\fR is not \fBcrls\fR.
 .SH "NOTES"
 .IX Header "NOTES"
 \&\s-1CMP\s0 is defined in \s-1RFC 4210.\s0
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
-\&\fBOSSL_CMP_ITAV_new_caCerts()\fR,
-\&\fBOSSL_CMP_ITAV_new_rootCaCert()\fR, and \fBOSSL_CMP_ITAV_new_rootCaKeyUpdate()\fR
+\&\fBOSSL_CMP_ITAV_new_caCerts()\fR, \fBOSSL_CMP_ITAV_new_rootCaCert()\fR,
+\&\fBOSSL_CMP_ITAV_new_rootCaKeyUpdate()\fR, \fBOSSL_CMP_CRLSTATUS_new1()\fR,
+\&\fBOSSL_CMP_CRLSTATUS_create()\fR, \fBOSSL_CMP_ITAV_new0_crlStatusList()\fR,
+\&\fBOSSL_CMP_ITAV_new_crls()\fR and \fBOSSL_CMP_ITAV_new0_certReqTemplate()\fR
 return a pointer to the new \s-1ITAV\s0 structure on success, or \s-1NULL\s0 on error.
 .PP
-\&\fBOSSL_CMP_ITAV_get0_caCerts()\fR,
-\&\fBOSSL_CMP_ITAV_get0_rootCaCert()\fR, and \fBOSSL_CMP_ITAV_get0_rootCaKeyUpdate()\fR
+\&\fBOSSL_CMP_ITAV_get0_caCerts()\fR, \fBOSSL_CMP_ITAV_get0_rootCaCert()\fR,
+\&\fBOSSL_CMP_ITAV_get0_rootCaKeyUpdate()\fR, \fBOSSL_CMP_CRLSTATUS_get0()\fR,
+\&\fBOSSL_CMP_ITAV_get0_crlStatusList()\fR, \fBOSSL_CMP_ITAV_get0_crls()\fR
+and \fBOSSL_CMP_ITAV_get1_certReqTemplate()\fR
 return 1 on success, 0 on error.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
@@ -218,6 +329,12 @@ return 1 on success, 0 on error.
 \&\fBOSSL_CMP_ITAV_new_rootCaCert()\fR, \fBOSSL_CMP_ITAV_get0_rootCaCert()\fR,
 \&\fBOSSL_CMP_ITAV_new_rootCaKeyUpdate()\fR, and \fBOSSL_CMP_ITAV_get0_rootCaKeyUpdate()\fR
 were added in OpenSSL 3.2.
+.PP
+\&\fBOSSL_CMP_CRLSTATUS_new1()\fR, \fBOSSL_CMP_CRLSTATUS_create()\fR,
+\&\fBOSSL_CMP_CRLSTATUS_get0()\fR, \fBOSSL_CMP_ITAV_new0_crlStatusList()\fR,
+\&\fBOSSL_CMP_ITAV_get0_crlStatusList()\fR, \fBOSSL_CMP_ITAV_new_crls()\fR,
+\&\fBOSSL_CMP_ITAV_get0_crls()\fR, \fBOSSL_CMP_ITAV_new0_certReqTemplate()\fR
+and \fBOSSL_CMP_ITAV_get1_certReqTemplate()\fR were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2022\-2023 The OpenSSL Project Authors. All Rights Reserved.

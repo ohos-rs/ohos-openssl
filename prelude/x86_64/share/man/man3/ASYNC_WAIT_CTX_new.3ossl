@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "ASYNC_WAIT_CTX_NEW 3ossl"
-.TH ASYNC_WAIT_CTX_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH ASYNC_WAIT_CTX_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -305,6 +305,9 @@ that, user code can perform other tasks. When the hardware completes the
 operation, normally it is detected by a polling function or an interrupt, as the
 user code set a callback by calling \fBASYNC_WAIT_CTX_set_callback()\fR previously,
 then the registered callback will be called.
+.PP
+\&\fBASYNC_WAIT_CTX_free()\fR frees up a single \fB\s-1ASYNC_WAIT_CTX\s0\fR object.
+If the argument is \s-1NULL,\s0 nothing is done.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 \&\fBASYNC_WAIT_CTX_new()\fR returns a pointer to the newly allocated \fB\s-1ASYNC_WAIT_CTX\s0\fR

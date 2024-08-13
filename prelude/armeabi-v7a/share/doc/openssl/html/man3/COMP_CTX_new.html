@@ -57,7 +57,9 @@ const BIO_METHOD *BIO_f_zstd(void);</code></pre>
 
 <p>These functions provide compression support for OpenSSL. Compression is used within the OpenSSL library to support TLS record and certificate compression.</p>
 
-<p>COMP_CTX_new() is used to create a new <b>COMP_CTX</b> structure used to compress data. COMP_CTX_free() is used to free the returned <b>COMP_CTX</b>.</p>
+<p>COMP_CTX_new() is used to create a new <b>COMP_CTX</b> structure used to compress data.</p>
+
+<p>COMP_CTX_free() is used to free the returned <b>COMP_CTX</b>. If the argument is NULL, nothing is done.</p>
 
 <p>COMP_CTX_get_method() returns the <b>COMP_METHOD</b> of the given <i>ctx</i>.</p>
 

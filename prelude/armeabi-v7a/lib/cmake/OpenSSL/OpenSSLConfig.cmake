@@ -72,8 +72,8 @@ set(OPENSSL_VERSION_FIX "${OpenSSL_VERSION_PATCH}")
 set(OPENSSL_FOUND YES)
 
 # Directories and names
-set(OPENSSL_INCLUDE_DIR "${_ossl_prefix}/include")
 set(OPENSSL_LIBRARY_DIR "${_ossl_prefix}/lib")
+set(OPENSSL_INCLUDE_DIR "${_ossl_prefix}/include")
 set(OPENSSL_ENGINES_DIR "${_ossl_prefix}/lib/engines-3")
 set(OPENSSL_MODULES_DIR "${_ossl_prefix}/lib/ossl-modules")
 set(OPENSSL_RUNTIME_DIR "${_ossl_prefix}/bin")
@@ -87,7 +87,7 @@ if(_ossl_use_static_libs)
   add_library(OpenSSL::SSL STATIC IMPORTED)
 
   set(OPENSSL_LIBCRYPTO_STATIC "${OPENSSL_LIBRARY_DIR}/libcrypto.a")
-  set(OPENSSL_LIBCRYPTO_DEPENDENCIES -ldl -pthread)
+  set(OPENSSL_LIBCRYPTO_DEPENDENCIES -ldl -pthread -lclang_rt.builtins)
   set_target_properties(OpenSSL::Crypto PROPERTIES
     IMPORTED_LINK_INTERFACE_LANGUAGES "C"
     IMPORTED_LOCATION ${OPENSSL_LIBCRYPTO_STATIC})

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-CRL 1ossl"
-.TH OPENSSL-CRL 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-CRL 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -220,7 +220,12 @@ Defaults to rfc_822.
 Print out the \s-1CRL\s0 in text form.
 .IP "\fB\-verify\fR" 4
 .IX Item "-verify"
-Verify the signature in the \s-1CRL.\s0
+Verify the signature in the \s-1CRL.\s0 If the verification fails,
+the program will immediately exit, i.e. further option processing
+(e.g. \fB\-gendelta\fR) is skipped.
+.Sp
+This option is implicitly enabled if any of \fB\-CApath\fR, \fB\-CAfile\fR
+or \fB\-CAstore\fR is specified.
 .IP "\fB\-noout\fR" 4
 .IX Item "-noout"
 Don't output the encoded version of the \s-1CRL.\s0
@@ -287,9 +292,12 @@ and files too.
 \&\fBopenssl\-ca\fR\|(1),
 \&\fBopenssl\-x509\fR\|(1),
 \&\fBossl_store\-file\fR\|(7)
+.SH "HISTORY"
+.IX Header "HISTORY"
+Since OpenSSL 3.3, the \fB\-verify\fR option will exit with 1 on failure.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2021 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

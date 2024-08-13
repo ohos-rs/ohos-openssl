@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_RAND 7ossl"
-.TH EVP_RAND 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_RAND 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -334,11 +334,17 @@ but also for every generate request.
 .SS "Configuring the Random Seed Source"
 .IX Subsection "Configuring the Random Seed Source"
 In most cases OpenSSL will automatically choose a suitable seed source
-for automatically seeding and reseeding its <primary> \s-1DRBG.\s0 In some cases
-however, it will be necessary to explicitly specify a seed source during
-configuration, using the \-\-with\-rand\-seed option. For more information,
-see the \s-1INSTALL\s0 instructions. There are also operating systems where no
-seed source is available and automatic reseeding is disabled by default.
+for automatically seeding and reseeding its <primary> \s-1DRBG.\s0 The
+default seed source can be configured when OpenSSL is compiled by
+setting \fB\-DOPENSSL_DEFAULT_SEED_SRC=SEED\-SRC\fR. If not set then
+\&\*(L"SEED-SRC\*(R" is used. One can specify a third-party provider seed-source,
+or \fB\-DOPENSSL_DEFAULT_SEED_SRC=JITTER\fR if available.
+.PP
+In some cases however, it will be necessary to explicitly specify a
+seed source used by \*(L"SEED-SRC\*(R" during configuration, using the
+\&\-\-with\-rand\-seed option. For more information, see the \s-1INSTALL\s0
+instructions. There are also operating systems where no seed source is
+available and automatic reseeding is disabled by default.
 .PP
 The following two sections describe the reseeding process of the primary
 \&\s-1DRBG,\s0 depending on whether automatic reseeding is available or not.

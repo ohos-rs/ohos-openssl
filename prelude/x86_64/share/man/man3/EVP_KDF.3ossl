@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_KDF 3ossl"
-.TH EVP_KDF 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_KDF 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -431,7 +431,7 @@ not be considered a breaking change to the \s-1API.\s0
 This functionality was added in OpenSSL 3.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2019\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2019\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

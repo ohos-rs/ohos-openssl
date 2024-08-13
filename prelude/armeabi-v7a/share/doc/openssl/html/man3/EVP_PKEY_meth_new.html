@@ -357,7 +357,7 @@ EVP_PKEY_FLAG_SIGCTX_CUSTOM</code></pre>
 
 <p>The <b>EVP_PKEY_FLAG_SIGCTX_CUSTOM</b> is used to indicate the signctx() method of an <b>EVP_PKEY_METHOD</b> is always called by the EVP framework while doing a digest signing operation by calling <a href="../man3/EVP_DigestSignFinal.html">EVP_DigestSignFinal(3)</a>.</p>
 
-<p>EVP_PKEY_meth_free() frees an existing <b>EVP_PKEY_METHOD</b> pointed by <b>pmeth</b>.</p>
+<p>EVP_PKEY_meth_free() frees an existing <b>EVP_PKEY_METHOD</b> pointed by <b>pmeth</b>. If the argument is NULL, nothing is done.</p>
 
 <p>EVP_PKEY_meth_copy() copies an <b>EVP_PKEY_METHOD</b> object from <b>src</b> to <b>dst</b>.</p>
 

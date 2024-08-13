@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-SMIME 1ossl"
-.TH OPENSSL-SMIME 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-SMIME 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -343,13 +343,13 @@ use the certificates in the signed message as untrusted CAs.
 Don't try to verify the signatures on the message.
 .IP "\fB\-nocerts\fR" 4
 .IX Item "-nocerts"
-When signing a message the signer's certificate is normally included
-with this option it is excluded. This will reduce the size of the
-signed message but the verifier must have a copy of the signers certificate
+When signing a message, the signer's certificate is normally included.
+With this option it is excluded. This will reduce the size of the
+signed message, but the verifier must have a copy of the signers certificate
 available locally (passed using the \fB\-certfile\fR option for example).
 .IP "\fB\-noattr\fR" 4
 .IX Item "-noattr"
-Normally when a message is signed a set of attributes are included which
+Normally, when a message is signed, a set of attributes are included which
 include the signing time and supported symmetric algorithms. With this
 option they are not included.
 .IP "\fB\-nodetach\fR" 4
@@ -374,8 +374,9 @@ option is present \fB\s-1CRLF\s0\fR is used instead.
 .IP "\fB\-certfile\fR \fIfile\fR" 4
 .IX Item "-certfile file"
 Allows additional certificates to be specified. When signing these will
-be included with the message. When verifying these will be searched for
-the signers certificates.
+be included with the message. When verifying, these will be searched for
+signer certificates and will be used for chain building.
+.Sp
 The input can be in \s-1PEM, DER,\s0 or PKCS#12 format.
 .IP "\fB\-signer\fR \fIfile\fR" 4
 .IX Item "-signer file"
@@ -383,12 +384,6 @@ A signing certificate when signing or resigning a message, this option can be
 used multiple times if more than one signer is required. If a message is being
 verified then the signers certificates will be written to this file if the
 verification was successful.
-.IP "\fB\-nocerts\fR" 4
-.IX Item "-nocerts"
-Don't include signers certificate when signing.
-.IP "\fB\-noattr\fR" 4
-.IX Item "-noattr"
-Don't include any signed attributes when signing.
 .IP "\fB\-recip\fR \fIfile\fR" 4
 .IX Item "-recip file"
 The recipients certificate when decrypting a message. This certificate

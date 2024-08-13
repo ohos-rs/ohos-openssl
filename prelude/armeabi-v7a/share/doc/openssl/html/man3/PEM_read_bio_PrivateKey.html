@@ -28,7 +28,7 @@
 
 <h1 id="NAME">NAME</h1>
 
-<p>pem_password_cb, PEM_read_bio_PrivateKey_ex, PEM_read_bio_PrivateKey, PEM_read_PrivateKey_ex, PEM_read_PrivateKey, PEM_write_bio_PrivateKey_ex, PEM_write_bio_PrivateKey, PEM_write_bio_PrivateKey_traditional, PEM_write_PrivateKey_ex, PEM_write_PrivateKey, PEM_write_bio_PKCS8PrivateKey, PEM_write_PKCS8PrivateKey, PEM_write_bio_PKCS8PrivateKey_nid, PEM_write_PKCS8PrivateKey_nid, PEM_read_bio_PUBKEY_ex, PEM_read_bio_PUBKEY, PEM_read_PUBKEY_ex, PEM_read_PUBKEY, PEM_write_bio_PUBKEY_ex, PEM_write_bio_PUBKEY, PEM_write_PUBKEY_ex, PEM_write_PUBKEY, PEM_read_bio_RSAPrivateKey, PEM_read_RSAPrivateKey, PEM_write_bio_RSAPrivateKey, PEM_write_RSAPrivateKey, PEM_read_bio_RSAPublicKey, PEM_read_RSAPublicKey, PEM_write_bio_RSAPublicKey, PEM_write_RSAPublicKey, PEM_read_bio_RSA_PUBKEY, PEM_read_RSA_PUBKEY, PEM_write_bio_RSA_PUBKEY, PEM_write_RSA_PUBKEY, PEM_read_bio_DSAPrivateKey, PEM_read_DSAPrivateKey, PEM_write_bio_DSAPrivateKey, PEM_write_DSAPrivateKey, PEM_read_bio_DSA_PUBKEY, PEM_read_DSA_PUBKEY, PEM_write_bio_DSA_PUBKEY, PEM_write_DSA_PUBKEY, PEM_read_bio_Parameters_ex, PEM_read_bio_Parameters, PEM_write_bio_Parameters, PEM_read_bio_DSAparams, PEM_read_DSAparams, PEM_write_bio_DSAparams, PEM_write_DSAparams, PEM_read_bio_DHparams, PEM_read_DHparams, PEM_write_bio_DHparams, PEM_write_DHparams, PEM_read_bio_X509, PEM_read_X509, PEM_write_bio_X509, PEM_write_X509, PEM_read_bio_X509_AUX, PEM_read_X509_AUX, PEM_write_bio_X509_AUX, PEM_write_X509_AUX, PEM_read_bio_X509_REQ, PEM_read_X509_REQ, PEM_write_bio_X509_REQ, PEM_write_X509_REQ, PEM_write_bio_X509_REQ_NEW, PEM_write_X509_REQ_NEW, PEM_read_bio_X509_CRL, PEM_read_X509_CRL, PEM_write_bio_X509_CRL, PEM_write_X509_CRL, PEM_read_bio_PKCS7, PEM_read_PKCS7, PEM_write_bio_PKCS7, PEM_write_PKCS7 - PEM routines</p>
+<p>pem_password_cb, PEM_read_bio_PrivateKey_ex, PEM_read_bio_PrivateKey, PEM_read_PrivateKey_ex, PEM_read_PrivateKey, PEM_write_bio_PrivateKey_ex, PEM_write_bio_PrivateKey, PEM_write_bio_PrivateKey_traditional, PEM_write_PrivateKey_ex, PEM_write_PrivateKey, PEM_write_bio_PKCS8PrivateKey, PEM_write_PKCS8PrivateKey, PEM_write_bio_PKCS8PrivateKey_nid, PEM_write_PKCS8PrivateKey_nid, PEM_read_bio_PUBKEY_ex, PEM_read_bio_PUBKEY, PEM_read_PUBKEY_ex, PEM_read_PUBKEY, PEM_write_bio_PUBKEY_ex, PEM_write_bio_PUBKEY, PEM_write_PUBKEY_ex, PEM_write_PUBKEY, PEM_read_bio_RSAPrivateKey, PEM_read_RSAPrivateKey, PEM_write_bio_RSAPrivateKey, PEM_write_RSAPrivateKey, PEM_read_bio_RSAPublicKey, PEM_read_RSAPublicKey, PEM_write_bio_RSAPublicKey, PEM_write_RSAPublicKey, PEM_read_bio_RSA_PUBKEY, PEM_read_RSA_PUBKEY, PEM_write_bio_RSA_PUBKEY, PEM_write_RSA_PUBKEY, PEM_read_bio_DSAPrivateKey, PEM_read_DSAPrivateKey, PEM_write_bio_DSAPrivateKey, PEM_write_DSAPrivateKey, PEM_read_bio_DSA_PUBKEY, PEM_read_DSA_PUBKEY, PEM_write_bio_DSA_PUBKEY, PEM_write_DSA_PUBKEY, PEM_read_bio_Parameters_ex, PEM_read_bio_Parameters, PEM_write_bio_Parameters, PEM_read_bio_DSAparams, PEM_read_DSAparams, PEM_write_bio_DSAparams, PEM_write_DSAparams, PEM_read_bio_DHparams, PEM_read_DHparams, PEM_write_bio_DHparams, PEM_write_DHparams, PEM_read_bio_X509, PEM_read_X509, PEM_write_bio_X509, PEM_write_X509, PEM_read_bio_X509_ACERT, PEM_read_X509_ACERT, PEM_write_bio_X509_ACERT, PEM_write_X509_ACERT, PEM_read_bio_X509_AUX, PEM_read_X509_AUX, PEM_write_bio_X509_AUX, PEM_write_X509_AUX, PEM_read_bio_X509_REQ, PEM_read_X509_REQ, PEM_write_bio_X509_REQ, PEM_write_X509_REQ, PEM_write_bio_X509_REQ_NEW, PEM_write_X509_REQ_NEW, PEM_read_bio_X509_CRL, PEM_read_X509_CRL, PEM_write_bio_X509_CRL, PEM_write_X509_CRL, PEM_read_bio_PKCS7, PEM_read_PKCS7, PEM_write_bio_PKCS7, PEM_write_PKCS7 - PEM routines</p>
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
@@ -104,6 +104,13 @@ X509 *PEM_read_bio_X509(BIO *bp, X509 **x, pem_password_cb *cb, void *u);
 X509 *PEM_read_X509(FILE *fp, X509 **x, pem_password_cb *cb, void *u);
 int PEM_write_bio_X509(BIO *bp, X509 *x);
 int PEM_write_X509(FILE *fp, X509 *x);
+
+X509_ACERT *PEM_read_bio_X509_ACERT(BIO *bp, X509_ACERT **x,
+                                    pem_password_cb *cb, void *u);
+X509_ACERT *PEM_read_X509_ACERT(FILE *fp, X509_ACERT **x,
+                                    pem_password_cb *cb, void *u);
+int PEM_write_bio_X509_ACERT(BIO *bp, X509_ACERT *x);
+int PEM_write_X509_ACERT(FILE *fp, X509_ACERT *x);
 
 X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void *u);
 X509 *PEM_read_X509_AUX(FILE *fp, X509 **x, pem_password_cb *cb, void *u);
@@ -225,6 +232,8 @@ int PEM_write_DHparams(FILE *fp, DH *x);</code></pre>
 
 <p>The <b>X509</b> functions process an X509 certificate using an X509 structure. They will also process a trusted X509 certificate but any trust settings are discarded.</p>
 
+<p>The <b>X509_ACERT</b> functions process an X509 attribute certificate using an X509_ACERT structure.</p>
+
 <p>The <b>X509_AUX</b> functions process a trusted X509 certificate using an X509 structure.</p>
 
 <p>The <b>X509_REQ</b> and <b>X509_REQ_NEW</b> functions process a PKCS#10 certificate request using an X509_REQ structure. The <b>X509_REQ</b> write functions use <b>CERTIFICATE REQUEST</b> in the header whereas the <b>X509_REQ_NEW</b> functions use <b>NEW CERTIFICATE REQUEST</b> (as required by some CAs). The <b>X509_REQ</b> read functions will handle either form so there are no <b>X509_REQ_NEW</b> read functions.</p>
@@ -241,7 +250,7 @@ int PEM_write_DHparams(FILE *fp, DH *x);</code></pre>
 
 <p>The <i>fp</i> FILE parameter (if present) specifies the FILE pointer to read from or write to.</p>
 
-<p>The PEM read functions all take an argument <i><b>TYPE</b> **x</i> and return a <i><b>TYPE</b> *</i> pointer. Where <i><b>TYPE</b></i> is whatever structure the function uses. If <i>x</i> is NULL then the parameter is ignored. If <i>x</i> is not NULL but <i>*x</i> is NULL then the structure returned will be written to <i>*x</i>. If neither <i>x</i> nor <i>*x</i> is NULL then an attempt is made to reuse the structure at <i>*x</i> (but see BUGS and EXAMPLES sections). Irrespective of the value of <i>x</i> a pointer to the structure is always returned (or NULL if an error occurred).</p>
+<p>The PEM read functions all take an argument <i><b>TYPE</b> **x</i> and return a <i><b>TYPE</b> *</i> pointer. Where <i><b>TYPE</b></i> is whatever structure the function uses. If <i>x</i> is NULL then the parameter is ignored. If <i>x</i> is not NULL but <i>*x</i> is NULL then the structure returned will be written to <i>*x</i>. If neither <i>x</i> nor <i>*x</i> is NULL then an attempt is made to reuse the structure at <i>*x</i> (but see BUGS and EXAMPLES sections). Irrespective of the value of <i>x</i> a pointer to the structure is always returned (or NULL if an error occurred). The caller retains ownership of the returned object and needs to free it when it is no longer needed, e.g. using X509_free() for X509 objects or EVP_PKEY_free() for EVP_PKEY objects.</p>
 
 <p>The PEM functions which write private keys take an <i>enc</i> parameter which specifies the encryption algorithm to use, encryption is done at the PEM level. If this parameter is set to NULL then the private key is written in unencrypted form.</p>
 

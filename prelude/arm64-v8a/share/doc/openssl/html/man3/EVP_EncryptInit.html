@@ -215,7 +215,7 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 <dt id="EVP_CIPHER_free">EVP_CIPHER_free()</dt>
 <dd>
 
-<p>Decrements the reference count for the fetched <b>EVP_CIPHER</b> structure. If the reference count drops to 0 then the structure is freed.</p>
+<p>Decrements the reference count for the fetched <b>EVP_CIPHER</b> structure. If the reference count drops to 0 then the structure is freed. If the argument is NULL, nothing is done.</p>
 
 </dd>
 <dt id="EVP_CIPHER_CTX_new">EVP_CIPHER_CTX_new()</dt>
@@ -227,13 +227,13 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 <dt id="EVP_CIPHER_CTX_free">EVP_CIPHER_CTX_free()</dt>
 <dd>
 
-<p>Clears all information from a cipher context and frees any allocated memory associated with it, including <i>ctx</i> itself. This function should be called after all operations using a cipher are complete so sensitive information does not remain in memory.</p>
+<p>Clears all information from a cipher context and frees any allocated memory associated with it, including <i>ctx</i> itself. This function should be called after all operations using a cipher are complete so sensitive information does not remain in memory. If the argument is NULL, nothing is done.</p>
 
 </dd>
 <dt id="EVP_CIPHER_CTX_dup">EVP_CIPHER_CTX_dup()</dt>
 <dd>
 
-<p>Can be used to duplicate the cipher state from <i>in</i>. This is useful to avoid multiple EVP_MD_fetch() calls or if large amounts of data are to be hashed which only differ in the last few bytes.</p>
+<p>Can be used to duplicate the cipher state from <i>in</i>. This is useful to avoid multiple EVP_CIPHER_fetch() calls or if large amounts of data are to be fed which only differ in the last few bytes.</p>
 
 </dd>
 <dt id="EVP_CIPHER_CTX_copy">EVP_CIPHER_CTX_copy()</dt>
@@ -305,7 +305,9 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 <dt id="EVP_EncryptUpdate">EVP_EncryptUpdate()</dt>
 <dd>
 
-<p>Encrypts <i>inl</i> bytes from the buffer <i>in</i> and writes the encrypted version to <i>out</i>. The pointers <i>out</i> and <i>in</i> may point to the same location, in which case the encryption will be done in-place. If <i>out</i> and <i>in</i> point to different locations, the two buffers must be disjoint, otherwise the operation might fail or the outcome might be undefined.</p>
+<p>Encrypts <i>inl</i> bytes from the buffer <i>in</i> and writes the encrypted version to <i>out</i>. The pointers <i>out</i> and <i>in</i> may point to the same location, in which case the encryption will be done in-place. However, in-place encryption is guaranteed to work only if the encryption context (<i>ctx</i>) has processed data in multiples of the block size. If the context contains an incomplete data block from previous operations, in-place encryption will fail.</p>
+
+<p>If <i>out</i> and <i>in</i> point to different locations, the two buffers must be disjoint, otherwise the operation might fail or the outcome might be undefined.</p>
 
 <p>This function can be called multiple times to encrypt successive blocks of data. The amount of data written depends on the block alignment of the encrypted data. For most ciphers and modes, the amount of data written can be anything from zero bytes to (inl + cipher_block_size - 1) bytes. For wrap cipher modes, the amount of data written can be anything from zero bytes to (inl + cipher_block_size) bytes. For stream ciphers, the amount of data written can be anything from zero bytes to inl bytes. Thus, the buffer pointed to by <i>out</i> must contain sufficient room for the operation being performed. The actual number of bytes written is placed in <i>outl</i>.</p>
 
@@ -584,6 +586,12 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 <p>Gets 1 if the cipher algorithm <i>cipher</i> supports the gettable EVP_CIPHER_CTX parameter <b>OSSL_CIPHER_PARAM_RANDOM_KEY</b>. Only DES and 3DES set this to 1, all other OpenSSL ciphers return 0.</p>
 
 </dd>
+<dt id="decrypt-only-OSSL_CIPHER_PARAM_DECRYPT_ONLY-integer">&quot;decrypt-only&quot; (<b>OSSL_CIPHER_PARAM_DECRYPT_ONLY) &lt;integer</b></dt>
+<dd>
+
+<p>Gets 1 if the cipher algorithm <i>cipher</i> implementation supports only the decryption operation such as the 3DES ciphers in the fips provider. Otherwise gets 0 or the parameter might not be present at all.</p>
+
+</dd>
 </dl>
 
 <h2 id="Gettable-and-Settable-EVP_CIPHER_CTX-parameters">Gettable and Settable EVP_CIPHER_CTX parameters</h2>
@@ -746,6 +754,12 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 <p>Used to pass the TLS MAC data.</p>
 
 </dd>
+<dt id="fips-indicator-OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR-integer">&quot;fips-indicator&quot; (<b>OSSL_CIPHER_PARAM_FIPS_APPROVED_INDICATOR</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>A getter that returns 1 if the operation is FIPS approved, or 0 otherwise. This may be used after calling a cipher final operation such as EVP_EncryptFinal_ex(). It may return 0 if the &quot;encrypt-check&quot; option is set to 0.</p>
+
+</dd>
 </dl>
 
 <h2 id="Settable-EVP_CIPHER_CTX-parameters">Settable EVP_CIPHER_CTX parameters</h2>
@@ -860,6 +874,12 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 </dl>
 
 <p>The default value is &quot;GB&quot;.</p>
+
+</dd>
+<dt id="encrypt-check-OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK-integer">&quot;encrypt-check&quot; (<b>OSSL_CIPHER_PARAM_FIPS_ENCRYPT_CHECK</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>If required this parameter should be set early via an cipher encrypt init function such as EVP_EncryptInit_ex2(). The default value of 1 causes an error when an encryption operation is triggered. Setting this to 0 will ignore the error and set the approved &quot;fips-indicator&quot; to 0. This option is used by the OpenSSL FIPS provider, and breaks FIPS compliance if set to 0.</p>
 
 </dd>
 </dl>
@@ -1084,7 +1104,7 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 
 <p>EVP_CIPHER_CTX_new() returns a pointer to a newly created <b>EVP_CIPHER_CTX</b> for success and <b>NULL</b> for failure.</p>
 
-<p>EVP_CIPHER_CTX_dup() returns a new EVP_MD_CTX if successful or NULL on failure.</p>
+<p>EVP_CIPHER_CTX_dup() returns a new EVP_CIPHER_CTX if successful or NULL on failure.</p>
 
 <p>EVP_CIPHER_CTX_copy() returns 1 if successful or 0 for failure.</p>
 
@@ -1232,7 +1252,7 @@ void EVP_CIPHER_do_all_provided(OSSL_LIB_CTX *libctx,
 
 <p>When decrypting the return value of EVP_DecryptFinal() or EVP_CipherFinal() indicates if the operation was successful. If it does not indicate success the authentication operation has failed and any output data <b>MUST NOT</b> be used as it is corrupted.</p>
 
-<p>The API does not store the the SIV (Synthetic Initialization Vector) in the cipher text. Instead, it is stored as the tag within the EVP_CIPHER_CTX. The SIV must be retrieved from the context after encryption, and set into the context before decryption.</p>
+<p>The API does not store the SIV (Synthetic Initialization Vector) in the cipher text. Instead, it is stored as the tag within the EVP_CIPHER_CTX. The SIV must be retrieved from the context after encryption, and set into the context before decryption.</p>
 
 <p>This differs from RFC5297 in that the cipher output from encryption, and the cipher input to decryption, does not contain the SIV. This also means that the plain text and cipher text lengths are identical.</p>
 
@@ -1499,7 +1519,7 @@ err:
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2000-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2000-2024 The OpenSSL Project Authors. All Rights Reserved.</p>
 
 <p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 

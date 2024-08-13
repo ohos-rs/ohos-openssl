@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL-GUIDE-INTRODUCTION 7ossl"
-.TH OSSL-GUIDE-INTRODUCTION 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL-GUIDE-INTRODUCTION 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -211,6 +211,8 @@ The pages in the guide are as follows:
 .IX Item "ossl-guide-tls-client-block: Writing a simple blocking TLS client"
 .IP "\fBossl\-guide\-tls\-client\-non\-block\fR\|(7): Writing a simple nonblocking \s-1TLS\s0 client" 4
 .IX Item "ossl-guide-tls-client-non-block: Writing a simple nonblocking TLS client"
+.IP "\fBossl\-guide\-tls\-server\-block\fR\|(7): Writing a simple blocking \s-1TLS\s0 server" 4
+.IX Item "ossl-guide-tls-server-block: Writing a simple blocking TLS server"
 .IP "\fBossl\-guide\-quic\-introduction\fR\|(7): An introduction to \s-1QUIC\s0 in OpenSSL" 4
 .IX Item "ossl-guide-quic-introduction: An introduction to QUIC in OpenSSL"
 .IP "\fBossl\-guide\-quic\-client\-block\fR\|(7): Writing a simple blocking \s-1QUIC\s0 client" 4

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "RSA_METH_NEW 3ossl"
-.TH RSA_METH_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH RSA_METH_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -286,7 +286,7 @@ passed as a parameter. This might be useful for creating a new
 \&\fB\s-1RSA_METHOD\s0\fR based on an existing one, but with some differences.
 .PP
 \&\fBRSA_meth_free()\fR destroys an \fB\s-1RSA_METHOD\s0\fR structure and frees up any
-memory associated with it.
+memory associated with it. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBRSA_meth_get0_name()\fR will return a pointer to the name of this
 \&\s-1RSA_METHOD.\s0 This is a pointer to the internal name string and so

@@ -169,6 +169,26 @@ OSSL_FUNC_mac_settable_ctx_params  OSSL_FUNC_MAC_SETTABLE_CTX_PARAMS</code></pre
 </dd>
 </dl>
 
+<dl>
+
+<dt id="fips-indicator-OSSL_MAC_PARAM_FIPS_APPROVED_INDICATOR-int">&quot;fips-indicator&quot; (<b>OSSL_MAC_PARAM_FIPS_APPROVED_INDICATOR</b>) &lt;int&gt;</dt>
+<dd>
+
+<p>A getter that returns 1 if the operation is FIPS approved, or 0 otherwise. This may be used after calling the final function. It may return 0 if &quot;no-short-mac&quot; are set to 0. This option is used by the OpenSSL FIPS provider.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="no-short-mac-OSSL_PROV_FIPS_PARAM_NO_SHORT_MAC-integer">&quot;no-short-mac&quot; (<b>OSSL_PROV_FIPS_PARAM_NO_SHORT_MAC</b>) &lt;integer&gt;</dt>
+<dd>
+
+<p>If required this parameter should be set early via an init function. The default value of 1 causes an error when too short MAC output is asked for. Setting this to 0 will ignore the error and set the approved &quot;fips-indicator&quot; to 0. This option is used by the OpenSSL FIPS provider, and breaks FIPS compliance if set to 0.</p>
+
+</dd>
+</dl>
+
 </dd>
 </dl>
 

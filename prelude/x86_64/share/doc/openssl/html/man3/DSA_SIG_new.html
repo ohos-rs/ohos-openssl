@@ -37,7 +37,7 @@ int DSA_SIG_set0(DSA_SIG *sig, BIGNUM *r, BIGNUM *s);</code></pre>
 
 <p>DSA_SIG_new() allocates an empty <b>DSA_SIG</b> structure.</p>
 
-<p>DSA_SIG_free() frees the <b>DSA_SIG</b> structure and its components. The values are erased before the memory is returned to the system.</p>
+<p>DSA_SIG_free() frees the <b>DSA_SIG</b> structure and its components. The values are erased before the memory is returned to the system. If the argument is NULL, nothing is done.</p>
 
 <p>DSA_SIG_get0() returns internal pointers to the <b>r</b> and <b>s</b> values contained in <b>sig</b>.</p>
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-CMP 1ossl"
-.TH OPENSSL-CMP 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-CMP 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -154,6 +154,8 @@ Generic message options:
 [\fB\-infotype\fR \fIname\fR]
 [\fB\-profile\fR \fIname\fR]
 [\fB\-geninfo\fR \fIvalues\fR]
+[\fB\-template\fR \fIfilename\fR]
+[\fB\-keyspec\fR \fIfilename\fR]
 .PP
 Certificate enrollment options:
 .PP
@@ -209,6 +211,9 @@ Server authentication options:
 [\fB\-newwithnew\fR \fIfilename\fR]
 [\fB\-newwithold\fR \fIfilename\fR]
 [\fB\-oldwithnew\fR \fIfilename\fR]
+[\fB\-crlcert\fR \fIfilename\fR]
+[\fB\-oldcrl\fR \fIfilename\fR]
+[\fB\-crlout\fR \fIfilename\fR]
 .PP
 Client authentication and protection options:
 .PP
@@ -226,6 +231,7 @@ Client authentication and protection options:
 Credentials format options:
 .PP
 [\fB\-certform\fR \fIPEM|DER\fR]
+[\fB\-crlform\fR \fIPEM|DER\fR]
 [\fB\-keyform\fR \fIPEM|DER|P12|ENGINE\fR]
 [\fB\-otherpass\fR \fIarg\fR]
 [\fB\-engine\fR \fIid\fR]
@@ -273,6 +279,7 @@ Mock server options:
 [\fB\-srv_untrusted\fR \fIfilenames\fR|\fIuris\fR]
 [\fB\-ref_cert\fR \fIfilename\fR|\fIuri\fR]
 [\fB\-rsp_cert\fR \fIfilename\fR|\fIuri\fR]
+[\fB\-rsp_crl\fR \fIfilename\fR|\fIuri\fR]
 [\fB\-rsp_extracerts\fR \fIfilenames\fR|\fIuris\fR]
 [\fB\-rsp_capubs\fR \fIfilenames\fR|\fIuris\fR]
 [\fB\-rsp_newwithnew\fR \fIfilename\fR|\fIuri\fR]
@@ -404,7 +411,8 @@ Upon receipt of the General Response, information about all received
 .IX Item "-infotype name"
 Set InfoType name to use for requesting specific info in \fBgenm\fR,
 e.g., \f(CW\*(C`signKeyPairTypes\*(C'\fR.
-So far, there is specific support for \f(CW\*(C`caCerts\*(C'\fR and \f(CW\*(C`rootCaCert\*(C'\fR.
+There is specific support for \f(CW\*(C`caCerts\*(C'\fR, \f(CW\*(C`rootCaCert\*(C'\fR,  
+\&\f(CW\*(C`certReqTemplate\*(C'\fR, and \f(CW\*(C`crlStatusList\*(C'\fR (\s-1CRL\s0 update retrieval).
 .IP "\fB\-profile\fR \fIname\fR" 4
 .IX Item "-profile name"
 Name of a certificate profile to place in
@@ -416,6 +424,16 @@ the generalInfo field of the PKIHeader of requests messages.
 Each InfoTypeAndValue gives an \s-1OID\s0 and an integer or string value
 of the form \fI\s-1OID\s0\fR:int:\fInumber\fR or \fI\s-1OID\s0\fR:str:\fItext\fR,
 e.g., \f(CW\*(Aq1.2.3.4:int:56789, id\-kp:str:name\*(Aq\fR.
+.IP "\fB\-template\fR \fIfilename\fR" 4
+.IX Item "-template filename"
+The file to save any \s-1CRMF\s0 certTemplate in \s-1DER\s0 format
+received in a genp message with id-it-certReqTemplate.
+.IP "\fB\-keyspec\fR \fIfilename\fR" 4
+.IX Item "-keyspec filename"
+It is optional and used to specify the file to save any keySpec if
+present in a genp message with id-it-keyGenParameters.
+.Sp
+Note: any keySpec field contents received are logged as \s-1INFO.\s0
 .SS "Certificate enrollment options"
 .IX Subsection "Certificate enrollment options"
 .IP "\fB\-newkey\fR \fIfilename\fR|\fIuri\fR" 4
@@ -548,6 +566,12 @@ The file where any newly enrolled certificate should be saved.
 .IP "\fB\-chainout\fR \fIfilename\fR" 4
 .IX Item "-chainout filename"
 The file where the chain of any newly enrolled certificate should be saved.
+This chain excludes the leaf certificate, i.e., the newly enrolled certificate.
+Also the trust anchor (the root certificate) is not included.
+.Sp
+If the \fB\-certout\fR option is given, too, with equal \fIfilename\fR argument,
+then the file produced contains both outputs concatenated:
+the newly enrolled certificate followed by its chain.
 .SS "Certificate enrollment and revocation options"
 .IX Subsection "Certificate enrollment and revocation options"
 .IP "\fB\-oldcert\fR \fIfilename\fR|\fIuri\fR" 4
@@ -828,6 +852,21 @@ If on success no such cert was received, this is indicated by deleting the file.
 The file to save any oldWithNew certificate
 received in a genp message of infoType \f(CW\*(C`rootCaKeyUpdate\*(C'\fR.
 If on success no such cert was received, this is indicated by deleting the file.
+.IP "\fB\-crlcert\fR \fIfilename\fR" 4
+.IX Item "-crlcert filename"
+Certificate used for specifying a \s-1CRL\s0 issuer when requesting a \s-1CRL\s0 
+in a genm message with infoType \f(CW\*(C`crlStatusList\*(C'\fR.
+Any available distribution point name is preferred over issuer names.
+.IP "\fB\-oldcrl\fR \fIfilename\fR" 4
+.IX Item "-oldcrl filename"
+\&\s-1CRL\s0 used for specifying a \s-1CRL\s0 issuer when requesting a \s-1CRL\s0 
+in a genm message with infoType \f(CW\*(C`crlStatusList\*(C'\fR.
+Any available distribution point name is preferred over issuer names.
+If also \fB\-crlcrt\fR is given, its data is preferred over data from \fB\-oldcrl\fR.
+.IP "\fB\-crlout\fR \fIfilename\fR" 4
+.IX Item "-crlout filename"
+The file to save \s-1CRL\s0 received in a genp message of infoType \f(CW\*(C`crls\*(C'\fR.
+If on success no such \s-1CRL\s0 was received, this is indicated by deleting the file.
 .SS "Client authentication options"
 .IX Subsection "Client authentication options"
 .IP "\fB\-ref\fR \fIvalue\fR" 4
@@ -934,6 +973,12 @@ Send request messages without CMP-level protection.
 .IX Item "-certform PEM|DER"
 File format to use when saving a certificate to a file.
 Default value is \s-1PEM.\s0
+.IP "\fB\-crlform\fR \fIPEM|DER\fR" 4
+.IX Item "-crlform PEM|DER"
+File format to use when saving a \s-1CRL\s0 to a file.
+Default value is \s-1DER.
+DER\s0 format is preferred because it enables more efficient storage
+of large CRLs.
 .IP "\fB\-keyform\fR \fIPEM|DER|P12|ENGINE\fR" 4
 .IX Item "-keyform PEM|DER|P12|ENGINE"
 The format of the key input; unspecified by default.
@@ -941,7 +986,7 @@ See \*(L"Format Options\*(R" in \fBopenssl\fR\|(1) for details.
 .IP "\fB\-otherpass\fR \fIarg\fR" 4
 .IX Item "-otherpass arg"
 Pass phrase source for certificate given with the \fB\-trusted\fR, \fB\-untrusted\fR,
-\&\fB\-own_trusted\fR, \fB\-srvcert\fR, \fB\-out_trusted\fR, \fB\-extracerts\fR,
+\&\fB\-own_trusted\fR, \fB\-srvcert\fR, \fB\-crlcert\fR, \fB\-out_trusted\fR, \fB\-extracerts\fR,
 \&\fB\-srv_trusted\fR, \fB\-srv_untrusted\fR, \fB\-ref_cert\fR, \fB\-rsp_cert\fR,
 \&\fB\-rsp_extracerts\fR, \fB\-rsp_capubs\fR,
 \&\fB\-rsp_newwithnew\fR, \fB\-rsp_newwithold\fR, \fB\-rsp_oldwithnew\fR,
@@ -1102,7 +1147,7 @@ If the transaction contains more requests, the remaining ones are not saved.
 .IP "\fB\-reqout_only\fR \fIfilename\fR" 4
 .IX Item "-reqout_only filename"
 Save the first \s-1CMP\s0 requests created by the client to the given file and exit.
-Any options related to \s-1CMP\s0 servers and their reponses are ignored.
+Any options related to \s-1CMP\s0 servers and their responses are ignored.
 .Sp
 This option is useful for supporting offline scenarios where the certificate
 request (or any other \s-1CMP\s0 request) is produced beforehand and sent out later.
@@ -1180,6 +1225,9 @@ Certificate to be expected for \s-1RR\s0 messages and any oldCertID in \s-1KUR\s
 .IP "\fB\-rsp_cert\fR \fIfilename\fR|\fIuri\fR" 4
 .IX Item "-rsp_cert filename|uri"
 Certificate to be returned as mock enrollment result.
+.IP "\fB\-rsp_crl\fR \fIfilename\fR|\fIuri\fR" 4
+.IX Item "-rsp_crl filename|uri"
+\&\s-1CRL\s0 to be returned in genp of type \f(CW\*(C`crls\*(C'\fR.
 .IP "\fB\-rsp_extracerts\fR \fIfilenames\fR|\fIuris\fR" 4
 .IX Item "-rsp_extracerts filenames|uris"
 Extra certificates to be included in mock certification responses.
@@ -1479,9 +1527,12 @@ The \fBcmp\fR application was added in OpenSSL 3.0.
 The \fB\-engine\fR option was deprecated in OpenSSL 3.0.
 .PP
 The \fB\-profile\fR option was added in OpenSSL 3.3.
+.PP
+\&\fB\-crlcert\fR, \fB\-oldcrl\fR, \fB\-crlout\fR, \fB\-crlform\fR
+and \fB\-rsp_crl\fR options were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2007\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2007\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

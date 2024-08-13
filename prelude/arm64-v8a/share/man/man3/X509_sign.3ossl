@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_SIGN 3ossl"
-.TH X509_SIGN 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_SIGN 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -141,6 +141,7 @@
 .SH "NAME"
 X509_sign, X509_sign_ctx,
 X509_REQ_sign, X509_REQ_sign_ctx,
+X509_ACERT_sign, X509_ACERT_sign_ctx,
 X509_CRL_sign, X509_CRL_sign_ctx \-
 sign certificate, certificate request, or CRL signature
 .SH "SYNOPSIS"
@@ -156,6 +157,11 @@ sign certificate, certificate request, or CRL signature
 \&
 \& int X509_CRL_sign(X509_CRL *x, EVP_PKEY *pkey, const EVP_MD *md);
 \& int X509_CRL_sign_ctx(X509_CRL *x, EVP_MD_CTX *ctx);
+\&
+\& #include <openssl/x509_acert.h>
+\&
+\& int X509_ACERT_sign(X509_ACERT *x, EVP_PKEY *pkey, const EVP_MD *md);
+\& int X509_ACERT_sign_ctx(X509_ACERT *x, EVP_MD_CTX *ctx);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -166,6 +172,7 @@ If the certificate information includes X.509 extensions,
 these two functions make sure that the certificate bears X.509 version 3.
 .PP
 \&\fBX509_REQ_sign()\fR, \fBX509_REQ_sign_ctx()\fR,
+\&\fBX509_ACERT_sign()\fR, \fBX509_ACERT_sign_ctx()\fR,
 \&\fBX509_CRL_sign()\fR, and \fBX509_CRL_sign_ctx()\fR
 sign certificate requests and CRLs, respectively.
 .SH "NOTES"
@@ -200,6 +207,9 @@ available in all versions of OpenSSL.
 .PP
 The \fBX509_sign_ctx()\fR, \fBX509_REQ_sign_ctx()\fR
 and \fBX509_CRL_sign_ctx()\fR functions were added in OpenSSL 1.0.1.
+.PP
+The \fBX509_ACERT_sign()\fR and \fBX509_ACERT_sign_ctx()\fR functions were added
+in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2015\-2023 The OpenSSL Project Authors. All Rights Reserved.

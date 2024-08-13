@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_MAC-KMAC 7ossl"
-.TH EVP_MAC-KMAC 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_MAC-KMAC 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -195,8 +195,19 @@ It is 168 for \f(CW\*(C`KMAC\-128\*(C'\fR and 136 for \f(CW\*(C`KMAC\-256\*(C'\f
 .IX Item "xof (OSSL_MAC_PARAM_XOF) <integer>"
 The \*(L"xof\*(R" parameter value is expected to be 1 or 0. Use 1 to enable \s-1XOF\s0 mode.
 The default value is 0.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_MAC_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <int>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_MAC_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <int>" 4
+.IX Item "fips-indicator (OSSL_MAC_PARAM_FIPS_APPROVED_INDICATOR) <int>"
+This settable parameter is described in \fBprovider\-mac\fR\|(7).
+.ie n .IP """no-short-mac"" (\fB\s-1OSSL_PROV_FIPS_PARAM_NO_SHORT_MAC\s0\fR) <integer>" 4
+.el .IP "``no-short-mac'' (\fB\s-1OSSL_PROV_FIPS_PARAM_NO_SHORT_MAC\s0\fR) <integer>" 4
+.IX Item "no-short-mac (OSSL_PROV_FIPS_PARAM_NO_SHORT_MAC) <integer>"
+This settable parameter is described in \fBprovider\-mac\fR\|(7).  It is used by
+the OpenSSL \s-1FIPS\s0 provider and the minimum length output for \s-1KMAC\s0
+is defined by \s-1NIST\s0's \s-1SP 800\-185 8.4.2.\s0
 .PP
-The \*(L"custom\*(R" parameter must be set as part of or before the \fBEVP_MAC_init()\fR call.
+The \*(L"custom\*(R" and \*(L"no-short-mac\*(R" parameters must be set as part of or before
+the \fBEVP_MAC_init()\fR call.
 The \*(L"xof\*(R" and \*(L"size\*(R" parameters can be set at any time before \fBEVP_MAC_final()\fR.
 The \*(L"key\*(R" parameter is set as part of the \fBEVP_MAC_init()\fR call, but can be
 set before it instead.
@@ -269,7 +280,8 @@ set before it instead.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBEVP_MAC_CTX_get_params\fR\|(3), \fBEVP_MAC_CTX_set_params\fR\|(3),
-\&\*(L"\s-1PARAMETERS\*(R"\s0 in \s-1\fBEVP_MAC\s0\fR\|(3), \s-1\fBOSSL_PARAM\s0\fR\|(3)
+\&\*(L"\s-1PARAMETERS\*(R"\s0 in \s-1\fBEVP_MAC\s0\fR\|(3), \s-1\fBOSSL_PARAM\s0\fR\|(3),
+\&\s-1SP 800\-185 8.4.2\s0 <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf>
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2018\-2021 The OpenSSL Project Authors. All Rights Reserved.

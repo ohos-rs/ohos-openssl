@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_SIGNATURE-ED25519 7ossl"
-.TH EVP_SIGNATURE-ED25519 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_SIGNATURE-ED25519 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -172,9 +172,9 @@ Ed25519ctx, the context-string must be nonempty).  For the Ed25519
 instance, a nonempty context-string is not permitted.
 .SS "\s-1ED25519\s0 and \s-1ED448\s0 Signature Parameters"
 .IX Subsection "ED25519 and ED448 Signature Parameters"
-Two parameters can be set during signing or verification: the EdDSA
-\&\fBinstance name\fR and the \fBcontext-string value\fR.  They can be set by
-passing an \s-1OSSL_PARAM\s0 array to \fBEVP_DigestSignInit_ex()\fR.
+The following parameters can be set during signing or verification by
+passing an \s-1OSSL_PARAM\s0 array to \fBEVP_DigestSignInit_ex()\fR or
+\&\fBEVP_PKEY_CTX_set_params()\fR:
 .IP "\(bu" 4
 \&\*(L"instance\*(R" (\fB\s-1OSSL_SIGNATURE_PARAM_INSTANCE\s0\fR) <utf8 string>
 .Sp
@@ -187,8 +187,13 @@ One of the five strings \*(L"Ed25519\*(R", \*(L"Ed25519ctx\*(R", \*(L"Ed25519ph\
 \&\*(L"context-string\*(R" (\fB\s-1OSSL_SIGNATURE_PARAM_CONTEXT_STRING\s0\fR) <octet string>
 .Sp
 A string of octets with length at most 255.
+.IP "\(bu" 4
+\&\*(L"verify-digested\*(R" (\fB\s-1OSSL_SIGNATURE_PARAM_EDDSA_VERIFY_DIGESTED\s0\fR <integer>
+.Sp
+If set to a nonzero value, EdDSA can be used to verify a hash of a message.
+If zero, EdDSA will digest the message internally.
 .PP
-Both of these parameters are optional.
+All of these parameters are optional.
 .PP
 If the instance name is not specified, then the default \*(L"Ed25519\*(R" or
 \&\*(L"Ed448\*(R" is used.
@@ -209,6 +214,8 @@ The following signature parameters can be retrieved using
 \&\*(L"instance\*(R" (\fB\s-1OSSL_SIGNATURE_PARAM_INSTANCE\s0\fR) <utf8 string>
 .IP "\(bu" 4
 \&\*(L"context-string\*(R" (\fB\s-1OSSL_SIGNATURE_PARAM_CONTEXT_STRING\s0\fR) <octet string>
+.IP "\(bu" 4
+\&\*(L"fips-indicator\*(R" (\fB\s-1OSSL_SIGNATURE_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>
 .PP
 The parameters are described in \fBprovider\-signature\fR\|(7).
 .SH "NOTES"

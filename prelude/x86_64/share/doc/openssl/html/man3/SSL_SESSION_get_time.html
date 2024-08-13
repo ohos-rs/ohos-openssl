@@ -30,30 +30,33 @@
 
 <pre><code>#include &lt;openssl/ssl.h&gt;
 
-long SSL_SESSION_get_time(const SSL_SESSION *s);
-long SSL_SESSION_set_time(SSL_SESSION *s, long tm);
 long SSL_SESSION_get_timeout(const SSL_SESSION *s);
 long SSL_SESSION_set_timeout(SSL_SESSION *s, long tm);
 
-long SSL_get_time(const SSL_SESSION *s);
-long SSL_set_time(SSL_SESSION *s, long tm);
 long SSL_get_timeout(const SSL_SESSION *s);
 long SSL_set_timeout(SSL_SESSION *s, long tm);
 
 time_t SSL_SESSION_get_time_ex(const SSL_SESSION *s);
 time_t SSL_SESSION_set_time_ex(SSL_SESSION *s, time_t tm);</code></pre>
 
+<p>The following functions have been deprecated since OpenSSL 3.4, and can be hidden entirely by defining <b>OPENSSL_API_COMPAT</b> with a suitable version value, see <a href="../man7/openssl_user_macros.html">openssl_user_macros(7)</a>:</p>
+
+<pre><code>long SSL_SESSION_get_time(const SSL_SESSION *s);
+long SSL_SESSION_set_time(SSL_SESSION *s, long tm);
+long SSL_get_time(const SSL_SESSION *s);
+long SSL_set_time(SSL_SESSION *s, long tm);</code></pre>
+
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
-<p>SSL_SESSION_get_time() returns the time at which the session <b>s</b> was established. The time is given in seconds since the Epoch and therefore compatible to the time delivered by the time() call.</p>
+<p>SSL_SESSION_get_time_ex() returns the time at which the session <b>s</b> was established. The time is given in seconds since the Epoch and therefore compatible to the time delivered by the time() call.</p>
 
-<p>SSL_SESSION_set_time() replaces the creation time of the session <b>s</b> with the chosen value <b>tm</b>.</p>
+<p>SSL_SESSION_set_time_ex() replaces the creation time of the session <b>s</b> with the chosen value <b>tm</b>.</p>
 
 <p>SSL_SESSION_get_timeout() returns the timeout value set for session <b>s</b> in seconds.</p>
 
 <p>SSL_SESSION_set_timeout() sets the timeout value for session <b>s</b> in seconds to <b>tm</b>.</p>
 
-<p>SSL_SESSION_get_time_ex() and SSL_SESSION_set_time_ex() extended functions use the time_t datatype instead of long to fix the Y2038 problem on systems with 64 bit time_t type.</p>
+<p>SSL_SESSION_get_time() and SSL_SESSION_set_time() functions use the long datatype instead of time_t and are therefore deprecated due to not being Y2038-safe on 32 bit systems. Note that such systems still need to be configured to use 64 bit time_t to be able to avoid overflow in system time.</p>
 
 <p>The SSL_get_time(), SSL_set_time(), SSL_get_timeout(), and SSL_set_timeout() functions are synonyms for the SSL_SESSION_*() counterparts.</p>
 
@@ -63,9 +66,9 @@ time_t SSL_SESSION_set_time_ex(SSL_SESSION *s, time_t tm);</code></pre>
 
 <h1 id="RETURN-VALUES">RETURN VALUES</h1>
 
-<p>SSL_SESSION_get_time() and SSL_SESSION_get_timeout() return the currently valid values.</p>
+<p>SSL_SESSION_get_time_ex() and SSL_SESSION_get_timeout() return the currently valid values.</p>
 
-<p>SSL_SESSION_set_time() and SSL_SESSION_set_timeout() return 1 on success.</p>
+<p>SSL_SESSION_set_time_ex() and SSL_SESSION_set_timeout() return 1 on success.</p>
 
 <p>If any of the function is passed the NULL pointer for the session <b>s</b>, 0 is returned.</p>
 
@@ -79,7 +82,7 @@ time_t SSL_SESSION_set_time_ex(SSL_SESSION *s, time_t tm);</code></pre>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 
-<p>Copyright 2001-2023 The OpenSSL Project Authors. All Rights Reserved.</p>
+<p>Copyright 2001-2024 The OpenSSL Project Authors. All Rights Reserved.</p>
 
 <p>Licensed under the Apache License 2.0 (the &quot;License&quot;). You may not use this file except in compliance with the License. You can obtain a copy in the file LICENSE in the source distribution or at <a href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a>.</p>
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CRYPTO_THREAD_RUN_ONCE 3ossl"
-.TH CRYPTO_THREAD_RUN_ONCE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH CRYPTO_THREAD_RUN_ONCE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -142,8 +142,8 @@
 CRYPTO_THREAD_run_once,
 CRYPTO_THREAD_lock_new, CRYPTO_THREAD_read_lock, CRYPTO_THREAD_write_lock,
 CRYPTO_THREAD_unlock, CRYPTO_THREAD_lock_free,
-CRYPTO_atomic_add, CRYPTO_atomic_or, CRYPTO_atomic_load,
-CRYPTO_atomic_load_int,
+CRYPTO_atomic_add, CRYPTO_atomic_add64, CRYPTO_atomic_and, CRYPTO_atomic_or,
+CRYPTO_atomic_load, CRYPTO_atomic_store, CRYPTO_atomic_load_int,
 OSSL_set_max_threads, OSSL_get_max_threads,
 OSSL_get_thread_support_flags, OSSL_THREAD_SUPPORT_FLAG_THREAD_POOL,
 OSSL_THREAD_SUPPORT_FLAG_DEFAULT_SPAWN \- OpenSSL thread support
@@ -162,9 +162,14 @@ OSSL_THREAD_SUPPORT_FLAG_DEFAULT_SPAWN \- OpenSSL thread support
 \& void CRYPTO_THREAD_lock_free(CRYPTO_RWLOCK *lock);
 \&
 \& int CRYPTO_atomic_add(int *val, int amount, int *ret, CRYPTO_RWLOCK *lock);
+\& int CRYPTO_atomic_add64(uint64_t *val, uint64_t op, uint64_t *ret,
+\&                         CRYPTO_RWLOCK *lock);
+\& int CRYPTO_atomic_and(uint64_t *val, uint64_t op, uint64_t *ret,
+\&                       CRYPTO_RWLOCK *lock);
 \& int CRYPTO_atomic_or(uint64_t *val, uint64_t op, uint64_t *ret,
 \&                      CRYPTO_RWLOCK *lock);
 \& int CRYPTO_atomic_load(uint64_t *val, uint64_t *ret, CRYPTO_RWLOCK *lock);
+\& int CRYPTO_atomic_store(uint64_t *dst, uint64_t val, CRYPTO_RWLOCK *lock);
 \& int CRYPTO_atomic_load_int(int *val, int *ret, CRYPTO_RWLOCK *lock);
 \&
 \& int OSSL_set_max_threads(OSSL_LIB_CTX *ctx, uint64_t max_threads);
@@ -204,11 +209,27 @@ lock.
 \&\fBCRYPTO_THREAD_unlock()\fR unlocks the previously locked \fIlock\fR.
 .IP "\(bu" 2
 \&\fBCRYPTO_THREAD_lock_free()\fR frees the provided \fIlock\fR.
+If the argument is \s-1NULL,\s0 nothing is done.
 .IP "\(bu" 2
 \&\fBCRYPTO_atomic_add()\fR atomically adds \fIamount\fR to \fI*val\fR and returns the
 result of the operation in \fI*ret\fR. \fIlock\fR will be locked, unless atomic
 operations are supported on the specific platform. Because of this, if a
 variable is modified by \fBCRYPTO_atomic_add()\fR then \fBCRYPTO_atomic_add()\fR must
+be the only way that the variable is modified. If atomic operations are not
+supported and \fIlock\fR is \s-1NULL,\s0 then the function will fail.
+.IP "\(bu" 2
+\&\fBCRYPTO_atomic_add64()\fR atomically adds \fIop\fR to \fI*val\fR and returns the
+result of the operation in \fI*ret\fR. \fIlock\fR will be locked, unless atomic
+operations are supported on the specific platform. Because of this, if a
+variable is modified by \fBCRYPTO_atomic_add64()\fR then \fBCRYPTO_atomic_add64()\fR must
+be the only way that the variable is modified. If atomic operations are not
+supported and \fIlock\fR is \s-1NULL,\s0 then the function will fail.
+.IP "\(bu" 2
+\&\fBCRYPTO_atomic_and()\fR performs an atomic bitwise and of \fIop\fR and \fI*val\fR and stores
+the result back in \fI*val\fR. It also returns the result of the operation in
+\&\fI*ret\fR. \fIlock\fR will be locked, unless atomic operations are supported on the
+specific platform. Because of this, if a variable is modified by
+\&\fBCRYPTO_atomic_and()\fR or read by \fBCRYPTO_atomic_load()\fR then \fBCRYPTO_atomic_and()\fR must
 be the only way that the variable is modified. If atomic operations are not
 supported and \fIlock\fR is \s-1NULL,\s0 then the function will fail.
 .IP "\(bu" 2
@@ -226,6 +247,10 @@ platform. Because of this, if a variable is modified by \fBCRYPTO_atomic_or()\fR
 read by \fBCRYPTO_atomic_load()\fR then \fBCRYPTO_atomic_load()\fR must be the only way that
 the variable is read. If atomic operations are not supported and \fIlock\fR is
 \&\s-1NULL,\s0 then the function will fail.
+.IP "\(bu" 2
+\&\fBCRYPTO_atomic_store()\fR atomically stores the contents of \fIval\fR into \fI*dst\fR.
+\&\fIlock\fR will be locked, unless atomic operations are supported on the specific
+platform.
 .IP "\(bu" 2
 \&\fBCRYPTO_atomic_load_int()\fR works identically to \fBCRYPTO_atomic_load()\fR but operates
 on an \fIint\fR value instead of a \fIuint64_t\fR value.
@@ -322,10 +347,13 @@ This example safely initializes and uses a lock.
 \& {
 \&     int ret = 0;
 \&
-\&     if (mylock()) {
-\&         /* Your code here, do not return without releasing the lock! */
-\&         ret = ... ;
+\&     if (!mylock()) {
+\&        /* Do not unlock unless the lock was successfully acquired. */
+\&        return 0;
 \&     }
+\&
+\&     /* Your code here, do not return without releasing the lock! */
+\&     ret = ... ;
 \&     myunlock();
 \&     return ret;
 \& }
@@ -339,6 +367,9 @@ repeatedly load/unload shared libraries that allocate locks.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBcrypto\fR\|(7), \fBopenssl\-threads\fR\|(7).
+.SH "HISTORY"
+.IX Header "HISTORY"
+\&\fBCRYPTO_atomic_store()\fR was added in OpenSSL 3.4.0
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2000\-2023 The OpenSSL Project Authors. All Rights Reserved.

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_VERIFY 3ossl"
-.TH X509_VERIFY 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_VERIFY 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -141,7 +141,7 @@
 .SH "NAME"
 X509_verify, X509_self_signed,
 X509_REQ_verify_ex, X509_REQ_verify,
-X509_CRL_verify \-
+X509_CRL_verify, X509_ACERT_verify \-
 verify certificate, certificate request, or CRL signature
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
@@ -155,6 +155,9 @@ verify certificate, certificate request, or CRL signature
 \&                        const char *propq);
 \& int X509_REQ_verify(X509_REQ *a, EVP_PKEY *r);
 \& int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);
+\&
+\& #include <openssl/x509_acert.h>
+\& int X509_ACERT_verify(X509_CRL *a, EVP_PKEY *r);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -168,8 +171,9 @@ authority key identifier (if present) must match the subject key identifier etc.
 The signature itself is actually verified only if \fBverify_signature\fR is 1, as
 for explicitly trusted certificates this verification is not worth the effort.
 .PP
-\&\fBX509_REQ_verify_ex()\fR, \fBX509_REQ_verify()\fR and \fBX509_CRL_verify()\fR
-verify the signatures of certificate requests and CRLs, respectively.
+\&\fBX509_REQ_verify_ex()\fR, \fBX509_REQ_verify()\fR, \fBX509_CRL_verify()\fR and \fBX509_ACERT_verify()\fR
+verify the signatures of certificate requests, CRLs and attribute certificates
+respectively.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 \&\fBX509_verify()\fR,
@@ -204,6 +208,8 @@ The \fBX509_verify()\fR, \fBX509_REQ_verify()\fR, and \fBX509_CRL_verify()\fR
 functions are available in all versions of OpenSSL.
 .PP
 \&\fBX509_REQ_verify_ex()\fR, and \fBX509_self_signed()\fR were added in OpenSSL 3.0.
+.PP
+\&\fBX509_ACERT_verify()\fR was added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2015\-2023 The OpenSSL Project Authors. All Rights Reserved.

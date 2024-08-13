@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_KDF-TLS1_PRF 7ossl"
-.TH EVP_KDF-TLS1_PRF 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_KDF-TLS1_PRF 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -178,6 +178,43 @@ Any existing secret value is replaced.
 This parameter sets the context seed.
 The length of the context seed cannot exceed 1024 bytes;
 this should be more than enough for any normal use of the \s-1TLS PRF.\s0
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_KDF_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_KDF_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_KDF_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling EVP_KDF_derive. It returns 0 if any \*(L"***\-check\*(R"
+related parameter is set to 0 and the check fails.
+This option is used by the OpenSSL \s-1FIPS\s0 provider.
+.ie n .IP """ems_check"" (\fB\s-1OSSL_KDF_PARAM_FIPS_EMS_CHECK\s0\fR) <integer>" 4
+.el .IP "``ems_check'' (\fB\s-1OSSL_KDF_PARAM_FIPS_EMS_CHECK\s0\fR) <integer>" 4
+.IX Item "ems_check (OSSL_KDF_PARAM_FIPS_EMS_CHECK) <integer>"
+The default value of 1 causes an error during \fBEVP_KDF_derive()\fR if
+\&\*(L"master secret\*(R" is used instead of \*(L"extended master secret\*(R" Setting this to zero
+will ignore the error and set the approved \*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
+.ie n .IP """digest-check"" (\fB\s-1OSSL_KDF_PARAM_FIPS_DIGEST_CHECK\s0\fR) <integer>" 4
+.el .IP "``digest-check'' (\fB\s-1OSSL_KDF_PARAM_FIPS_DIGEST_CHECK\s0\fR) <integer>" 4
+.IX Item "digest-check (OSSL_KDF_PARAM_FIPS_DIGEST_CHECK) <integer>"
+The default value of 1 causes an error during \fBEVP_KDF_CTX_set_params()\fR if
+used digest is not approved.
+Setting this to zero will ignore the error and set the approved
+\&\*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
+.Sp
+According to \s-1SP\s0 800\-135r1, the following are approved digest algorithms:
+\&\s-1SHA2\-256, SHA2\-384, SHA2\-512.\s0
+.ie n .IP """key-check"" (\fB\s-1OSSL_KDF_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.el .IP "``key-check'' (\fB\s-1OSSL_KDF_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.IX Item "key-check (OSSL_KDF_PARAM_FIPS_KEY_CHECK) <integer>"
+The default value of 1 causes an error during \fBEVP_KDF_CTX_set_params()\fR if the
+length of used key-derivation key (\fB\s-1OSSL_KDF_PARAM_SECRET\s0\fR) is shorter than 112
+bits.
+Setting this to zero will ignore the error and set the approved
+\&\*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
 .SH "NOTES"
 .IX Header "NOTES"
 A context for the \s-1TLS PRF\s0 can be obtained by calling:

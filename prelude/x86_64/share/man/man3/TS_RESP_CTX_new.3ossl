@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "TS_RESP_CTX_NEW 3ossl"
-.TH TS_RESP_CTX_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH TS_RESP_CTX_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -164,6 +164,7 @@ and property query to \s-1NULL.\s0 This results in the default (\s-1NULL\s0) lib
 being used for any operations requiring algorithm fetches.
 .PP
 \&\fBTS_RESP_CTX_free()\fR frees the \fB\s-1TS_RESP_CTX\s0\fR object \fIctx\fR.
+If the argument is \s-1NULL,\s0 nothing is done.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 If the allocation fails, \fBTS_RESP_CTX_new_ex()\fR and \fBTS_RESP_CTX_new()\fR return \s-1NULL,\s0

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "SSL_SESSION_GET_TIME 3ossl"
-.TH SSL_SESSION_GET_TIME 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH SSL_SESSION_GET_TIME 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -148,26 +148,33 @@ SSL_get_time, SSL_set_time, SSL_get_timeout, SSL_set_timeout
 .Vb 1
 \& #include <openssl/ssl.h>
 \&
-\& long SSL_SESSION_get_time(const SSL_SESSION *s);
-\& long SSL_SESSION_set_time(SSL_SESSION *s, long tm);
 \& long SSL_SESSION_get_timeout(const SSL_SESSION *s);
 \& long SSL_SESSION_set_timeout(SSL_SESSION *s, long tm);
 \&
-\& long SSL_get_time(const SSL_SESSION *s);
-\& long SSL_set_time(SSL_SESSION *s, long tm);
 \& long SSL_get_timeout(const SSL_SESSION *s);
 \& long SSL_set_timeout(SSL_SESSION *s, long tm);
 \&
 \& time_t SSL_SESSION_get_time_ex(const SSL_SESSION *s);
 \& time_t SSL_SESSION_set_time_ex(SSL_SESSION *s, time_t tm);
 .Ve
+.PP
+The following functions have been deprecated since OpenSSL 3.4, and can be
+hidden entirely by defining \fB\s-1OPENSSL_API_COMPAT\s0\fR with a suitable version value,
+see \fBopenssl_user_macros\fR\|(7):
+.PP
+.Vb 4
+\& long SSL_SESSION_get_time(const SSL_SESSION *s);
+\& long SSL_SESSION_set_time(SSL_SESSION *s, long tm);
+\& long SSL_get_time(const SSL_SESSION *s);
+\& long SSL_set_time(SSL_SESSION *s, long tm);
+.Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\fBSSL_SESSION_get_time()\fR returns the time at which the session \fBs\fR was
+\&\fBSSL_SESSION_get_time_ex()\fR returns the time at which the session \fBs\fR was
 established. The time is given in seconds since the Epoch and therefore
 compatible to the time delivered by the \fBtime()\fR call.
 .PP
-\&\fBSSL_SESSION_set_time()\fR replaces the creation time of the session \fBs\fR with
+\&\fBSSL_SESSION_set_time_ex()\fR replaces the creation time of the session \fBs\fR with
 the chosen value \fBtm\fR.
 .PP
 \&\fBSSL_SESSION_get_timeout()\fR returns the timeout value set for session \fBs\fR
@@ -176,9 +183,10 @@ in seconds.
 \&\fBSSL_SESSION_set_timeout()\fR sets the timeout value for session \fBs\fR in seconds
 to \fBtm\fR.
 .PP
-\&\fBSSL_SESSION_get_time_ex()\fR and \fBSSL_SESSION_set_time_ex()\fR extended functions use
-the time_t datatype instead of long to fix the Y2038 problem on systems with
-64 bit time_t type.
+\&\fBSSL_SESSION_get_time()\fR and \fBSSL_SESSION_set_time()\fR functions use
+the long datatype instead of time_t and are therefore deprecated due to not
+being Y2038\-safe on 32 bit systems. Note that such systems still need
+to be configured to use 64 bit time_t to be able to avoid overflow in system time.
 .PP
 The \fBSSL_get_time()\fR, \fBSSL_set_time()\fR, \fBSSL_get_timeout()\fR, and \fBSSL_set_timeout()\fR
 functions are synonyms for the SSL_SESSION_*() counterparts.
@@ -192,10 +200,10 @@ Using these functions it is possible to extend or shorten the lifetime
 of the session.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
-\&\fBSSL_SESSION_get_time()\fR and \fBSSL_SESSION_get_timeout()\fR return the currently
+\&\fBSSL_SESSION_get_time_ex()\fR and \fBSSL_SESSION_get_timeout()\fR return the currently
 valid values.
 .PP
-\&\fBSSL_SESSION_set_time()\fR and \fBSSL_SESSION_set_timeout()\fR return 1 on success.
+\&\fBSSL_SESSION_set_time_ex()\fR and \fBSSL_SESSION_set_timeout()\fR return 1 on success.
 .PP
 If any of the function is passed the \s-1NULL\s0 pointer for the session \fBs\fR,
 0 is returned.
@@ -211,7 +219,7 @@ Y2038 safe.
 \&\fBSSL_get_default_timeout\fR\|(3)
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2001\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2001\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

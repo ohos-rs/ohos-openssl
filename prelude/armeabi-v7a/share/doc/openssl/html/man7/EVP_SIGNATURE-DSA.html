@@ -32,7 +32,7 @@
 
 <h2 id="Signature-Parameters">Signature Parameters</h2>
 
-<p>The following signature parameters can be set using EVP_PKEY_CTX_set_params(). This may be called after EVP_PKEY_sign_init() or EVP_PKEY_verify_init(), and before calling EVP_PKEY_sign() or EVP_PKEY_verify().</p>
+<p>The following signature parameters can be set using EVP_PKEY_CTX_set_params(). This may be called after EVP_PKEY_sign_init() or EVP_PKEY_verify_init(), and before calling EVP_PKEY_sign() or EVP_PKEY_verify(). They may also be set using EVP_PKEY_sign_init_ex() or EVP_PKEY_verify_init_ex().</p>
 
 <dl>
 
@@ -45,6 +45,18 @@
 
 </dd>
 <dt id="nonce-type-OSSL_SIGNATURE_PARAM_NONCE_TYPE-unsigned-integer">&quot;nonce-type&quot; (<b>OSSL_SIGNATURE_PARAM_NONCE_TYPE</b>) &lt;unsigned integer&gt;</dt>
+<dd>
+
+</dd>
+<dt id="key-check-OSSL_SIGNATURE_PARAM_FIPS_KEY_CHECK-integer">&quot;key-check&quot; (<b>OSSL_SIGNATURE_PARAM_FIPS_KEY_CHECK</b>) &lt;integer&gt;</dt>
+<dd>
+
+</dd>
+<dt id="digest-check-OSSL_SIGNATURE_PARAM_FIPS_DIGEST_CHECK-integer">&quot;digest-check&quot; (<b>OSSL_SIGNATURE_PARAM_FIPS_DIGEST_CHECK</b>) &lt;integer&gt;</dt>
+<dd>
+
+</dd>
+<dt id="sign-check-OSSL_SIGNATURE_PARAM_FIPS_SIGN_CHECK-int">&quot;sign-check&quot; (<b>OSSL_SIGNATURE_PARAM_FIPS_SIGN_CHECK</b>) &lt;int&gt;</dt>
 <dd>
 
 <p>The settable parameters are described in <a href="../man7/provider-signature.html">provider-signature(7)</a>.</p>
@@ -65,6 +77,10 @@
 
 </dd>
 <dt id="nonce-type-OSSL_SIGNATURE_PARAM_NONCE_TYPE-unsigned-integer1">&quot;nonce-type&quot; (<b>OSSL_SIGNATURE_PARAM_NONCE_TYPE</b>) &lt;unsigned integer&gt;</dt>
+<dd>
+
+</dd>
+<dt id="fips-indicator-OSSL_SIGNATURE_PARAM_FIPS_APPROVED_INDICATOR-integer">&quot;fips-indicator&quot; (<b>OSSL_SIGNATURE_PARAM_FIPS_APPROVED_INDICATOR</b>) &lt;integer&gt;</dt>
 <dd>
 
 <p>The gettable parameters are described in <a href="../man7/provider-signature.html">provider-signature(7)</a>.</p>

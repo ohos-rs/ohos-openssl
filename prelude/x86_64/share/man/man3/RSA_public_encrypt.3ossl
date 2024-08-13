@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "RSA_PUBLIC_ENCRYPT 3ossl"
-.TH RSA_PUBLIC_ENCRYPT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH RSA_PUBLIC_ENCRYPT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -224,17 +224,24 @@ design. Prefer \s-1RSA_PKCS1_OAEP_PADDING.\s0
 .PP
 In OpenSSL before version 3.2.0, both the return value and the length of
 returned value could be used to mount the Bleichenbacher attack.
-Since version 3.2.0, OpenSSL does not return an error in case of padding
-checks failed. Instead it generates a random message based on used private
+Since version 3.2.0, the default provider in OpenSSL does not return an
+error when padding checks fail. Instead it generates a random
+message based on used private
 key and provided ciphertext so that application code doesn't have to implement
 a side-channel secure error handling.
+Applications that want to be secure against side-channel attacks with
+providers that don't implement implicit rejection, still need to
+handle the returned values using side-channel free code.
+Side-channel free handling of the error stack can be performed using
+either a pair of unconditional \fBERR_set_mark\fR\|(3) and \fBERR_pop_to_mark\fR\|(3)
+calls or by using the \fBERR_clear_error\fR\|(3) call.
 .SH "CONFORMING TO"
 .IX Header "CONFORMING TO"
 \&\s-1SSL, PKCS\s0 #1 v2.0
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBERR_get_error\fR\|(3), \fBRAND_bytes\fR\|(3),
-\&\fBRSA_size\fR\|(3)
+\&\fBRSA_size\fR\|(3), \fBEVP_PKEY_decrypt\fR\|(3), \fBEVP_PKEY_encrypt\fR\|(3)
 .SH "HISTORY"
 .IX Header "HISTORY"
 Both of these functions were deprecated in OpenSSL 3.0.

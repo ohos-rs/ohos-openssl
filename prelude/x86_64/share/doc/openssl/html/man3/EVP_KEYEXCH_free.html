@@ -52,7 +52,7 @@ const OSSL_PARAM *EVP_KEYEXCH_settable_ctx_params(const EVP_KEYEXCH *keyexch);</
 
 <p>The returned value must eventually be freed with EVP_KEYEXCH_free().</p>
 
-<p>EVP_KEYEXCH_free() decrements the reference count for the <b>EVP_KEYEXCH</b> structure. Typically this structure will have been obtained from an earlier call to EVP_KEYEXCH_fetch(). If the reference count drops to 0 then the structure is freed.</p>
+<p>EVP_KEYEXCH_free() decrements the reference count for the <b>EVP_KEYEXCH</b> structure. Typically this structure will have been obtained from an earlier call to EVP_KEYEXCH_fetch(). If the reference count drops to 0 then the structure is freed. If the argument is NULL, nothing is done.</p>
 
 <p>EVP_KEYEXCH_up_ref() increments the reference count for an <b>EVP_KEYEXCH</b> structure.</p>
 

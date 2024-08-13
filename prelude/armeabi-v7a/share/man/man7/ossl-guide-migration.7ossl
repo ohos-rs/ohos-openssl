@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OSSL-GUIDE-MIGRATION 7ossl"
-.TH OSSL-GUIDE-MIGRATION 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OSSL-GUIDE-MIGRATION 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1095,7 +1095,7 @@ Deprecated low-level digest functions
 .PP
 Use of low-level digest functions such as \fBSHA1_Init\fR\|(3) have been
 informally discouraged from use for a long time.  Applications should instead
-use the the high level \s-1EVP\s0 APIs \fBEVP_DigestInit_ex\fR\|(3), \fBEVP_DigestUpdate\fR\|(3)
+use the high level \s-1EVP\s0 APIs \fBEVP_DigestInit_ex\fR\|(3), \fBEVP_DigestUpdate\fR\|(3)
 and \fBEVP_DigestFinal_ex\fR\|(3), or the quick one-shot \fBEVP_Q_digest\fR\|(3).
 .PP
 Note that the functions \s-1\fBSHA1\s0\fR\|(3), \s-1\fBSHA224\s0\fR\|(3), \s-1\fBSHA256\s0\fR\|(3), \s-1\fBSHA384\s0\fR\|(3)
@@ -1286,12 +1286,17 @@ See \*(L"\s-1EXAMPLES\*(R"\s0 in \fBEVP_EncryptInit\fR\|(3) for a \s-1AES\-256\-
 \&\fBd2i_DSA_PUBKEY_bio()\fR, \fBd2i_DSA_PUBKEY_fp()\fR, \fBd2i_DSAPublicKey()\fR,
 \&\fBd2i_ECParameters()\fR, \fBd2i_ECPrivateKey()\fR, \fBd2i_ECPrivateKey_bio()\fR,
 \&\fBd2i_ECPrivateKey_fp()\fR, \fBd2i_EC_PUBKEY()\fR, \fBd2i_EC_PUBKEY_bio()\fR,
-\&\fBd2i_EC_PUBKEY_fp()\fR, \fBo2i_ECPublicKey()\fR, \fBd2i_RSAPrivateKey()\fR,
+\&\fBd2i_EC_PUBKEY_fp()\fR, \fBd2i_RSAPrivateKey()\fR,
 \&\fBd2i_RSAPrivateKey_bio()\fR, \fBd2i_RSAPrivateKey_fp()\fR, \fBd2i_RSA_PUBKEY()\fR,
 \&\fBd2i_RSA_PUBKEY_bio()\fR, \fBd2i_RSA_PUBKEY_fp()\fR, \fBd2i_RSAPublicKey()\fR,
 \&\fBd2i_RSAPublicKey_bio()\fR, \fBd2i_RSAPublicKey_fp()\fR
 .Sp
 See \*(L"Deprecated i2d and d2i functions for low-level key types\*(R"
+.IP "\(bu" 4
+\&\fBo2i_ECPublicKey()\fR
+.Sp
+Use \fBEVP_PKEY_set1_encoded_public_key\fR\|(3).
+See \*(L"Deprecated low-level key parameter setters\*(R"
 .IP "\(bu" 4
 \&\fBDES_crypt()\fR, \fBDES_fcrypt()\fR, \fBDES_encrypt1()\fR, \fBDES_encrypt2()\fR, \fBDES_encrypt3()\fR,
 \&\fBDES_decrypt3()\fR, \fBDES_ede3_cbc_encrypt()\fR, \fBDES_ede3_cfb64_encrypt()\fR,
@@ -1691,10 +1696,15 @@ and \*(L"Migration\*(R" in \fBd2i_RSAPrivateKey\fR\|(3)
 .IP "\(bu" 4
 \&\fBi2d_ECParameters()\fR, \fBi2d_ECPrivateKey()\fR, \fBi2d_ECPrivateKey_bio()\fR,
 \&\fBi2d_ECPrivateKey_fp()\fR, \fBi2d_EC_PUBKEY()\fR, \fBi2d_EC_PUBKEY_bio()\fR,
-\&\fBi2d_EC_PUBKEY_fp()\fR, \fBi2o_ECPublicKey()\fR
+\&\fBi2d_EC_PUBKEY_fp()\fR
 .Sp
 See \*(L"Deprecated low-level key reading and writing functions\*(R"
 and \*(L"Migration\*(R" in \fBd2i_RSAPrivateKey\fR\|(3)
+.IP "\(bu" 4
+\&\fBi2o_ECPublicKey()\fR
+.Sp
+Use \fBEVP_PKEY_get1_encoded_public_key\fR\|(3).
+See \*(L"Deprecated low-level key parameter getters\*(R"
 .IP "\(bu" 4
 \&\fBi2d_RSAPrivateKey()\fR, \fBi2d_RSAPrivateKey_bio()\fR, \fBi2d_RSAPrivateKey_fp()\fR,
 \&\fBi2d_RSA_PUBKEY()\fR, \fBi2d_RSA_PUBKEY_bio()\fR, \fBi2d_RSA_PUBKEY_fp()\fR,
@@ -2168,7 +2178,7 @@ options of the commands.
 The migration guide was created for OpenSSL 3.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2021\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2021\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

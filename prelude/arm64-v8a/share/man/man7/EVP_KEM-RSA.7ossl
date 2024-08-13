@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_KEM-RSA 7ossl"
-.TH EVP_KEM-RSA 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_KEM-RSA 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -164,6 +164,15 @@ The decapsulate function recovers the secret using the \s-1RSA\s0 private key.
 .Sp
 This can be set using \fBEVP_PKEY_CTX_set_kem_op()\fR.
 .RE
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_KEM_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_KEM_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_KEM_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+.PD 0
+.ie n .IP """key-check"" (\fB\s-1OSSL_KEM_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.el .IP "``key-check'' (\fB\s-1OSSL_KEM_PARAM_FIPS_KEY_CHECK\s0\fR) <integer>" 4
+.IX Item "key-check (OSSL_KEM_PARAM_FIPS_KEY_CHECK) <integer>"
+.PD
+These parameters are described in \fBprovider\-kem\fR\|(7).
 .SH "CONFORMING TO"
 .IX Header "CONFORMING TO"
 .IP "SP800\-56Br2" 4

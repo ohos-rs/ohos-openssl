@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-CMS 1ossl"
-.TH OPENSSL-CMS 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-CMS 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -564,8 +564,9 @@ used multiple times if more than one signer is required.
 .IP "\fB\-certfile\fR \fIfile\fR" 4
 .IX Item "-certfile file"
 Allows additional certificates to be specified. When signing these will
-be included with the message. When verifying these will be searched for
-the signers certificates.
+be included with the message. When verifying, these will be searched for
+signer certificates and will be used for chain building.
+.Sp
 The input can be in \s-1PEM, DER,\s0 or PKCS#12 format.
 .IP "\fB\-cades\fR" 4
 .IX Item "-cades"

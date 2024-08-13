@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_PKEY_CTX_CTRL 3ossl"
-.TH EVP_PKEY_CTX_CTRL 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_PKEY_CTX_CTRL 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -526,11 +526,12 @@ negotiated protocol version. Otherwise it should be left unset.
 Similarly to the \fB\s-1RSA_PKCS1_WITH_TLS_PADDING\s0\fR above, since OpenSSL version
 3.2.0, the use of \fB\s-1RSA_PKCS1_PADDING\s0\fR will return a randomly generated message
 instead of padding errors in case padding checks fail. Applications that
-want to remain secure while using earlier versions of OpenSSL, still need to
+want to remain secure while using earlier versions of OpenSSL, or a provider
+that doesn't implement the implicit rejection mechanism, still need to
 handle both the error code from the \s-1RSA\s0 decryption operation and the
 returned message in a side channel secure manner.
 This protection against Bleichenbacher attacks can be disabled by setting
-the \s-1OSSL_ASYM_CIPHER_PARAM_IMPLICIT_REJECTION\s0 (an unsigned integer) to 0.
+\&\fB\s-1OSSL_ASYM_CIPHER_PARAM_IMPLICIT_REJECTION\s0\fR (an unsigned integer) to 0.
 .SS "\s-1DSA\s0 parameters"
 .IX Subsection "DSA parameters"
 \&\fBEVP_PKEY_CTX_set_dsa_paramgen_bits()\fR sets the number of bits used for \s-1DSA\s0

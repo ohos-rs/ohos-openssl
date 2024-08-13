@@ -33,7 +33,7 @@
 
 <h1 id="NAME">NAME</h1>
 
-<p>X509V3_get_d2i, X509V3_add1_i2d, X509V3_EXT_d2i, X509V3_EXT_i2d, X509_get_ext_d2i, X509_add1_ext_i2d, X509_CRL_get_ext_d2i, X509_CRL_add1_ext_i2d, X509_REVOKED_get_ext_d2i, X509_REVOKED_add1_ext_i2d, X509_get0_extensions, X509_CRL_get0_extensions, X509_REVOKED_get0_extensions - X509 extension decode and encode functions</p>
+<p>X509V3_get_d2i, X509V3_add1_i2d, X509V3_EXT_d2i, X509V3_EXT_i2d, X509_get_ext_d2i, X509_add1_ext_i2d, X509_ACERT_get_ext_d2i, X509_ACERT_add1_ext_i2d, X509_CRL_get_ext_d2i, X509_CRL_add1_ext_i2d, X509_REVOKED_get_ext_d2i, X509_REVOKED_add1_ext_i2d, X509_get0_extensions, X509_ACERT_get0_extensions, X509_CRL_get0_extensions, X509_REVOKED_get0_extensions - X509 extension decode and encode functions</p>
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
@@ -51,6 +51,10 @@ void *X509_get_ext_d2i(const X509 *x, int nid, int *crit, int *idx);
 int X509_add1_ext_i2d(X509 *x, int nid, void *value, int crit,
                       unsigned long flags);
 
+void *X509_ACERT_get_ext_d2i(const X509_ACERT *x, int nid, int *crit, int *idx);
+int X509_ACERT_add1_ext_i2d(X509_ACERT *x, int nid, void *value, int crit,
+                            unsigned long flags);
+
 void *X509_CRL_get_ext_d2i(const X509_CRL *crl, int nid, int *crit, int *idx);
 int X509_CRL_add1_ext_i2d(X509_CRL *crl, int nid, void *value, int crit,
                           unsigned long flags);
@@ -60,6 +64,7 @@ int X509_REVOKED_add1_ext_i2d(X509_REVOKED *r, int nid, void *value, int crit,
                               unsigned long flags);
 
 const STACK_OF(X509_EXTENSION) *X509_get0_extensions(const X509 *x);
+const STACK_OF(X509_EXTENSION) *X509_ACERT_get0_extensions(const X509 *x);
 const STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(const X509_CRL *crl);
 const STACK_OF(X509_EXTENSION) *X509_REVOKED_get0_extensions(const X509_REVOKED *r);</code></pre>
 
@@ -75,11 +80,13 @@ const STACK_OF(X509_EXTENSION) *X509_REVOKED_get0_extensions(const X509_REVOKED 
 
 <p>X509_get_ext_d2i() and X509_add1_ext_i2d() operate on the extensions of certificate <i>x</i>. They are otherwise identical to X509V3_get_d2i() and X509V3_add1_i2d().</p>
 
+<p>X509_ACERT_get_ext_d2i() and X509_ACERT_add1_ext_i2d() operate on the extensions of <b>X509_ACERT</b> structure <i>x</i>. They are otherwise identical to X509V3_get_d2i() and X509V3_add1_i2d().</p>
+
 <p>X509_CRL_get_ext_d2i() and X509_CRL_add1_ext_i2d() operate on the extensions of CRL <i>crl</i>. They are otherwise identical to X509V3_get_d2i() and X509V3_add1_i2d().</p>
 
 <p>X509_REVOKED_get_ext_d2i() and X509_REVOKED_add1_ext_i2d() operate on the extensions of <b>X509_REVOKED</b> structure <i>r</i> (i.e for CRL entry extensions). They are otherwise identical to X509V3_get_d2i() and X509V3_add1_i2d().</p>
 
-<p>X509_get0_extensions(), X509_CRL_get0_extensions() and X509_REVOKED_get0_extensions() return a STACK of all the extensions of a certificate, a CRL or a CRL entry respectively.</p>
+<p>X509_get0_extensions(), X509_ACERT_get0_extensions(), X509_CRL_get0_extensions() and X509_REVOKED_get0_extensions() return a STACK of all the extensions of a certificate, an attribute certificate, a CRL or a CRL entry respectively.</p>
 
 <h1 id="NOTES">NOTES</h1>
 
@@ -101,7 +108,7 @@ const STACK_OF(X509_EXTENSION) *X509_REVOKED_get0_extensions(const X509_REVOKED 
 
 <p>If <b>X509V3_ADD_SILENT</b> is bitwise ORed with <i>flags</i>: any error returned will not be added to the error queue.</p>
 
-<p>The function X509V3_get_d2i() and its variants will return NULL if the extension is not found, occurs multiple times or cannot be decoded. It is possible to determine the precise reason by checking the value of <i>*crit</i>.</p>
+<p>The function X509V3_get_d2i() and its variants will return NULL if the extension is not found, occurs multiple times or cannot be decoded. It is possible to determine the precise reason by checking the value of <i>*crit</i>. The returned pointer must be explicitly freed.</p>
 
 <p>The function X509V3_add1_i2d() and its variants allocate <b>X509_EXTENSION</b> objects on STACK <i>*x</i> depending on <i>flags</i>. The <b>X509_EXTENSION</b> objects must be explicitly freed using X509_EXTENSION_free().</p>
 

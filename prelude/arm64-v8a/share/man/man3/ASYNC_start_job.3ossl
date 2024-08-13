@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "ASYNC_START_JOB 3ossl"
-.TH ASYNC_START_JOB 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH ASYNC_START_JOB 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -175,7 +175,8 @@ ASYNC_stack_alloc_fn, ASYNC_stack_free_fn, ASYNC_set_mem_functions, ASYNC_get_me
 OpenSSL implements asynchronous capabilities through an \fB\s-1ASYNC_JOB\s0\fR. This
 represents code that can be started and executes until some event occurs. At
 that point the code can be paused and control returns to user code until some
-subsequent event indicates that the job can be resumed.
+subsequent event indicates that the job can be resumed. It's OpenSSL
+specific implementation of cooperative multitasking.
 .PP
 The creation of an \fB\s-1ASYNC_JOB\s0\fR is a relatively expensive operation. Therefore,
 for efficiency reasons, jobs can be created up front and reused many times. They
@@ -223,7 +224,8 @@ can be performed (if desired) and the job restarted at a later time. To restart
 a job call \fBASYNC_start_job()\fR again passing the job handle in \fI*job\fR. The
 \&\fIfunc\fR, \fIargs\fR and \fIsize\fR parameters will be ignored when restarting a job.
 When restarting a job \fBASYNC_start_job()\fR \fBmust\fR be called from the same thread
-that the job was originally started from.
+that the job was originally started from. \fB\s-1ASYNC_WAIT_CTX\s0\fR is used to
+know when a job is ready to be restarted.
 .IP "\fB\s-1ASYNC_FINISH\s0\fR" 4
 .IX Item "ASYNC_FINISH"
 The job completed. \fI*job\fR will be \s-1NULL\s0 and the return value from \fIfunc\fR will
@@ -244,13 +246,15 @@ subsequent call to ASYNC_start_job passing in the relevant \fB\s-1ASYNC_JOB\s0\f
 action is taken and \fBASYNC_pause_job()\fR returns immediately.
 .PP
 \&\fBASYNC_get_wait_ctx()\fR can be used to get a pointer to the \fB\s-1ASYNC_WAIT_CTX\s0\fR
-for the \fIjob\fR. \fB\s-1ASYNC_WAIT_CTX\s0\fRs contain two different ways to notify
+for the \fIjob\fR (see \fBASYNC_WAIT_CTX_new\fR\|(3)).
+\&\fB\s-1ASYNC_WAIT_CTX\s0\fRs contain two different ways to notify
 applications that a job is ready to be resumed. One is a \*(L"wait\*(R" file
 descriptor, and the other is a \*(L"callback\*(R" mechanism.
 .PP
 The \*(L"wait\*(R" file descriptor associated with \fB\s-1ASYNC_WAIT_CTX\s0\fR is used for
 applications to wait for the file descriptor to be ready for \*(L"read\*(R" using a
-system function call such as select or poll (being ready for \*(L"read\*(R" indicates
+system function call such as \fBselect\fR\|(2) or \fBpoll\fR\|(2) (being ready for \*(L"read\*(R"
+indicates
 that the job should be resumed). If no file descriptor is made available then
 an application will have to periodically \*(L"poll\*(R" the job by attempting to restart
 it to see if it is ready to continue.
@@ -363,6 +367,13 @@ The following example demonstrates how to use most of the core async APIs:
 \&     msg = (unsigned char *)arg;
 \&     printf("Passed in message is: %s\en", msg);
 \&
+\&     /*
+\&      * Create a way to inform the calling thread when this job is ready
+\&      * to resume, in this example we\*(Aqre using file descriptors.
+\&      * For offloading the task to an asynchronous ENGINE it\*(Aqs not necessary,
+\&      * the ENGINE should handle that internally.
+\&      */
+\&
 \&     if (pipe(pipefds) != 0) {
 \&         printf("Failed to create pipe\en");
 \&         return 0;
@@ -377,17 +388,23 @@ The following example demonstrates how to use most of the core async APIs:
 \&                                pipefds[0], wptr, cleanup);
 \&
 \&     /*
-\&      * Normally some external event would cause this to happen at some
+\&      * Normally some external event (like a network read being ready,
+\&      * disk access being finished, or some hardware offload operation
+\&      * completing) would cause this to happen at some
 \&      * later point \- but we do it here for demo purposes, i.e.
 \&      * immediately signalling that the job is ready to be woken up after
 \&      * we return to main via ASYNC_pause_job().
 \&      */
 \&     write(pipefds[1], &buf, 1);
 \&
-\&     /* Return control back to main */
+\&     /*
+\&      * Return control back to main just before calling a blocking
+\&      * method. The main thread will wait until pipefds[0] is ready
+\&      * for reading before returning control to this thread.
+\&      */
 \&     ASYNC_pause_job();
 \&
-\&     /* Clear the wake signal */
+\&     /* Perform the blocking call (it won\*(Aqt block with this example code) */
 \&     read(pipefds[0], &buf, 1);
 \&
 \&     printf ("Resumed the job after a pause\en");
@@ -427,7 +444,9 @@ The following example demonstrates how to use most of the core async APIs:
 \&             goto end;
 \&         }
 \&
-\&         /* Wait for the job to be woken */
+\&         /* Get the file descriptor we can use to wait for the job
+\&          * to be ready to be woken up
+\&          */
 \&         printf("Waiting for the job to be woken up\en");
 \&
 \&         if (!ASYNC_WAIT_CTX_get_all_fds(ctx, NULL, &numfds)
@@ -438,6 +457,8 @@ The following example demonstrates how to use most of the core async APIs:
 \&         ASYNC_WAIT_CTX_get_all_fds(ctx, &waitfd, &numfds);
 \&         FD_ZERO(&waitfdset);
 \&         FD_SET(waitfd, &waitfdset);
+\&
+\&         /* Wait for the job to be ready for wakeup */
 \&         select(waitfd + 1, &waitfdset, NULL, NULL, NULL);
 \&     }
 \&

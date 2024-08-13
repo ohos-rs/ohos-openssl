@@ -22,6 +22,7 @@
   </li>
   <li><a href="#NOTES">NOTES</a></li>
   <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#HISTORY">HISTORY</a></li>
   <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
 </ul>
 
@@ -82,11 +83,9 @@
 
 <p>Sets the digest length for extendable output functions. The length of the &quot;xoflen&quot; parameter should not exceed that of a <b>size_t</b>.</p>
 
-<p>For backwards compatibility reasons the default xoflen length for SHAKE-128 is 16 (bytes) which results in a security strength of only 64 bits. To ensure the maximum security strength of 128 bits, the xoflen should be set to at least 32.</p>
+<p>The SHAKE-128 and SHAKE-256 implementations do not have any default digest length.</p>
 
-<p>For backwards compatibility reasons the default xoflen length for SHAKE-256 is 32 (bytes) which results in a security strength of only 128 bits. To ensure the maximum security strength of 256 bits, the xoflen should be set to at least 64.</p>
-
-<p>This parameter may be used when calling either EVP_DigestFinal_ex() or EVP_DigestFinal(), since these functions were not designed to handle variable length output. It is recommended to either use EVP_DigestSqueeze() or EVP_DigestFinalXOF() instead.</p>
+<p>This parameter must be set before calling either EVP_DigestFinal_ex() or EVP_DigestFinal(), since these functions were not designed to handle variable length output. It is recommended to either use EVP_DigestSqueeze() or EVP_DigestFinalXOF() instead.</p>
 
 </dd>
 </dl>
@@ -100,6 +99,10 @@
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
 <p><a href="../man3/EVP_MD_CTX_set_params.html">EVP_MD_CTX_set_params(3)</a>, <a href="../man7/provider-digest.html">provider-digest(7)</a>, <a href="../man7/OSSL_PROVIDER-default.html">OSSL_PROVIDER-default(7)</a></p>
+
+<h1 id="HISTORY">HISTORY</h1>
+
+<p>Since OpenSSL 3.4 the SHAKE-128 and SHAKE-256 implementations have no default digest length.</p>
 
 <h1 id="COPYRIGHT">COPYRIGHT</h1>
 

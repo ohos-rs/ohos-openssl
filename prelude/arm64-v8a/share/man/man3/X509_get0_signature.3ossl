@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_GET0_SIGNATURE 3ossl"
-.TH X509_GET0_SIGNATURE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_GET0_SIGNATURE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -142,7 +142,9 @@
 X509_get0_signature, X509_REQ_set0_signature, X509_REQ_set1_signature_algo,
 X509_get_signature_nid, X509_get0_tbs_sigalg, X509_REQ_get0_signature,
 X509_REQ_get_signature_nid, X509_CRL_get0_signature, X509_CRL_get_signature_nid,
-X509_get_signature_info, X509_SIG_INFO_get, X509_SIG_INFO_set \- signature information
+X509_ACERT_get0_signature, X509_ACERT_get0_info_sigalg,
+X509_ACERT_get_signature_nid, X509_get_signature_info,
+X509_SIG_INFO_get, X509_SIG_INFO_set \- signature information
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 .Vb 1
@@ -161,6 +163,8 @@ X509_get_signature_info, X509_SIG_INFO_get, X509_SIG_INFO_set \- signature infor
 \&                              const X509_ALGOR **palg);
 \& int X509_REQ_get_signature_nid(const X509_REQ *crl);
 \&
+\& const X509_ALGOR *X509_ACERT_get0_info_sigalg(const X509_ACERT *x);
+\&
 \& void X509_CRL_get0_signature(const X509_CRL *crl,
 \&                              const ASN1_BIT_STRING **psig,
 \&                              const X509_ALGOR **palg);
@@ -173,9 +177,16 @@ X509_get_signature_info, X509_SIG_INFO_get, X509_SIG_INFO_set \- signature infor
 \&                      int *secbits, uint32_t *flags);
 \& void X509_SIG_INFO_set(X509_SIG_INFO *siginf, int mdnid, int pknid,
 \&                        int secbits, uint32_t flags);
+\&
+\& #include <openssl/x509_acert.h>
+\&
+\& void X509_ACERT_get0_signature(const X509_ACERT *x,
+\&                                const ASN1_BIT_STRING **psig,
+\&                                const X509_ALGOR **palg);
+\& int X509_ACERT_get_signature_nid(const X509_ACERT *x);
+\&=head1 DESCRIPTION
 .Ve
-.SH "DESCRIPTION"
-.IX Header "DESCRIPTION"
+.PP
 \&\fBX509_get0_signature()\fR sets \fB*psig\fR to the signature of \fBx\fR and \fB*palg\fR
 to the signature algorithm of \fBx\fR. The values returned are internal
 pointers which \fB\s-1MUST NOT\s0\fR be freed up after the call.
@@ -192,6 +203,10 @@ algorithm of \fBx\fR.
 \&\fBX509_REQ_get0_signature()\fR, \fBX509_REQ_get_signature_nid()\fR
 \&\fBX509_CRL_get0_signature()\fR and \fBX509_CRL_get_signature_nid()\fR perform the
 same function for certificate requests and CRLs.
+.PP
+\&\fBX509_ACERT_get0_signature()\fR, \fBX509_ACERT_get_signature_nid()\fR and
+\&\fBX509_ACERT_get0_info_sigalg()\fR perform the same function for attribute
+certificates.
 .PP
 \&\fBX509_get_signature_info()\fR retrieves information about the signature of
 certificate \fBx\fR. The \s-1NID\s0 of the signing digest is written to \fB*mdnid\fR,
@@ -262,6 +277,9 @@ added in OpenSSL 1.1.0.
 .PP
 The \fBX509_REQ_set0_signature()\fR and \fBX509_REQ_set1_signature_algo()\fR
 were added in OpenSSL 1.1.1e.
+.PP
+The \fBX509_ACERT_get0_signature()\fR, \fBX509_ACERT_get0_info_sigalg()\fR and
+\&\fBX509_ACERT_get_signature_nid()\fR functions were added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2015\-2020 The OpenSSL Project Authors. All Rights Reserved.

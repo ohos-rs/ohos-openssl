@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "PEM_READ_BIO_PRIVATEKEY 3ossl"
-.TH PEM_READ_BIO_PRIVATEKEY 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH PEM_READ_BIO_PRIVATEKEY 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -163,6 +163,8 @@ PEM_write_bio_Parameters, PEM_read_bio_DSAparams, PEM_read_DSAparams,
 PEM_write_bio_DSAparams, PEM_write_DSAparams, PEM_read_bio_DHparams,
 PEM_read_DHparams, PEM_write_bio_DHparams, PEM_write_DHparams,
 PEM_read_bio_X509, PEM_read_X509, PEM_write_bio_X509, PEM_write_X509,
+PEM_read_bio_X509_ACERT, PEM_read_X509_ACERT,
+PEM_write_bio_X509_ACERT, PEM_write_X509_ACERT,
 PEM_read_bio_X509_AUX, PEM_read_X509_AUX, PEM_write_bio_X509_AUX,
 PEM_write_X509_AUX, PEM_read_bio_X509_REQ, PEM_read_X509_REQ,
 PEM_write_bio_X509_REQ, PEM_write_X509_REQ, PEM_write_bio_X509_REQ_NEW,
@@ -244,6 +246,13 @@ PEM_write_bio_PKCS7, PEM_write_PKCS7 \- PEM routines
 \& X509 *PEM_read_X509(FILE *fp, X509 **x, pem_password_cb *cb, void *u);
 \& int PEM_write_bio_X509(BIO *bp, X509 *x);
 \& int PEM_write_X509(FILE *fp, X509 *x);
+\&
+\& X509_ACERT *PEM_read_bio_X509_ACERT(BIO *bp, X509_ACERT **x,
+\&                                     pem_password_cb *cb, void *u);
+\& X509_ACERT *PEM_read_X509_ACERT(FILE *fp, X509_ACERT **x,
+\&                                     pem_password_cb *cb, void *u);
+\& int PEM_write_bio_X509_ACERT(BIO *bp, X509_ACERT *x);
+\& int PEM_write_X509_ACERT(FILE *fp, X509_ACERT *x);
 \&
 \& X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void *u);
 \& X509 *PEM_read_X509_AUX(FILE *fp, X509 **x, pem_password_cb *cb, void *u);
@@ -426,6 +435,9 @@ The \fBX509\fR functions process an X509 certificate using an X509
 structure. They will also process a trusted X509 certificate but
 any trust settings are discarded.
 .PP
+The \fBX509_ACERT\fR functions process an X509 attribute certificate using
+an X509_ACERT structure.
+.PP
 The \fBX509_AUX\fR functions process a trusted X509 certificate using
 an X509 structure.
 .PP
@@ -458,7 +470,9 @@ uses. If \fIx\fR is \s-1NULL\s0 then the parameter is ignored. If \fIx\fR is not
 to \fI*x\fR. If neither \fIx\fR nor \fI*x\fR is \s-1NULL\s0 then an attempt is made
 to reuse the structure at \fI*x\fR (but see \s-1BUGS\s0 and \s-1EXAMPLES\s0 sections).
 Irrespective of the value of \fIx\fR a pointer to the structure is always
-returned (or \s-1NULL\s0 if an error occurred).
+returned (or \s-1NULL\s0 if an error occurred). The caller retains ownership of the
+returned object and needs to free it when it is no longer needed, e.g.
+using \fBX509_free()\fR for X509 objects or \fBEVP_PKEY_free()\fR for \s-1EVP_PKEY\s0 objects.
 .PP
 The \s-1PEM\s0 functions which write private keys take an \fIenc\fR parameter
 which specifies the encryption algorithm to use, encryption is done

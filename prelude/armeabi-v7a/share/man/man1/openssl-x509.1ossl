@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "OPENSSL-X509 1ossl"
-.TH OPENSSL-X509 1ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH OPENSSL-X509 1ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -189,6 +189,8 @@ openssl\-x509 \- Certificate display and signing command
 [\fB\-checkip\fR \fIipaddr\fR]
 [\fB\-set_serial\fR \fIn\fR]
 [\fB\-next_serial\fR]
+[\fB\-not_before\fR \fIdate\fR]
+[\fB\-not_after\fR \fIdate\fR]
 [\fB\-days\fR \fIarg\fR]
 [\fB\-preserve_dates\fR]
 [\fB\-set_issuer\fR \fIarg\fR]
@@ -309,6 +311,8 @@ It sets the issuer name to the subject name (i.e., makes it self-issued).
 Unless the \fB\-preserve_dates\fR option is supplied,
 it sets the validity start date to the current time
 and the end date to a value determined by the \fB\-days\fR option.
+Start date and end date can also be explicitly supplied with options
+\&\fB\-not_before\fR and \fB\-not_after\fR.
 .IP "\fB\-signkey\fR \fIfilename\fR|\fIuri\fR" 4
 .IX Item "-signkey filename|uri"
 This option is an alias of \fB\-key\fR.
@@ -455,16 +459,37 @@ The serial number can be decimal or hex (if preceded by \f(CW\*(C`0x\*(C'\fR).
 .IP "\fB\-next_serial\fR" 4
 .IX Item "-next_serial"
 Set the serial to be one more than the number in the certificate.
+.IP "\fB\-not_before\fR \fIdate\fR" 4
+.IX Item "-not_before date"
+This allows the start date to be explicitly set. The format of the
+date is \s-1YYMMDDHHMMSSZ\s0 (the same as an \s-1ASN1\s0 UTCTime structure), or
+\&\s-1YYYYMMDDHHMMSSZ\s0 (the same as an \s-1ASN1\s0 GeneralizedTime structure). In
+both formats, seconds \s-1SS\s0 and timezone Z must be present.
+Alternatively, you can also use \*(L"today\*(R".
+.Sp
+Cannot be used together with the \fB\-preserve_dates\fR option.
+.IP "\fB\-not_after\fR \fIdate\fR" 4
+.IX Item "-not_after date"
+This allows the expiry date to be explicitly set. The format of the
+date is \s-1YYMMDDHHMMSSZ\s0 (the same as an \s-1ASN1\s0 UTCTime structure), or
+\&\s-1YYYYMMDDHHMMSSZ\s0 (the same as an \s-1ASN1\s0 GeneralizedTime structure). In
+both formats, seconds \s-1SS\s0 and timezone Z must be present.
+Alternatively, you can also use \*(L"today\*(R".
+.Sp
+Cannot be used together with the \fB\-preserve_dates\fR option.
+This overrides the option \fB\-days\fR.
 .IP "\fB\-days\fR \fIarg\fR" 4
 .IX Item "-days arg"
-Specifies the number of days until a newly generated certificate expires.
+Specifies the number of days from today until a newly generated certificate expires.
 The default is 30.
-Cannot be used together with the \fB\-preserve_dates\fR option.
+.Sp
+Cannot be used together with the option \fB\-preserve_dates\fR.
+If option \fB\-not_after\fR is set, the explicit expiry date takes precedence.
 .IP "\fB\-preserve_dates\fR" 4
 .IX Item "-preserve_dates"
 When signing a certificate, preserve \*(L"notBefore\*(R" and \*(L"notAfter\*(R" dates of any
 input certificate instead of adjusting them to current time and duration.
-Cannot be used together with the \fB\-days\fR option.
+Cannot be used together with the options \fB\-days\fR, \fB\-not_before\fR and \fB\-not_after\fR.
 .IP "\fB\-set_issuer\fR \fIarg\fR" 4
 .IX Item "-set_issuer arg"
 When a certificate is created set its issuer name to the given value.
@@ -858,7 +883,7 @@ Since OpenSSL 3.2, generated certificates bear X.509 version 3,
 and key identifier extensions are included by default.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

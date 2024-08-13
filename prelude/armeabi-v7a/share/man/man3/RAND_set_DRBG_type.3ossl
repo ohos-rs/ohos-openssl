@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "RAND_SET_DRBG_TYPE 3ossl"
-.TH RAND_SET_DRBG_TYPE 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH RAND_SET_DRBG_TYPE 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -164,7 +164,7 @@ private random instances.
 \&\fBRAND_set_seed_source_type()\fR specifies the seed source that will be used
 within the library context \fIctx\fR.  The seed source of name \fIseed\fR
 with properties \fIpropq\fR will be fetched and used to seed the primary
-random big generator.
+random bit generator.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 These function return 1 on success and 0 on failure.
@@ -176,7 +176,16 @@ is made too late.
 .PP
 The default \s-1DRBG\s0 is \*(L"CTR-DRBG\*(R" using the \*(L"\s-1AES\-256\-CTR\*(R"\s0 cipher.
 .PP
-The default seed source is \*(L"SEED-SRC\*(R".
+The default seed source can be configured when OpenSSL is compiled by
+setting \fB\-DOPENSSL_DEFAULT_SEED_SRC=SEED\-SRC\fR. If not set then
+\&\*(L"SEED-SRC\*(R" is used.
+.SH "EXAMPLES"
+.IX Header "EXAMPLES"
+.Vb 3
+\& unsigned char bytes[100];
+\& RAND_set_seed_source_type(NULL, "JITTER", NULL);
+\& RAND_bytes(bytes, 100);
+.Ve
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\s-1\fBEVP_RAND\s0\fR\|(3),

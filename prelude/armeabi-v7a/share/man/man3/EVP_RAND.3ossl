@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_RAND 3ossl"
-.TH EVP_RAND 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_RAND 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -385,6 +385,12 @@ Returns the state of the random number generator.
 .el .IP "``strength'' (\fB\s-1OSSL_RAND_PARAM_STRENGTH\s0\fR) <unsigned integer>" 4
 .IX Item "strength (OSSL_RAND_PARAM_STRENGTH) <unsigned integer>"
 Returns the bit strength of the random number generator.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This option is used by the OpenSSL \s-1FIPS\s0 provider and is not supported
+by all \s-1EVP_RAND\s0 sources.
 .PP
 For rands that are also deterministic random bit generators (DRBGs), these
 additional parameters are recognised. Not all
@@ -399,9 +405,9 @@ associated \s-1RAND\s0 ctx.
 .IX Item "reseed_time_interval (OSSL_DRBG_PARAM_RESEED_TIME_INTERVAL) <integer>"
 Reads or set the number of elapsed seconds before reseeding the
 associated \s-1RAND\s0 ctx.
-.ie n .IP """max_request"" (\fB\s-1OSSL_DRBG_PARAM_RESEED_REQUESTS\s0\fR) <unsigned integer>" 4
-.el .IP "``max_request'' (\fB\s-1OSSL_DRBG_PARAM_RESEED_REQUESTS\s0\fR) <unsigned integer>" 4
-.IX Item "max_request (OSSL_DRBG_PARAM_RESEED_REQUESTS) <unsigned integer>"
+.ie n .IP """max_request"" (\fB\s-1OSSL_RAND_PARAM_MAX_REQUEST\s0\fR) <unsigned integer>" 4
+.el .IP "``max_request'' (\fB\s-1OSSL_RAND_PARAM_MAX_REQUEST\s0\fR) <unsigned integer>" 4
+.IX Item "max_request (OSSL_RAND_PARAM_MAX_REQUEST) <unsigned integer>"
 Specifies the maximum number of bytes that can be generated in a single
 call to OSSL_FUNC_rand_generate.
 .ie n .IP """min_entropylen"" (\fB\s-1OSSL_DRBG_PARAM_MIN_ENTROPYLEN\s0\fR) <unsigned integer>" 4

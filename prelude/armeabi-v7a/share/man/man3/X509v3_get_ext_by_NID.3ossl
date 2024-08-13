@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509V3_GET_EXT_BY_NID 3ossl"
-.TH X509V3_GET_EXT_BY_NID 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509V3_GET_EXT_BY_NID 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -141,7 +141,7 @@
 .SH "NAME"
 X509v3_get_ext_count, X509v3_get_ext, X509v3_get_ext_by_NID,
 X509v3_get_ext_by_OBJ, X509v3_get_ext_by_critical, X509v3_delete_ext,
-X509v3_add_ext, X509_get_ext_count, X509_get_ext,
+X509v3_add_ext, X509v3_add_extensions, X509_get_ext_count, X509_get_ext,
 X509_get_ext_by_NID, X509_get_ext_by_OBJ, X509_get_ext_by_critical,
 X509_delete_ext, X509_add_ext, X509_CRL_get_ext_count, X509_CRL_get_ext,
 X509_CRL_get_ext_by_NID, X509_CRL_get_ext_by_OBJ, X509_CRL_get_ext_by_critical,
@@ -166,6 +166,9 @@ X509_REVOKED_add_ext \- extension stack utility functions
 \& X509_EXTENSION *X509v3_delete_ext(STACK_OF(X509_EXTENSION) *x, int loc);
 \& STACK_OF(X509_EXTENSION) *X509v3_add_ext(STACK_OF(X509_EXTENSION) **x,
 \&                                          X509_EXTENSION *ex, int loc);
+\& STACK_OF(X509_EXTENSION)
+\&      *X509v3_add_extensions(STACK_OF(X509_EXTENSION) **target,
+\&                             const STACK_OF(X509_EXTENSION) *exts);
 \&
 \& int X509_get_ext_count(const X509 *x);
 \& X509_EXTENSION *X509_get_ext(const X509 *x, int loc);
@@ -216,10 +219,16 @@ extension.
 The deleted extension is returned and must be freed by the caller.
 If \fIloc\fR is an invalid index value, \s-1NULL\s0 is returned.
 .PP
-\&\fBX509v3_add_ext()\fR adds extension \fIex\fR to \s-1STACK\s0 \fI*x\fR at position \fIloc\fR. If
-\&\fIloc\fR is \-1, the new extension is added to the end. If \fI*x\fR is \s-1NULL,\s0
-a new \s-1STACK\s0 will be allocated. The passed extension \fIex\fR is duplicated
-internally so it must be freed after use.
+\&\fBX509v3_add_ext()\fR inserts extension \fIex\fR to \s-1STACK\s0 \fI*x\fR at position \fIloc\fR.
+If \fIloc\fR is \-1, the new extension is added to the end.
+A new \s-1STACK\s0 is allocated if \fI*x\fR is \s-1NULL.\s0
+The passed extension \fIex\fR is duplicated so it must be freed after use.
+.PP
+\&\fBX509v3_add_extensions()\fR adds the list of extensions \fIexts\fR to \s-1STACK\s0 \fI*target\fR.
+The \s-1STACK\s0 \fI*target\fR is returned unchanged if \fIexts\fR is \s-1NULL\s0 or an empty list.
+Otherwise a new stack is allocated if \fI*target\fR is \s-1NULL.\s0
+An extension to be added
+that has the same \s-1OID\s0 as a pre-existing one replaces this earlier one.
 .PP
 \&\fBX509_get_ext_count()\fR, \fBX509_get_ext()\fR, \fBX509_get_ext_by_NID()\fR,
 \&\fBX509_get_ext_by_OBJ()\fR, \fBX509_get_ext_by_critical()\fR, \fBX509_delete_ext()\fR
@@ -267,12 +276,16 @@ the extension index or \-1 if an error occurs.
 \&\fBX509v3_get_ext_by_NID()\fR returns the extension index or negative values if an
 error occurs.
 .PP
-\&\fBX509v3_add_ext()\fR returns a \s-1STACK\s0 of extensions or \s-1NULL\s0 on error.
+\&\fBX509v3_add_ext()\fR and \fBX509v3_add_extensions()\fR
+return a \s-1STACK\s0 of extensions or \s-1NULL\s0 on error.
 .PP
 \&\fBX509_add_ext()\fR returns 1 on success and 0 on error.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBX509V3_get_d2i\fR\|(3)
+.SH "HISTORY"
+.IX Header "HISTORY"
+\&\fBX509v3_add_extensions()\fR was added in OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2015\-2022 The OpenSSL Project Authors. All Rights Reserved.

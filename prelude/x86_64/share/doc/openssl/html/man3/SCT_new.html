@@ -153,6 +153,10 @@ int SCT_set_source(SCT *sct, sct_source_t source);</code></pre>
 
 <p>SCT_set_source() can be used to record where the SCT was found (TLS extension, X.509 certificate extension or OCSP response). This is not required for verifying the SCT.</p>
 
+<p>SCT_free() frees the specified SCT. If the argument is NULL, nothing is done.</p>
+
+<p>SCT_LIST_free() frees the specified stack of SCTs. If the argument is NULL, nothing is done.</p>
+
 <h1 id="NOTES">NOTES</h1>
 
 <p>Some of the setters return int, instead of void. These will all return 1 on success, 0 on failure. They will not make changes on failure.</p>

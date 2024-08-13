@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_DIGESTINIT 3ossl"
-.TH EVP_DIGESTINIT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_DIGESTINIT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -294,6 +294,7 @@ Increments the reference count for an \fB\s-1EVP_MD\s0\fR structure.
 .IX Item "EVP_MD_free()"
 Decrements the reference count for the fetched \fB\s-1EVP_MD\s0\fR structure.
 If the reference count drops to 0 then the structure is freed.
+If the argument is \s-1NULL,\s0 nothing is done.
 .IP "\fBEVP_MD_CTX_new()\fR" 4
 .IX Item "EVP_MD_CTX_new()"
 Allocates and returns a digest context.
@@ -304,6 +305,7 @@ existing context.
 .IP "\fBEVP_MD_CTX_free()\fR" 4
 .IX Item "EVP_MD_CTX_free()"
 Cleans up digest context \fIctx\fR and frees up the space allocated to it.
+If the argument is \s-1NULL,\s0 nothing is done.
 .IP "\fBEVP_MD_CTX_ctrl()\fR" 4
 .IX Item "EVP_MD_CTX_ctrl()"
 \&\fIThis is a legacy method. \f(BIEVP_MD_CTX_set_params()\fI and \f(BIEVP_MD_CTX_get_params()\fI
@@ -610,6 +612,12 @@ can be used the manipulate and test these \fB\s-1EVP_MD_CTX\s0\fR flags:
 .IP "\s-1EVP_MD_CTX_FLAG_ONESHOT\s0" 4
 .IX Item "EVP_MD_CTX_FLAG_ONESHOT"
 This flag instructs the digest to optimize for one update only, if possible.
+.IP "\s-1EVP_MD_CTX_FLAG_CLEANED\s0" 4
+.IX Item "EVP_MD_CTX_FLAG_CLEANED"
+This flag is for internal use only and \fImust not\fR be used in user code.
+.IP "\s-1EVP_MD_CTX_FLAG_REUSE\s0" 4
+.IX Item "EVP_MD_CTX_FLAG_REUSE"
+This flag is for internal use only and \fImust not\fR be used in user code.
 .IP "\s-1EVP_MD_CTX_FLAG_NO_INIT\s0" 4
 .IX Item "EVP_MD_CTX_FLAG_NO_INIT"
 This flag instructs \fBEVP_DigestInit()\fR and similar not to initialise the
@@ -826,7 +834,7 @@ The \fBEVP_MD_CTX_dup()\fR function was added in OpenSSL 3.1.
 The \fBEVP_DigestSqueeze()\fR function was added in OpenSSL 3.3.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2000\-2023 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2000\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

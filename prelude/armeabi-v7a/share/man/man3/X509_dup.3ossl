@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_DUP 3ossl"
-.TH X509_DUP 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_DUP 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -181,6 +181,7 @@ DISPLAYTEXT_free,
 DISPLAYTEXT_new,
 DIST_POINT_NAME_free,
 DIST_POINT_NAME_new,
+DIST_POINT_NAME_dup,
 DIST_POINT_free,
 DIST_POINT_new,
 DSAparams_dup,
@@ -216,6 +217,9 @@ GENERAL_NAME_free,
 GENERAL_NAME_new,
 GENERAL_SUBTREE_free,
 GENERAL_SUBTREE_new,
+OSSL_IETF_ATTR_SYNTAX_free,
+OSSL_IETF_ATTR_SYNTAX_it,
+OSSL_IETF_ATTR_SYNTAX_new,
 IPAddressChoice_free,
 IPAddressChoice_new,
 IPAddressFamily_free,
@@ -269,6 +273,16 @@ OCSP_SIGNATURE_free,
 OCSP_SIGNATURE_new,
 OCSP_SINGLERESP_free,
 OCSP_SINGLERESP_new,
+OSSL_ATTRIBUTES_SYNTAX_free,
+OSSL_ATTRIBUTES_SYNTAX_it,
+OSSL_ATTRIBUTES_SYNTAX_new,
+OSSL_BASIC_ATTR_CONSTRAINTS_free,
+OSSL_BASIC_ATTR_CONSTRAINTS_it,
+OSSL_BASIC_ATTR_CONSTRAINTS_new,
+OSSL_CMP_ATAVS_new,
+OSSL_CMP_ATAVS_free,
+OSSL_CMP_ATAVS_it,
+OSSL_CMP_CRLSTATUS_free,
 OSSL_CMP_ITAV_dup,
 OSSL_CMP_ITAV_free,
 OSSL_CMP_MSG_dup,
@@ -289,6 +303,9 @@ OSSL_CRMF_CERTID_new,
 OSSL_CRMF_CERTTEMPLATE_free,
 OSSL_CRMF_CERTTEMPLATE_it,
 OSSL_CRMF_CERTTEMPLATE_new,
+OSSL_CRMF_CERTTEMPLATE_dup,
+OSSL_CRMF_ATTRIBUTETYPEANDVALUE_dup,
+OSSL_CRMF_ATTRIBUTETYPEANDVALUE_free,
 OSSL_CRMF_ENCRYPTEDVALUE_free,
 OSSL_CRMF_ENCRYPTEDVALUE_it,
 OSSL_CRMF_ENCRYPTEDVALUE_new,
@@ -308,6 +325,28 @@ OSSL_CRMF_PKIPUBLICATIONINFO_new,
 OSSL_CRMF_SINGLEPUBINFO_free,
 OSSL_CRMF_SINGLEPUBINFO_it,
 OSSL_CRMF_SINGLEPUBINFO_new,
+OSSL_TARGET_CERT_free,
+OSSL_TARGET_CERT_it,
+OSSL_TARGET_CERT_new,
+OSSL_TARGET_free,
+OSSL_TARGET_it,
+OSSL_TARGET_new,
+OSSL_TARGETING_INFORMATION_free,
+OSSL_TARGETING_INFORMATION_it,
+OSSL_TARGETING_INFORMATION_new,
+OSSL_TARGETS_free,
+OSSL_TARGETS_it,
+OSSL_TARGETS_new,
+OSSL_IETF_ATTR_SYNTAX_VALUE_free,
+OSSL_IETF_ATTR_SYNTAX_VALUE_it,
+OSSL_IETF_ATTR_SYNTAX_VALUE_new,
+OSSL_ISSUER_SERIAL_free,
+OSSL_ISSUER_SERIAL_new,
+OSSL_OBJECT_DIGEST_INFO_free,
+OSSL_OBJECT_DIGEST_INFO_new,
+OSSL_USER_NOTICE_SYNTAX_free,
+OSSL_USER_NOTICE_SYNTAX_new,
+OSSL_USER_NOTICE_SYNTAX_it,
 OTHERNAME_free,
 OTHERNAME_new,
 PBE2PARAM_free,
@@ -316,6 +355,9 @@ PBEPARAM_free,
 PBEPARAM_new,
 PBKDF2PARAM_free,
 PBKDF2PARAM_new,
+PBMAC1PARAM_free,
+PBMAC1PARAM_it,
+PBMAC1PARAM_new,
 PKCS12_BAGS_free,
 PKCS12_BAGS_new,
 PKCS12_MAC_DATA_free,
@@ -402,6 +444,15 @@ TS_TST_INFO_free,
 TS_TST_INFO_new,
 USERNOTICE_free,
 USERNOTICE_new,
+X509_ACERT_dup,
+X509_ACERT_free,
+X509_ACERT_it,
+X509_ACERT_new,
+X509_ACERT_INFO_free,
+X509_ACERT_INFO_it,
+X509_ACERT_INFO_new,
+X509_ACERT_ISSUER_V2FORM_free,
+X509_ACERT_ISSUER_V2FORM_new,
 X509_ALGOR_free,
 X509_ALGOR_it,
 X509_ALGOR_new,
@@ -506,7 +557,7 @@ followed by \fIX509_check_purpose(copied_cert, \-1, 0)\fR,
 which re-builds the cached data.
 .PP
 \&\fB\f(BI\s-1TYPE\s0\fB_free\fR() releases the object and all pointers and sub-objects
-within it.
+within it. If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fB\f(BI\s-1TYPE\s0\fB_print_ctx\fR() prints the object \fIa\fR on the specified \s-1BIO\s0 \fIout\fR.
 Each line will be prefixed with \fIindent\fR spaces.
@@ -531,7 +582,7 @@ The functions \fBDSAparams_dup()\fR, \fBRSAPrivateKey_dup()\fR and \fBRSAPublicK
 deprecated in 3.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
-Copyright 2016\-2022 The OpenSSL Project Authors. All Rights Reserved.
+Copyright 2016\-2024 The OpenSSL Project Authors. All Rights Reserved.
 .PP
 Licensed under the Apache License 2.0 (the \*(L"License\*(R").  You may not use
 this file except in compliance with the License.  You can obtain a copy

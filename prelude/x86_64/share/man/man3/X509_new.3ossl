@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "X509_NEW 3ossl"
-.TH X509_NEW 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH X509_NEW 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -158,7 +158,7 @@ OSSL_STACK_OF_X509_free
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-The X509 \s-1ASN1\s0 allocation routines, allocate and free an
+The X509 \s-1ASN1\s0 allocation routines allocate and free an
 X509 structure, which represents an X509 certificate.
 .PP
 \&\fBX509_new_ex()\fR allocates and initializes a X509 structure with a
@@ -173,7 +173,8 @@ and property query to \s-1NULL.\s0 This results in the default (\s-1NULL\s0) lib
 being used for any X509 operations requiring algorithm fetches.
 .PP
 \&\fBX509_free()\fR decrements the reference count of \fBX509\fR structure \fBa\fR and
-frees it up if the reference count is zero. If \fBa\fR is \s-1NULL\s0 nothing is done.
+frees it up if the reference count is zero. If the argument is \s-1NULL,\s0
+nothing is done.
 .PP
 \&\fBX509_up_ref()\fR increments the reference count of \fBa\fR.
 .PP
@@ -182,6 +183,7 @@ chain \fBx\fR and returns a copy of the stack, or an empty stack if \fBa\fR is \
 .PP
 \&\fBOSSL_STACK_OF_X509_free()\fR deallocates the given list of pointers to
 certificates after calling \fBX509_free()\fR on all its elements.
+If the argument is \s-1NULL,\s0 nothing is done.
 .SH "NOTES"
 .IX Header "NOTES"
 The function \fBX509_up_ref()\fR if useful if a certificate structure is being

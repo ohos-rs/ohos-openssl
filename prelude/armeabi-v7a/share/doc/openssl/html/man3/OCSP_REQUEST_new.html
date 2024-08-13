@@ -48,7 +48,7 @@ OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i);</code></pre>
 
 <p>OCSP_REQUEST_new() allocates and returns an empty <b>OCSP_REQUEST</b> structure.</p>
 
-<p>OCSP_REQUEST_free() frees up the request structure <b>req</b>.</p>
+<p>OCSP_REQUEST_free() frees up the request structure <b>req</b>. If the argument is NULL, nothing is done.</p>
 
 <p>OCSP_request_add0_id() adds certificate ID <b>cid</b> to <b>req</b>. It returns the <b>OCSP_ONEREQ</b> structure added so an application can add additional extensions to the request. The <b>id</b> parameter <b>MUST NOT</b> be freed up after the operation.</p>
 

@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "EVP_KEYMGMT 3ossl"
-.TH EVP_KEYMGMT 3ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH EVP_KEYMGMT 3ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -151,6 +151,7 @@ EVP_KEYMGMT_do_all_provided,
 EVP_KEYMGMT_names_do_all,
 EVP_KEYMGMT_gettable_params,
 EVP_KEYMGMT_settable_params,
+EVP_KEYMGMT_gen_gettable_params,
 EVP_KEYMGMT_gen_settable_params
 \&\- EVP key management routines
 .SH "SYNOPSIS"
@@ -178,6 +179,7 @@ EVP_KEYMGMT_gen_settable_params
 \& const OSSL_PARAM *EVP_KEYMGMT_gettable_params(const EVP_KEYMGMT *keymgmt);
 \& const OSSL_PARAM *EVP_KEYMGMT_settable_params(const EVP_KEYMGMT *keymgmt);
 \& const OSSL_PARAM *EVP_KEYMGMT_gen_settable_params(const EVP_KEYMGMT *keymgmt);
+\& const OSSL_PARAM *EVP_KEYMGMT_gen_gettable_params(const EVP_KEYMGMT *keymgmt);
 .Ve
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
@@ -199,6 +201,7 @@ name given by \fIalgorithm\fR and the properties given by \fIproperties\fR.
 .PP
 \&\fBEVP_KEYMGMT_free()\fR decrements the reference count for the given
 \&\fB\s-1EVP_KEYMGMT\s0\fR \fIkeymgmt\fR, and when the count reaches zero, frees it.
+If the argument is \s-1NULL,\s0 nothing is done.
 .PP
 \&\fBEVP_KEYMGMT_get0_provider()\fR returns the provider that has this particular
 implementation.
@@ -229,9 +232,10 @@ constant \s-1\fBOSSL_PARAM\s0\fR\|(3) array that describes the names and types o
 parameters that can be retrieved or set.
 \&\fBEVP_KEYMGMT_gettable_params()\fR is used by \fBEVP_PKEY_gettable_params\fR\|(3).
 .PP
-\&\fBEVP_KEYMGMT_gen_settable_params()\fR returns a constant \s-1\fBOSSL_PARAM\s0\fR\|(3) array that
-describes the names and types of key generation parameters that can be set via
-\&\fBEVP_PKEY_CTX_set_params\fR\|(3).
+\&\fBEVP_KEYMGMT_gen_gettable_params()\fR and \fBEVP_KEYMGMT_gen_settable_params()\fR return a
+constant \s-1\fBOSSL_PARAM\s0\fR\|(3) array that describes the names and types of key
+generation parameters that can be retrieved or set via
+\&\fBEVP_PKEY_CTX_get_params\fR\|(3) or \fBEVP_PKEY_CTX_set_params\fR\|(3) respectively.
 .SH "NOTES"
 .IX Header "NOTES"
 \&\fBEVP_KEYMGMT_fetch()\fR may be called implicitly by other fetching
@@ -261,15 +265,16 @@ otherwise 0.
 \&\fBEVP_KEYMGMT_get0_description()\fR returns a pointer to a description, or \s-1NULL\s0 if
 there isn't one.
 .PP
-\&\fBEVP_KEYMGMT_gettable_params()\fR, \fBEVP_KEYMGMT_settable_params()\fR and
-\&\fBEVP_KEYMGMT_gen_settable_params()\fR return a constant \s-1\fBOSSL_PARAM\s0\fR\|(3) array or
-\&\s-1NULL\s0 on error.
+\&\fBEVP_KEYMGMT_gettable_params()\fR, \fBEVP_KEYMGMT_settable_params()\fR,
+\&\fBEVP_KEYMGMT_gen_gettable_params()\fR and \fBEVP_KEYMGMT_gen_settable_params()\fR
+return a constant \s-1\fBOSSL_PARAM\s0\fR\|(3) array or \s-1NULL\s0 on error.
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 \&\fBEVP_MD_fetch\fR\|(3), \s-1\fBOSSL_LIB_CTX\s0\fR\|(3)
 .SH "HISTORY"
 .IX Header "HISTORY"
-The functions described here were added in OpenSSL 3.0.
+The function \fBEVP_KEYMGMT_gen_gettable_params()\fR was added in OpenSSL 3.4.0
+All other functions described here were added in OpenSSL 3.0.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2019\-2022 The OpenSSL Project Authors. All Rights Reserved.

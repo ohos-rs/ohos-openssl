@@ -77,7 +77,7 @@ int (*EVP_MD_meth_get_ctrl(const EVP_MD *md))(EVP_MD_CTX *ctx, int cmd,
 
 <p>EVP_MD_meth_dup() creates a copy of <b>md</b>.</p>
 
-<p>EVP_MD_meth_free() decrements the reference count for the <b>EVP_MD</b> structure. If the reference count drops to 0 then the structure is freed.</p>
+<p>EVP_MD_meth_free() decrements the reference count for the <b>EVP_MD</b> structure. If the reference count drops to 0 then the structure is freed. If the argument is NULL, nothing is done.</p>
 
 <p>EVP_MD_meth_set_input_blocksize() sets the internal input block size for the method <b>md</b> to <b>blocksize</b> bytes.</p>
 

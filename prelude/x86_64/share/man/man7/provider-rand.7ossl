@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "PROVIDER-RAND 7ossl"
-.TH PROVIDER-RAND 7ossl "2024-05-28" "3.3.0-dev" "OpenSSL"
+.TH PROVIDER-RAND 7ossl "2024-08-12" "3.4.0-dev" "OpenSSL"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -317,6 +317,12 @@ Returns the state of the random number generator.
 .el .IP "``strength'' (\fB\s-1OSSL_RAND_PARAM_STRENGTH\s0\fR) <unsigned integer>" 4
 .IX Item "strength (OSSL_RAND_PARAM_STRENGTH) <unsigned integer>"
 Returns the bit strength of the random number generator.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_RAND_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This option is used by the OpenSSL \s-1FIPS\s0 provider and is not supported
+by all \s-1EVP_RAND\s0 sources.
 .PP
 For rands that are also deterministic random bit generators (DRBGs), these
 additional parameters are recognised. Not all
@@ -389,6 +395,22 @@ It must name a suitable algorithm for the \s-1DRBG\s0 that's being used.
 Sets the properties to be queried when trying to fetch an underlying algorithm.
 This must be given together with the algorithm naming parameter to be
 considered valid.
+.ie n .IP """fips-indicator"" (\fB\s-1OSSL_DRBG_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.el .IP "``fips-indicator'' (\fB\s-1OSSL_DRBG_PARAM_FIPS_APPROVED_INDICATOR\s0\fR) <integer>" 4
+.IX Item "fips-indicator (OSSL_DRBG_PARAM_FIPS_APPROVED_INDICATOR) <integer>"
+A getter that returns 1 if the operation is \s-1FIPS\s0 approved, or 0 otherwise.
+This may be used after calling \fBOSSL_FUNC_rand_generate()\fR. It may
+return 0 if the \*(L"digest-check\*(R" is set to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider.
+.ie n .IP """digest-check"" (\fB\s-1OSSL_DRBG_PARAM_FIPS_DIGEST_CHECK\s0\fR) <integer>" 4
+.el .IP "``digest-check'' (\fB\s-1OSSL_DRBG_PARAM_FIPS_DIGEST_CHECK\s0\fR) <integer>" 4
+.IX Item "digest-check (OSSL_DRBG_PARAM_FIPS_DIGEST_CHECK) <integer>"
+If required this parameter should be set before the digest is set.
+The default value of 1 causes an error when the digest is set if the digest is
+not \s-1FIPS\s0 approved (e.g. truncated digests). Setting this to 0 will ignore
+the error and set the approved \*(L"fips-indicator\*(R" to 0.
+This option is used by the OpenSSL \s-1FIPS\s0 provider, and breaks \s-1FIPS\s0 compliance if
+set to 0.
 .SH "RETURN VALUES"
 .IX Header "RETURN VALUES"
 \&\fBOSSL_FUNC_rand_newctx()\fR should return the newly created
@@ -419,6 +441,8 @@ the \s-1EVP\s0 layer will begin enforcing the listed transitions.
 .SH "HISTORY"
 .IX Header "HISTORY"
 The provider \s-1RAND\s0 interface was introduced in OpenSSL 3.0.
+The Rand Parameters \*(L"fips-indicator\*(R" and \*(L"digest-check\*(R" were added in
+OpenSSL 3.4.
 .SH "COPYRIGHT"
 .IX Header "COPYRIGHT"
 Copyright 2020\-2021 The OpenSSL Project Authors. All Rights Reserved.
