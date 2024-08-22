@@ -20,7 +20,7 @@ build_architecture() {
     echo "Start to build ${arch}"
     if source "${script_path}"; then
         pushd "openssl"
-        make clean && \
+        make clean || echo "Clean build cache as first."
         ./Configure ${openssl_arch} --prefix="${output_dir}" --libdir=lib ${extra_args} && \
         make && \
         make install && \
