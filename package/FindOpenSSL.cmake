@@ -58,7 +58,6 @@ if(OpenSSL_FOUND)
             IMPORTED_LOCATION "${OPENSSL_SSL_LIBRARY}"
             INTERFACE_INCLUDE_DIRECTORIES "${OPENSSL_INCLUDE_DIRS}"
         )
-        # target_link_libraries(OpenSSL::SSL INTERFACE ${OPENSSL_SSL_LIBRARY})
     endif()
     if(NOT TARGET OpenSSL::Crypto)
         add_library(OpenSSL::Crypto UNKNOWN IMPORTED)
@@ -66,7 +65,6 @@ if(OpenSSL_FOUND)
             IMPORTED_LOCATION "${OPENSSL_CRYPTO_LIBRARY}"
             INTERFACE_INCLUDE_DIRECTORIES "${OPENSSL_INCLUDE_DIRS}"
         )
-        # target_link_libraries(OpenSSL::Crypto INTERFACE ${OPENSSL_CRYPTO_LIBRARY})
     endif()
 endif()
 
