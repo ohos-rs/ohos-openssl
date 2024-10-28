@@ -1,0 +1,10 @@
+{
+  license: "MIT",
+  author: "richerfu",
+  name: "@ohos-rs/openssl",
+  description: "OpenSSL for OpenHarmony/HarmonyNext",
+  main: "index.ets",
+  version: "0.0.1",
+  types: "libs/index.d.ts",
+  dependencies: {}
+}
