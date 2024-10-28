@@ -2,3 +2,7 @@
 
 .vscode/
 .idea/
+package/include
+package/prelude
+
+*.har
